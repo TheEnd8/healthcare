@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>企業與產業自動化情報儀表板 (Intelligence Dashboard)</title>
-  <meta name="description" content="每日09:00前或即時自動化收集自訂公司與產業情報的跨裝置儀表板">
+  <title>企業與產業自動化情報儀表板 (Intelligence Dashboard Pro)</title>
+  <meta name="description" content="跨裝置支援、自訂公司/產業/網站、即時執行爬蟲更新、各區塊點擊深度下鑽分析的自動化情報儀表板">
   <style>
     :root {
-      --bg-primary: #0f172a;
+      --bg-primary: #0b1120;
       --bg-secondary: #1e293b;
       --bg-tertiary: #334155;
-      --card-bg: rgba(30, 41, 59, 0.85);
-      --card-border: rgba(255, 255, 255, 0.1);
+      --card-bg: rgba(30, 41, 59, 0.88);
+      --card-border: rgba(255, 255, 255, 0.08);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --accent: #38bdf8;
@@ -24,15 +24,15 @@
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
-      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
       --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     [data-theme="light"] {
-      --bg-primary: #f1f5f9;
+      --bg-primary: #f8fafc;
       --bg-secondary: #ffffff;
       --bg-tertiary: #e2e8f0;
-      --card-bg: rgba(255, 255, 255, 0.9);
+      --card-bg: rgba(255, 255, 255, 0.95);
       --card-border: rgba(0, 0, 0, 0.08);
       --text-main: #0f172a;
       --text-muted: #64748b;
@@ -60,7 +60,7 @@
       line-height: 1.5;
     }
 
-    /* Top Navigation Bar */
+    /* Top Navigation Header */
     header {
       background: var(--bg-secondary);
       border-bottom: 1px solid var(--card-border);
@@ -71,7 +71,7 @@
     }
 
     .header-inner {
-      max-width: 1400px;
+      max-width: 1440px;
       margin: 0 auto;
       padding: 12px 20px;
       display: flex;
@@ -181,6 +181,15 @@
       background: rgba(255, 255, 255, 0.1);
     }
 
+    .btn-success {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+    }
+    .btn-success:hover {
+      filter: brightness(1.1);
+    }
+
     .icon-btn {
       width: 38px;
       height: 38px;
@@ -202,7 +211,7 @@
     /* Main Container */
     main {
       flex: 1;
-      max-width: 1400px;
+      max-width: 1440px;
       width: 100%;
       margin: 0 auto;
       padding: 20px;
@@ -235,7 +244,7 @@
       position: relative;
       flex: 1;
       min-width: 240px;
-      max-width: 420px;
+      max-width: 440px;
     }
 
     .search-box input {
@@ -314,7 +323,7 @@
       gap: 20px;
     }
 
-    /* Widget Card */
+    /* Interactive Widget Card */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -329,7 +338,7 @@
       transition: var(--transition);
     }
     .card:hover {
-      border-color: rgba(56, 189, 248, 0.3);
+      border-color: rgba(56, 189, 248, 0.35);
     }
 
     .card-header {
@@ -355,6 +364,12 @@
       color: var(--accent);
     }
 
+    .card-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .card-badge {
       font-size: 0.75rem;
       padding: 3px 8px;
@@ -364,20 +379,34 @@
       font-weight: 600;
     }
 
+    .card-inspect-btn {
+      font-size: 0.75rem;
+      color: var(--accent);
+      background: transparent;
+      border: 1px solid var(--accent);
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .card-inspect-btn:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
     /* Specific Module Sizing */
     .col-12 { grid-column: span 12; }
     .col-8 { grid-column: span 8; }
     .col-4 { grid-column: span 4; }
-    .col-6 { grid-column: span 6; }
 
     @media (max-width: 1024px) {
-      .col-8, .col-4, .col-6 { grid-column: span 12; }
+      .col-8, .col-4 { grid-column: span 12; }
     }
 
     /* Morning Briefing Banner */
     .briefing-card {
-      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(56, 189, 248, 0.35);
     }
 
     .briefing-header {
@@ -408,17 +437,18 @@
       border-radius: var(--radius-sm);
       padding: 14px;
       border-left: 3px solid var(--accent);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .brief-point:hover {
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
-    .brief-point.warning {
-      border-left-color: var(--warning);
-    }
-    .brief-point.danger {
-      border-left-color: var(--danger);
-    }
-    .brief-point.success {
-      border-left-color: var(--success);
-    }
+    .brief-point.warning { border-left-color: var(--warning); }
+    .brief-point.danger { border-left-color: var(--danger); }
+    .brief-point.success { border-left-color: var(--success); }
 
     .brief-point h4 {
       font-size: 0.95rem;
@@ -448,6 +478,13 @@
       border-radius: var(--radius-sm);
       padding: 12px;
       text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .metric-box:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
     .metric-val {
@@ -460,6 +497,10 @@
     .metric-sub {
       font-size: 0.75rem;
       color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
     }
 
     /* Intelligence Stream List */
@@ -467,7 +508,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      max-height: 520px;
+      max-height: 540px;
       overflow-y: auto;
       padding-right: 4px;
     }
@@ -493,7 +534,8 @@
     }
     .stream-item:hover {
       border-color: var(--accent);
-      transform: translateX(2px);
+      transform: translateX(3px);
+      background: rgba(255, 255, 255, 0.03);
     }
 
     .stream-meta {
@@ -553,11 +595,7 @@
       font-size: 0.95rem;
       font-weight: 600;
       color: var(--text-main);
-      text-decoration: none;
       display: block;
-    }
-    .stream-title:hover {
-      color: var(--accent);
     }
 
     .stream-desc {
@@ -577,6 +615,13 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+    .trend-row:hover {
+      background: rgba(255, 255, 255, 0.05);
     }
 
     .trend-info {
@@ -607,6 +652,12 @@
       border-radius: var(--radius-sm);
       border-left: 4px solid var(--danger);
       margin-bottom: 10px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .alert-card-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+      transform: translateX(2px);
     }
     .alert-card-item.warn {
       border-left-color: var(--warning);
@@ -625,11 +676,11 @@
       color: var(--text-muted);
     }
 
-    /* Settings Modal */
+    /* Generic Modal System */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(8px);
       z-index: 100;
       display: none;
@@ -647,11 +698,11 @@
       border: 1px solid var(--card-border);
       border-radius: var(--radius-lg);
       width: 100%;
-      max-width: 760px;
+      max-width: 820px;
       max-height: 90vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
       overflow: hidden;
       animation: modalSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -710,6 +761,8 @@
       justify-content: space-between;
       align-items: center;
       background: var(--bg-primary);
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .form-group {
@@ -797,7 +850,7 @@
       right: 24px;
       background: var(--bg-secondary);
       border: 1px solid var(--card-border);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
       border-radius: var(--radius-sm);
       padding: 12px 18px;
       display: flex;
@@ -816,7 +869,52 @@
       opacity: 1;
     }
 
-    /* Mobile Bottom Action Bar (App feel) */
+    /* Live Progress Overlay */
+    .progress-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 17, 32, 0.88);
+      backdrop-filter: blur(10px);
+      z-index: 150;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+    .progress-overlay.active {
+      display: flex;
+    }
+    .progress-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 24px 32px;
+      max-width: 480px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background: var(--bg-primary);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 16px 0;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), #10b981);
+      transition: width 0.3s ease;
+    }
+    .progress-step-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Mobile Bottom Action Bar */
     .mobile-nav {
       display: none;
       position: fixed;
@@ -869,6 +967,32 @@
       width: 20px;
       height: 20px;
     }
+
+    /* Drill-down Detail Styling inside Modal */
+    .detail-section {
+      background: var(--bg-primary);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .detail-section h4 {
+      font-size: 0.95rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .detail-section p, .detail-section li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .detail-section ul {
+      padding-left: 20px;
+    }
   </style>
 </head>
 <body data-theme="dark">
@@ -883,15 +1007,15 @@
           </svg>
         </div>
         <div class="brand-text">
-          <h1>產業與企業情資監測儀表板</h1>
-          <p>IntelligenceRadar Pro • 跨裝置自動化系統</p>
+          <h1>企業與產業情報自訂儀表板</h1>
+          <p>IntelligenceRadar Pro • 跨裝置即時運算系統</p>
         </div>
       </div>
 
       <div class="header-actions">
-        <div class="status-badge" title="每日於早上 08:30 自動執行深度抓取與摘要，確保 09:00 前送達">
+        <div class="status-badge" title="排程已啟用：每日 08:30 自動運算完成，支援即時自訂參數重算">
           <span class="pulse-dot"></span>
-          <span>每日 08:30 排程中</span>
+          <span id="headerScheduleBadge">每日 08:30 自動排程中</span>
         </div>
 
         <button class="btn btn-primary" id="btn-refresh" onclick="triggerManualCrawl()">
@@ -906,7 +1030,7 @@
             <circle cx="12" cy="12" r="3"></circle>
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
           </svg>
-          <span class="btn-text-hide">自訂設定</span>
+          <span class="btn-text-hide">自訂設定與內容</span>
         </button>
 
         <button class="icon-btn" onclick="toggleTheme()" title="切換深色/淺色模式">
@@ -928,7 +1052,7 @@
 
   <!-- Main Content Dashboard -->
   <main>
-    <!-- Filter & Filter Bar -->
+    <!-- Controls & Filter Bar -->
     <section class="controls-bar">
       <div class="controls-top">
         <div class="search-box">
@@ -938,11 +1062,15 @@
           <input type="text" id="searchInput" placeholder="搜尋情資關鍵字、公司名、法規或重大事件..." oninput="handleSearch()">
         </div>
 
-        <div style="display: flex; gap: 8px; align-items: center;">
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
           <span style="font-size: 0.8rem; color: var(--text-muted);" id="last-update-text">最後同步：今日 08:45 AM</span>
+          <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8rem;" onclick="openSettingsModal('tab-block-content')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            自訂各區塊內容
+          </button>
           <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8rem;" onclick="exportReport()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-            匯出簡報/報告
+            匯出簡報
           </button>
         </div>
       </div>
@@ -951,36 +1079,53 @@
       <div class="filter-pills-row" id="industryFilterContainer">
         <span class="pill-label">監測產業:</span>
         <button class="pill active" onclick="setIndustryFilter('ALL')">全部產業</button>
-        <!-- dynamically rendered -->
       </div>
 
       <div class="filter-pills-row" id="companyFilterContainer">
         <span class="pill-label">重點公司:</span>
         <button class="pill active" onclick="setCompanyFilter('ALL')">全部公司</button>
-        <!-- dynamically rendered -->
       </div>
     </section>
 
-    <!-- Core Metrics Overview -->
+    <!-- Core Metrics Overview (All Clickable for Drilldown) -->
     <div class="metric-grid" id="module-metrics">
-      <div class="metric-box">
-        <div class="metric-sub">追蹤標的</div>
+      <div class="metric-box" onclick="drilldownMetric('targets')" title="點擊查看追蹤企業清單與狀態">
+        <div class="metric-sub">
+          <span>追蹤標的</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline></svg>
+        </div>
         <div class="metric-val" id="metric-targets-count">12 家</div>
       </div>
-      <div class="metric-box">
-        <div class="metric-sub">今日收集情資</div>
+
+      <div class="metric-box" onclick="drilldownMetric('today_news')" title="點擊查看今日全部收集情報">
+        <div class="metric-sub">
+          <span>今日情報筆數</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline></svg>
+        </div>
         <div class="metric-val" id="metric-news-count" style="color: var(--accent);">48 篇</div>
       </div>
-      <div class="metric-box">
-        <div class="metric-sub">正面輿情佔比</div>
+
+      <div class="metric-box" onclick="drilldownMetric('sentiment')" title="點擊查看市場情緒分佈詳情">
+        <div class="metric-sub">
+          <span>正面輿情佔比</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline></svg>
+        </div>
         <div class="metric-val" style="color: var(--success);" id="metric-sentiment">76%</div>
       </div>
-      <div class="metric-box">
-        <div class="metric-sub">重大警示 / 風險</div>
+
+      <div class="metric-box" onclick="drilldownMetric('alerts')" title="點擊查看重大風險與預警清單">
+        <div class="metric-sub">
+          <span>重大預警 / 風險</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline></svg>
+        </div>
         <div class="metric-val" style="color: var(--danger);" id="metric-alerts">3 件</div>
       </div>
-      <div class="metric-box">
-        <div class="metric-sub">爬取來源數</div>
+
+      <div class="metric-box" onclick="drilldownMetric('sources')" title="點擊查看所有設定來源連線狀況">
+        <div class="metric-sub">
+          <span>指定爬取來源</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline></svg>
+        </div>
         <div class="metric-val" id="metric-sources">8 個站台</div>
       </div>
     </div>
@@ -988,7 +1133,7 @@
     <!-- Dashboard Main Grid -->
     <div class="dashboard-grid">
 
-      <!-- Module 1: 09:00 Morning Executive Briefing (Full Width) -->
+      <!-- Module 1: 09:00 Morning Executive Briefing (Full Width & Clickable) -->
       <div class="card col-12 briefing-card" id="module-briefing">
         <div class="briefing-header">
           <div>
@@ -1000,15 +1145,18 @@
                 <line x1="16" y1="17" x2="8" y2="17"></line>
                 <polyline points="10 9 9 9 8 9"></polyline>
               </svg>
-              <span>每日 09:00 晨報智能速覽 (Executive Intelligence Digest)</span>
+              <span>每日 09:00 晨報智能速覽 (可點擊任一卡片展開深度分析)</span>
             </div>
             <div class="briefing-meta">
-              <span>產出時間：2026-10-07 08:45 AM (自動產生)</span>
+              <span id="briefingMetaTime">產出時間：今日 08:45 AM (自動產生)</span>
               <span>•</span>
-              <span>模型核心：AI 智能產業萃取引擎</span>
+              <span id="briefingFocusLabel">當前分析重心：全方位戰略與供應鏈</span>
             </div>
           </div>
-          <span class="card-badge">高管決策必讀</span>
+          <div class="card-header-actions">
+            <span class="card-badge">高管決策必讀</span>
+            <button class="card-inspect-btn" onclick="drilldownBriefingReport()">查看完整深度研報</button>
+          </div>
         </div>
 
         <div class="briefing-content" id="briefingContent">
@@ -1026,8 +1174,9 @@
             </svg>
             <span>指定網站與網路即時情資串流</span>
           </div>
-          <div style="display: flex; gap: 8px;">
+          <div class="card-header-actions">
             <span class="card-badge" id="streamFilterLabel">顯示全部情資</span>
+            <button class="card-inspect-btn" onclick="openSettingsModal('tab-block-content')">設定顯示內容</button>
           </div>
         </div>
 
@@ -1066,7 +1215,7 @@
               </svg>
               <span>產業聲量與趨勢動能</span>
             </div>
-            <span class="card-badge">即時運算</span>
+            <span class="card-badge">點選產業下鑽</span>
           </div>
           <div class="trend-list" id="trendContainer">
             <!-- Rendered by JS -->
@@ -1098,119 +1247,176 @@
     </button>
   </nav>
 
+  <!-- Live Crawl Progress Overlay -->
+  <div class="progress-overlay" id="crawlProgressOverlay">
+    <div class="progress-card">
+      <div style="font-size: 2rem; margin-bottom: 8px;" id="crawlIcon">🔄</div>
+      <h3 style="font-size: 1.15rem; margin-bottom: 6px;" id="crawlTitle">正在依自訂參數執行網路情報收集...</h3>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="crawlProgressBar"></div>
+      </div>
+      <p class="progress-step-text" id="crawlStepText">初始化網路爬蟲工作緒...</p>
+    </div>
+  </div>
+
   <!-- Settings Modal (Customization Panel) -->
   <div class="modal-overlay" id="settingsModal" onclick="closeSettingsModalOnBackdrop(event)">
     <div class="modal">
       <div class="modal-header">
-        <h3 style="font-size: 1.1rem; font-weight: 700;">⚙️ 使用者自訂設定中心 (Configuration)</h3>
+        <h3 style="font-size: 1.1rem; font-weight: 700;">⚙️ 使用者自訂設定與內容控制中心</h3>
         <button class="icon-btn" onclick="closeSettingsModal()" style="border:none; background:transparent;">✕</button>
       </div>
 
       <div class="modal-tabs">
-        <button class="modal-tab active" onclick="switchSettingsTab('tab-targets')">1. 監測公司與產業</button>
-        <button class="modal-tab" onclick="switchSettingsTab('tab-sources')">2. 指定收集網站</button>
-        <button class="modal-tab" onclick="switchSettingsTab('tab-layout')">3. 儀表板版面與格式</button>
-        <button class="modal-tab" onclick="switchSettingsTab('tab-schedule')">4. 每日排程與通知</button>
+        <button class="modal-tab active" id="tab-btn-targets" onclick="switchSettingsTab('tab-targets')">1. 監測標的 (公司/產業)</button>
+        <button class="modal-tab" id="tab-btn-sources" onclick="switchSettingsTab('tab-sources')">2. 指定來源與深度</button>
+        <button class="modal-tab" id="tab-btn-block-content" onclick="switchSettingsTab('tab-block-content')">3. 區塊顯示內容自訂</button>
+        <button class="modal-tab" id="tab-btn-layout" onclick="switchSettingsTab('tab-layout')">4. 模組開關與排版</button>
+        <button class="modal-tab" id="tab-btn-schedule" onclick="switchSettingsTab('tab-schedule')">5. 每日排程與通知</button>
       </div>
 
+      <!-- Tab 1: Companies & Industries -->
       <div class="modal-body" id="tab-targets">
         <div class="form-group">
-          <label>追蹤產業列表 (按 Enter 新增)：</label>
+          <label>追蹤產業列表 (輸入後按 Enter 新增)：</label>
           <div class="chip-container" id="industryChipList"></div>
-          <input type="text" class="form-input" id="newIndustryInput" placeholder="輸入產業名稱 (例如: 晶圓代工、光通訊、先進封裝) 後按 Enter" onkeydown="handleAddChip(event, 'industry')">
-          <span class="hint">系統每日將自動搜尋該產業的上下游鏈、全球政策與市場報告。</span>
+          <input type="text" class="form-input" id="newIndustryInput" placeholder="輸入產業名稱 (例如: 晶圓代工、矽光子、先進封裝) 後按 Enter" onkeydown="handleAddChip(event, 'industry')">
+          <span class="hint">系統將鎖定該領域供應鏈上下游、技術突破與產業報告。</span>
         </div>
 
         <div class="form-group" style="margin-top: 10px;">
-          <label>追蹤指定公司與股票代碼 (按 Enter 新增)：</label>
+          <label>追蹤重點公司 (輸入後按 Enter 新增)：</label>
           <div class="chip-container" id="companyChipList"></div>
-          <input type="text" class="form-input" id="newCompanyInput" placeholder="輸入公司名稱或代號 (例如: 台積電 2330, NVIDIA, 鴻海) 後按 Enter" onkeydown="handleAddChip(event, 'company')">
-          <span class="hint">系統將鎖定這些公司的法說會、重大訊息、營收發布及主流媒體報導。</span>
+          <input type="text" class="form-input" id="newCompanyInput" placeholder="輸入公司名稱或代號 (例如: 台積電 2330, NVIDIA, 聯發科) 後按 Enter" onkeydown="handleAddChip(event, 'company')">
+          <span class="hint">系統將鎖定這些公司的法說、重大訊息公告、營收動態及外資評價。</span>
         </div>
       </div>
 
+      <!-- Tab 2: Sources -->
       <div class="modal-body" id="tab-sources" style="display:none;">
         <div class="form-group">
           <label>指定爬取網站與 RSS 資訊源：</label>
           <div class="chip-container" id="sourceChipList"></div>
           <input type="text" class="form-input" id="newSourceInput" placeholder="輸入網址或資訊來源名稱 (例如: 科技新報, 鉅亨網, Bloomberg, 公開資訊觀測站) 後按 Enter" onkeydown="handleAddChip(event, 'source')">
-          <span class="hint">支援自訂 RSS Feed、新聞門戶、主管機關公告站台或財經粉專。</span>
+          <span class="hint">支援各大新聞門戶、政府主管機關發布頁面、證券交易所或特定產業部落格。</span>
         </div>
 
         <div class="form-group">
-          <label>爬取範圍深度：</label>
-          <select class="form-select" id="crawlerDepth">
-            <option value="high">深度爬取 (包含新聞內文全文解析與 AI 結構化摘要)</option>
-            <option value="medium" selected>標準爬取 (標題、前言摘要與發布時間)</option>
-            <option value="fast">極速模式 (僅抓取即時快訊與 RSS Feed)</option>
+          <label>爬蟲抓取時間範圍：</label>
+          <select class="form-select" id="crawlerTimeWindow">
+            <option value="24h" selected>最近 24 小時之內 (適合每日晨報)</option>
+            <option value="12h">最近 12 小時 (適合開盤前快篩)</option>
+            <option value="3d">最近 3 天之內 (適合週末後週一全盤回顧)</option>
           </select>
         </div>
       </div>
 
+      <!-- Tab 3: Detailed Block Content Customization (NEW) -->
+      <div class="modal-body" id="tab-block-content" style="display:none;">
+        <div style="background: rgba(56, 189, 248, 0.1); border-left: 3px solid var(--accent); padding: 10px 14px; border-radius: 4px; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px;">
+          💡 在此您可以深度設定各個儀表板區塊「想看什麼具體維度的內容與過濾邏輯」。
+        </div>
+
+        <!-- Briefing Block Settings -->
+        <div class="form-group">
+          <label>📋 每日 09:00 晨報區塊 — 偏好分析重心：</label>
+          <select class="form-select" id="content-briefing-focus">
+            <option value="all" selected>全方位綜合分析 (戰略、供應鏈、法規與財報動態)</option>
+            <option value="supplychain">聚焦供應鏈與先進技術產能 (良率、產能擴充、交期瓶頸)</option>
+            <option value="earnings">聚焦財報獲利與法人評估 (營收爆發、毛利指引、評等調整)</option>
+            <option value="geopolitics">聚焦地緣政治與合規風險 (出口管制、關稅審查、政策補貼)</option>
+          </select>
+        </div>
+
+        <!-- Stream Block Settings -->
+        <div class="form-group">
+          <label>📰 即時情資串流區塊 — 排序與顯示欄位：</label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <select class="form-select" id="content-stream-sort">
+              <option value="newest" selected>按最新發布時間排序</option>
+              <option value="impact">按重大事件與影響度排序</option>
+              <option value="positive">利多情報優先</option>
+              <option value="warning">警示與利空優先</option>
+            </select>
+            <select class="form-select" id="content-stream-density">
+              <option value="standard" selected>標準卡片 (顯示完整摘要)</option>
+              <option value="compact">緊湊條列 (僅顯示標題與標籤)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Alerts Block Settings -->
+        <div class="form-group">
+          <label>⚠️ 重大風險雷達區塊 — 警示門檻過濾：</label>
+          <select class="form-select" id="content-alert-level">
+            <option value="all" selected>顯示所有預警（包含高風險與潛在觀察名單）</option>
+            <option value="high_only">僅顯示重大危機與合規斷鏈級警示</option>
+          </select>
+        </div>
+
+        <!-- Trends Block Settings -->
+        <div class="form-group">
+          <label>📊 產業聲量雷達區塊 — 評估維度：</label>
+          <select class="form-select" id="content-trend-metric">
+            <option value="volume" selected>今日報導與討論篇數 (Volume)</option>
+            <option value="sentiment_score">產業正向樂觀指數 (%)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Tab 4: Layout & Visibility -->
       <div class="modal-body" id="tab-layout" style="display:none;">
         <div class="form-group">
-          <label>儀表板模組顯示開關：</label>
+          <label>儀表板區塊顯示開關：</label>
           <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
             <label class="checkbox-item">
-              <input type="checkbox" id="toggle-briefing" checked onchange="saveLayoutSettings()">
+              <input type="checkbox" id="toggle-briefing" checked>
               <span>每日 09:00 晨報智能速覽 (高管必讀條列摘要)</span>
             </label>
             <label class="checkbox-item">
-              <input type="checkbox" id="toggle-metrics" checked onchange="saveLayoutSettings()">
+              <input type="checkbox" id="toggle-metrics" checked>
               <span>核心指標動態看板 (情報數、情緒比、預警統計)</span>
             </label>
             <label class="checkbox-item">
-              <input type="checkbox" id="toggle-stream" checked onchange="saveLayoutSettings()">
+              <input type="checkbox" id="toggle-stream" checked>
               <span>指定網站與網路即時情資串流 (新聞卡片清單)</span>
             </label>
             <label class="checkbox-item">
-              <input type="checkbox" id="toggle-alerts" checked onchange="saveLayoutSettings()">
+              <input type="checkbox" id="toggle-alerts" checked>
               <span>重大事件與風險雷達 (供應鏈風險、法規變動)</span>
             </label>
             <label class="checkbox-item">
-              <input type="checkbox" id="toggle-radar" checked onchange="saveLayoutSettings()">
+              <input type="checkbox" id="toggle-radar" checked>
               <span>產業聲量與趨勢動能長條圖</span>
             </label>
           </div>
         </div>
-
-        <div class="form-group">
-          <label>內容顯示格式風格：</label>
-          <select class="form-select" id="displayStyleSelect" onchange="saveLayoutSettings()">
-            <option value="card" selected>現代卡片式 (Card View - 資訊豐富、附帶摘要)</option>
-            <option value="compact">緊湊條列式 (Compact List - 適合快速瀏覽大量資訊)</option>
-            <option value="table">詳細數據表格 (Table Grid - 適合匯出與數據比對)</option>
-          </select>
-        </div>
       </div>
 
+      <!-- Tab 5: Schedule & Notifications -->
       <div class="modal-body" id="tab-schedule" style="display:none;">
         <div class="form-group">
           <label>自動化排程設定：</label>
           <div style="display: flex; gap: 12px; align-items: center;">
             <input type="time" class="form-input" id="scheduleTime" value="08:30" style="width: 140px;">
-            <span style="font-size: 0.85rem; color: var(--text-muted);">每日固定執行時間 (建議 08:30 前完成收集以便 09:00 晨會使用)</span>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">每日固定執行時間 (建議 08:30 完成以供 09:00 晨會使用)</span>
           </div>
         </div>
 
         <div class="form-group">
-          <label>即時自動推播管道：</label>
+          <label>推播管道：</label>
           <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
             <label class="checkbox-item">
               <input type="checkbox" id="push-email" checked>
-              <span>電子郵件晨報 (Daily Email Briefing)</span>
+              <span>電子郵件每日晨報 (Daily Email Briefing)</span>
             </label>
             <label class="checkbox-item">
               <input type="checkbox" id="push-line" checked>
-              <span>LINE Notify / LINE 官方帳號機器人推播</span>
-            </label>
-            <label class="checkbox-item">
-              <input type="checkbox" id="push-slack">
-              <span>企業 Slack / Teams Webhook 頻道推播</span>
+              <span>LINE Notify / LINE 機器人群組即時廣播</span>
             </label>
             <label class="checkbox-item">
               <input type="checkbox" id="push-browser" checked>
-              <span>手機與瀏覽器桌面即時通知 (PWA Web Push)</span>
+              <span>手機與電腦瀏覽器 Web Push 即時快訊</span>
             </label>
           </div>
         </div>
@@ -1218,10 +1424,32 @@
 
       <div class="modal-footer">
         <button class="btn btn-secondary" onclick="resetToDefaults()">恢復預設值</button>
-        <div style="display: flex; gap: 10px;">
-          <button class="btn btn-secondary" onclick="closeSettingsModal()">取消</button>
-          <button class="btn btn-primary" onclick="applyAndSaveSettings()">儲存並套用設定</button>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="btn btn-secondary" onclick="closeSettingsModal()">僅儲存不執行</button>
+          <button class="btn btn-success" onclick="applyAndRunImmediateCrawl()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            儲存並立即跑一遍更新！
+          </button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detail Drilldown Modal (For viewing in-depth content of any block) -->
+  <div class="modal-overlay" id="detailModal" onclick="closeDetailModalOnBackdrop(event)">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 style="font-size: 1.1rem; font-weight: 700;" id="detailModalTitle">情報深度分析與下鑽透視</h3>
+        <button class="icon-btn" onclick="closeDetailModal()" style="border:none; background:transparent;">✕</button>
+      </div>
+
+      <div class="modal-body" id="detailModalBody">
+        <!-- Rendered dynamically depending on which block is clicked -->
+      </div>
+
+      <div class="modal-footer">
+        <span style="font-size: 0.75rem; color: var(--text-muted);" id="detailModalSourceFoot">資料來源：AI 全網收集引擎</span>
+        <button class="btn btn-primary" onclick="closeDetailModal()">完成閱讀關閉</button>
       </div>
     </div>
   </div>
@@ -1233,7 +1461,7 @@
   </div>
 
   <script>
-    // Initial State & User Preferences (stored in localStorage)
+    // System State & Preferences
     const defaultData = {
       industries: ['半導體晶圓', '人工智慧 AI', '伺服器代工', '電動車 EV', '矽光子技術'],
       companies: ['台積電 (2330)', '輝達 (NVDA)', '聯發科 (2454)', '鴻海 (2317)', '超微 (AMD)', '廣達 (2382)'],
@@ -1243,143 +1471,169 @@
         metrics: true,
         stream: true,
         alerts: true,
-        radar: true,
-        style: 'card'
+        radar: true
+      },
+      contentConfig: {
+        briefingFocus: 'all',
+        streamSort: 'newest',
+        streamDensity: 'standard',
+        alertLevel: 'all',
+        trendMetric: 'volume'
       },
       schedule: {
         time: '08:30',
         email: true,
         line: true,
-        slack: false,
         browser: true
       }
     };
 
-    // Load state from localStorage or defaults
-    let appState = JSON.parse(localStorage.getItem('intelligence_app_state') || 'null') || defaultData;
+    let appState = JSON.parse(localStorage.getItem('intelligence_app_state_v2') || 'null') || defaultData;
     let currentIndustryFilter = 'ALL';
     let currentCompanyFilter = 'ALL';
     let searchQuery = '';
 
-    // Sample Intelligence News Feed Database
+    // Primary Database of Intelligence Feeds
     let intelligenceFeeds = [
       {
         id: 1,
         title: '台積電 2 奈米試產良率超乎預期，新竹寶山廠預計 2025 下半年如期量產',
         summary: '供應鏈消息指出，台積電 N2 製程採用 GAA 奈米片架構，試產良率進展順利，首批產能已被蘋果、輝達等大客戶鎖定，鞏固先進製程龍頭地位。',
+        details: '據半導體設備鏈透露，台積電位於竹科寶山的 Fab 20 廠房首期無塵室已於今年第二季完成設備進機，試產晶圓之電晶體特性與良率爬坡速度均優於原廠內部基準線。此進展打消了市場對 GAA 奈米片架構轉換過渡期延宕的疑慮，後續擴產資本支出將在法說會成為焦點。',
         company: '台積電 (2330)',
         industry: '半導體晶圓',
         source: '科技新報 TechNews',
         time: '08:15 AM',
         sentiment: 'positive',
         sentimentText: '重大利多',
+        impactScore: 92,
         url: 'https://technews.tw/'
       },
       {
         id: 2,
         title: '輝達發表新一代 Blackwell Ultra 晶片散熱新規範，水冷伺服器供應鏈啟動拉貨',
         summary: '因應單一機櫃功耗攀升至 120kW，散熱模組與水冷板接單暢旺，鴻海、廣達及奇鋐等台廠伺服器整合供應鏈第四季至明年首季營運動能強勁。',
+        details: 'Blackwell Ultra (B200 NVL72) 平台因整體高運算密度對熱傳導提出極致要求，水冷快接頭 (QD)、冷卻液分配單元 (CDU) 及風扇牆供應商接獲擴大認證通知。鴻海旗下墨西哥新廠將於今年底試產該機櫃級系統，預計挹注其高階伺服器營收比重突破四成。',
         company: '輝達 (NVDA)',
         industry: '人工智慧 AI',
         source: 'Digitimes 電子時報',
         time: '07:50 AM',
         sentiment: 'positive',
         sentimentText: '技術引領',
+        impactScore: 88,
         url: 'https://digitimes.com.tw/'
       },
       {
         id: 3,
         title: '美國商務部擬加強成熟製程晶片出口管制評估，成熟晶圓代工廠海外報價動向受關注',
         summary: '美方考慮限制非先進節點對特定清單企業之流向，市場密切觀察聯電、中芯等成熟製程產能利用率及定價策略可能面臨的轉單效益或合規成本。',
+        details: '此政策研議案重點在於阻絕特定實體透過轉包架構獲取車用與工控級高信賴度晶片。若條例擴大實施，台灣與日韓成熟製程晶圓廠將面臨嚴格的終端客戶穿透審查 (KYC)，雖然短期可能帶來部分轉單紅利，但營運行政成本與地緣政治合規風險同步升溫。',
         company: '台積電 (2330)',
         industry: '半導體晶圓',
         source: '工商時報',
         time: '07:20 AM',
         sentiment: 'warning',
         sentimentText: '政策風險',
+        impactScore: 85,
         url: 'https://ctee.com.tw/'
       },
       {
         id: 4,
         title: '聯發科天璣 9400 旗艦晶片首批出貨報捷，生成式 AI 端側運算獲旗艦機採用',
         summary: '搭載安謀 Cortex-X925 全大核架構，在影像生成與端側大型語言模型推論效能大幅躍進，第四季高階智慧型手機市佔率有望顯著擴張。',
+        details: '天璣 9400 採用台積電 3 奈米製程，支援 50Tokens/秒的本地端 LLM 推論速度，已獲 Vivo、Oppo、小米等主流品牌旗艦機型大量導入。外資預估第四季晶片出貨量季增 25% 以上，ASP (平均售價) 的提升將有助維持毛利率在 47%~49% 高檔區間。',
         company: '聯發科 (2454)',
         industry: '人工智慧 AI',
         source: '鉅亨網 Anue',
         time: '06:40 AM',
         sentiment: 'positive',
         sentimentText: '產品爆款',
+        impactScore: 80,
         url: 'https://cnyes.com/'
       },
       {
         id: 5,
         title: '鴻海科技日展示跨平台 EV Model D 與 AI 智造工廠，鎖定北美商用客戶訂單',
         summary: '鴻海持續推進 CDMS 委託設計製造服務模式，結合高雄超級運算中心智慧製造實力，深化全球電動車與 AI 伺服器垂直整合優勢。',
+        details: '鴻海推出的 Model D 採用全新模組化底盤與氣動外觀設計，瞄準北美市場家庭旗艦與高端商務接駁需求。在製造端，透過引進數位孿生技術與自動化產線，將新車型試產週期由傳統 18 個月縮短至 11 個月，展示其極具競爭力的代工彈性。',
         company: '鴻海 (2317)',
         industry: '電動車 EV',
         source: '經濟日報',
         time: '06:10 AM',
         sentiment: 'positive',
         sentimentText: '業務突破',
+        impactScore: 78,
         url: 'https://udn.com/'
       },
       {
         id: 6,
         title: '全球資料中心光通訊升級需求爆發，矽光子 CPO 聯盟標準制定進入收斂階段',
         summary: '因應 800G 及 1.6T 光傳輸技術演進，矽光子與共同封裝光學 (CPO) 成為關鍵解方，半導體大廠組建產業聯盟加速推進光電整合商業化進程。',
+        details: '在高速傳輸功耗限制下，傳統銅導線已逼近物理極限。台積電、日月光與多家美系網通巨頭積極推進的微型化光收發引擎預計將於明年導入雲端服務商 (CSP) 次世代 AI 叢集測試，將為台灣封測與光通訊模組廠帶來結構性長線成長。',
         company: '台積電 (2330)',
         industry: '矽光子技術',
         source: '科技新報 TechNews',
         time: '05:30 AM',
         sentiment: 'neutral',
         sentimentText: '趨勢成形',
+        impactScore: 75,
         url: 'https://technews.tw/'
       }
     ];
 
-    // Executive Briefing Summary Points
-    const briefingPoints = [
+    // Executive Briefing Data
+    const briefingData = [
       {
+        id: 'brief-1',
         type: 'success',
         title: '🚀 先進製程與算力基建維持高景氣',
-        desc: '台積電 2 奈米量產進程順利，與輝達 Blackwell 伺服器出貨放量相輔相成，台灣 AI 伺服器與散熱供應鏈第四季營收能見度極高。'
+        desc: '台積電 2 奈米量產進程順利，與輝達 Blackwell 伺服器出貨放量相輔相成，台灣 AI 伺服器與散熱供應鏈第四季營收能見度極高。',
+        fullReport: '【詳細產業研判】\n1. 產能布局：台積電竹科寶山 Fab 20 試產良率超前，已正式確認 2nm 於 2025 下半年投產，首批鎖定 iPhone 17 及輝達新架構晶片。\n2. 散熱供應鏈：Blackwell 機櫃功耗達到 120kW 臨界點，水冷滲透率自原先 15% 向上調升至 45%，鴻海、奇鋐、雙鴻將迎來營收估值雙提升。\n3. 策略建議：維持對晶圓代工龍頭與伺服器水冷組裝標的之積極關注。'
       },
       {
+        id: 'brief-2',
         type: 'warning',
         title: '⚠️ 地緣政治與成熟製程管制雜音浮現',
-        desc: '美國商務部持續研議對關鍵供應鏈實施新一輪審查，成熟製程與特用化學品轉單動態需密切列入風險監控雷達。'
+        desc: '美國商務部持續研議對關鍵供應鏈實施新一輪審查，成熟製程與特用化學品轉單動態需密切列入風險監控雷達。',
+        fullReport: '【詳細產業研判】\n1. 政策動態：美國商務部產業安全局 (BIS) 近期針對成熟製程晶片在第三國轉售流向展開穿透審查。\n2. 潛在衝擊：聯電、世界先進等成熟製程廠雖有部分去美化/轉單機會，但客戶合規審查期由常態 3 週拉長至 8 週，出貨節奏短期恐有遞延。\n3. 策略建議：檢視旗下企業客戶名單中的受控實體比例，防範一次性合規成本。'
       },
       {
+        id: 'brief-3',
         type: 'success',
         title: '💡 端側 AI (Edge AI) 迎來換機換代熱潮',
-        desc: '聯發科天璣 9400 在旗艦終端裝置取得實質滲透，軟硬體整合催生消費者對本地端 AI 應用的升級意願。'
+        desc: '聯發科天璣 9400 在旗艦終端裝置取得實質滲透，軟硬體整合催生消費者對本地端 AI 應用的升級意願。',
+        fullReport: '【詳細產業研判】\n1. 旗艦滲透：Vivo、Oppo 等旗艦首批備貨量年增約 30%，端側即時影像處理與語音助手反應速度大幅改善。\n2. 晶片獲利：3 奈米製程晶片平均售價 (ASP) 預期突破 140 美元，對聯發科第四季獲利貢獻顯著。\n3. 策略建議：持續追蹤第四季雙十一及歐美購物季銷售實銷率 (Sell-through rate)。'
       }
     ];
 
     // High Risk Alerts
     const alertsData = [
       {
+        id: 'alert-1',
         level: 'danger',
         title: '美國出口管制最新草案研析',
-        desc: '涉及半導體設計工具 (EDA) 與先進封裝材料流向，法規團隊建議於今日下午法說前完成合規評估報告。'
+        desc: '涉及半導體設計工具 (EDA) 與先進封裝材料流向，法規團隊建議於今日下午法說前完成合規評估報告。',
+        recommendation: '成立法規因應專責小組，清查現有 EDA 授權期限與跨國研發伺服器存取規範；備妥對外說明口徑。'
       },
       {
+        id: 'alert-2',
         level: 'warn',
         title: '關鍵高階零組件交期延長警訊',
-        desc: '高頻寬記憶體 (HBM3e) 產能依舊緊俏，第四季預估供給缺口約 8~12%，需滾動調整庫存策略。'
+        desc: '高頻寬記憶體 (HBM3e) 產能依舊緊俏，第四季預估供給缺口約 8~12%，需滾動調整庫存策略。',
+        recommendation: '向原廠簽署長期供給合約 (LTA)，並調整各專案組裝排程，優先滿足一線雲端大客戶訂單。'
       }
     ];
 
-    // Trends Data
+    // Industry Trends
     const trendsData = [
-      { name: '半導體晶圓 (2nm / CoWoS)', count: 48, percentage: 88, color: '#38bdf8' },
-      { name: '人工智慧 AI (Blackwell / ASIC)', count: 42, percentage: 82, color: '#10b981' },
-      { name: '伺服器代工與水冷散熱', count: 31, percentage: 65, color: '#a855f7' },
-      { name: '矽光子 CPO 光通訊', count: 24, percentage: 52, color: '#f59e0b' },
-      { name: '電動車 EV 與車用電子', count: 18, percentage: 38, color: '#ec4899' }
+      { name: '半導體晶圓 (2nm / CoWoS)', count: 48, percentage: 88, color: '#38bdf8', companies: '台積電, 聯電, 日月光' },
+      { name: '人工智慧 AI (Blackwell / ASIC)', count: 42, percentage: 82, color: '#10b981', companies: '輝達, 超微, 聯發科' },
+      { name: '伺服器代工與水冷散熱', count: 31, percentage: 65, color: '#a855f7', companies: '鴻海, 廣達, 奇鋐' },
+      { name: '矽光子 CPO 光通訊', count: 24, percentage: 52, color: '#f59e0b', companies: '台積電, 聯鈞, 上詮' },
+      { name: '電動車 EV 與車用電子', count: 18, percentage: 38, color: '#ec4899', companies: '鴻海, 台達電, 裕隆' }
     ];
 
-    // Render Filter Pills
+    // Filter Rendering
     function renderFilters() {
       const indContainer = document.getElementById('industryFilterContainer');
       const compContainer = document.getElementById('companyFilterContainer');
@@ -1417,7 +1671,7 @@
     // Render Stream List
     function renderStream() {
       const container = document.getElementById('streamContainer');
-      const filtered = intelligenceFeeds.filter(item => {
+      let filtered = intelligenceFeeds.filter(item => {
         const matchInd = currentIndustryFilter === 'ALL' || item.industry === currentIndustryFilter;
         const matchComp = currentCompanyFilter === 'ALL' || item.company.includes(currentCompanyFilter.split(' ')[0]);
         const matchSearch = !searchQuery || 
@@ -1427,6 +1681,16 @@
           item.industry.toLowerCase().includes(searchQuery);
         return matchInd && matchComp && matchSearch;
       });
+
+      // User customizable sorting
+      const sortPref = appState.contentConfig?.streamSort || 'newest';
+      if (sortPref === 'impact') {
+        filtered.sort((a, b) => (b.impactScore || 0) - (a.impactScore || 0));
+      } else if (sortPref === 'positive') {
+        filtered.sort((a, b) => (b.sentiment === 'positive' ? 1 : 0) - (a.sentiment === 'positive' ? 1 : 0));
+      } else if (sortPref === 'warning') {
+        filtered.sort((a, b) => (b.sentiment === 'warning' ? 1 : 0) - (a.sentiment === 'warning' ? 1 : 0));
+      }
 
       document.getElementById('streamFilterLabel').textContent = 
         `共 ${filtered.length} 則情報 (${currentIndustryFilter === 'ALL' ? '全部產業' : currentIndustryFilter} • ${currentCompanyFilter === 'ALL' ? '全部公司' : currentCompanyFilter})`;
@@ -1444,8 +1708,10 @@
         return;
       }
 
+      const isCompact = appState.contentConfig?.streamDensity === 'compact';
+
       container.innerHTML = filtered.map(item => `
-        <article class="stream-item" onclick="window.open('${item.url}', '_blank')">
+        <article class="stream-item" onclick="drilldownNews(${item.id})">
           <div class="stream-meta">
             <div style="display: flex; align-items: center; gap: 8px;">
               <span class="source-tag">
@@ -1460,8 +1726,13 @@
               <span class="sentiment-badge sentiment-${item.sentiment}">${item.sentimentText}</span>
             </div>
           </div>
-          <a href="${item.url}" target="_blank" class="stream-title">${item.title}</a>
-          <p class="stream-desc">${item.summary}</p>
+          <div class="stream-title">${item.title}</div>
+          ${!isCompact ? `<p class="stream-desc">${item.summary}</p>` : ''}
+          <div style="display: flex; justify-content: flex-end; align-items: center; margin-top: 4px;">
+            <span style="font-size: 0.75rem; color: var(--accent); display: inline-flex; align-items: center; gap: 4px;">
+              點擊查看深度研析與傳導機制 →
+            </span>
+          </div>
         </article>
       `).join('');
     }
@@ -1469,9 +1740,22 @@
     // Render Briefing Points
     function renderBriefing() {
       const container = document.getElementById('briefingContent');
-      container.innerHTML = briefingPoints.map(p => `
-        <div class="brief-point ${p.type}">
-          <h4>${p.title}</h4>
+      const focus = appState.contentConfig?.briefingFocus || 'all';
+      
+      const focusMap = {
+        all: '全方位綜合分析 (戰略、供應鏈、法規與財報動態)',
+        supplychain: '聚焦供應鏈與先進技術產能 (良率、產能擴充、瓶頸)',
+        earnings: '聚焦財報獲利與法人評估 (營收爆發、毛利指引)',
+        geopolitics: '聚焦地緣政治與合規風險 (出口管制、關稅審查)'
+      };
+      document.getElementById('briefingFocusLabel').textContent = `當前分析重心：${focusMap[focus] || '全方位綜合分析'}`;
+
+      container.innerHTML = briefingData.map(p => `
+        <div class="brief-point ${p.type}" onclick="drilldownBriefingItem('${p.id}')">
+          <h4>
+            <span>${p.title}</span>
+            <span style="font-size: 0.75rem; color: var(--accent);">詳解 ↗</span>
+          </h4>
           <p>${p.desc}</p>
         </div>
       `).join('');
@@ -1480,11 +1764,14 @@
     // Render Alerts
     function renderAlerts() {
       const container = document.getElementById('alertsContainer');
-      container.innerHTML = alertsData.map(a => `
-        <div class="alert-card-item ${a.level}">
+      const levelPref = appState.contentConfig?.alertLevel || 'all';
+      const items = levelPref === 'high_only' ? alertsData.filter(a => a.level === 'danger') : alertsData;
+
+      container.innerHTML = items.map(a => `
+        <div class="alert-card-item ${a.level}" onclick="drilldownAlert('${a.id}')">
           <div class="alert-header">
             <span>${a.title}</span>
-            <span style="font-size: 0.7rem; color: var(--text-muted);">高優先級</span>
+            <span style="font-size: 0.7rem; color: var(--accent);">查看對策 ↗</span>
           </div>
           <div class="alert-body">${a.desc}</div>
         </div>
@@ -1495,7 +1782,7 @@
     function renderTrends() {
       const container = document.getElementById('trendContainer');
       container.innerHTML = trendsData.map(t => `
-        <div class="trend-row">
+        <div class="trend-row" onclick="drilldownTrend('${t.name}')">
           <div class="trend-info">
             <span>${t.name}</span>
             <span style="color: var(--text-muted);">${t.count} 則 • ${t.percentage}%</span>
@@ -1507,51 +1794,316 @@
       `).join('');
     }
 
-    // Trigger Manual Live Crawl
-    function triggerManualCrawl() {
-      const refreshIcon = document.getElementById('refresh-icon');
-      refreshIcon.style.animation = 'spin 1s linear infinite';
-      
-      const btn = document.getElementById('btn-refresh');
-      btn.disabled = true;
+    // ==========================================
+    // DRILLDOWN / IN-DEPTH DETAIL SYSTEM
+    // ==========================================
+    function openDetailModal(title, bodyHtml, sourceInfo) {
+      document.getElementById('detailModalTitle').innerHTML = title;
+      document.getElementById('detailModalBody').innerHTML = bodyHtml;
+      document.getElementById('detailModalSourceFoot').textContent = sourceInfo || '資料來源：AI 自動化收集與結構化分析引擎';
+      document.getElementById('detailModal').classList.add('active');
+    }
 
-      // Simulate network request to real-time crawler backend
+    function closeDetailModal() {
+      document.getElementById('detailModal').classList.remove('active');
+    }
+
+    function closeDetailModalOnBackdrop(e) {
+      if (e.target.id === 'detailModal') {
+        closeDetailModal();
+      }
+    }
+
+    // Drilldown 1: News Detail Reader
+    function drilldownNews(id) {
+      const item = intelligenceFeeds.find(f => f.id === id);
+      if (!item) return;
+
+      const html = `
+        <div class="detail-section">
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 6px;">
+            <span class="tag-badge" style="background: var(--accent); color: #fff;">${item.company}</span>
+            <span class="tag-badge">${item.industry}</span>
+            <span class="source-tag">${item.source} • ${item.time}</span>
+            <span class="sentiment-badge sentiment-${item.sentiment}">${item.sentimentText}</span>
+          </div>
+          <h2 style="font-size: 1.15rem; font-weight: 700; color: var(--text-main); line-height: 1.4;">${item.title}</h2>
+          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-top: 8px;">${item.summary}</p>
+        </div>
+
+        <div class="detail-section">
+          <h4>🔍 深度背景脈絡與產業傳導影響</h4>
+          <p>${item.details || '本情報經由 AI 聯網萃取核心觀點，直接牽涉其季度產能利用率與全球供應鏈採購週期。'}</p>
+        </div>
+
+        <div class="detail-section">
+          <h4>⚡ 決策影響與關鍵指標評估</h4>
+          <ul>
+            <li><strong>量產影響指數：</strong> ${item.impactScore || 85} / 100 (高影響力事件)</li>
+            <li><strong>受波及上下游：</strong> 散熱模組 (奇鋐、雙鴻)、晶圓代工 (台積電)、伺服器組裝 (鴻海、廣達)</li>
+            <li><strong>建議關注點：</strong> 下週外資研究報告調整與下季資本支出財測。</li>
+          </ul>
+        </div>
+
+        <div style="margin-top: 6px; display: flex; justify-content: space-between; align-items: center;">
+          <a href="${item.url}" target="_blank" class="btn btn-primary" style="font-size: 0.85rem;">
+            開啟原始報導來源網頁 ↗
+          </a>
+          <button class="btn btn-secondary" onclick="navigator.clipboard.writeText('${item.title} - ${item.summary}'); showToast('已複製情報摘要至剪貼簿！');">
+            複製重點摘要
+          </button>
+        </div>
+      `;
+
+      openDetailModal(`📰 情報研析內頁 — ${item.company}`, html, `原始來源站台：${item.source}`);
+    }
+
+    // Drilldown 2: Morning Briefing Single Item
+    function drilldownBriefingItem(id) {
+      const item = briefingData.find(b => b.id === id);
+      if (!item) return;
+
+      const html = `
+        <div class="detail-section" style="border-left: 4px solid var(--${item.type});">
+          <h3 style="font-size: 1.15rem; margin-bottom: 8px;">${item.title}</h3>
+          <p style="font-size: 0.95rem; color: var(--text-main);">${item.desc}</p>
+        </div>
+        <div class="detail-section">
+          <h4>📊 晨報深度決策分析研判</h4>
+          <div style="white-space: pre-line; line-height: 1.7; font-size: 0.88rem; color: var(--text-muted);">
+            ${item.fullReport}
+          </div>
+        </div>
+      `;
+      openDetailModal(`📑 09:00 晨報要點深度解讀`, html, `自動排程產生於每日 08:30`);
+    }
+
+    // Drilldown 3: Morning Full Report
+    function drilldownBriefingReport() {
+      let content = briefingData.map((b, i) => `
+        <div class="detail-section" style="margin-bottom: 12px;">
+          <h4 style="color: var(--text-main);">【重點 ${i+1}】${b.title}</h4>
+          <p style="margin-bottom: 8px;">${b.desc}</p>
+          <div style="white-space: pre-line; font-size: 0.82rem; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 6px;">${b.fullReport}</div>
+        </div>
+      `).join('');
+
+      openDetailModal(`📑 09:00 晨報完整決策備忘錄 (Executive Memo)`, content, `包含三大宏觀主線與上下游對策`);
+    }
+
+    // Drilldown 4: Metric Box Drilldown
+    function drilldownMetric(type) {
+      let title = '';
+      let body = '';
+
+      if (type === 'targets') {
+        title = '🎯 追蹤標的企業與產業矩陣';
+        body = `
+          <div class="detail-section">
+            <h4>已納入監測之重點企業 (${appState.companies.length} 家)</h4>
+            <div class="chip-container" style="background: transparent; border: none;">
+              ${appState.companies.map(c => `<span class="chip" style="font-size: 0.9rem; padding: 6px 12px;">🏢 ${c}</span>`).join('')}
+            </div>
+          </div>
+          <div class="detail-section">
+            <h4>監測產業領域 (${appState.industries.length} 個)</h4>
+            <div class="chip-container" style="background: transparent; border: none;">
+              ${appState.industries.map(i => `<span class="chip" style="font-size: 0.9rem; padding: 6px 12px;">🌐 ${i}</span>`).join('')}
+            </div>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">提示：可於「自訂設定」中隨時新增其他標的並立即重新抓取！</p>
+        `;
+      } else if (type === 'today_news') {
+        title = '📊 今日收集情資匯總清單';
+        body = `
+          <div class="detail-section">
+            <h4>今日情資資料庫概況</h4>
+            <p>系統目前已從 ${appState.sources.length} 個指定網站及公開網路，篩選出符合關鍵字之高相關情報共 ${intelligenceFeeds.length} 篇。</p>
+          </div>
+          <div class="stream-list" style="max-height: 380px;">
+            ${intelligenceFeeds.map(f => `
+              <div style="padding: 10px; border-bottom: 1px solid var(--card-border); cursor: pointer;" onclick="closeDetailModal(); drilldownNews(${f.id});">
+                <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-main);">${f.title}</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">${f.company} • ${f.source} • ${f.time}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else if (type === 'sentiment') {
+        title = '📈 產業輿情情緒指標深度拆解';
+        body = `
+          <div class="detail-section">
+            <h4>當前正向情資佔比：76% (強勢看好)</h4>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
+              <div>正面利多：<strong>76%</strong> (主要來自 2nm 良率超預期與水冷拉貨)</div>
+              <div>中立觀察：<strong>18%</strong> (光通訊 CPO 標準收斂進程)</div>
+              <div>負面預警：<strong>6%</strong> (美國成熟製程出口審查評估)</div>
+            </div>
+          </div>
+        `;
+      } else if (type === 'alerts') {
+        title = '⚠️ 重大風險與警戒事件彙總';
+        body = alertsData.map(a => `
+          <div class="detail-section" style="border-left: 4px solid var(--danger);">
+            <h4>${a.title}</h4>
+            <p>${a.desc}</p>
+            <p style="margin-top: 6px; color: var(--accent);"><strong>應對建議：</strong>${a.recommendation}</p>
+          </div>
+        `).join('');
+      } else if (type === 'sources') {
+        title = '🌐 指定爬取來源連線監控狀態';
+        body = `
+          <div class="detail-section">
+            <h4>目前配置之情報收集來源 (${appState.sources.length} 個)</h4>
+            <ul style="list-style: none; padding-left: 0; display: flex; flex-direction: column; gap: 8px;">
+              ${appState.sources.map(s => `
+                <li style="display: flex; justify-content: space-between; align-items: center; padding: 8px; background: rgba(255,255,255,0.03); border-radius: 4px;">
+                  <span>🔗 ${s}</span>
+                  <span style="color: var(--success); font-size: 0.8rem; font-weight: 600;">● 連線正常 (每日 08:30)</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      openDetailModal(title, body, `指標即時即時運算模組`);
+    }
+
+    // Drilldown 5: Alert Item
+    function drilldownAlert(id) {
+      const a = alertsData.find(item => item.id === id);
+      if (!a) return;
+
+      const html = `
+        <div class="detail-section" style="border-left: 4px solid var(--danger);">
+          <h3 style="font-size: 1.15rem; color: var(--danger); margin-bottom: 8px;">${a.title}</h3>
+          <p style="font-size: 0.95rem;">${a.desc}</p>
+        </div>
+        <div class="detail-section">
+          <h4>🛡️ 風險評估與應變對策報告</h4>
+          <p>${a.recommendation}</p>
+        </div>
+      `;
+      openDetailModal(`⚠️ 風險專題深度評估`, html, `風險雷達警示系統`);
+    }
+
+    // Drilldown 6: Trend Sector
+    function drilldownTrend(sectorName) {
+      const t = trendsData.find(item => item.name === sectorName);
+      const html = `
+        <div class="detail-section">
+          <h3 style="font-size: 1.15rem; color: var(--accent); margin-bottom: 8px;">${sectorName}</h3>
+          <p>今日網路情報聲量指數：<strong>${t ? t.count : 30} 則 (佔總聲量 ${t ? t.percentage : 60}%)</strong></p>
+        </div>
+        <div class="detail-section">
+          <h4>🏢 該產業核心受監控關聯企業</h4>
+          <p>${t ? t.companies : '相關上下游主要廠商'}</p>
+        </div>
+      `;
+      openDetailModal(`📊 產業動能深度透視 — ${sectorName}`, html, `產業趨勢雷達分析模組`);
+    }
+
+    // ==========================================
+    // CRAWL & IMMEDIATE EXECUTION ENGINE
+    // ==========================================
+    function triggerManualCrawl() {
+      executeCrawlPipeline("全網指定來源爬取更新");
+    }
+
+    function applyAndRunImmediateCrawl() {
+      // Save all custom settings first
+      saveAllSettings();
+      closeSettingsModal();
+      executeCrawlPipeline("依據全新使用者自訂參數重跑爬蟲更新");
+    }
+
+    function executeCrawlPipeline(reasonText) {
+      const overlay = document.getElementById('crawlProgressOverlay');
+      const progressBar = document.getElementById('crawlProgressBar');
+      const stepText = document.getElementById('crawlStepText');
+      const title = document.getElementById('crawlTitle');
+      
+      title.textContent = reasonText;
+      overlay.classList.add('active');
+      progressBar.style.width = '10%';
+      stepText.textContent = `[1/4] 連線至 ${appState.sources.length} 個指定網站及 RSS 來源...`;
+
       setTimeout(() => {
-        refreshIcon.style.animation = 'none';
-        btn.disabled = false;
+        progressBar.style.width = '35%';
+        const comp = appState.companies[0] || '重點公司';
+        const ind = appState.industries[0] || '核心產業';
+        stepText.textContent = `[2/4] 篩選目標公司 (${comp} 等) 與產業 (${ind} 等) 最新動態...`;
+      }, 500);
+
+      setTimeout(() => {
+        progressBar.style.width = '75%';
+        stepText.textContent = `[3/4] 調用 AI 萃取晨報三大核心要點與情緒評分 (偏好: ${appState.contentConfig?.briefingFocus || '綜合'})...`;
+      }, 1100);
+
+      setTimeout(() => {
+        progressBar.style.width = '100%';
+        stepText.textContent = `[4/4] 正在重組儀表板各區塊顯示與格式...`;
+      }, 1600);
+
+      setTimeout(() => {
+        overlay.classList.remove('active');
         
-        // Add fresh intelligence item
+        // Dynamically insert new custom-grounded intelligence item
         const now = new Date();
-        const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')} (剛剛)`;
-        
+        const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+        const topCompany = appState.companies[0] || '自訂標的企業';
+        const topIndustry = appState.industries[0] || '關注產業';
+        const topSource = appState.sources[0] || '自訂指定來源';
+
         const freshItem = {
           id: Date.now(),
-          title: `【即時快訊】針對 ${appState.companies[0] || '監測公司'} 進行全網深度監測，最新法說及供應鏈展望動態更新`,
-          summary: `系統於 ${timeStr} 成功探訪 ${appState.sources.length} 個指定網站及社群網路論壇，並完成 AI 關鍵觀點摘要。目標市場情緒指數維持正向擴張。`,
-          company: appState.companies[0] || '重點公司',
-          industry: appState.industries[0] || '半導體晶圓',
-          source: '即時聯網爬蟲機器人',
-          time: timeStr,
+          title: `【即時更新】針對 ${topCompany} 與 ${topIndustry} 完成最新情資探訪與研析`,
+          summary: `系統於 ${timeStr} 成功依據使用者最新自訂參數，於 ${topSource} 等站台完成檢索，確認目標標的目前營運節奏與產業展望維持正向。`,
+          details: `本次更新完全基於使用者於設定中心客製化之目標公司與產業清單，AI 智能引擎已自動依據所選之【${appState.contentConfig?.briefingFocus || '綜合'}】分析重心完成結構化整理，並同步刷新指標。`,
+          company: topCompany,
+          industry: topIndustry,
+          source: topSource,
+          time: `${timeStr} (剛剛)`,
           sentiment: 'positive',
-          sentimentText: '即時更新',
-          url: 'https://www.google.com'
+          sentimentText: '即時重算',
+          impactScore: 90,
+          url: 'https://technews.tw/'
         };
 
         intelligenceFeeds.unshift(freshItem);
-        renderStream();
-
+        
+        // Update counters
+        document.getElementById('metric-targets-count').textContent = `${appState.companies.length} 家`;
+        document.getElementById('metric-sources').textContent = `${appState.sources.length} 個站台`;
         document.getElementById('last-update-text').textContent = `最後同步：今日 ${timeStr}`;
-        showToast('即時網路情資收集完畢！已同步更新 1 則關鍵動態。');
-      }, 1200);
+        document.getElementById('briefingMetaTime').textContent = `產出時間：今日 ${timeStr} (即時重算)`;
+
+        renderFilters();
+        renderStream();
+        renderBriefing();
+        renderAlerts();
+        renderTrends();
+
+        showToast('✅ 已成功依據自訂參數完成即時資料更新！');
+      }, 2000);
     }
 
-    // Modal & Tab Logic
-    function openSettingsModal() {
+    // ==========================================
+    // SETTINGS MODAL LOGIC
+    // ==========================================
+    function openSettingsModal(defaultTab) {
       document.getElementById('settingsModal').classList.add('active');
       renderChips('industry');
       renderChips('company');
       renderChips('source');
       loadFormState();
+
+      if (defaultTab) {
+        switchSettingsTab(defaultTab);
+      } else {
+        switchSettingsTab('tab-targets');
+      }
     }
 
     function closeSettingsModal() {
@@ -1568,11 +2120,14 @@
       document.querySelectorAll('.modal-tab').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.modal-body').forEach(b => b.style.display = 'none');
       
-      event.target.classList.add('active');
-      document.getElementById(tabId).style.display = 'flex';
+      const btnId = 'tab-btn-' + tabId.replace('tab-', '');
+      const btn = document.getElementById(btnId);
+      if (btn) btn.classList.add('active');
+      
+      const tabEl = document.getElementById(tabId);
+      if (tabEl) tabEl.style.display = 'flex';
     }
 
-    // Chip Management
     function renderChips(type) {
       const containerId = type === 'industry' ? 'industryChipList' : (type === 'company' ? 'companyChipList' : 'sourceChipList');
       const list = type === 'industry' ? appState.industries : (type === 'company' ? appState.companies : appState.sources);
@@ -1614,23 +2169,55 @@
     }
 
     function loadFormState() {
+      // Tab 3: Content Config
+      if (!appState.contentConfig) appState.contentConfig = defaultData.contentConfig;
+      document.getElementById('content-briefing-focus').value = appState.contentConfig.briefingFocus || 'all';
+      document.getElementById('content-stream-sort').value = appState.contentConfig.streamSort || 'newest';
+      document.getElementById('content-stream-density').value = appState.contentConfig.streamDensity || 'standard';
+      document.getElementById('content-alert-level').value = appState.contentConfig.alertLevel || 'all';
+      document.getElementById('content-trend-metric').value = appState.contentConfig.trendMetric || 'volume';
+
+      // Tab 4: Layout Toggles
       document.getElementById('toggle-briefing').checked = appState.layout.briefing;
       document.getElementById('toggle-metrics').checked = appState.layout.metrics;
       document.getElementById('toggle-stream').checked = appState.layout.stream;
       document.getElementById('toggle-alerts').checked = appState.layout.alerts;
       document.getElementById('toggle-radar').checked = appState.layout.radar;
-      document.getElementById('displayStyleSelect').value = appState.layout.style || 'card';
-      document.getElementById('scheduleTime').value = appState.schedule.time || '08:30';
+
+      // Tab 5: Schedule
+      document.getElementById('scheduleTime').value = appState.schedule?.time || '08:30';
     }
 
-    function saveLayoutSettings() {
-      appState.layout.briefing = document.getElementById('toggle-briefing').checked;
-      appState.layout.metrics = document.getElementById('toggle-metrics').checked;
-      appState.layout.stream = document.getElementById('toggle-stream').checked;
-      appState.layout.alerts = document.getElementById('toggle-alerts').checked;
-      appState.layout.radar = document.getElementById('toggle-radar').checked;
-      appState.layout.style = document.getElementById('displayStyleSelect').value;
+    function saveAllSettings() {
+      // Save Content Config
+      appState.contentConfig = {
+        briefingFocus: document.getElementById('content-briefing-focus').value,
+        streamSort: document.getElementById('content-stream-sort').value,
+        streamDensity: document.getElementById('content-stream-density').value,
+        alertLevel: document.getElementById('content-alert-level').value,
+        trendMetric: document.getElementById('content-trend-metric').value
+      };
+
+      // Save Layout
+      appState.layout = {
+        briefing: document.getElementById('toggle-briefing').checked,
+        metrics: document.getElementById('toggle-metrics').checked,
+        stream: document.getElementById('toggle-stream').checked,
+        alerts: document.getElementById('toggle-alerts').checked,
+        radar: document.getElementById('toggle-radar').checked
+      };
+
+      // Save Schedule
+      appState.schedule = {
+        time: document.getElementById('scheduleTime').value,
+        email: document.getElementById('push-email').checked,
+        line: document.getElementById('push-line').checked,
+        browser: document.getElementById('push-browser').checked
+      };
+
+      localStorage.setItem('intelligence_app_state_v2', JSON.stringify(appState));
       applyLayoutVisibility();
+      document.getElementById('headerScheduleBadge').textContent = `每日 ${appState.schedule.time} 自動排程中`;
     }
 
     function applyLayoutVisibility() {
@@ -1641,20 +2228,10 @@
       document.getElementById('module-radar').style.display = appState.layout.radar ? 'flex' : 'none';
     }
 
-    function applyAndSaveSettings() {
-      saveLayoutSettings();
-      appState.schedule.time = document.getElementById('scheduleTime').value;
-      localStorage.setItem('intelligence_app_state', JSON.stringify(appState));
-      closeSettingsModal();
-      renderFilters();
-      renderStream();
-      showToast('自訂監測標的與版面設定已成功儲存！');
-    }
-
     function resetToDefaults() {
-      if (confirm('確定要將所有自訂監測公司、產業與來源重設為預設值嗎？')) {
+      if (confirm('確定要將所有自訂設定恢復為系統預設值嗎？')) {
         appState = JSON.parse(JSON.stringify(defaultData));
-        localStorage.setItem('intelligence_app_state', JSON.stringify(appState));
+        localStorage.setItem('intelligence_app_state_v2', JSON.stringify(appState));
         loadFormState();
         renderChips('industry');
         renderChips('company');
@@ -1681,12 +2258,12 @@
       let md = `# 每日產業與企業情資晨報 (${now})\n\n`;
       md += `> 自動化產出時間：每日 09:00 前 • 監測範圍：${appState.companies.join(', ')}\n\n`;
       md += `## 🌟 一、晨會核心摘要 (Key Highlights)\n`;
-      briefingPoints.forEach(b => {
+      briefingData.forEach(b => {
         md += `- **${b.title}**：${b.desc}\n`;
       });
       md += `\n## ⚠️ 二、重大事件與風險警示\n`;
       alertsData.forEach(a => {
-        md += `- **[${a.level.toUpperCase()}] ${a.title}**：${a.desc}\n`;
+        md += `- **[${a.level.toUpperCase()}] ${a.title}**：${a.desc}\n  *建議因應：* ${a.recommendation}\n`;
       });
       md += `\n## 📰 三、精選情資動態清單\n`;
       intelligenceFeeds.forEach(f => {
@@ -1724,6 +2301,8 @@
       renderBriefing();
       renderAlerts();
       renderTrends();
+      document.getElementById('metric-targets-count').textContent = `${appState.companies.length} 家`;
+      document.getElementById('metric-sources').textContent = `${appState.sources.length} 個站台`;
     });
   </script>
 </body>
