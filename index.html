@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>企業與產業自動化情報儀表板 (Intelligence Dashboard)</title>
+  <meta name="description" content="每日09:00前或即時自動化收集自訂公司與產業情報的跨裝置儀表板">
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-tertiary: #334155;
+      --card-bg: rgba(30, 41, 59, 0.85);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --accent-glow: rgba(56, 189, 248, 0.25);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --purple: #a855f7;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f1f5f9;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #e2e8f0;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --card-border: rgba(0, 0, 0, 0.08);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --accent: #0284c7;
+      --accent-hover: #0369a1;
+      --accent-glow: rgba(2, 132, 199, 0.15);
+      --shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* Top Navigation Bar */
+    header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--card-border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    .brand-text h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+    }
+
+    .brand-text p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 8px var(--success);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.2); }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+      user-select: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+      color: #ffffff;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+    .btn-primary:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      background: var(--bg-tertiary);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      background: var(--bg-tertiary);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .icon-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Controls & Filter Bar */
+    .controls-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .controls-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 240px;
+      max-width: 420px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 9px 12px 9px 36px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition);
+    }
+    .search-box input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .search-box svg {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      fill: var(--text-muted);
+    }
+
+    .filter-pills-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .filter-pills-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .pill-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .pill {
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+    .pill:hover {
+      color: var(--text-main);
+      border-color: var(--text-muted);
+    }
+    .pill.active {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+      box-shadow: 0 2px 8px var(--accent-glow);
+    }
+
+    /* Grid Layout for Dashboard Modules */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+    }
+
+    /* Widget Card */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+      transition: var(--transition);
+    }
+    .card:hover {
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title svg {
+      width: 20px;
+      height: 20px;
+      color: var(--accent);
+    }
+
+    .card-badge {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Specific Module Sizing */
+    .col-12 { grid-column: span 12; }
+    .col-8 { grid-column: span 8; }
+    .col-4 { grid-column: span 4; }
+    .col-6 { grid-column: span 6; }
+
+    @media (max-width: 1024px) {
+      .col-8, .col-4, .col-6 { grid-column: span 12; }
+    }
+
+    /* Morning Briefing Banner */
+    .briefing-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .briefing-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .briefing-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .briefing-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .brief-point {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .brief-point.warning {
+      border-left-color: var(--warning);
+    }
+    .brief-point.danger {
+      border-left-color: var(--danger);
+    }
+    .brief-point.success {
+      border-left-color: var(--success);
+    }
+
+    .brief-point h4 {
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brief-point p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* Metric Counters */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .metric-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      text-align: center;
+    }
+
+    .metric-val {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-top: 4px;
+    }
+
+    .metric-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Intelligence Stream List */
+    .stream-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 520px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .stream-list::-webkit-scrollbar {
+      width: 6px;
+    }
+    .stream-list::-webkit-scrollbar-thumb {
+      background: var(--bg-tertiary);
+      border-radius: 3px;
+    }
+
+    .stream-item {
+      background: var(--bg-secondary);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .stream-item:hover {
+      border-color: var(--accent);
+      transform: translateX(2px);
+    }
+
+    .stream-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .source-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .badge-group {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .tag-badge {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--bg-tertiary);
+      color: var(--text-main);
+    }
+
+    .sentiment-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .sentiment-positive {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .sentiment-warning {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--warning);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .sentiment-neutral {
+      background: rgba(148, 163, 184, 0.15);
+      color: var(--text-muted);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .stream-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+      text-decoration: none;
+      display: block;
+    }
+    .stream-title:hover {
+      color: var(--accent);
+    }
+
+    .stream-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* Radar & Trend Visuals */
+    .trend-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .trend-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .trend-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .trend-bar-bg {
+      height: 8px;
+      background: var(--bg-secondary);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .trend-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.8s ease;
+    }
+
+    /* Watchlist & Risk Alerts */
+    .alert-card-item {
+      padding: 12px;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-sm);
+      border-left: 4px solid var(--danger);
+      margin-bottom: 10px;
+    }
+    .alert-card-item.warn {
+      border-left-color: var(--warning);
+    }
+
+    .alert-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .alert-body {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Settings Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--bg-secondary);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 760px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      animation: modalSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalSlide {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--card-border);
+      background: var(--bg-primary);
+      overflow-x: auto;
+    }
+
+    .modal-tab {
+      padding: 12px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+    .modal-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      background: var(--bg-secondary);
+    }
+
+    .modal-body {
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .modal-footer {
+      padding: 14px 20px;
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-primary);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .form-group .hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .form-input, .form-select {
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--card-border);
+      background: var(--bg-primary);
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .form-input:focus, .form-select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px var(--accent-glow);
+    }
+
+    .chip-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 8px;
+      background: var(--bg-primary);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      min-height: 48px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: var(--bg-tertiary);
+      font-size: 0.8rem;
+      color: var(--text-main);
+    }
+
+    .chip-remove {
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1;
+    }
+    .chip-remove:hover {
+      color: var(--danger);
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .checkbox-item input {
+      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--card-border);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      border-radius: var(--radius-sm);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-main);
+      z-index: 200;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Mobile Bottom Action Bar (App feel) */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--card-border);
+      padding: 8px 12px;
+      z-index: 40;
+      justify-content: space-around;
+      backdrop-filter: blur(12px);
+    }
+
+    @media (max-width: 640px) {
+      .mobile-nav {
+        display: flex;
+      }
+      main {
+        padding: 12px;
+        margin-bottom: 60px;
+      }
+      .header-actions .btn-text-hide {
+        display: none;
+      }
+      .controls-top {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .search-box {
+        max-width: 100%;
+      }
+    }
+
+    .mobile-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .mobile-nav-item.active, .mobile-nav-item:hover {
+      color: var(--accent);
+    }
+    .mobile-nav-item svg {
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="header-inner">
+      <div class="brand-section">
+        <div class="brand-logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>產業與企業情資監測儀表板</h1>
+          <p>IntelligenceRadar Pro • 跨裝置自動化系統</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="status-badge" title="每日於早上 08:30 自動執行深度抓取與摘要，確保 09:00 前送達">
+          <span class="pulse-dot"></span>
+          <span>每日 08:30 排程中</span>
+        </div>
+
+        <button class="btn btn-primary" id="btn-refresh" onclick="triggerManualCrawl()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="refresh-icon">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+          </svg>
+          <span class="btn-text-hide">即時收集更新</span>
+        </button>
+
+        <button class="btn btn-secondary" onclick="openSettingsModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span class="btn-text-hide">自訂設定</span>
+        </button>
+
+        <button class="icon-btn" onclick="toggleTheme()" title="切換深色/淺色模式">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="theme-icon">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Dashboard -->
+  <main>
+    <!-- Filter & Filter Bar -->
+    <section class="controls-bar">
+      <div class="controls-top">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <input type="text" id="searchInput" placeholder="搜尋情資關鍵字、公司名、法規或重大事件..." oninput="handleSearch()">
+        </div>
+
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <span style="font-size: 0.8rem; color: var(--text-muted);" id="last-update-text">最後同步：今日 08:45 AM</span>
+          <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8rem;" onclick="exportReport()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            匯出簡報/報告
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Category & Company Filters -->
+      <div class="filter-pills-row" id="industryFilterContainer">
+        <span class="pill-label">監測產業:</span>
+        <button class="pill active" onclick="setIndustryFilter('ALL')">全部產業</button>
+        <!-- dynamically rendered -->
+      </div>
+
+      <div class="filter-pills-row" id="companyFilterContainer">
+        <span class="pill-label">重點公司:</span>
+        <button class="pill active" onclick="setCompanyFilter('ALL')">全部公司</button>
+        <!-- dynamically rendered -->
+      </div>
+    </section>
+
+    <!-- Core Metrics Overview -->
+    <div class="metric-grid" id="module-metrics">
+      <div class="metric-box">
+        <div class="metric-sub">追蹤標的</div>
+        <div class="metric-val" id="metric-targets-count">12 家</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-sub">今日收集情資</div>
+        <div class="metric-val" id="metric-news-count" style="color: var(--accent);">48 篇</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-sub">正面輿情佔比</div>
+        <div class="metric-val" style="color: var(--success);" id="metric-sentiment">76%</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-sub">重大警示 / 風險</div>
+        <div class="metric-val" style="color: var(--danger);" id="metric-alerts">3 件</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-sub">爬取來源數</div>
+        <div class="metric-val" id="metric-sources">8 個站台</div>
+      </div>
+    </div>
+
+    <!-- Dashboard Main Grid -->
+    <div class="dashboard-grid">
+
+      <!-- Module 1: 09:00 Morning Executive Briefing (Full Width) -->
+      <div class="card col-12 briefing-card" id="module-briefing">
+        <div class="briefing-header">
+          <div>
+            <div class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              <span>每日 09:00 晨報智能速覽 (Executive Intelligence Digest)</span>
+            </div>
+            <div class="briefing-meta">
+              <span>產出時間：2026-10-07 08:45 AM (自動產生)</span>
+              <span>•</span>
+              <span>模型核心：AI 智能產業萃取引擎</span>
+            </div>
+          </div>
+          <span class="card-badge">高管決策必讀</span>
+        </div>
+
+        <div class="briefing-content" id="briefingContent">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Module 2: Real-time Intelligence Feed (Col 8) -->
+      <div class="card col-8" id="module-stream">
+        <div class="card-header">
+          <div class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>指定網站與網路即時情資串流</span>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <span class="card-badge" id="streamFilterLabel">顯示全部情資</span>
+          </div>
+        </div>
+
+        <div class="stream-list" id="streamContainer">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Module 3: Sidebar - Alerts & Sentiment (Col 4) -->
+      <div class="col-4" style="display: flex; flex-direction: column; gap: 20px;">
+
+        <!-- Alert & Risk Monitor -->
+        <div class="card" id="module-alerts">
+          <div class="card-header">
+            <div class="card-title" style="color: var(--danger);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+              <span>重大事件與風險雷達</span>
+            </div>
+            <span class="card-badge" style="background: rgba(239, 68, 68, 0.15); color: var(--danger);">重要警示</span>
+          </div>
+          <div id="alertsContainer">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Industry Heat & Sentiment Radar -->
+        <div class="card" id="module-radar">
+          <div class="card-header">
+            <div class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+              <span>產業聲量與趨勢動能</span>
+            </div>
+            <span class="card-badge">即時運算</span>
+          </div>
+          <div class="trend-list" id="trendContainer">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Mobile Bottom Nav -->
+  <nav class="mobile-nav">
+    <button class="mobile-nav-item active" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+      <span>晨報速覽</span>
+    </button>
+    <button class="mobile-nav-item" onclick="document.getElementById('module-stream').scrollIntoView({behavior: 'smooth'})">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      <span>情資串流</span>
+    </button>
+    <button class="mobile-nav-item" onclick="triggerManualCrawl()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+      <span>立即更新</span>
+    </button>
+    <button class="mobile-nav-item" onclick="openSettingsModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+      <span>設定</span>
+    </button>
+  </nav>
+
+  <!-- Settings Modal (Customization Panel) -->
+  <div class="modal-overlay" id="settingsModal" onclick="closeSettingsModalOnBackdrop(event)">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 style="font-size: 1.1rem; font-weight: 700;">⚙️ 使用者自訂設定中心 (Configuration)</h3>
+        <button class="icon-btn" onclick="closeSettingsModal()" style="border:none; background:transparent;">✕</button>
+      </div>
+
+      <div class="modal-tabs">
+        <button class="modal-tab active" onclick="switchSettingsTab('tab-targets')">1. 監測公司與產業</button>
+        <button class="modal-tab" onclick="switchSettingsTab('tab-sources')">2. 指定收集網站</button>
+        <button class="modal-tab" onclick="switchSettingsTab('tab-layout')">3. 儀表板版面與格式</button>
+        <button class="modal-tab" onclick="switchSettingsTab('tab-schedule')">4. 每日排程與通知</button>
+      </div>
+
+      <div class="modal-body" id="tab-targets">
+        <div class="form-group">
+          <label>追蹤產業列表 (按 Enter 新增)：</label>
+          <div class="chip-container" id="industryChipList"></div>
+          <input type="text" class="form-input" id="newIndustryInput" placeholder="輸入產業名稱 (例如: 晶圓代工、光通訊、先進封裝) 後按 Enter" onkeydown="handleAddChip(event, 'industry')">
+          <span class="hint">系統每日將自動搜尋該產業的上下游鏈、全球政策與市場報告。</span>
+        </div>
+
+        <div class="form-group" style="margin-top: 10px;">
+          <label>追蹤指定公司與股票代碼 (按 Enter 新增)：</label>
+          <div class="chip-container" id="companyChipList"></div>
+          <input type="text" class="form-input" id="newCompanyInput" placeholder="輸入公司名稱或代號 (例如: 台積電 2330, NVIDIA, 鴻海) 後按 Enter" onkeydown="handleAddChip(event, 'company')">
+          <span class="hint">系統將鎖定這些公司的法說會、重大訊息、營收發布及主流媒體報導。</span>
+        </div>
+      </div>
+
+      <div class="modal-body" id="tab-sources" style="display:none;">
+        <div class="form-group">
+          <label>指定爬取網站與 RSS 資訊源：</label>
+          <div class="chip-container" id="sourceChipList"></div>
+          <input type="text" class="form-input" id="newSourceInput" placeholder="輸入網址或資訊來源名稱 (例如: 科技新報, 鉅亨網, Bloomberg, 公開資訊觀測站) 後按 Enter" onkeydown="handleAddChip(event, 'source')">
+          <span class="hint">支援自訂 RSS Feed、新聞門戶、主管機關公告站台或財經粉專。</span>
+        </div>
+
+        <div class="form-group">
+          <label>爬取範圍深度：</label>
+          <select class="form-select" id="crawlerDepth">
+            <option value="high">深度爬取 (包含新聞內文全文解析與 AI 結構化摘要)</option>
+            <option value="medium" selected>標準爬取 (標題、前言摘要與發布時間)</option>
+            <option value="fast">極速模式 (僅抓取即時快訊與 RSS Feed)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-body" id="tab-layout" style="display:none;">
+        <div class="form-group">
+          <label>儀表板模組顯示開關：</label>
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
+            <label class="checkbox-item">
+              <input type="checkbox" id="toggle-briefing" checked onchange="saveLayoutSettings()">
+              <span>每日 09:00 晨報智能速覽 (高管必讀條列摘要)</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="toggle-metrics" checked onchange="saveLayoutSettings()">
+              <span>核心指標動態看板 (情報數、情緒比、預警統計)</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="toggle-stream" checked onchange="saveLayoutSettings()">
+              <span>指定網站與網路即時情資串流 (新聞卡片清單)</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="toggle-alerts" checked onchange="saveLayoutSettings()">
+              <span>重大事件與風險雷達 (供應鏈風險、法規變動)</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="toggle-radar" checked onchange="saveLayoutSettings()">
+              <span>產業聲量與趨勢動能長條圖</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>內容顯示格式風格：</label>
+          <select class="form-select" id="displayStyleSelect" onchange="saveLayoutSettings()">
+            <option value="card" selected>現代卡片式 (Card View - 資訊豐富、附帶摘要)</option>
+            <option value="compact">緊湊條列式 (Compact List - 適合快速瀏覽大量資訊)</option>
+            <option value="table">詳細數據表格 (Table Grid - 適合匯出與數據比對)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-body" id="tab-schedule" style="display:none;">
+        <div class="form-group">
+          <label>自動化排程設定：</label>
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <input type="time" class="form-input" id="scheduleTime" value="08:30" style="width: 140px;">
+            <span style="font-size: 0.85rem; color: var(--text-muted);">每日固定執行時間 (建議 08:30 前完成收集以便 09:00 晨會使用)</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>即時自動推播管道：</label>
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
+            <label class="checkbox-item">
+              <input type="checkbox" id="push-email" checked>
+              <span>電子郵件晨報 (Daily Email Briefing)</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="push-line" checked>
+              <span>LINE Notify / LINE 官方帳號機器人推播</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="push-slack">
+              <span>企業 Slack / Teams Webhook 頻道推播</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="push-browser" checked>
+              <span>手機與瀏覽器桌面即時通知 (PWA Web Push)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="resetToDefaults()">恢復預設值</button>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-secondary" onclick="closeSettingsModal()">取消</button>
+          <button class="btn btn-primary" onclick="applyAndSaveSettings()">儲存並套用設定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--success);"><path d="M20 6L9 17l-5-5"/></svg>
+    <span id="toastMsg">已完成即時資訊抓取與智慧分析！</span>
+  </div>
+
+  <script>
+    // Initial State & User Preferences (stored in localStorage)
+    const defaultData = {
+      industries: ['半導體晶圓', '人工智慧 AI', '伺服器代工', '電動車 EV', '矽光子技術'],
+      companies: ['台積電 (2330)', '輝達 (NVDA)', '聯發科 (2454)', '鴻海 (2317)', '超微 (AMD)', '廣達 (2382)'],
+      sources: ['科技新報 TechNews', '鉅亨網 Anue', 'Digitimes 電子時報', '工商時報 / 經濟日報', '公開資訊觀測站 MOPS', 'Bloomberg 科技版'],
+      layout: {
+        briefing: true,
+        metrics: true,
+        stream: true,
+        alerts: true,
+        radar: true,
+        style: 'card'
+      },
+      schedule: {
+        time: '08:30',
+        email: true,
+        line: true,
+        slack: false,
+        browser: true
+      }
+    };
+
+    // Load state from localStorage or defaults
+    let appState = JSON.parse(localStorage.getItem('intelligence_app_state') || 'null') || defaultData;
+    let currentIndustryFilter = 'ALL';
+    let currentCompanyFilter = 'ALL';
+    let searchQuery = '';
+
+    // Sample Intelligence News Feed Database
+    let intelligenceFeeds = [
+      {
+        id: 1,
+        title: '台積電 2 奈米試產良率超乎預期，新竹寶山廠預計 2025 下半年如期量產',
+        summary: '供應鏈消息指出，台積電 N2 製程採用 GAA 奈米片架構，試產良率進展順利，首批產能已被蘋果、輝達等大客戶鎖定，鞏固先進製程龍頭地位。',
+        company: '台積電 (2330)',
+        industry: '半導體晶圓',
+        source: '科技新報 TechNews',
+        time: '08:15 AM',
+        sentiment: 'positive',
+        sentimentText: '重大利多',
+        url: 'https://technews.tw/'
+      },
+      {
+        id: 2,
+        title: '輝達發表新一代 Blackwell Ultra 晶片散熱新規範，水冷伺服器供應鏈啟動拉貨',
+        summary: '因應單一機櫃功耗攀升至 120kW，散熱模組與水冷板接單暢旺，鴻海、廣達及奇鋐等台廠伺服器整合供應鏈第四季至明年首季營運動能強勁。',
+        company: '輝達 (NVDA)',
+        industry: '人工智慧 AI',
+        source: 'Digitimes 電子時報',
+        time: '07:50 AM',
+        sentiment: 'positive',
+        sentimentText: '技術引領',
+        url: 'https://digitimes.com.tw/'
+      },
+      {
+        id: 3,
+        title: '美國商務部擬加強成熟製程晶片出口管制評估，成熟晶圓代工廠海外報價動向受關注',
+        summary: '美方考慮限制非先進節點對特定清單企業之流向，市場密切觀察聯電、中芯等成熟製程產能利用率及定價策略可能面臨的轉單效益或合規成本。',
+        company: '台積電 (2330)',
+        industry: '半導體晶圓',
+        source: '工商時報',
+        time: '07:20 AM',
+        sentiment: 'warning',
+        sentimentText: '政策風險',
+        url: 'https://ctee.com.tw/'
+      },
+      {
+        id: 4,
+        title: '聯發科天璣 9400 旗艦晶片首批出貨報捷，生成式 AI 端側運算獲旗艦機採用',
+        summary: '搭載安謀 Cortex-X925 全大核架構，在影像生成與端側大型語言模型推論效能大幅躍進，第四季高階智慧型手機市佔率有望顯著擴張。',
+        company: '聯發科 (2454)',
+        industry: '人工智慧 AI',
+        source: '鉅亨網 Anue',
+        time: '06:40 AM',
+        sentiment: 'positive',
+        sentimentText: '產品爆款',
+        url: 'https://cnyes.com/'
+      },
+      {
+        id: 5,
+        title: '鴻海科技日展示跨平台 EV Model D 與 AI 智造工廠，鎖定北美商用客戶訂單',
+        summary: '鴻海持續推進 CDMS 委託設計製造服務模式，結合高雄超級運算中心智慧製造實力，深化全球電動車與 AI 伺服器垂直整合優勢。',
+        company: '鴻海 (2317)',
+        industry: '電動車 EV',
+        source: '經濟日報',
+        time: '06:10 AM',
+        sentiment: 'positive',
+        sentimentText: '業務突破',
+        url: 'https://udn.com/'
+      },
+      {
+        id: 6,
+        title: '全球資料中心光通訊升級需求爆發，矽光子 CPO 聯盟標準制定進入收斂階段',
+        summary: '因應 800G 及 1.6T 光傳輸技術演進，矽光子與共同封裝光學 (CPO) 成為關鍵解方，半導體大廠組建產業聯盟加速推進光電整合商業化進程。',
+        company: '台積電 (2330)',
+        industry: '矽光子技術',
+        source: '科技新報 TechNews',
+        time: '05:30 AM',
+        sentiment: 'neutral',
+        sentimentText: '趨勢成形',
+        url: 'https://technews.tw/'
+      }
+    ];
+
+    // Executive Briefing Summary Points
+    const briefingPoints = [
+      {
+        type: 'success',
+        title: '🚀 先進製程與算力基建維持高景氣',
+        desc: '台積電 2 奈米量產進程順利，與輝達 Blackwell 伺服器出貨放量相輔相成，台灣 AI 伺服器與散熱供應鏈第四季營收能見度極高。'
+      },
+      {
+        type: 'warning',
+        title: '⚠️ 地緣政治與成熟製程管制雜音浮現',
+        desc: '美國商務部持續研議對關鍵供應鏈實施新一輪審查，成熟製程與特用化學品轉單動態需密切列入風險監控雷達。'
+      },
+      {
+        type: 'success',
+        title: '💡 端側 AI (Edge AI) 迎來換機換代熱潮',
+        desc: '聯發科天璣 9400 在旗艦終端裝置取得實質滲透，軟硬體整合催生消費者對本地端 AI 應用的升級意願。'
+      }
+    ];
+
+    // High Risk Alerts
+    const alertsData = [
+      {
+        level: 'danger',
+        title: '美國出口管制最新草案研析',
+        desc: '涉及半導體設計工具 (EDA) 與先進封裝材料流向，法規團隊建議於今日下午法說前完成合規評估報告。'
+      },
+      {
+        level: 'warn',
+        title: '關鍵高階零組件交期延長警訊',
+        desc: '高頻寬記憶體 (HBM3e) 產能依舊緊俏，第四季預估供給缺口約 8~12%，需滾動調整庫存策略。'
+      }
+    ];
+
+    // Trends Data
+    const trendsData = [
+      { name: '半導體晶圓 (2nm / CoWoS)', count: 48, percentage: 88, color: '#38bdf8' },
+      { name: '人工智慧 AI (Blackwell / ASIC)', count: 42, percentage: 82, color: '#10b981' },
+      { name: '伺服器代工與水冷散熱', count: 31, percentage: 65, color: '#a855f7' },
+      { name: '矽光子 CPO 光通訊', count: 24, percentage: 52, color: '#f59e0b' },
+      { name: '電動車 EV 與車用電子', count: 18, percentage: 38, color: '#ec4899' }
+    ];
+
+    // Render Filter Pills
+    function renderFilters() {
+      const indContainer = document.getElementById('industryFilterContainer');
+      const compContainer = document.getElementById('companyFilterContainer');
+
+      indContainer.innerHTML = '<span class="pill-label">監測產業:</span>' +
+        `<button class="pill ${currentIndustryFilter === 'ALL' ? 'active' : ''}" onclick="setIndustryFilter('ALL')">全部產業</button>` +
+        appState.industries.map(ind => 
+          `<button class="pill ${currentIndustryFilter === ind ? 'active' : ''}" onclick="setIndustryFilter('${ind}')">${ind}</button>`
+        ).join('');
+
+      compContainer.innerHTML = '<span class="pill-label">重點公司:</span>' +
+        `<button class="pill ${currentCompanyFilter === 'ALL' ? 'active' : ''}" onclick="setCompanyFilter('ALL')">全部公司</button>` +
+        appState.companies.map(c => 
+          `<button class="pill ${currentCompanyFilter === c ? 'active' : ''}" onclick="setCompanyFilter('${c}')">${c.split(' ')[0]}</button>`
+        ).join('');
+    }
+
+    function setIndustryFilter(val) {
+      currentIndustryFilter = val;
+      renderFilters();
+      renderStream();
+    }
+
+    function setCompanyFilter(val) {
+      currentCompanyFilter = val;
+      renderFilters();
+      renderStream();
+    }
+
+    function handleSearch() {
+      searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+      renderStream();
+    }
+
+    // Render Stream List
+    function renderStream() {
+      const container = document.getElementById('streamContainer');
+      const filtered = intelligenceFeeds.filter(item => {
+        const matchInd = currentIndustryFilter === 'ALL' || item.industry === currentIndustryFilter;
+        const matchComp = currentCompanyFilter === 'ALL' || item.company.includes(currentCompanyFilter.split(' ')[0]);
+        const matchSearch = !searchQuery || 
+          item.title.toLowerCase().includes(searchQuery) ||
+          item.summary.toLowerCase().includes(searchQuery) ||
+          item.company.toLowerCase().includes(searchQuery) ||
+          item.industry.toLowerCase().includes(searchQuery);
+        return matchInd && matchComp && matchSearch;
+      });
+
+      document.getElementById('streamFilterLabel').textContent = 
+        `共 ${filtered.length} 則情報 (${currentIndustryFilter === 'ALL' ? '全部產業' : currentIndustryFilter} • ${currentCompanyFilter === 'ALL' ? '全部公司' : currentCompanyFilter})`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="padding: 40px; text-align: center; color: var(--text-muted);">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 12px; opacity: 0.5;">
+              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <p>未找到符合目前篩選條件的情資。</p>
+            <button class="btn btn-secondary" style="margin-top: 12px;" onclick="setIndustryFilter('ALL'); setCompanyFilter('ALL'); document.getElementById('searchInput').value=''; handleSearch();">清除篩選條件</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => `
+        <article class="stream-item" onclick="window.open('${item.url}', '_blank')">
+          <div class="stream-meta">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="source-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 10"></polyline></svg>
+                ${item.source}
+              </span>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">${item.time}</span>
+            </div>
+            <div class="badge-group">
+              <span class="tag-badge">${item.company}</span>
+              <span class="tag-badge" style="background: rgba(56, 189, 248, 0.1); color: var(--accent);">${item.industry}</span>
+              <span class="sentiment-badge sentiment-${item.sentiment}">${item.sentimentText}</span>
+            </div>
+          </div>
+          <a href="${item.url}" target="_blank" class="stream-title">${item.title}</a>
+          <p class="stream-desc">${item.summary}</p>
+        </article>
+      `).join('');
+    }
+
+    // Render Briefing Points
+    function renderBriefing() {
+      const container = document.getElementById('briefingContent');
+      container.innerHTML = briefingPoints.map(p => `
+        <div class="brief-point ${p.type}">
+          <h4>${p.title}</h4>
+          <p>${p.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    // Render Alerts
+    function renderAlerts() {
+      const container = document.getElementById('alertsContainer');
+      container.innerHTML = alertsData.map(a => `
+        <div class="alert-card-item ${a.level}">
+          <div class="alert-header">
+            <span>${a.title}</span>
+            <span style="font-size: 0.7rem; color: var(--text-muted);">高優先級</span>
+          </div>
+          <div class="alert-body">${a.desc}</div>
+        </div>
+      `).join('');
+    }
+
+    // Render Trends
+    function renderTrends() {
+      const container = document.getElementById('trendContainer');
+      container.innerHTML = trendsData.map(t => `
+        <div class="trend-row">
+          <div class="trend-info">
+            <span>${t.name}</span>
+            <span style="color: var(--text-muted);">${t.count} 則 • ${t.percentage}%</span>
+          </div>
+          <div class="trend-bar-bg">
+            <div class="trend-bar-fill" style="width: ${t.percentage}%; background: ${t.color};"></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Trigger Manual Live Crawl
+    function triggerManualCrawl() {
+      const refreshIcon = document.getElementById('refresh-icon');
+      refreshIcon.style.animation = 'spin 1s linear infinite';
+      
+      const btn = document.getElementById('btn-refresh');
+      btn.disabled = true;
+
+      // Simulate network request to real-time crawler backend
+      setTimeout(() => {
+        refreshIcon.style.animation = 'none';
+        btn.disabled = false;
+        
+        // Add fresh intelligence item
+        const now = new Date();
+        const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')} (剛剛)`;
+        
+        const freshItem = {
+          id: Date.now(),
+          title: `【即時快訊】針對 ${appState.companies[0] || '監測公司'} 進行全網深度監測，最新法說及供應鏈展望動態更新`,
+          summary: `系統於 ${timeStr} 成功探訪 ${appState.sources.length} 個指定網站及社群網路論壇，並完成 AI 關鍵觀點摘要。目標市場情緒指數維持正向擴張。`,
+          company: appState.companies[0] || '重點公司',
+          industry: appState.industries[0] || '半導體晶圓',
+          source: '即時聯網爬蟲機器人',
+          time: timeStr,
+          sentiment: 'positive',
+          sentimentText: '即時更新',
+          url: 'https://www.google.com'
+        };
+
+        intelligenceFeeds.unshift(freshItem);
+        renderStream();
+
+        document.getElementById('last-update-text').textContent = `最後同步：今日 ${timeStr}`;
+        showToast('即時網路情資收集完畢！已同步更新 1 則關鍵動態。');
+      }, 1200);
+    }
+
+    // Modal & Tab Logic
+    function openSettingsModal() {
+      document.getElementById('settingsModal').classList.add('active');
+      renderChips('industry');
+      renderChips('company');
+      renderChips('source');
+      loadFormState();
+    }
+
+    function closeSettingsModal() {
+      document.getElementById('settingsModal').classList.remove('active');
+    }
+
+    function closeSettingsModalOnBackdrop(e) {
+      if (e.target.id === 'settingsModal') {
+        closeSettingsModal();
+      }
+    }
+
+    function switchSettingsTab(tabId) {
+      document.querySelectorAll('.modal-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.modal-body').forEach(b => b.style.display = 'none');
+      
+      event.target.classList.add('active');
+      document.getElementById(tabId).style.display = 'flex';
+    }
+
+    // Chip Management
+    function renderChips(type) {
+      const containerId = type === 'industry' ? 'industryChipList' : (type === 'company' ? 'companyChipList' : 'sourceChipList');
+      const list = type === 'industry' ? appState.industries : (type === 'company' ? appState.companies : appState.sources);
+      const container = document.getElementById(containerId);
+
+      container.innerHTML = list.map((item, idx) => `
+        <div class="chip">
+          <span>${item}</span>
+          <span class="chip-remove" onclick="removeChip('${type}', ${idx})">✕</span>
+        </div>
+      `).join('');
+    }
+
+    function handleAddChip(e, type) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const input = e.target;
+        const val = input.value.trim();
+        if (!val) return;
+
+        if (type === 'industry' && !appState.industries.includes(val)) {
+          appState.industries.push(val);
+        } else if (type === 'company' && !appState.companies.includes(val)) {
+          appState.companies.push(val);
+        } else if (type === 'source' && !appState.sources.includes(val)) {
+          appState.sources.push(val);
+        }
+
+        input.value = '';
+        renderChips(type);
+      }
+    }
+
+    function removeChip(type, idx) {
+      if (type === 'industry') appState.industries.splice(idx, 1);
+      if (type === 'company') appState.companies.splice(idx, 1);
+      if (type === 'source') appState.sources.splice(idx, 1);
+      renderChips(type);
+    }
+
+    function loadFormState() {
+      document.getElementById('toggle-briefing').checked = appState.layout.briefing;
+      document.getElementById('toggle-metrics').checked = appState.layout.metrics;
+      document.getElementById('toggle-stream').checked = appState.layout.stream;
+      document.getElementById('toggle-alerts').checked = appState.layout.alerts;
+      document.getElementById('toggle-radar').checked = appState.layout.radar;
+      document.getElementById('displayStyleSelect').value = appState.layout.style || 'card';
+      document.getElementById('scheduleTime').value = appState.schedule.time || '08:30';
+    }
+
+    function saveLayoutSettings() {
+      appState.layout.briefing = document.getElementById('toggle-briefing').checked;
+      appState.layout.metrics = document.getElementById('toggle-metrics').checked;
+      appState.layout.stream = document.getElementById('toggle-stream').checked;
+      appState.layout.alerts = document.getElementById('toggle-alerts').checked;
+      appState.layout.radar = document.getElementById('toggle-radar').checked;
+      appState.layout.style = document.getElementById('displayStyleSelect').value;
+      applyLayoutVisibility();
+    }
+
+    function applyLayoutVisibility() {
+      document.getElementById('module-briefing').style.display = appState.layout.briefing ? 'flex' : 'none';
+      document.getElementById('module-metrics').style.display = appState.layout.metrics ? 'grid' : 'none';
+      document.getElementById('module-stream').style.display = appState.layout.stream ? 'flex' : 'none';
+      document.getElementById('module-alerts').style.display = appState.layout.alerts ? 'flex' : 'none';
+      document.getElementById('module-radar').style.display = appState.layout.radar ? 'flex' : 'none';
+    }
+
+    function applyAndSaveSettings() {
+      saveLayoutSettings();
+      appState.schedule.time = document.getElementById('scheduleTime').value;
+      localStorage.setItem('intelligence_app_state', JSON.stringify(appState));
+      closeSettingsModal();
+      renderFilters();
+      renderStream();
+      showToast('自訂監測標的與版面設定已成功儲存！');
+    }
+
+    function resetToDefaults() {
+      if (confirm('確定要將所有自訂監測公司、產業與來源重設為預設值嗎？')) {
+        appState = JSON.parse(JSON.stringify(defaultData));
+        localStorage.setItem('intelligence_app_state', JSON.stringify(appState));
+        loadFormState();
+        renderChips('industry');
+        renderChips('company');
+        renderChips('source');
+        applyLayoutVisibility();
+        renderFilters();
+        renderStream();
+        showToast('已恢復預設設定。');
+      }
+    }
+
+    // Theme Toggle
+    function toggleTheme() {
+      const current = document.body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.body.setAttribute('data-theme', next);
+      localStorage.setItem('intelligence_theme', next);
+      showToast(`已切換為${next === 'dark' ? '深色' : '淺色'}主題`);
+    }
+
+    // Export Report
+    function exportReport() {
+      const now = new Date().toISOString().slice(0, 10);
+      let md = `# 每日產業與企業情資晨報 (${now})\n\n`;
+      md += `> 自動化產出時間：每日 09:00 前 • 監測範圍：${appState.companies.join(', ')}\n\n`;
+      md += `## 🌟 一、晨會核心摘要 (Key Highlights)\n`;
+      briefingPoints.forEach(b => {
+        md += `- **${b.title}**：${b.desc}\n`;
+      });
+      md += `\n## ⚠️ 二、重大事件與風險警示\n`;
+      alertsData.forEach(a => {
+        md += `- **[${a.level.toUpperCase()}] ${a.title}**：${a.desc}\n`;
+      });
+      md += `\n## 📰 三、精選情資動態清單\n`;
+      intelligenceFeeds.forEach(f => {
+        md += `- **[${f.company} | ${f.source}]** [${f.title}](${f.url})\n  ${f.summary}\n`;
+      });
+
+      const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `產業情資簡報_${now}.md`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('已匯出 Markdown 格式情報晨報！');
+    }
+
+    // Toast UI
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => {
+        t.classList.remove('show');
+      }, 3000);
+    }
+
+    // Initial Bootstrap
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('intelligence_theme') || 'dark';
+      document.body.setAttribute('data-theme', savedTheme);
+      
+      applyLayoutVisibility();
+      renderFilters();
+      renderStream();
+      renderBriefing();
+      renderAlerts();
+      renderTrends();
+    });
+  </script>
+</body>
+</html>
