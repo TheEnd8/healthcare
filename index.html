@@ -3,45 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>企業與產業情報即時監測儀表板 (IntelligenceRadar Pro)</title>
-  <meta name="description" content="跨裝置支援、頂部收合式自訂追蹤條件、股價走勢圖表、情報排序與雙層點擊摘要/外連">
+  <title>企業與產業情報即時儀表板 (IntelligenceRadar Pro)</title>
+  <meta name="description" content="跨裝置支援、預設白色/護眼多色調、頂部收合式分類複選面板、熱門暴漲跌/市值榜走勢圖、10筆自訂排序與雙層點擊摘要/外連">
   <style>
+    /* CSS Variables: Default Theme is Crisp White */
     :root {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #f1f5f9;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --accent: #0284c7;
+      --accent-hover: #0369a1;
+      --accent-glow: rgba(2, 132, 199, 0.15);
+      --success: #16a34a;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --stock-up: #dc2626;    /* 紅漲 */
+      --stock-down: #16a34a;  /* 綠跌 */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow: 0 4px 15px -2px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+      --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Reading Theme: Sage Green (柔綠護眼) */
+    [data-theme="sage"] {
+      --bg-primary: #f4f7f4;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #e7eee7;
+      --card-bg: #ffffff;
+      --card-border: #d4e0d4;
+      --text-main: #142817;
+      --text-muted: #4e6552;
+      --accent: #2e7d32;
+      --accent-hover: #1b5e20;
+      --accent-glow: rgba(46, 125, 50, 0.18);
+    }
+
+    /* Reading Theme: Warm Ivory (暖米紙色) */
+    [data-theme="ivory"] {
+      --bg-primary: #fbf8f2;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #f2ece0;
+      --card-bg: #ffffff;
+      --card-border: #e5dac9;
+      --text-main: #2d2419;
+      --text-muted: #736453;
+      --accent: #b45309;
+      --accent-hover: #92400e;
+      --accent-glow: rgba(180, 83, 9, 0.16);
+    }
+
+    /* Reading Theme: Midnight Slate (深色暗夜) */
+    [data-theme="dark"] {
       --bg-primary: #0b1120;
       --bg-secondary: #1e293b;
       --bg-tertiary: #334155;
-      --card-bg: rgba(30, 41, 59, 0.9);
+      --card-bg: rgba(30, 41, 59, 0.95);
       --card-border: rgba(255, 255, 255, 0.08);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --accent: #38bdf8;
       --accent-hover: #0284c7;
       --accent-glow: rgba(56, 189, 248, 0.25);
-      --success: #10b981;
-      --warning: #f59e0b;
-      --danger: #ef4444;
-      --purple: #a855f7;
-      --stock-up: #ef4444;   /* 台股紅漲綠跌或通用顯示 */
-      --stock-down: #10b981;
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
-      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    [data-theme="light"] {
-      --bg-primary: #f8fafc;
-      --bg-secondary: #ffffff;
-      --bg-tertiary: #e2e8f0;
-      --card-bg: rgba(255, 255, 255, 0.95);
-      --card-border: rgba(0, 0, 0, 0.08);
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --accent: #0284c7;
-      --accent-hover: #0369a1;
-      --accent-glow: rgba(2, 132, 199, 0.15);
-      --shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
     }
 
     * {
@@ -60,6 +90,7 @@
       flex-direction: column;
       overflow-x: hidden;
       line-height: 1.5;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
     /* Top Navigation Header */
@@ -91,7 +122,7 @@
     .brand-logo {
       width: 38px;
       height: 38px;
-      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      background: linear-gradient(135deg, var(--accent), #38bdf8);
       border-radius: var(--radius-md);
       display: flex;
       align-items: center;
@@ -102,7 +133,7 @@
     }
 
     .brand-text h1 {
-      font-size: 1.1rem;
+      font-size: 1.12rem;
       font-weight: 700;
       letter-spacing: -0.02em;
       color: var(--text-main);
@@ -126,11 +157,11 @@
       gap: 6px;
       padding: 5px 12px;
       border-radius: 9999px;
-      background: rgba(16, 185, 129, 0.15);
+      background: rgba(22, 163, 74, 0.12);
       color: var(--success);
       font-size: 0.78rem;
       font-weight: 600;
-      border: 1px solid rgba(16, 185, 129, 0.25);
+      border: 1px solid rgba(22, 163, 74, 0.25);
     }
 
     .pulse-dot {
@@ -167,7 +198,7 @@
       box-shadow: 0 4px 12px var(--accent-glow);
     }
     .btn-primary:hover {
-      filter: brightness(1.1);
+      filter: brightness(1.08);
       transform: translateY(-1px);
     }
 
@@ -177,25 +208,32 @@
       border: 1px solid var(--card-border);
     }
     .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.05);
     }
 
-    .icon-btn {
-      width: 36px;
-      height: 36px;
-      padding: 0;
+    /* Theme Selector Dropdown in Navbar */
+    .theme-selector-box {
       display: flex;
       align-items: center;
-      justify-content: center;
-      border-radius: var(--radius-sm);
+      gap: 5px;
       background: var(--bg-tertiary);
-      color: var(--text-main);
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
       border: 1px solid var(--card-border);
-      cursor: pointer;
-      transition: var(--transition);
     }
-    .icon-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
+    .theme-selector-box label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .theme-select {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      font-size: 0.8rem;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
     }
 
     /* Main Container */
@@ -211,7 +249,7 @@
     }
 
     /* ========================================================= */
-    /* REQUIREMENT 1: TOP COLLAPSIBLE TRACKING CONFIGURATION BAR */
+    /* 1. TOP COLLAPSIBLE CATEGORIZED SELECTION BAR              */
     /* ========================================================= */
     .top-tracking-panel {
       background: var(--bg-secondary);
@@ -221,9 +259,6 @@
       overflow: hidden;
       transition: var(--transition);
     }
-    .top-tracking-panel:hover {
-      border-color: rgba(56, 189, 248, 0.35);
-    }
 
     .tracking-summary-bar {
       padding: 12px 18px;
@@ -232,7 +267,7 @@
       justify-content: space-between;
       cursor: pointer;
       user-select: none;
-      background: linear-gradient(90deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+      background: var(--bg-secondary);
       gap: 12px;
       flex-wrap: wrap;
     }
@@ -240,42 +275,41 @@
     .tracking-summary-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       flex: 1;
       min-width: 280px;
       flex-wrap: wrap;
     }
 
-    .tracking-label-tag {
+    .tracking-label-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       font-size: 0.85rem;
       font-weight: 700;
       color: var(--accent);
-      background: rgba(56, 189, 248, 0.12);
+      background: var(--accent-glow);
       padding: 4px 10px;
       border-radius: 6px;
       white-space: nowrap;
     }
 
-    .tracking-summary-badges {
+    .tracking-summary-pills {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
       font-size: 0.8rem;
       color: var(--text-muted);
     }
 
-    .summary-badge-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
+    .summary-pill {
       background: var(--bg-tertiary);
       color: var(--text-main);
-      padding: 3px 8px;
+      padding: 2px 8px;
       border-radius: 4px;
+      font-size: 0.75rem;
+      border: 1px solid var(--card-border);
     }
 
     .tracking-toggle-btn {
@@ -286,15 +320,14 @@
       color: var(--accent);
       font-weight: 600;
     }
-
     .tracking-toggle-btn svg {
       transition: transform 0.25s ease;
     }
-
     .top-tracking-panel.expanded .tracking-toggle-btn svg {
       transform: rotate(180deg);
     }
 
+    /* Expanded Content Drawer */
     .tracking-expanded-content {
       max-height: 0;
       opacity: 0;
@@ -306,94 +339,115 @@
     }
 
     .top-tracking-panel.expanded .tracking-expanded-content {
-      max-height: 800px;
+      max-height: 1200px;
       opacity: 1;
       padding: 18px;
       border-top-color: var(--card-border);
     }
 
-    .tracking-form-grid {
+    .category-section-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .category-section-title span.hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: normal;
+    }
+
+    .category-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
       gap: 16px;
     }
 
-    .tracking-col {
+    .category-card {
+      background: var(--bg-primary);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 10px;
     }
 
-    .tracking-col label {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .chip-container {
+    .tag-checkbox-container {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      padding: 8px;
-      background: var(--bg-primary);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-sm);
-      min-height: 48px;
-      max-height: 120px;
+      max-height: 160px;
       overflow-y: auto;
+      padding-right: 4px;
     }
 
-    .chip {
+    /* Multi-select Tag Pill */
+    .tag-pill-check {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 3px 8px;
+      gap: 6px;
+      padding: 4px 10px;
       border-radius: 9999px;
-      background: var(--bg-tertiary);
-      font-size: 0.75rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--card-border);
       color: var(--text-main);
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      user-select: none;
+      transition: var(--transition);
+    }
+    .tag-pill-check:hover {
+      border-color: var(--accent);
+    }
+    .tag-pill-check.checked {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+      box-shadow: 0 2px 6px var(--accent-glow);
+    }
+    .tag-pill-check input {
+      display: none;
     }
 
-    .chip-remove {
-      cursor: pointer;
-      color: var(--text-muted);
-      font-size: 13px;
-      line-height: 1;
-    }
-    .chip-remove:hover {
-      color: var(--danger);
+    .quick-input-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
     }
 
     .form-input {
-      padding: 8px 10px;
+      padding: 7px 10px;
       border-radius: var(--radius-sm);
       border: 1px solid var(--card-border);
-      background: var(--bg-primary);
+      background: var(--bg-secondary);
       color: var(--text-main);
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       outline: none;
+      flex: 1;
     }
     .form-input:focus {
       border-color: var(--accent);
       box-shadow: 0 0 0 2px var(--accent-glow);
     }
 
-    .tracking-expanded-actions {
+    .tracking-action-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 14px;
-      padding-top: 12px;
+      margin-top: 16px;
+      padding-top: 14px;
       border-top: 1px solid var(--card-border);
       flex-wrap: wrap;
       gap: 10px;
     }
 
     /* ========================================================= */
-    /* REQUIREMENT 2: STOCK & INDUSTRY PRICE / INDEX CHARTS      */
+    /* 2. STOCK & INDEX REAL-TIME CHARTS (MARKET TRENDS)         */
     /* ========================================================= */
     .market-charts-section {
       background: var(--card-bg);
@@ -413,15 +467,39 @@
       flex-wrap: wrap;
       gap: 12px;
       border-bottom: 1px solid var(--card-border);
-      padding-bottom: 10px;
+      padding-bottom: 12px;
     }
 
-    .charts-header-title {
+    .charts-title-group {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 1.05rem;
-      font-weight: 700;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .charts-tabs {
+      display: flex;
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-sm);
+      padding: 3px;
+      border: 1px solid var(--card-border);
+    }
+
+    .chart-tab-btn {
+      padding: 5px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border: none;
+      background: transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .chart-tab-btn.active {
+      background: var(--bg-secondary);
+      color: var(--text-main);
+      box-shadow: var(--shadow-sm);
     }
 
     .charts-controls {
@@ -429,6 +507,20 @@
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
+    }
+
+    .filter-select {
+      background: var(--bg-secondary);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      outline: none;
+      cursor: pointer;
+    }
+    .filter-select:focus {
+      border-color: var(--accent);
     }
 
     .charts-grid {
@@ -447,12 +539,12 @@
       gap: 8px;
       transition: var(--transition);
       cursor: pointer;
-      position: relative;
+      box-shadow: var(--shadow-sm);
     }
     .stock-card:hover {
       border-color: var(--accent);
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+      box-shadow: var(--shadow);
     }
 
     .stock-top {
@@ -467,7 +559,7 @@
       color: var(--text-main);
     }
     .stock-name-box span {
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       color: var(--text-muted);
     }
 
@@ -486,16 +578,12 @@
       align-items: center;
       gap: 2px;
     }
-    .is-up {
-      color: var(--stock-up);
-    }
-    .is-down {
-      color: var(--stock-down);
-    }
+    .is-up { color: var(--stock-up); }
+    .is-down { color: var(--stock-down); }
 
     .stock-chart-svg {
       width: 100%;
-      height: 64px;
+      height: 60px;
       overflow: visible;
     }
 
@@ -504,12 +592,12 @@
       justify-content: space-between;
       font-size: 0.72rem;
       color: var(--text-muted);
-      border-top: 1px solid rgba(255,255,255,0.05);
+      border-top: 1px solid var(--card-border);
       padding-top: 6px;
     }
 
     /* ========================================================= */
-    /* REQUIREMENT 3: TRACKING CONTENT STREAM WITH 2-STEP CLICK  */
+    /* 3. TRACKING CONTENT STREAM WITH 2-STEP CLICK INTERACTION  */
     /* ========================================================= */
     .stream-section {
       background: var(--card-bg);
@@ -547,20 +635,6 @@
       flex-wrap: wrap;
     }
 
-    .filter-select {
-      background: var(--bg-secondary);
-      border: 1px solid var(--card-border);
-      color: var(--text-main);
-      padding: 6px 10px;
-      border-radius: var(--radius-sm);
-      font-size: 0.8rem;
-      outline: none;
-      cursor: pointer;
-    }
-    .filter-select:focus {
-      border-color: var(--accent);
-    }
-
     .feed-container {
       display: flex;
       flex-direction: column;
@@ -574,16 +648,17 @@
       border-radius: var(--radius-sm);
       overflow: hidden;
       transition: var(--transition);
+      box-shadow: var(--shadow-sm);
     }
     .feed-item:hover {
-      border-color: rgba(56, 189, 248, 0.4);
+      border-color: rgba(2, 132, 199, 0.4);
     }
     .feed-item.open {
       border-color: var(--accent);
-      box-shadow: 0 4px 18px rgba(0,0,0,0.3);
+      box-shadow: var(--shadow);
     }
 
-    /* First-step Click Header */
+    /* 1st Step Click Header */
     .feed-header {
       padding: 14px 16px;
       display: flex;
@@ -594,7 +669,7 @@
       transition: background 0.2s;
     }
     .feed-header:hover {
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(0, 0, 0, 0.015);
     }
 
     .feed-meta-line {
@@ -615,41 +690,41 @@
       gap: 10px;
     }
 
-    .expand-hint {
-      font-size: 0.72rem;
+    .expand-indicator {
+      font-size: 0.74rem;
       color: var(--accent);
       display: inline-flex;
       align-items: center;
       gap: 4px;
       white-space: nowrap;
     }
-    .expand-hint svg {
+    .expand-indicator svg {
       transition: transform 0.2s ease;
     }
-    .feed-item.open .expand-hint svg {
+    .feed-item.open .expand-indicator svg {
       transform: rotate(180deg);
     }
 
-    /* First-step Expanded Content Drawer (Summary & Insights) */
+    /* 1st Step Expanded Content: In-Depth Summary Drawer */
     .feed-drawer {
       max-height: 0;
       opacity: 0;
       overflow: hidden;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      background: rgba(11, 17, 32, 0.5);
+      background: var(--bg-tertiary);
       border-top: 1px solid transparent;
       padding: 0 16px;
     }
 
     .feed-item.open .feed-drawer {
-      max-height: 800px;
+      max-height: 900px;
       opacity: 1;
       padding: 16px;
       border-top-color: var(--card-border);
     }
 
     .summary-box {
-      background: var(--bg-primary);
+      background: var(--bg-secondary);
       border: 1px solid var(--card-border);
       border-radius: var(--radius-sm);
       padding: 14px;
@@ -660,7 +735,7 @@
 
     .insight-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 10px;
       margin-bottom: 14px;
     }
@@ -671,6 +746,9 @@
       border-radius: 4px;
       padding: 10px 12px;
       font-size: 0.8rem;
+      border-top: 1px solid var(--card-border);
+      border-right: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
     }
     .insight-card strong {
       display: block;
@@ -679,9 +757,10 @@
     }
     .insight-card p {
       color: var(--text-muted);
+      line-height: 1.5;
     }
 
-    /* Second-step Click Button */
+    /* 2nd Step Click Button */
     .feed-action-bar {
       display: flex;
       justify-content: space-between;
@@ -693,7 +772,7 @@
     }
 
     .btn-external-link {
-      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
       color: #ffffff;
       padding: 8px 16px;
       font-size: 0.84rem;
@@ -707,11 +786,11 @@
       transition: var(--transition);
     }
     .btn-external-link:hover {
-      filter: brightness(1.15);
+      filter: brightness(1.1);
       transform: translateY(-1px);
     }
 
-    /* Badges & Tags */
+    /* Badges */
     .source-tag {
       font-size: 0.75rem;
       font-weight: 600;
@@ -720,15 +799,14 @@
       align-items: center;
       gap: 4px;
     }
-
     .tag-badge {
       font-size: 0.7rem;
       padding: 2px 8px;
       border-radius: 4px;
       background: var(--bg-tertiary);
       color: var(--text-main);
+      border: 1px solid var(--card-border);
     }
-
     .sentiment-badge {
       font-size: 0.7rem;
       font-weight: 700;
@@ -736,26 +814,26 @@
       border-radius: 4px;
     }
     .sentiment-positive {
-      background: rgba(16, 185, 129, 0.15);
+      background: rgba(22, 163, 74, 0.12);
       color: var(--success);
-      border: 1px solid rgba(16, 185, 129, 0.3);
+      border: 1px solid rgba(22, 163, 74, 0.25);
     }
     .sentiment-warning {
-      background: rgba(245, 158, 11, 0.15);
+      background: rgba(217, 119, 6, 0.12);
       color: var(--warning);
-      border: 1px solid rgba(245, 158, 11, 0.3);
+      border: 1px solid rgba(217, 119, 6, 0.25);
     }
     .sentiment-neutral {
-      background: rgba(148, 163, 184, 0.15);
+      background: rgba(100, 116, 139, 0.12);
       color: var(--text-muted);
-      border: 1px solid rgba(148, 163, 184, 0.3);
+      border: 1px solid rgba(100, 116, 139, 0.25);
     }
 
-    /* Settings Modal */
+    /* Global Settings Modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(0, 0, 0, 0.65);
       backdrop-filter: blur(8px);
       z-index: 100;
       display: none;
@@ -772,17 +850,17 @@
       border: 1px solid var(--card-border);
       border-radius: var(--radius-lg);
       width: 100%;
-      max-width: 680px;
+      max-width: 650px;
       max-height: 90vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
       overflow: hidden;
-      animation: modalSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: modalSlide 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     @keyframes modalSlide {
-      from { transform: scale(0.95); opacity: 0; }
+      from { transform: scale(0.96); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
 
@@ -793,7 +871,6 @@
       justify-content: space-between;
       align-items: center;
     }
-
     .modal-body {
       padding: 20px;
       overflow-y: auto;
@@ -802,7 +879,6 @@
       flex-direction: column;
       gap: 16px;
     }
-
     .modal-footer {
       padding: 14px 20px;
       border-top: 1px solid var(--card-border);
@@ -836,14 +912,14 @@
       height: 16px;
     }
 
-    /* Toast */
+    /* Toast Notification */
     .toast {
       position: fixed;
       bottom: 24px;
       right: 24px;
       background: var(--bg-secondary);
       border: 1px solid var(--card-border);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
       border-radius: var(--radius-sm);
       padding: 12px 18px;
       display: flex;
@@ -866,8 +942,8 @@
     .progress-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(11, 17, 32, 0.85);
-      backdrop-filter: blur(10px);
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(8px);
       z-index: 150;
       display: none;
       flex-direction: column;
@@ -886,7 +962,7 @@
       max-width: 440px;
       width: 90%;
       text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
     .progress-bar-container {
       width: 100%;
@@ -899,14 +975,14 @@
     .progress-bar-fill {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, var(--accent), #10b981);
+      background: linear-gradient(90deg, var(--accent), #16a34a);
       transition: width 0.3s ease;
     }
   </style>
 </head>
-<body data-theme="dark">
+<body data-theme="white">
 
-  <!-- Header -->
+  <!-- Top Navigation Header -->
   <header>
     <div class="header-inner">
       <div class="brand-section">
@@ -914,29 +990,36 @@
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
         <div class="brand-text">
-          <h1>企業與產業情報即時儀表板</h1>
-          <p>IntelligenceRadar Pro • 跨裝置智慧決策版</p>
+          <h1>企業與產業情報自訂儀表板</h1>
+          <p>IntelligenceRadar Pro • 跨裝置自動化系統</p>
         </div>
       </div>
 
       <div class="header-actions">
-        <div class="status-badge" title="排程已啟用：每日 08:30 前完成收集">
+        <!-- Reading Palette Selector -->
+        <div class="theme-selector-box" title="切換易於閱讀的色調風格">
+          <label>🎨 色調風格:</label>
+          <select class="theme-select" id="themeSelector" onchange="changeTheme(this.value)">
+            <option value="white" selected>經典純白 (預設高對比)</option>
+            <option value="sage">護眼柔綠 (豆沙綠紙色)</option>
+            <option value="ivory">護眼暖米 (米杏色柔光)</option>
+            <option value="dark">暗夜深色 (極簡深灰)</option>
+          </select>
+        </div>
+
+        <div class="status-badge" title="排程已啟用：每日指定時間前自動完成整理">
           <span class="pulse-dot"></span>
           <span id="headerScheduleText">每日 08:30 自動排程中</span>
         </div>
 
         <button class="btn btn-primary" onclick="triggerManualCrawl()">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
-          <span>即時重跑更新</span>
+          <span>即時執行更新</span>
         </button>
 
         <button class="btn btn-secondary" onclick="openSettingsModal()">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
           <span>系統設定</span>
-        </button>
-
-        <button class="icon-btn" onclick="toggleTheme()" title="切換深/淺色">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
         </button>
       </div>
     </div>
@@ -944,100 +1027,139 @@
 
   <main>
     <!-- ========================================================= -->
-    <!-- 1. TOP COLLAPSIBLE TRACKING CONFIGURATION BAR             -->
+    <!-- 1. TOP COLLAPSIBLE CATEGORIZED MULTI-SELECT PICKER        -->
     <!-- ========================================================= -->
     <section class="top-tracking-panel" id="topTrackingPanel">
-      <!-- Collapsed Summary Header -->
+      <!-- Collapsed Bar (Default) -->
       <div class="tracking-summary-bar" onclick="toggleTrackingPanel()">
         <div class="tracking-summary-left">
-          <span class="tracking-label-tag">
+          <span class="tracking-label-badge">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-            自訂追蹤標的
+            自訂追蹤標的與條件 (可複選)
           </span>
-          <div class="tracking-summary-badges" id="trackingSummaryBadges">
-            <!-- Dynamically populated -->
+          <div class="tracking-summary-pills" id="trackingSummaryPills">
+            <!-- Rendered by JS -->
           </div>
         </div>
 
         <div class="tracking-toggle-btn">
-          <span id="trackingToggleLabel">展開自訂追蹤標的 ▾</span>
+          <span id="trackingToggleText">展開分類挑選面板 ▾</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
       </div>
 
-      <!-- Expanded Editing Content -->
+      <!-- Expanded Drawer: Categorized Multi-Select Grid -->
       <div class="tracking-expanded-content" id="trackingExpandedContent">
-        <div class="tracking-form-grid">
-          <!-- Companies -->
-          <div class="tracking-col">
-            <label>🏢 追蹤公司與股票標的：</label>
-            <div class="chip-container" id="chipBoxCompany"></div>
-            <input type="text" class="form-input" id="inputNewCompany" placeholder="輸入公司 (例如: 鴻海, 聯發科) 按 Enter 新增" onkeydown="handleTrackingAdd(event, 'company')">
+        <div class="category-grid">
+          
+          <!-- Category 1: Industries & Sub-industries -->
+          <div class="category-card">
+            <div class="category-section-title">
+              <span>🌐 產業及次產業 (預設複選)</span>
+              <span class="hint">點擊標籤切換勾選</span>
+            </div>
+            <div class="tag-checkbox-container" id="industryTagsBox">
+              <!-- Rendered by JS -->
+            </div>
+            <div class="quick-input-row">
+              <input type="text" class="form-input" id="inputCustomIndustry" placeholder="輸入自訂產業/次產業 (Enter 新增)" onkeydown="handleAddCustomTag(event, 'industry')">
+            </div>
           </div>
 
-          <!-- Industries -->
-          <div class="tracking-col">
-            <label>🌐 關注產業領域：</label>
-            <div class="chip-container" id="chipBoxIndustry"></div>
-            <input type="text" class="form-input" id="inputNewIndustry" placeholder="輸入產業 (例如: 晶圓代工, AI伺服器) 按 Enter 新增" onkeydown="handleTrackingAdd(event, 'industry')">
+          <!-- Category 2: Popular & High Market-Cap Companies -->
+          <div class="category-card">
+            <div class="category-section-title">
+              <span>🏢 熱門及大市值公司 (預設複選)</span>
+              <span class="hint">權值/明星股清單</span>
+            </div>
+            <div class="tag-checkbox-container" id="companyTagsBox">
+              <!-- Rendered by JS -->
+            </div>
+            <div class="quick-input-row">
+              <input type="text" class="form-input" id="inputCustomCompany" placeholder="輸入公司名稱或代號 (Enter 新增)" onkeydown="handleAddCustomTag(event, 'company')">
+            </div>
           </div>
 
-          <!-- Keywords -->
-          <div class="tracking-col">
-            <label>🏷️ 核心情資關鍵字：</label>
-            <div class="chip-container" id="chipBoxKeyword"></div>
-            <input type="text" class="form-input" id="inputNewKeyword" placeholder="輸入關鍵字 (例如: 2nm, 水冷散熱, CPO) 按 Enter 新增" onkeydown="handleTrackingAdd(event, 'keyword')">
+          <!-- Category 3: Common Popular Keywords -->
+          <div class="category-card">
+            <div class="category-section-title">
+              <span>🏷️ 常見熱門情資關鍵字</span>
+              <span class="hint">鎖定關鍵技術/營運題材</span>
+            </div>
+            <div class="tag-checkbox-container" id="keywordTagsBox">
+              <!-- Rendered by JS -->
+            </div>
+            <div class="quick-input-row">
+              <input type="text" class="form-input" id="inputCustomKeyword" placeholder="輸入自訂關鍵字 (Enter 新增)" onkeydown="handleAddCustomTag(event, 'keyword')">
+            </div>
           </div>
 
-          <!-- Target Websites & RSS -->
-          <div class="tracking-col">
-            <label>📡 指定收集來源網站 / RSS：</label>
-            <div class="chip-container" id="chipBoxSource"></div>
-            <input type="text" class="form-input" id="inputNewSource" placeholder="輸入來源站台 (例如: 科技新報, 鉅亨網) 按 Enter 新增" onkeydown="handleTrackingAdd(event, 'source')">
+          <!-- Category 4: Frequent Professional Websites -->
+          <div class="category-card">
+            <div class="category-section-title">
+              <span>📡 經常查詢專業網站與 RSS</span>
+              <span class="hint">指定爬取與資訊來源</span>
+            </div>
+            <div class="tag-checkbox-container" id="sourceTagsBox">
+              <!-- Rendered by JS -->
+            </div>
+            <div class="quick-input-row">
+              <input type="text" class="form-input" id="inputCustomSource" placeholder="輸入網址或來源門戶 (Enter 新增)" onkeydown="handleAddCustomTag(event, 'source')">
+            </div>
           </div>
+
         </div>
 
-        <div class="tracking-expanded-actions">
-          <span style="font-size: 0.78rem; color: var(--text-muted);">
-            💡 在上方即時編輯公司、產業、關鍵字與來源後，點擊右方按鈕即可立即套用並重新執行資料爬取！
-          </span>
-          <div style="display: flex; gap: 8px;">
+        <div class="tracking-action-bar">
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn btn-secondary" onclick="toggleAllTags(true)">全部勾選</button>
+            <button class="btn btn-secondary" onclick="toggleAllTags(false)">清除全選</button>
             <button class="btn btn-secondary" onclick="toggleTrackingPanel(false)">收合選單 ▴</button>
-            <button class="btn btn-primary" onclick="saveTrackingAndRunCrawl()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              套用變更並立即更新資料
-            </button>
           </div>
+
+          <button class="btn btn-primary" onclick="saveCategoriesAndRun()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            套用選取並立即更新情報
+          </button>
         </div>
       </div>
     </section>
 
     <!-- ========================================================= -->
-    <!-- 2. STOCK & INDUSTRY INDEX REAL-TIME CHARTS                -->
+    <!-- 2. REAL-TIME STOCK & INDEX CHARTS (CUSTOMIZABLE QTY)      -->
     <!-- ========================================================= -->
     <section class="market-charts-section">
       <div class="charts-header">
-        <div class="charts-header-title">
+        <div class="charts-title-group">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-          <span>重點標的行情走勢與股價/指數圖表</span>
-          <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">(可自訂顯示數量與時間維度)</span>
+          <span style="font-weight: 700; font-size: 1.05rem;">行情走勢與股價/指數圖表</span>
+          
+          <!-- Mode Tabs (Default: Hot Movers / Market Cap Top 10) -->
+          <div class="charts-tabs">
+            <button class="chart-tab-btn active" id="tabBtnMovers" onclick="switchChartMode('movers')">🔥 前一日最熱門 (暴漲/暴跌榜)</button>
+            <button class="chart-tab-btn" id="tabBtnTopCap" onclick="switchChartMode('topcap')">🏆 市值前十大公司</button>
+            <button class="chart-tab-btn" id="tabBtnCustom" onclick="switchChartMode('custom')">⭐ 我的自訂追蹤標的</button>
+          </div>
         </div>
 
         <div class="charts-controls">
+          <!-- Quantity Selector -->
           <div style="display: flex; align-items: center; gap: 6px;">
-            <span style="font-size: 0.8rem; color: var(--text-muted);">顯示圖表數量:</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">顯示數量:</span>
             <select class="filter-select" id="chartCountSelect" onchange="changeChartCount(this.value)">
               <option value="2">2 檔</option>
-              <option value="3" selected>3 檔 (預設)</option>
+              <option value="3" selected>3 檔</option>
               <option value="4">4 檔</option>
               <option value="6">6 檔</option>
+              <option value="8">8 檔</option>
+              <option value="10">10 檔</option>
             </select>
           </div>
 
           <div style="display: flex; align-items: center; gap: 6px;">
-            <span style="font-size: 0.8rem; color: var(--text-muted);">時間區間:</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">走勢區間:</span>
             <select class="filter-select" id="chartTimeframeSelect" onchange="changeChartTimeframe(this.value)">
-              <option value="1D" selected>當日 (1D 即時)</option>
+              <option value="1D" selected>當日走勢 (1D)</option>
               <option value="5D">近 5 日 (5D)</option>
               <option value="1M">近 1 個月 (1M)</option>
             </select>
@@ -1052,49 +1174,51 @@
     </section>
 
     <!-- ========================================================= -->
-    <!-- 3. TRACKING CONTENT STREAM WITH 2-STEP CLICK INTERACTION  -->
+    <!-- 3. TRACKING INTELLIGENCE FEED WITH 2-STEP CLICK           -->
     <!-- ========================================================= -->
     <section class="stream-section">
       <div class="stream-toolbar">
         <div class="stream-toolbar-left">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           <span>自訂追蹤情報動態</span>
-          <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: normal;" id="streamCountDisplay">（共 6 則情報）</span>
+          <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: normal;" id="streamCountDisplay">（預設顯示 10 筆）</span>
         </div>
 
         <div class="stream-filters-row">
-          <!-- Sort Selector -->
+          <!-- Sort Options -->
           <div style="display: flex; align-items: center; gap: 6px;">
-            <span style="font-size: 0.8rem; color: var(--text-muted);">排序依據:</span>
-            <select class="filter-select" id="feedSortSelect" onchange="handleFeedFilterChange()">
-              <option value="newest" selected>⏱️ 最新發布時間</option>
-              <option value="impact">⚡ 影響力重要性 (High Impact)</option>
-              <option value="positive">🚀 重大利多優先</option>
-              <option value="warning">⚠️ 風險警示優先</option>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">排列方式:</span>
+            <select class="filter-select" id="feedSortSelect" onchange="renderFeedList()">
+              <option value="newest" selected>⏱️ 按時間 (最新發布優先)</option>
+              <option value="oldest">⏱️ 按時間 (由舊至新)</option>
+              <option value="impact">⚡ 按重要性 (AI 影響力指數高至低)</option>
+              <option value="positive">🚀 重大利多優先 (暴漲/正面情緒)</option>
+              <option value="warning">⚠️ 風險警示優先 (暴跌/利空預警)</option>
             </select>
           </div>
 
-          <!-- Count Limit Selector -->
+          <!-- Quantity / Item Count (Default: 10) -->
           <div style="display: flex; align-items: center; gap: 6px;">
-            <span style="font-size: 0.8rem; color: var(--text-muted);">顯示筆數:</span>
-            <select class="filter-select" id="feedLimitSelect" onchange="handleFeedFilterChange()">
-              <option value="5">顯示 5 筆</option>
-              <option value="10" selected>顯示 10 筆 (預設)</option>
-              <option value="15">顯示 15 筆</option>
-              <option value="all">顯示全部</option>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">指定筆數:</span>
+            <select class="filter-select" id="feedLimitSelect" onchange="renderFeedList()">
+              <option value="5">5 筆</option>
+              <option value="10" selected>10 筆 (預設)</option>
+              <option value="15">15 筆</option>
+              <option value="20">20 筆</option>
+              <option value="all">全部筆數</option>
             </select>
           </div>
 
-          <!-- Quick Keyword Filter -->
-          <input type="text" class="form-input" id="feedSearchInput" placeholder="搜尋項目關鍵字..." style="width: 150px; padding: 5px 8px; font-size: 0.8rem;" oninput="handleFeedFilterChange()">
+          <!-- Search Filter -->
+          <input type="text" class="form-input" id="feedSearchInput" placeholder="搜尋項目關鍵字..." style="width: 150px; padding: 5px 8px; font-size: 0.8rem;" oninput="renderFeedList()">
         </div>
       </div>
 
       <div style="font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px;">
-        <span>💡 互動提示：點擊任一項目即可展開<strong>「深入內容摘要」</strong>；於展開區塊內點擊<strong>「前往原始報導網頁」</strong>即可連至原文。</span>
+        <span>💡 閱讀說明：點擊項目即可展開<strong>「詳細內容摘要」</strong>；於展開區塊內再點擊<strong>「前往原始網頁」</strong>即可連至原文。</span>
       </div>
 
-      <!-- Feed Accordion Items -->
+      <!-- Feed Container -->
       <div class="feed-container" id="feedContainer">
         <!-- Rendered by JS -->
       </div>
@@ -1106,7 +1230,7 @@
     <div class="modal">
       <div class="modal-header">
         <h3 style="font-size: 1.05rem; font-weight: 700;">⚙️ 系統排程與通用介面設定</h3>
-        <button class="icon-btn" onclick="closeSettingsModal()" style="border:none; background:transparent;">✕</button>
+        <button class="btn btn-secondary" onclick="closeSettingsModal()" style="border:none; padding:4px 8px;">✕</button>
       </div>
 
       <div class="modal-body">
@@ -1114,8 +1238,18 @@
           <label>每日自動收集與推播時間：</label>
           <div style="display: flex; gap: 10px; align-items: center;">
             <input type="time" class="form-input" id="cfgScheduleTime" value="08:30" style="width: 140px;">
-            <span style="font-size: 0.8rem; color: var(--text-muted);">每日在此時間前完成全網檢索並整理儀表板</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">每日在此時間前自動完成全網檢索並整理儀表板</span>
           </div>
+        </div>
+
+        <div class="form-group">
+          <label>預設閱讀色調風格：</label>
+          <select class="filter-select" id="cfgDefaultTheme" onchange="changeTheme(this.value)">
+            <option value="white">經典純白 (預設高對比)</option>
+            <option value="sage">護眼柔綠 (豆沙綠紙色)</option>
+            <option value="ivory">護眼暖米 (米杏色柔光)</option>
+            <option value="dark">暗夜深色 (極簡深灰)</option>
+          </select>
         </div>
 
         <div class="form-group">
@@ -1137,12 +1271,14 @@
         </div>
 
         <div class="form-group">
-          <label>股價圖表預設數量：</label>
+          <label>圖表預設顯示數量：</label>
           <select class="filter-select" id="cfgDefaultChartCount">
             <option value="2">2 檔</option>
             <option value="3" selected>3 檔</option>
             <option value="4">4 檔</option>
             <option value="6">6 檔</option>
+            <option value="8">8 檔</option>
+            <option value="10">10 檔</option>
           </select>
         </div>
       </div>
@@ -1161,7 +1297,7 @@
   <div class="progress-overlay" id="crawlProgressOverlay">
     <div class="progress-card">
       <div style="font-size: 2rem; margin-bottom: 8px;">⚡</div>
-      <h3 style="font-size: 1.1rem; margin-bottom: 6px;">正在執行全網情報與行情資料更新...</h3>
+      <h3 style="font-size: 1.1rem; margin-bottom: 6px;">正在執行自訂情報與行情更新...</h3>
       <div class="progress-bar-container">
         <div class="progress-bar-fill" id="crawlProgressBar"></div>
       </div>
@@ -1176,15 +1312,59 @@
   </div>
 
   <script>
-    // Initial App State
-    const defaultData = {
-      tracking: {
-        companies: ['台積電 (2330)', '輝達 (NVDA)', '聯發科 (2454)', '鴻海 (2317)', '超微 (AMD)'],
-        industries: ['半導體晶圓', '人工智慧 AI', '伺服器代工', '矽光子 CPO'],
-        keywords: ['2nm 良率', 'Blackwell 散熱', '水冷機櫃', 'CPO 光通訊', '毛利率指引'],
-        sources: ['科技新報 TechNews', '鉅亨網 Anue', 'Digitimes 電子時報', '公開資訊觀測站 MOPS']
-      },
+    // =========================================================
+    // 0. SYSTEM STATE & DEFAULT CATEGORIES
+    // =========================================================
+    const initialCategories = {
+      industries: [
+        { id: 'ind_1', name: '半導體晶圓代工', checked: true },
+        { id: 'ind_2', name: 'IC設計 (AI/端側)', checked: true },
+        { id: 'ind_3', name: '先進封裝 (CoWoS/SoIC)', checked: true },
+        { id: 'ind_4', name: 'AI伺服器與水冷散熱', checked: true },
+        { id: 'ind_5', name: '矽光子與CPO光通訊', checked: true },
+        { id: 'ind_6', name: '電動車與智慧車載系統', checked: true },
+        { id: 'ind_7', name: '雲端運算與資安防護', checked: false },
+        { id: 'ind_8', name: '半導體設備與特用化學', checked: false }
+      ],
+      companies: [
+        { id: 'comp_1', name: '台積電 (2330)', checked: true },
+        { id: 'comp_2', name: '輝達 (NVDA)', checked: true },
+        { id: 'comp_3', name: '聯發科 (2454)', checked: true },
+        { id: 'comp_4', name: '鴻海 (2317)', checked: true },
+        { id: 'comp_5', name: '廣達 (2382)', checked: true },
+        { id: 'comp_6', name: '超微 (AMD)', checked: true },
+        { id: 'comp_7', name: '蘋果 (AAPL)', checked: false },
+        { id: 'comp_8', name: '微軟 (MSFT)', checked: false },
+        { id: 'comp_9', name: '台達電 (2308)', checked: false },
+        { id: 'comp_10', name: '日月光投控 (3711)', checked: false }
+      ],
+      keywords: [
+        { id: 'kw_1', name: '2nm / GAA 良率', checked: true },
+        { id: 'kw_2', name: 'Blackwell 水冷散熱', checked: true },
+        { id: 'kw_3', name: 'CoWoS 產能擴充', checked: true },
+        { id: 'kw_4', name: '出口管制與法規', checked: true },
+        { id: 'kw_5', name: '法說會毛利率指引', checked: true },
+        { id: 'kw_6', name: '營收公布與財報獲利', checked: false },
+        { id: 'kw_7', name: 'CPO 共同封裝光學', checked: false },
+        { id: 'kw_8', name: '海外建廠補貼進度', checked: false }
+      ],
+      sources: [
+        { id: 'src_1', name: '科技新報 TechNews', checked: true },
+        { id: 'src_2', name: '鉅亨網 Anue', checked: true },
+        { id: 'src_3', name: 'Digitimes 電子時報', checked: true },
+        { id: 'src_4', name: '工商時報 / 經濟日報', checked: true },
+        { id: 'src_5', name: '公開資訊觀測站 MOPS', checked: true },
+        { id: 'src_6', name: 'Bloomberg 彭博社', checked: false },
+        { id: 'src_7', name: 'TrendForce 集邦科技', checked: false },
+        { id: 'src_8', name: 'Reuters 路透社', checked: false }
+      ]
+    };
+
+    let appState = JSON.parse(localStorage.getItem('intel_radar_state_v4') || 'null') || {
+      theme: 'white',
+      categories: initialCategories,
       chartSettings: {
+        mode: 'movers', // 'movers' (暴漲暴跌), 'topcap' (市值前十大), 'custom' (自訂)
         count: 3,
         timeframe: '1D'
       },
@@ -1200,15 +1380,104 @@
       }
     };
 
-    let appState = JSON.parse(localStorage.getItem('intel_radar_state_v3') || 'null') || defaultData;
     let isTrackingPanelExpanded = false;
+    let openedFeedId = null;
 
-    // Stock Market Database
-    const stockDatabase = [
+    // =========================================================
+    // STOCK DATASETS: 1. MOVERS (暴漲暴跌) 2. TOP CAP (市值十大) 3. CUSTOM
+    // =========================================================
+    const moversStockData = [
+      {
+        symbol: '3017.TW',
+        name: '奇鋐 (散熱龍頭)',
+        sub: '水冷機櫃接單爆發 • 暴漲熱門',
+        price: '685.00',
+        change: '+49.00',
+        changePct: '+7.70%',
+        isUp: true,
+        high: '690.00',
+        low: '638.00',
+        vol: '32,150 張',
+        chartPath: 'M0,52 Q40,50 80,35 T150,28 T220,12 T300,5',
+        chartArea: 'M0,52 Q40,50 80,35 T150,28 T220,12 T300,5 L300,60 L0,60 Z'
+      },
+      {
+        symbol: 'SMCI.US',
+        name: '美超微 (Supermicro)',
+        sub: '財報延遲疑慮 • 暴跌異動榜',
+        price: '$418.20',
+        change: '-$52.80',
+        changePct: '-11.21%',
+        isUp: false,
+        high: '$475.00',
+        low: '$412.00',
+        vol: '18.9M 股',
+        chartPath: 'M0,10 Q50,15 100,28 T180,38 T250,52 T300,58',
+        chartArea: 'M0,10 Q50,15 100,28 T180,38 T250,52 T300,58 L300,60 L0,60 Z'
+      },
+      {
+        symbol: '3324.TW',
+        name: '雙鴻 (散熱模組)',
+        sub: '水冷板全面供貨 • 暴漲題材',
+        price: '745.00',
+        change: '+45.00',
+        changePct: '+6.43%',
+        isUp: true,
+        high: '752.00',
+        low: '702.00',
+        vol: '14,800 張',
+        chartPath: 'M0,50 Q45,45 90,32 T170,22 T250,14 T300,6',
+        chartArea: 'M0,50 Q45,45 90,32 T170,22 T250,14 T300,6 L300,60 L0,60 Z'
+      },
+      {
+        symbol: 'ARM.US',
+        name: '安謀 (Arm Holdings)',
+        sub: '端側AI架構滲透 • 走勢強勁',
+        price: '$148.60',
+        change: '+$8.30',
+        changePct: '+5.92%',
+        isUp: true,
+        high: '$150.20',
+        low: '$141.00',
+        vol: '8.4M 股',
+        chartPath: 'M0,48 Q40,42 90,30 T170,20 T250,15 T300,8',
+        chartArea: 'M0,48 Q40,42 90,30 T170,20 T250,15 T300,8 L300,60 L0,60 Z'
+      },
+      {
+        symbol: 'INTC.US',
+        name: '英特爾 (Intel)',
+        sub: '晶圓代工分拆雜音 • 承壓重跌',
+        price: '$21.40',
+        change: '-$1.35',
+        changePct: '-5.93%',
+        isUp: false,
+        high: '$23.10',
+        low: '$21.20',
+        vol: '78.2M 股',
+        chartPath: 'M0,15 Q60,18 120,32 T200,45 T260,52 T300,56',
+        chartArea: 'M0,15 Q60,18 120,32 T200,45 T260,52 T300,56 L300,60 L0,60 Z'
+      },
+      {
+        symbol: '3450.TW',
+        name: '聯鈞 (光通訊CPO)',
+        sub: '矽光子聯盟題材 • 爆量急漲',
+        price: '228.00',
+        change: '+18.50',
+        changePct: '+8.83%',
+        isUp: true,
+        high: '230.00',
+        low: '211.00',
+        vol: '26,300 張',
+        chartPath: 'M0,55 Q50,48 100,30 T180,18 T250,10 T300,4',
+        chartArea: 'M0,55 Q50,48 100,30 T180,18 T250,10 T300,4 L300,60 L0,60 Z'
+      }
+    ];
+
+    const topCapStockData = [
       {
         symbol: '2330.TW',
-        name: '台積電',
-        sub: '半導體晶圓代工龍頭',
+        name: '台積電 (TSMC)',
+        sub: '全球晶圓代工龍頭 • 市值第1',
         price: '1,045.00',
         change: '+25.00',
         changePct: '+2.45%',
@@ -1217,12 +1486,12 @@
         low: '1,030.00',
         vol: '38,420 張',
         chartPath: 'M0,45 Q30,48 60,35 T120,38 T180,22 T240,15 T300,8',
-        chartArea: 'M0,45 Q30,48 60,35 T120,38 T180,22 T240,15 T300,8 L300,64 L0,64 Z'
+        chartArea: 'M0,45 Q30,48 60,35 T120,38 T180,22 T240,15 T300,8 L300,60 L0,60 Z'
       },
       {
         symbol: 'NVDA.US',
         name: '輝達 (NVIDIA)',
-        sub: '全球 AI 運算架構龍頭',
+        sub: '全球 AI 算力霸主 • 市值第2',
         price: '$141.50',
         change: '+$4.20',
         changePct: '+3.06%',
@@ -1231,12 +1500,40 @@
         low: '$138.20',
         vol: '52.4M 股',
         chartPath: 'M0,52 Q40,50 80,38 T150,30 T220,18 T300,10',
-        chartArea: 'M0,52 Q40,50 80,38 T150,30 T220,18 T300,10 L300,64 L0,64 Z'
+        chartArea: 'M0,52 Q40,50 80,38 T150,30 T220,18 T300,10 L300,60 L0,60 Z'
+      },
+      {
+        symbol: 'AAPL.US',
+        name: '蘋果 (Apple)',
+        sub: '消費電子與 Apple Intelligence',
+        price: '$232.80',
+        change: '+$2.50',
+        changePct: '+1.09%',
+        isUp: true,
+        high: '$234.10',
+        low: '$230.50',
+        vol: '36.8M 股',
+        chartPath: 'M0,40 Q40,38 90,32 T170,25 T240,18 T300,12',
+        chartArea: 'M0,40 Q40,38 90,32 T170,25 T240,18 T300,12 L300,60 L0,60 Z'
+      },
+      {
+        symbol: 'MSFT.US',
+        name: '微軟 (Microsoft)',
+        sub: '企業雲端與 OpenAI 商業化',
+        price: '$428.50',
+        change: '+$5.80',
+        changePct: '+1.37%',
+        isUp: true,
+        high: '$430.00',
+        low: '$424.20',
+        vol: '19.5M 股',
+        chartPath: 'M0,45 Q50,42 100,35 T180,26 T250,18 T300,10',
+        chartArea: 'M0,45 Q50,42 100,35 T180,26 T250,18 T300,10 L300,60 L0,60 Z'
       },
       {
         symbol: '2454.TW',
-        name: '聯發科',
-        sub: 'IC 設計 / 端側 AI 旗艦',
+        name: '聯發科 (MediaTek)',
+        sub: 'IC設計旗艦 • 天璣9400放量',
         price: '1,320.00',
         change: '+45.00',
         changePct: '+3.53%',
@@ -1245,12 +1542,12 @@
         low: '1,290.00',
         vol: '8,920 張',
         chartPath: 'M0,48 Q40,42 80,45 T160,25 T240,18 T300,5',
-        chartArea: 'M0,48 Q40,42 80,45 T160,25 T240,18 T300,5 L300,64 L0,64 Z'
+        chartArea: 'M0,48 Q40,42 80,45 T160,25 T240,18 T300,5 L300,60 L0,60 Z'
       },
       {
         symbol: '2317.TW',
-        name: '鴻海',
-        sub: 'AI 伺服器垂直整合製造',
+        name: '鴻海 (Foxconn)',
+        sub: 'AI 伺服器與 CDMS 電動車代工',
         price: '215.50',
         change: '+3.50',
         changePct: '+1.65%',
@@ -1259,161 +1556,244 @@
         low: '213.00',
         vol: '65,100 張',
         chartPath: 'M0,40 Q40,38 90,42 T170,28 T240,22 T300,16',
-        chartArea: 'M0,40 Q40,38 90,42 T170,28 T240,22 T300,16 L300,64 L0,64 Z'
-      },
-      {
-        symbol: 'SOX.US',
-        name: '費城半導體指數',
-        sub: '全球晶片產業景氣指標',
-        price: '5,320.80',
-        change: '+86.50',
-        changePct: '+1.65%',
-        isUp: true,
-        high: '5,350.20',
-        low: '5,280.00',
-        vol: '12.8M',
-        chartPath: 'M0,50 Q45,45 90,38 T180,26 T250,20 T300,12',
-        chartArea: 'M0,50 Q45,45 90,38 T180,26 T250,20 T300,12 L300,64 L0,64 Z'
-      },
-      {
-        symbol: 'TAIEX',
-        name: '台灣加權指數',
-        sub: '台股綜合指標',
-        price: '23,150.25',
-        change: '+210.80',
-        changePct: '+0.92%',
-        isUp: true,
-        high: '23,220.00',
-        low: '23,010.00',
-        vol: '4,120 億',
-        chartPath: 'M0,42 Q40,40 100,32 T180,28 T250,18 T300,10',
-        chartArea: 'M0,42 Q40,40 100,32 T180,28 T250,18 T300,10 L300,64 L0,64 Z'
+        chartArea: 'M0,40 Q40,38 90,42 T170,28 T240,22 T300,16 L300,60 L0,60 Z'
       }
     ];
 
-    // Intelligence Feeds Database
+    // =========================================================
+    // INTELLIGENCE FEEDS DATABASE (Rich Dataset)
+    // =========================================================
     let feedItems = [
       {
-        id: 101,
+        id: 1,
         title: '台積電 2 奈米試產進度超前，首波產能由蘋果與輝達優先包下',
-        summary: '最新供應鏈查核顯示，台積電新竹寶山 Fab 20 晶圓廠試產進度順暢，奈米片 (GAA) 架構良率突破關鍵水準，預計 2025 年下半年如期推進商用量產。',
+        summary: '供應鏈消息指出，台積電新竹寶山 Fab 20 晶圓廠試產進展順利，奈米片 (GAA) 架構良率突破內部目標，預計 2025 年下半年如期推進商用量產。',
         details: '1. 技術節點：N2 製程較 3nm 提升 10%~15% 運算效能並降低 25%~30% 功耗。\n2. 資本開支：外資預期 2025 年資本支出將維持在 320 億至 360 億美元高檔區間。\n3. 產業傳導：先進封裝 CoWoS 與微影設備供應商持續受惠。',
         actionItem: '維持高階製程設備鏈正向評等，密切關注 10 月中旬法說會毛利率與折舊預估。',
         company: '台積電 (2330)',
-        industry: '半導體晶圓',
+        industry: '半導體晶圓代工',
         source: '科技新報 TechNews',
-        time: '08:40 AM',
+        time: '08:50 AM',
         sentiment: 'positive',
         sentimentText: '重大利多',
-        impactScore: 95,
+        impactScore: 96,
         url: 'https://technews.tw/'
       },
       {
-        id: 102,
+        id: 2,
         title: '輝達 Blackwell Ultra 伺服器啟動出貨檢驗，水冷板與快接頭零組件拉貨動能激增',
         summary: '因應單一機櫃運算熱功耗逼近 120kW 物理極限，輝達正式向伺服器代工廠發布液冷設計驗證指南，帶動台廠水冷供應鏈第四季訂單滿載。',
         details: '1. 水冷滲透率：2025 年高階 AI 伺服器液冷普及率預估自 12% 躍升至 45% 以上。\n2. 零組件需求：每機櫃需配備多組冷卻液分配單元 (CDU) 與上百組防漏快接頭 (QD)。\n3. 受益廠商：鴻海、廣達、奇鋐、雙鴻產能利用率逼近滿載。',
         actionItem: '檢視供應商交期與漏液防護專利認證進度，防範零組件瓶頸延宕整機出貨。',
         company: '輝達 (NVDA)',
-        industry: '人工智慧 AI',
+        industry: 'AI伺服器與水冷散熱',
         source: 'Digitimes 電子時報',
-        time: '08:15 AM',
+        time: '08:25 AM',
         sentiment: 'positive',
         sentimentText: '技術引領',
-        impactScore: 91,
+        impactScore: 92,
         url: 'https://digitimes.com.tw/'
       },
       {
-        id: 103,
+        id: 3,
         title: '美國商務部評估成熟製程海外出口流向審查，成熟晶圓廠面臨客戶合規穿透考驗',
         summary: '美方考慮針對傳統晶圓節點（28nm 及以上）對受制裁名單企業之終端流向實施更嚴格穿透式審查，台廠評估合規行政成本與轉單效應。',
         details: '1. 政策重點：防範特定實體透過轉包架構獲取車規與工控級高信賴度晶片。\n2. 衝擊程度：聯電、世界先進等廠需強化終端客戶認證 (KYC)，可能拉長訂單審核時間。\n3. 轉單動態：歐美客戶正加速將成熟製程供應鏈由非受信任地區轉移至台灣與日本廠區。',
         actionItem: '建議法務合規部門提前盤點直接與間接涉美元件之交易清單，落實合規備案。',
         company: '台積電 (2330)',
-        industry: '半導體晶圓',
-        source: '工商時報',
-        time: '07:45 AM',
+        industry: '半導體晶圓代工',
+        source: '工商時報 / 經濟日報',
+        time: '07:55 AM',
         sentiment: 'warning',
         sentimentText: '政策風險',
-        impactScore: 86,
+        impactScore: 88,
         url: 'https://ctee.com.tw/'
       },
       {
-        id: 104,
+        id: 4,
         title: '聯發科天璣 9400 首批晶片出貨超越預期，旗艦生成式 AI 手機滲透率顯著提升',
         summary: '聯發科最新全大核天璣 9400 在旗艦手機市場斬獲 Vivo、Oppo 等大廠訂單，端側 50Tokens/秒的高速 AI 推論能力帶動換機熱潮。',
         details: '1. 規格優勢：台積電第二代 3 奈米打造，多核效能提升 28%，功耗降低 40%。\n2. 營收挹注：法人估算第四季旗艦手機晶片出貨將季增 25% 以上，平均售價 (ASP) 維持高檔。\n3. 車用布局：天璣 Auto 智慧座艙平台同步在歐美電動車廠展開認證。',
         actionItem: '關注第四季雙十一及年終歐美市場終端機款實銷表現。',
         company: '聯發科 (2454)',
-        industry: '人工智慧 AI',
+        industry: 'IC設計 (AI/端側)',
         source: '鉅亨網 Anue',
-        time: '07:10 AM',
+        time: '07:30 AM',
         sentiment: 'positive',
         sentimentText: '業績爆款',
-        impactScore: 82,
+        impactScore: 85,
         url: 'https://cnyes.com/'
       },
       {
-        id: 105,
+        id: 5,
         title: '鴻海科技日展示跨平台 EV Model D 與智慧製造工廠，加速拓展北美商用市場',
         summary: '鴻海展示全新 CDMS 代工模式與數位孿生工廠，結合高雄超級運算中心算力，展現由模組零件到整車系統設計垂直整合優勢。',
         details: '1. 產品亮點：Model D 具備氣動車身與彈性座艙架構，專攻北美高端家庭與商務租賃市場。\n2. 生產彈性：透過生成式 AI 與數位孿生技術，試產驗證週期由 18 個月壓縮至 11 個月。\n3. 業務展望：鎖定北美傳統車廠委託製造外包需求，預計 2026 年擴大出貨放量。',
         actionItem: '追蹤北美大型商用車隊客戶評測進展及海外代工廠產能爬坡狀況。',
         company: '鴻海 (2317)',
-        industry: '伺服器代工',
-        source: '經濟日報',
-        time: '06:30 AM',
+        industry: '電動車與智慧車載系統',
+        source: '工商時報 / 經濟日報',
+        time: '07:05 AM',
         sentiment: 'positive',
         sentimentText: '業務突破',
-        impactScore: 78,
+        impactScore: 80,
         url: 'https://udn.com/'
       },
       {
-        id: 106,
+        id: 6,
         title: '資料中心光通訊需求爆發，矽光子與共同封裝光學 (CPO) 產業聯盟加速標準收斂',
         summary: '為突破 800G 與 1.6T 高速傳輸功耗極限，台積電及國際網通龍頭主導的 CPO 光電整合技術進入最後驗證，明年即將迎來小量生產。',
         details: '1. 技術瓶頸：傳統銅線傳輸在高速環境下衰減過快，光電共封裝可大幅節省 30% 傳輸功耗。\n2. 商業化時間表：2025 年第四季啟動主要雲端服務供應商 (CSP) 機架測試。\n3. 台廠供應鏈：台灣在晶圓製造、高精度光學對準與半導體封測領域具備完整生態優勢。',
         actionItem: '留意明年第一季光通訊模組標準制定小組 (OIF) 發布之新一代通用介面規範。',
         company: '台積電 (2330)',
-        industry: '矽光子 CPO',
+        industry: '矽光子與CPO光通訊',
         source: '科技新報 TechNews',
-        time: '05:50 AM',
+        time: '06:40 AM',
         sentiment: 'neutral',
         sentimentText: '趨勢成形',
-        impactScore: 74,
+        impactScore: 78,
         url: 'https://technews.tw/'
+      },
+      {
+        id: 7,
+        title: '廣達斥資擴充北美加州與田納西州伺服器測試廠，因應 CSP 客戶即刻拉貨',
+        summary: '廣達董事會通過最新海外資本預算案，將加速建置北美機櫃級 AI 伺服器後段組裝產線，預計第四季產能提高 35%。',
+        details: '1. 訂單能見度：美系前三大雲端巨頭均追加次世代算力機櫃建置訂單。\n2. 供應鏈綜效：散熱模組由在地合作夥伴直供，降低跨洋運輸損耗風險。',
+        actionItem: '持續追蹤伺服器主機板料況及當地工廠試俥進度。',
+        company: '廣達 (2382)',
+        industry: 'AI伺服器與水冷散熱',
+        source: '公開資訊觀測站 MOPS',
+        time: '06:15 AM',
+        sentiment: 'positive',
+        sentimentText: '擴產利多',
+        impactScore: 82,
+        url: 'https://mops.twse.com.tw/'
+      },
+      {
+        id: 8,
+        title: '超微 (AMD) 攜手台灣封測大廠加速推進 MI325X 晶片封裝，挑戰算力市場份額',
+        summary: '超微在最新開發者大會上展示最新 Instinct 系列 GPU，透過 3D Chiplet 與先進封裝技術大幅拉近與競爭對手差距。',
+        details: '1. 算力規格：搭載高達 256GB HBM3e 記憶體，專門優化超大型語言模型推理速度。\n2. 合作夥伴：日月光投控與台積電提供關鍵先進封裝與代工支援。',
+        actionItem: '評估明年伺服器採購市場中超微生態系市佔率擴展幅度。',
+        company: '超微 (AMD)',
+        industry: '先進封裝 (CoWoS/SoIC)',
+        source: 'Digitimes 電子時報',
+        time: '05:45 AM',
+        sentiment: 'positive',
+        sentimentText: '競品動態',
+        impactScore: 79,
+        url: 'https://digitimes.com.tw/'
+      },
+      {
+        id: 9,
+        title: '台達電發表超高密度 800V 高壓直流供電方案，搶佔次世代 AI 綠色資料中心商機',
+        summary: '隨著伺服器機櫃功耗激增，台達電推出自電網到晶片的完整高壓電力解決方案，電源轉換效率突破 97.5%。',
+        details: '1. 綠色節能：大幅縮減機房變電與冷卻能耗，已獲多家跨國綠色資料中心採用。\n2. 營運展望：電力與散熱整合方案將成為未來三年最主要之成長動能。',
+        actionItem: '檢視相關資料中心建置時程與專案入帳節奏。',
+        company: '台達電 (2308)',
+        industry: 'AI伺服器與水冷散熱',
+        source: '鉅亨網 Anue',
+        time: '05:20 AM',
+        sentiment: 'positive',
+        sentimentText: '技術優勢',
+        impactScore: 76,
+        url: 'https://cnyes.com/'
+      },
+      {
+        id: 10,
+        title: '美超微審計爭議引發轉單效應，戴爾與台灣代工雙雄迎潛在移轉商機',
+        summary: '由於獨立審計機構人事變動，市場預期美超微部分大型企業客戶將加速將伺服器訂單分流至戴爾、鴻海與廣達等競爭廠商。',
+        details: '1. 客戶心理：企業客戶著眼於穩定交期與合規審計，啟動次要供應商認證。\n2. 產能承接：台灣伺服器代工廠目前具備足夠彈性產能，有望在第一季顯現轉單挹注。',
+        actionItem: '持續觀察訂單實質轉單流向與出貨時間表。',
+        company: '鴻海 (2317)',
+        industry: 'AI伺服器與水冷散熱',
+        source: 'Bloomberg 彭博社',
+        time: '04:55 AM',
+        sentiment: 'neutral',
+        sentimentText: '市場轉單',
+        impactScore: 84,
+        url: 'https://bloomberg.com/'
       }
     ];
 
     // =========================================================
-    // 1. TOP COLLAPSIBLE TRACKING BAR LOGIC
+    // 1. TOP COLLAPSIBLE CATEGORIZED SELECTOR LOGIC
     // =========================================================
-    function renderTrackingSummary() {
-      const badgesContainer = document.getElementById('trackingSummaryBadges');
-      const t = appState.tracking;
-
-      badgesContainer.innerHTML = `
-        <span class="summary-badge-item">🏢 公司: ${t.companies.slice(0, 3).map(c => c.split(' ')[0]).join(', ')}${t.companies.length > 3 ? ' 等' + t.companies.length + '家' : ''}</span>
-        <span class="summary-badge-item">🌐 產業: ${t.industries.slice(0, 2).join(', ')}${t.industries.length > 2 ? ' +'+(t.industries.length-2) : ''}</span>
-        <span class="summary-badge-item">🏷️ 關鍵字: ${t.keywords.slice(0, 2).join(', ')}</span>
-        <span class="summary-badge-item">📡 來源: ${t.sources.length} 個指定站台</span>
-      `;
-
-      // Render Chips in expanded area
-      renderTrackingChips('company', 'chipBoxCompany', t.companies);
-      renderTrackingChips('industry', 'chipBoxIndustry', t.industries);
-      renderTrackingChips('keyword', 'chipBoxKeyword', t.keywords);
-      renderTrackingChips('source', 'chipBoxSource', t.sources);
+    function renderCategoryTags() {
+      renderTagPills('industries', 'industryTagsBox');
+      renderTagPills('companies', 'companyTagsBox');
+      renderTagPills('keywords', 'keywordTagsBox');
+      renderTagPills('sources', 'sourceTagsBox');
+      updateTrackingSummaryBar();
     }
 
-    function renderTrackingChips(type, boxId, list) {
-      const box = document.getElementById(boxId);
-      box.innerHTML = list.map((item, idx) => `
-        <div class="chip">
-          <span>${item}</span>
-          <span class="chip-remove" onclick="removeTrackingItem('${type}', ${idx})">✕</span>
-        </div>
+    function renderTagPills(categoryKey, containerId) {
+      const container = document.getElementById(containerId);
+      const items = appState.categories[categoryKey];
+
+      container.innerHTML = items.map(item => `
+        <label class="tag-pill-check ${item.checked ? 'checked' : ''}" onclick="toggleTagItem('${categoryKey}', '${item.id}')">
+          <input type="checkbox" ${item.checked ? 'checked' : ''}>
+          <span>${item.name}</span>
+        </label>
       `).join('');
+    }
+
+    function toggleTagItem(categoryKey, itemId) {
+      const item = appState.categories[categoryKey].find(i => i.id === itemId);
+      if (item) {
+        item.checked = !item.checked;
+        renderCategoryTags();
+      }
+    }
+
+    function toggleAllTags(state) {
+      Object.keys(appState.categories).forEach(k => {
+        appState.categories[k].forEach(i => i.checked = state);
+      });
+      renderCategoryTags();
+    }
+
+    function handleAddCustomTag(e, category) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const input = e.target;
+        const val = input.value.trim();
+        if (!val) return;
+
+        const key = category === 'industry' ? 'industries' :
+                    (category === 'company' ? 'companies' :
+                    (category === 'keyword' ? 'keywords' : 'sources'));
+
+        const exists = appState.categories[key].some(i => i.name.toLowerCase() === val.toLowerCase());
+        if (!exists) {
+          appState.categories[key].push({
+            id: 'custom_' + Date.now(),
+            name: val,
+            checked: true
+          });
+          input.value = '';
+          renderCategoryTags();
+          showToast(`已新增自訂項目：${val}`);
+        }
+      }
+    }
+
+    function updateTrackingSummaryBar() {
+      const pillsBox = document.getElementById('trackingSummaryPills');
+      const c = appState.categories;
+
+      const checkedInd = c.industries.filter(i => i.checked);
+      const checkedComp = c.companies.filter(i => i.checked);
+      const checkedKw = c.keywords.filter(i => i.checked);
+      const checkedSrc = c.sources.filter(i => i.checked);
+
+      pillsBox.innerHTML = `
+        <span class="summary-pill">🌐 產業: ${checkedInd.length ? checkedInd[0].name + (checkedInd.length > 1 ? ' 等'+checkedInd.length+'個' : '') : '未勾選'}</span>
+        <span class="summary-pill">🏢 公司: ${checkedComp.length ? checkedComp[0].name.split(' ')[0] + (checkedComp.length > 1 ? ' 等'+checkedComp.length+'家' : '') : '未勾選'}</span>
+        <span class="summary-pill">🏷️ 關鍵字: ${checkedKw.length} 個</span>
+        <span class="summary-pill">📡 來源: ${checkedSrc.length} 個網站</span>
+      `;
     }
 
     function toggleTrackingPanel(forceState) {
@@ -1426,56 +1806,63 @@
 
       if (isTrackingPanelExpanded) {
         panel.classList.add('expanded');
-        document.getElementById('trackingToggleLabel').textContent = '收合設定選單 ▴';
+        document.getElementById('trackingToggleText').textContent = '收合分類挑選面板 ▴';
       } else {
         panel.classList.remove('expanded');
-        document.getElementById('trackingToggleLabel').textContent = '展開自訂追蹤標的 ▾';
+        document.getElementById('trackingToggleText').textContent = '展開分類挑選面板 ▾';
       }
     }
 
-    function handleTrackingAdd(e, type) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        const input = e.target;
-        const val = input.value.trim();
-        if (!val) return;
-
-        const targetList = type === 'company' ? appState.tracking.companies :
-                           (type === 'industry' ? appState.tracking.industries :
-                           (type === 'keyword' ? appState.tracking.keywords : appState.tracking.sources));
-
-        if (!targetList.includes(val)) {
-          targetList.push(val);
-        }
-        input.value = '';
-        renderTrackingSummary();
-      }
-    }
-
-    function removeTrackingItem(type, idx) {
-      const targetList = type === 'company' ? appState.tracking.companies :
-                         (type === 'industry' ? appState.tracking.industries :
-                         (type === 'keyword' ? appState.tracking.keywords : appState.tracking.sources));
-      targetList.splice(idx, 1);
-      renderTrackingSummary();
-    }
-
-    function saveTrackingAndRunCrawl() {
-      localStorage.setItem('intel_radar_state_v3', JSON.stringify(appState));
+    function saveCategoriesAndRun() {
+      localStorage.setItem('intel_radar_state_v4', JSON.stringify(appState));
       toggleTrackingPanel(false);
-      triggerCrawlWithOverlay("依據頂部最新自訂追蹤標的執行資料更新");
+      triggerCrawlWithOverlay("依據頂部最新分類複選參數執行資料更新");
     }
 
     // =========================================================
-    // 2. STOCK & INDEX REAL-TIME CHARTS LOGIC
+    // 2. STOCK & INDEX CHARTS LOGIC
     // =========================================================
+    function getActiveStockDataset() {
+      const mode = appState.chartSettings?.mode || 'movers';
+      if (mode === 'topcap') {
+        return topCapStockData;
+      } else if (mode === 'custom') {
+        // Find checked companies and match or build mock charts
+        const checkedCompanies = appState.categories.companies.filter(c => c.checked).map(c => c.name);
+        if (checkedCompanies.length === 0) return topCapStockData;
+
+        return checkedCompanies.map((name, i) => {
+          const found = [...topCapStockData, ...moversStockData].find(s => s.name.includes(name.split(' ')[0]));
+          if (found) return found;
+          return {
+            symbol: 'TRACK.' + (i+1),
+            name: name,
+            sub: '自訂關注標的',
+            price: (500 + i * 85).toFixed(2),
+            change: '+15.50',
+            changePct: '+2.10%',
+            isUp: true,
+            high: (520 + i * 85).toFixed(2),
+            low: (490 + i * 85).toFixed(2),
+            vol: '12,500 張',
+            chartPath: 'M0,48 Q40,42 90,32 T170,22 T250,15 T300,8',
+            chartArea: 'M0,48 Q40,42 90,32 T170,22 T250,15 T300,8 L300,60 L0,60 Z'
+          };
+        });
+      } else {
+        // 'movers': 前一日最熱門 (暴漲暴跌)
+        return moversStockData;
+      }
+    }
+
     function renderStockCharts() {
       const grid = document.getElementById('marketChartsGrid');
       const count = parseInt(appState.chartSettings.count || 3, 10);
-      const items = stockDatabase.slice(0, count);
+      const dataset = getActiveStockDataset();
+      const items = dataset.slice(0, count);
 
       grid.innerHTML = items.map(stock => `
-        <div class="stock-card" onclick="showToast('已鎖定 ${stock.name} 即時行情資料')">
+        <div class="stock-card" onclick="showToast('已鎖定 ${stock.name} 即時技術面資訊')">
           <div class="stock-top">
             <div class="stock-name-box">
               <h4>${stock.name}</h4>
@@ -1491,15 +1878,15 @@
           </div>
 
           <!-- SVG Sparkline Area Chart -->
-          <svg class="stock-chart-svg" viewBox="0 0 300 64">
+          <svg class="stock-chart-svg" viewBox="0 0 300 60">
             <defs>
-              <linearGradient id="grad-${stock.symbol}" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="${stock.isUp ? '#ef4444' : '#10b981'}" stop-opacity="0.35"/>
-                <stop offset="100%" stop-color="${stock.isUp ? '#ef4444' : '#10b981'}" stop-opacity="0.0"/>
+              <linearGradient id="grad-${stock.symbol.replace('.', '_')}" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="${stock.isUp ? '#dc2626' : '#16a34a'}" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="${stock.isUp ? '#dc2626' : '#16a34a'}" stop-opacity="0.0"/>
               </linearGradient>
             </defs>
-            <path d="${stock.chartArea}" fill="url(#grad-${stock.symbol})" />
-            <path d="${stock.chartPath}" fill="none" stroke="${stock.isUp ? '#ef4444' : '#10b981'}" stroke-width="2.5" stroke-linecap="round" />
+            <path d="${stock.chartArea}" fill="url(#grad-${stock.symbol.replace('.', '_')})" />
+            <path d="${stock.chartPath}" fill="none" stroke="${stock.isUp ? '#dc2626' : '#16a34a'}" stroke-width="2.5" stroke-linecap="round" />
           </svg>
 
           <div class="stock-meta-row">
@@ -1510,25 +1897,33 @@
       `).join('');
     }
 
+    function switchChartMode(mode) {
+      appState.chartSettings.mode = mode;
+      document.getElementById('tabBtnMovers').classList.toggle('active', mode === 'movers');
+      document.getElementById('tabBtnTopCap').classList.toggle('active', mode === 'topcap');
+      document.getElementById('tabBtnCustom').classList.toggle('active', mode === 'custom');
+      localStorage.setItem('intel_radar_state_v4', JSON.stringify(appState));
+      renderStockCharts();
+      showToast(mode === 'movers' ? '切換為：前一日最熱門 (暴漲暴跌榜)' : (mode === 'topcap' ? '切換為：市值前十大公司' : '切換為：我的自訂追蹤標的'));
+    }
+
     function changeChartCount(val) {
       appState.chartSettings.count = parseInt(val, 10);
-      localStorage.setItem('intel_radar_state_v3', JSON.stringify(appState));
+      localStorage.setItem('intel_radar_state_v4', JSON.stringify(appState));
       renderStockCharts();
-      showToast(`已切換為顯示 ${val} 檔圖表`);
+      showToast(`已切換為顯示 ${val} 檔走勢圖`);
     }
 
     function changeChartTimeframe(val) {
       appState.chartSettings.timeframe = val;
-      localStorage.setItem('intel_radar_state_v3', JSON.stringify(appState));
+      localStorage.setItem('intel_radar_state_v4', JSON.stringify(appState));
       renderStockCharts();
-      showToast(`已切換行情時間區間為 ${val}`);
+      showToast(`時間維度已切換至 ${val}`);
     }
 
     // =========================================================
-    // 3. TRACKING CONTENT STREAM WITH 2-STEP CLICK
+    // 3. TRACKING CONTENT STREAM WITH 2-STEP CLICK INTERACTION
     // =========================================================
-    let openedFeedId = null;
-
     function renderFeedList() {
       const container = document.getElementById('feedContainer');
       const sortBy = document.getElementById('feedSortSelect').value;
@@ -1537,7 +1932,18 @@
 
       let list = [...feedItems];
 
-      // Filter by search
+      // Filter by checked companies & industries (if any selected)
+      const checkedCompanies = appState.categories.companies.filter(c => c.checked).map(c => c.name.split(' ')[0]);
+      const checkedIndustries = appState.categories.industries.filter(i => i.checked).map(i => i.name);
+
+      if (checkedCompanies.length > 0) {
+        list = list.filter(item => checkedCompanies.some(comp => item.company.includes(comp)));
+      }
+      if (checkedIndustries.length > 0) {
+        list = list.filter(item => checkedIndustries.some(ind => item.industry.includes(ind)));
+      }
+
+      // Keyword Search Filter
       if (searchVal) {
         list = list.filter(item => 
           item.title.toLowerCase().includes(searchVal) ||
@@ -1547,27 +1953,30 @@
         );
       }
 
-      // Sort
+      // Sorting Logic
       if (sortBy === 'impact') {
         list.sort((a, b) => b.impactScore - a.impactScore);
+      } else if (sortBy === 'oldest') {
+        list.reverse();
       } else if (sortBy === 'positive') {
         list.sort((a, b) => (b.sentiment === 'positive' ? 1 : 0) - (a.sentiment === 'positive' ? 1 : 0));
       } else if (sortBy === 'warning') {
         list.sort((a, b) => (b.sentiment === 'warning' ? 1 : 0) - (a.sentiment === 'warning' ? 1 : 0));
       }
 
-      // Limit
-      const totalCount = list.length;
+      // Limit items (Default: 10)
+      const totalAvailable = list.length;
       if (limitVal !== 'all') {
         list = list.slice(0, parseInt(limitVal, 10));
       }
 
-      document.getElementById('streamCountDisplay').textContent = `（顯示 ${list.length} / 共 ${totalCount} 則）`;
+      document.getElementById('streamCountDisplay').textContent = `（顯示 ${list.length} / 共 ${totalAvailable} 則相關情報）`;
 
       if (list.length === 0) {
         container.innerHTML = `
-          <div style="padding: 30px; text-align: center; color: var(--text-muted);">
-            未找到相符之情資項目，請調整關鍵字或排序條件。
+          <div style="padding: 36px; text-align: center; color: var(--text-muted); background: var(--bg-secondary); border-radius: var(--radius-sm); border: 1px dashed var(--card-border);">
+            <p>未找到符合目前勾選標的之情資項目。</p>
+            <p style="font-size: 0.8rem; margin-top: 6px;">請於上方「自訂追蹤標的」面板多勾選幾項產業或公司。</p>
           </div>
         `;
         return;
@@ -1589,30 +1998,30 @@
                 </div>
                 <div style="display: flex; gap: 6px; align-items: center;">
                   <span class="tag-badge">${item.company}</span>
-                  <span class="tag-badge" style="background: rgba(56, 189, 248, 0.12); color: var(--accent);">${item.industry}</span>
+                  <span class="tag-badge" style="background: var(--accent-glow); color: var(--accent);">${item.industry}</span>
                   <span class="sentiment-badge sentiment-${item.sentiment}">${item.sentimentText}</span>
                 </div>
               </div>
 
               <div class="feed-title">
                 <span>${item.title}</span>
-                <span class="expand-hint">
-                  ${isOpen ? '收合摘要' : '點擊查看摘要'}
+                <span class="expand-indicator">
+                  ${isOpen ? '收合內容' : '點擊查看摘要'}
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
                 </span>
               </div>
             </div>
 
-            <!-- 1st Step Expanded Content: In-Depth Summary & Insights -->
+            <!-- 1st Step Expanded Drawer: In-Depth Content Summary -->
             <div class="feed-drawer">
               <div class="summary-box">
-                <strong style="color: var(--accent); display: block; margin-bottom: 4px;">📌 核心內容摘要：</strong>
+                <strong style="color: var(--accent); display: block; margin-bottom: 6px;">📌 核心內容重點摘要：</strong>
                 ${item.summary}
               </div>
 
               <div class="insight-grid">
                 <div class="insight-card">
-                  <strong>🔍 產業傳導與詳細分析：</strong>
+                  <strong>🔍 產業脈絡與傳導影響分析：</strong>
                   <p style="white-space: pre-line;">${item.details}</p>
                 </div>
                 <div class="insight-card" style="border-left-color: var(--success);">
@@ -1623,8 +2032,8 @@
 
               <!-- 2nd Step Click Target: Open Original Website Link -->
               <div class="feed-action-bar">
-                <span style="font-size: 0.75rem; color: var(--text-muted);">
-                  情報重要性評分：<strong>${item.impactScore} / 100</strong>
+                <span style="font-size: 0.76rem; color: var(--text-muted);">
+                  重要性指數：<strong>${item.impactScore} / 100</strong> • 來源媒體：<strong>${item.source}</strong>
                 </span>
 
                 <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="btn-external-link" onclick="event.stopPropagation();">
@@ -1646,15 +2055,11 @@
       renderFeedList();
     }
 
-    function handleFeedFilterChange() {
-      renderFeedList();
-    }
-
     // =========================================================
     // 4. MANUAL CRAWL & SIMULATION ENGINE
     // =========================================================
     function triggerManualCrawl() {
-      triggerCrawlWithOverlay("正在連線指定站台執行資料抓取與即時運算");
+      triggerCrawlWithOverlay("正在連線各指定來源站台執行資料抓取與即時運算");
     }
 
     function triggerCrawlWithOverlay(reasonText) {
@@ -1664,17 +2069,16 @@
 
       overlay.classList.add('active');
       bar.style.width = '15%';
-      step.textContent = `[1/4] 連線至 ${appState.tracking.sources.length} 個指定網站及 RSS 來源...`;
+      step.textContent = `[1/4] 連線指定來源網站與 RSS 資訊源...`;
 
       setTimeout(() => {
         bar.style.width = '45%';
-        const comp = appState.tracking.companies[0] || '重點公司';
-        step.textContent = `[2/4] 篩選關注標的 (${comp}、${appState.tracking.keywords[0]} 等)...`;
+        step.textContent = `[2/4] 篩選勾選之產業與公司關鍵字情報...`;
       }, 500);
 
       setTimeout(() => {
         bar.style.width = '80%';
-        step.textContent = `[3/4] AI 萃取重點摘要、評估行情走勢與市場情緒...`;
+        step.textContent = `[3/4] AI 萃取核心摘要、行情波動與情緒指標...`;
       }, 1100);
 
       setTimeout(() => {
@@ -1685,33 +2089,34 @@
       setTimeout(() => {
         overlay.classList.remove('active');
 
-        // Insert a new live feed item based on user's current settings
+        // Dynamically add a fresh intelligence item matching user's selections
         const now = new Date();
         const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-        const topComp = appState.tracking.companies[0] || '重點標的';
-        const topInd = appState.tracking.industries[0] || '半導體';
-        const topKw = appState.tracking.keywords[0] || '核心技術';
+        const topComp = appState.categories.companies.find(c => c.checked)?.name || '重點標的';
+        const topInd = appState.categories.industries.find(i => i.checked)?.name || '核心產業';
+        const topKw = appState.categories.keywords.find(k => k.checked)?.name || '關鍵技術';
+        const topSrc = appState.categories.sources.find(s => s.checked)?.name || '科技新報 TechNews';
 
         const freshItem = {
           id: Date.now(),
-          title: `【即時快訊】針對 ${topComp} 與 ${topKw} 執行最新全網即時探訪`,
+          title: `【即時更新】針對 ${topComp} 與 ${topKw} 執行最新全網即時探訪`,
           summary: `系統於 ${timeStr} 成功依據使用者最新自訂參數完成情報採集。${topComp} 於 ${topInd} 領域之產能動態與出貨預估維持高能見度。`,
           details: `1. 本次更新完全依據使用者自訂之公司與關鍵字清單進行動態檢索。\n2. 最新市場即時買盤力道偏多，重點供應鏈產能滿載。\n3. 建議持續維持在重點關注名單。`,
           actionItem: `密切關注下午收盤後是否發布重大訊息或法說簡報。`,
           company: topComp,
           industry: topInd,
-          source: appState.tracking.sources[0] || '即時聯網爬蟲',
+          source: topSrc,
           time: `${timeStr} (剛剛)`,
           sentiment: 'positive',
           sentimentText: '即時更新',
-          impactScore: 92,
+          impactScore: 94,
           url: 'https://technews.tw/'
         };
 
         feedItems.unshift(freshItem);
         openedFeedId = freshItem.id; // Automatically open the latest one!
 
-        renderTrackingSummary();
+        renderCategoryTags();
         renderStockCharts();
         renderFeedList();
         showToast('✅ 已成功依據自訂參數完成即時資料更新！');
@@ -1719,10 +2124,20 @@
     }
 
     // =========================================================
-    // 5. GLOBAL SETTINGS MODAL
+    // 5. GLOBAL SETTINGS & READING THEMES
     // =========================================================
+    function changeTheme(themeName) {
+      document.body.setAttribute('data-theme', themeName);
+      appState.theme = themeName;
+      document.getElementById('themeSelector').value = themeName;
+      document.getElementById('cfgDefaultTheme').value = themeName;
+      localStorage.setItem('intel_radar_state_v4', JSON.stringify(appState));
+      showToast(`已切換色調風格為：${themeName === 'white' ? '經典純白' : (themeName === 'sage' ? '護眼柔綠' : (themeName === 'ivory' ? '護眼暖米' : '暗夜深色'))}`);
+    }
+
     function openSettingsModal() {
       document.getElementById('cfgScheduleTime').value = appState.schedule?.time || '08:30';
+      document.getElementById('cfgDefaultTheme').value = appState.theme || 'white';
       document.getElementById('cfgPushEmail').checked = appState.schedule?.email !== false;
       document.getElementById('cfgPushLine').checked = appState.schedule?.line !== false;
       document.getElementById('cfgPushBrowser').checked = appState.schedule?.browser !== false;
@@ -1753,7 +2168,7 @@
       appState.chartSettings.count = chartCountVal;
       document.getElementById('chartCountSelect').value = chartCountVal;
 
-      localStorage.setItem('intel_radar_state_v3', JSON.stringify(appState));
+      localStorage.setItem('intel_radar_state_v4', JSON.stringify(appState));
       document.getElementById('headerScheduleText').textContent = `每日 ${appState.schedule.time} 自動排程中`;
       closeSettingsModal();
       renderStockCharts();
@@ -1762,25 +2177,24 @@
 
     function resetAllDefaults() {
       if (confirm('確定要將所有設定恢復為初始預設值嗎？')) {
-        appState = JSON.parse(JSON.stringify(defaultData));
-        localStorage.setItem('intel_radar_state_v3', JSON.stringify(appState));
+        appState = {
+          theme: 'white',
+          categories: JSON.parse(JSON.stringify(initialCategories)),
+          chartSettings: { mode: 'movers', count: 3, timeframe: '1D' },
+          feedSettings: { sortBy: 'newest', limit: 10 },
+          schedule: { time: '08:30', email: true, line: true, browser: true }
+        };
+        localStorage.setItem('intel_radar_state_v4', JSON.stringify(appState));
+        changeTheme('white');
         document.getElementById('chartCountSelect').value = 3;
         document.getElementById('feedSortSelect').value = 'newest';
         document.getElementById('feedLimitSelect').value = '10';
         closeSettingsModal();
-        renderTrackingSummary();
+        renderCategoryTags();
         renderStockCharts();
         renderFeedList();
-        showToast('已成功恢復預設值。');
+        showToast('已成功恢復初始預設值。');
       }
-    }
-
-    function toggleTheme() {
-      const cur = document.body.getAttribute('data-theme');
-      const nxt = cur === 'dark' ? 'light' : 'dark';
-      document.body.setAttribute('data-theme', nxt);
-      localStorage.setItem('intel_radar_theme', nxt);
-      showToast(`已切換為${nxt === 'dark' ? '深色' : '淺色'}主題`);
     }
 
     function showToast(msg) {
@@ -1792,13 +2206,13 @@
 
     // Initial Load
     window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('intel_radar_theme') || 'dark';
-      document.body.setAttribute('data-theme', savedTheme);
+      const initialTheme = appState.theme || 'white';
+      changeTheme(initialTheme);
 
       document.getElementById('chartCountSelect').value = appState.chartSettings?.count || 3;
       document.getElementById('headerScheduleText').textContent = `每日 ${appState.schedule?.time || '08:30'} 自動排程中`;
 
-      renderTrackingSummary();
+      renderCategoryTags();
       renderStockCharts();
       renderFeedList();
     });
