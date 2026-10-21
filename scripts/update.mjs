@@ -1,3 +1,4 @@
+// 由 GitHub Actions 執行：抓報價(Yahoo)、用 Gemini+Google 搜尋整理新事件，累積寫入 data/report.json
 import fs from 'node:fs';
 
 const KEY = process.env.GEMINI_KEY, DAYS = +(process.env.DAYS || 1);
@@ -42,21 +43,20 @@ const base = `現在時間：${new Date().toLocaleString('zh-TW', { timeZone: 'A
   '涵蓋美國、歐洲、日本、中國、澳洲、臺灣及其他重要地區當前或前夜最新動態；板塊含生技醫藥、醫療科技(MedTech)、智慧醫療、醫療服務、醫藥通路、健康管理、長壽科技。' +
   `以下事項已收錄，除非有實質新進展，否則不得重複：${recent}。只回傳純 JSON。`;
 const EV = '只輸出區間內有「實質重大進展」(臨床、核准、財報、併購、訴訟、法規等)的公司，沒有就不要輸出。回傳陣列，每筆 {"sym":"代號(須與提供者一致)","name":"公司","market":"市場","date":"YYYY/MM/DD","event":"重大進展","catalyst":"後續催化劑與預定日","impact":"市場影響評估一句","url":""}。';
-const top = T.filter(t => t.top), watch = T.filter(t => !t.top);
+const ai = T.filter(t => t.ai);
+const chunks = []; for (let i = 0; i < ai.length; i += 10) chunks.push(ai.slice(i, i + 10));
 const fmt = l => l.map(x => `${x.n}(${x.s})`).join('、');
 
 const jobs = [
   gem(base + '\n任務：各國藥監機關（FDA、EMA、NMPA、TFDA、PMDA，可加 TGA、MHRA、Health Canada）的政策、規定、新核准、優先審查、部會/委員會審議、即將到期的 PDUFA 日或 CHMP 意見。回傳陣列，最多 20 筆，每筆 {"org":"FDA|EMA|NMPA|TFDA|PMDA|其他","name":"藥品/醫材","company":"藥廠/單位","date":"YYYY/MM/DD","indication":"適應症","type":"核准/優先審查/PDUFA/CHMP意見/政策/審議中","value":"商業與臨床價值一句","url":""}'),
-  gem(base + `\n任務：全球指標生醫業者：${fmt(top.slice(0, 12))}。` + EV),
-  gem(base + `\n任務：全球指標生醫業者：${fmt(top.slice(12))}。` + EV + '另可補充至多 5 家其他有重大進展的生醫公司（sym 用 Yahoo Finance 格式）。'),
-  gem(base + `\n任務：關注標的：${fmt(watch)}。` + EV)
+  ...chunks.map((c, i) => gem(base + `\n任務：${fmt(c)}。` + EV + (i === 0 ? '另可補充至多 5 家其他有重大進展的生醫公司（sym 用 Yahoo Finance 格式）。' : ''))),
 ];
-const [reg, c1, c2, c3] = await Promise.all(jobs);
-if (!reg && !c1 && !c2 && !c3) { console.error('AI 全部失敗，不更新'); process.exit(1); }
+const [reg, ...cos] = await Promise.all(jobs);
+if (!reg && cos.every(x => !x)) { console.error('AI 全部失敗，不更新'); process.exit(1); }
 
 const merge = (a, b, key) => { const m = new Map(a.map(x => [key(x), x])); b.forEach(x => m.set(key(x), x)); return [...m.values()].filter(x => x.date >= keep); };
 const newReg = (reg || []).filter(x => okd(x.date) && x.date >= from);
-const newCo = [...(c1 || []), ...(c2 || []), ...(c3 || [])].filter(e => e.sym && okd(e.date) && e.date >= from && e.date <= today);
+const newCo = cos.flatMap(x => x || []).filter(e => e.sym && okd(e.date) && e.date >= from && e.date <= today);
 const out = {
   ts: Date.now(), window: DAYS, T,
   reg: merge(old.reg, newReg, x => x.name + '@' + x.date),
