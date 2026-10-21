@@ -3,234 +3,199 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>情報儀表板</title>
+<title>全球生技醫療產業即時情報</title>
 <style>
-:root{--bg:#fff;--bg2:#f5f6f8;--line:#dfe3e8;--tx:#1b2430;--mu:#667085;--ac:#0b6bcb;--up:#d92d20;--dn:#12805c}
-[data-theme=sage]{--bg:#f1f6f1;--bg2:#e4ede4;--line:#cbdacb;--tx:#1a2c1c;--mu:#58705b;--ac:#2e7d32}
-[data-theme=ivory]{--bg:#fbf7ee;--bg2:#f1eadb;--line:#e1d5bd;--tx:#2d2417;--mu:#76674f;--ac:#a4540b}
-[data-theme=dark]{--bg:#12181f;--bg2:#1c242d;--line:#2d3844;--tx:#e8edf2;--mu:#98a4b3;--ac:#5aa9f0}
+:root{--bg:#fff;--bg2:#f4f6f9;--line:#dde2e8;--tx:#18222e;--mu:#637083;--ac:#0b5cad;--up:#c8281c;--dn:#0f7a55}
+[data-theme=sage]{--bg:#f1f6f1;--bg2:#e3ede3;--line:#c9d9c9;--tx:#192b1b;--mu:#566e59;--ac:#2a7330}
+[data-theme=ivory]{--bg:#fbf7ee;--bg2:#f0e9d9;--line:#e0d4bb;--tx:#2c2316;--mu:#74654d;--ac:#9a4f0a}
+[data-theme=dark]{--bg:#11171e;--bg2:#1b232c;--line:#2c3743;--tx:#e8edf2;--mu:#97a3b2;--ac:#5aa9f0}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 system-ui,"PingFang TC","Microsoft JhengHei",sans-serif}
-main{max-width:1200px;margin:0 auto;padding:14px}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.6 system-ui,"PingFang TC","Microsoft JhengHei",sans-serif}
+main{max-width:1280px;margin:0 auto;padding:16px}
+h1{font-size:1.45rem;margin:0 0 2px}h2{font-size:1.1rem;margin:26px 0 8px;padding-left:10px;border-left:4px solid var(--ac)}
+.mu{color:var(--mu);font-size:.85rem}
 button,select,input{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
-button{cursor:pointer}button.p{background:var(--ac);border-color:var(--ac);color:#fff}
-button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
-header{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:12px}
-h1{font-size:1.15rem;margin:0}.mu{color:var(--mu);font-size:.85rem}
-section{border:1px solid var(--line);border-radius:12px;margin-bottom:14px;background:var(--bg)}
-.hd{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:10px 14px}
-#track>.hd{cursor:pointer}.body{padding:0 14px 14px}
-.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.cat{background:var(--bg2);border-radius:10px;padding:10px}.cat h3{margin:0 0 8px;font-size:.92rem}
-.pill{display:inline-block;margin:0 5px 6px 0;padding:3px 10px;border:1px solid var(--line);border-radius:99px;background:var(--bg);cursor:pointer;font-size:.84rem;user-select:none}
-.pill.on{background:var(--ac);border-color:var(--ac);color:#fff}
-.cat input{width:100%;margin-top:4px}
-.cards{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));padding:0 14px 14px}
-.card{border:1px solid var(--line);border-radius:10px;padding:10px;text-decoration:none;color:inherit;display:block}
-.card b{display:block}.row{display:flex;justify-content:space-between;align-items:baseline}
-.px{font-size:1.2rem;font-weight:700}.up{color:var(--up)}.dn{color:var(--dn)}
-svg{width:100%;height:56px;display:block}
-.item{border-top:1px solid var(--line)}
-.it{padding:10px 14px;cursor:pointer}.it:hover{background:var(--bg2)}
-.det{display:none;padding:0 14px 12px}.item.open .det{display:block}
-.tag{font-size:.75rem;background:var(--bg2);border-radius:5px;padding:1px 7px;margin-right:4px}
-a.go{display:inline-block;margin-top:8px;padding:6px 12px;border-radius:8px;background:var(--ac);color:#fff;text-decoration:none}
-dialog{border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--tx);max-width:480px;width:92%}
+button{cursor:pointer}button.p{background:var(--ac);border-color:var(--ac);color:#fff}button:disabled{opacity:.5}
+:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:10px 0}
+.chip{display:inline-flex;gap:4px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:2px 4px 2px 10px;font-size:.84rem;margin:0 4px 4px 0}
+.chip button{border:0;padding:0 6px;background:none;color:var(--mu)}
+.res button{display:block;width:100%;text-align:left;margin-top:4px}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:.88rem}
+th{background:var(--bg2);text-align:left;padding:8px 10px;white-space:nowrap;border-bottom:1px solid var(--line)}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}tr:last-child td{border-bottom:0}
+.tag{display:inline-block;padding:1px 8px;border-radius:5px;font-size:.76rem;font-weight:600;background:var(--ac);color:#fff;white-space:nowrap}
+.tag.s{background:var(--bg2);color:var(--tx);border:1px solid var(--line)}
+.up{color:var(--up);font-weight:700}.dn{color:var(--dn);font-weight:700}.fl{color:var(--mu);font-weight:700}
+.num{white-space:nowrap;font-variant-numeric:tabular-nums}
+.deep{border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px}.deep h3{margin:0 0 6px;font-size:1rem}.deep li{margin:3px 0}
+.warn{background:#fff4e5;color:#7a4300;border-radius:8px;padding:8px 12px;margin:8px 0}
+dialog{border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--tx);width:92%;max-width:480px}
 dialog label{display:block;margin:10px 0 4px;font-weight:600}dialog input,dialog select{width:100%}
-.stepper input{width:64px;text-align:center}
+a{color:var(--ac)}
+@media print{.bar,.noprint{display:none!important}:root,[data-theme]{--bg:#fff;--bg2:#f4f6f9;--tx:#000;--line:#bbb}main{max-width:none;padding:0}table{min-width:0;font-size:9pt}.tw{overflow:visible}h2{break-after:avoid}tr{break-inside:avoid}@page{size:A4 landscape;margin:10mm}}
 </style>
 </head>
 <body>
 <main>
-<header>
-  <div><h1>情報儀表板</h1><div class="mu" id="stamp">尚未連線</div></div>
-  <div>
-    <button class="p" id="refresh">立即更新</button>
-    <button id="openCfg">設定</button>
-  </div>
-</header>
+<h1>全球生技醫療產業即時情報</h1>
+<div class="mu" id="stamp">尚未產生報告</div>
 
-<section id="track">
-  <div class="hd" id="trackBar"><div id="sum"></div><span class="mu" id="arrow">展開 ▾</span></div>
-  <div class="body" id="trackBody" hidden>
-    <div class="grid" id="cats"></div>
-    <p><button id="all">全選</button> <button id="none">全不選</button> <button class="p" id="apply">套用並更新</button></p>
-  </div>
-</section>
+<div class="bar noprint">
+  <select id="range" aria-label="報導區間">
+    <option value="1">1 天</option><option value="3">3 天</option><option value="7">7 天</option><option value="14">雙週</option>
+    <option value="30">1 個月</option><option value="60">2 個月</option><option value="90">3 個月</option><option value="180">6 個月</option><option value="365">1 年</option><option value="c">自選區間</option>
+  </select>
+  <span id="custom" hidden><input type="date" id="d1"> ～ <input type="date" id="d2"></span>
+  <button class="p" id="run">更新情報</button>
+  <button id="dlMd">下載 Markdown</button>
+  <button id="dlPdf">下載 PDF</button>
+  <button id="cfgBtn">設定</button>
+</div>
 
-<section>
-  <div class="hd">
-    <b>股價與指數</b>
-    <div>
-      <select id="mode"><option value="mine">我的追蹤</option><option value="topcap">市值前十大</option><option value="movers">昨日漲跌幅最大</option></select>
-      <select id="range"><option value="5">5 日</option><option value="30">1 個月</option></select>
-      <span class="stepper"><button id="cm">−</button><input id="cn" type="number" min="1"><button id="cp">＋</button><button id="call">全部</button></span>
-    </div>
-  </div>
-  <div class="cards" id="cards"></div>
-  <div class="mu" style="padding:0 14px 12px">報價來自 Yahoo Finance，可能延遲 15–20 分鐘；點卡片前往 Bloomberg 查看原始行情。</div>
-</section>
+<details class="noprint" open>
+  <summary><b>重點關注標的</b> <span class="mu">（輸入名稱，從候選中選出正確代號）</span></summary>
+  <div style="margin:8px 0" id="chips"></div>
+  <input id="wq" placeholder="例如：藥華藥 / Vertex" style="width:240px"> <button id="wfind">查代號</button>
+  <div class="res" id="wres" style="max-width:440px"></div>
+</details>
 
-<section>
-  <div class="hd">
-    <b>追蹤情報</b>
-    <div>
-      <select id="sort"><option value="new">最新優先</option><option value="old">最舊優先</option><option value="imp">重要性</option><option value="src">依來源</option></select>
-      <label class="mu">筆數 <input id="limit" type="number" min="1" style="width:64px"></label>
-      <input id="find" placeholder="搜尋標題" style="width:120px">
-    </div>
-  </div>
-  <div id="feed"></div>
-</section>
+<div id="warn"></div>
+<div id="report"><p class="mu">第一次使用請先按「設定」貼上 Gemini 金鑰，再按「更新情報」。一次完整更新約需 1–3 分鐘。</p></div>
+<p class="mu">資料由 AI 搜尋整理，價格、日期與連結請與交易所、券商及官方來源核對；不構成投資建議。</p>
 </main>
 
 <dialog id="cfg">
   <h3>設定</h3>
-  <label>後端網址 (Apps Script /exec)</label><input id="cApi">
-  <label>存取密碼 (SECRET)</label><input id="cTok" type="password">
-  <label>每日自動收集時間</label><input id="cTime" type="time">
-  <label>色調</label>
-  <select id="cTheme"><option value="white">純白 (預設)</option><option value="sage">柔綠</option><option value="ivory">暖米</option><option value="dark">深色</option></select>
-  <label>漲跌顏色</label>
-  <select id="cUp"><option value="red">紅漲綠跌 (台股)</option><option value="green">綠漲紅跌 (美股)</option></select>
-  <p class="mu" id="phone"></p>
+  <label>Gemini API 金鑰</label><input id="cKey" type="password" placeholder="至 aistudio.google.com 免費申請">
+  <p class="mu">金鑰只存在此裝置的瀏覽器，不會上傳。請勿把已填好金鑰的頁面分享給別人。</p>
+  <label>色調</label><select id="cTheme"><option value="white">純白 (預設)</option><option value="sage">柔綠</option><option value="ivory">暖米</option><option value="dark">深色</option></select>
+  <p><button id="cLink">複製「設定連結」（不含金鑰）</button></p>
   <p><button class="p" id="cSave">儲存</button> <button id="cClose">關閉</button></p>
 </dialog>
 
 <script>
-const CAT={
-ind:[['生技醫藥與新藥研發','',1],['CDMO 委託開發製造','',1],['GLP-1 減重與代謝藥物','',1],['免疫腫瘤與細胞基因療法','',1],['特殊劑型與學名藥','',1],['醫療器材與智慧醫療','',1],['半導體晶圓代工'],['IC設計'],['先進封裝'],['AI伺服器與散熱'],['矽光子與CPO'],['電動車與車用電子']],
-co:[['保瑞藥業','6472.TW',1],['藥華藥','6446.TWO',1],['美時製藥','1795.TW',1],['康霈','6919.TW',1],['禮來 Eli Lilly','LLY',1],['諾和諾德','NVO',1],['台積電','2330.TW'],['輝達','NVDA'],['聯發科','2454.TW'],['鴻海','2317.TW'],['廣達','2382.TW'],['蘋果','AAPL'],['微軟','MSFT']],
-kw:[['FDA 藥證核准','',1],['GLP-1 減重適應症','',1],['CDMO 併購','',1],['授權金 里程碑','',1],['孤兒藥資格','',1],['2nm 良率'],['CoWoS 產能'],['出口管制']],
-src:[['環球生技月刊','gbimonthly.com',1],['Genet 生技資訊','genetinfo.com',1],['Fierce Biotech','fiercebiotech.com',1],['鉅亨網','cnyes.com',1],['工商時報','ctee.com.tw'],['經濟日報','money.udn.com'],['科技新報','technews.tw'],['Bloomberg','bloomberg.com']]};
-const TITLE={ind:'產業與次產業',co:'熱門與大市值公司 (名稱|代號)',kw:'熱門關鍵字',src:'專業網站 (名稱|網域或 RSS 網址)'};
-const TOP=['NVDA','MSFT','AAPL','GOOGL','AMZN','META','AVGO','TSM','TSLA','LLY'];
-const UNI=TOP.concat(['2330.TW','2317.TW','2454.TW','2382.TW','3017.TW','3324.TW','6472.TW','6446.TWO','1795.TW','NVO','AMD','SMCI','ARM','INTC','MRNA','PFE','JNJ','ABBV','MRK']);
+const TOP=[['Eli Lilly','LLY','美'],['Novo Nordisk','NVO','歐'],['Johnson & Johnson','JNJ','美'],['AbbVie','ABBV','美'],['AstraZeneca','AZN','歐'],['Roche','ROG.SW','歐'],['Novartis','NOVN.SW','歐'],['Merck & Co','MRK','美'],['Pfizer','PFE','美'],['Amgen','AMGN','美'],['Thermo Fisher','TMO','美'],['Abbott','ABT','美'],['Intuitive Surgical','ISRG','美'],['Gilead','GILD','美'],['Vertex','VRTX','美'],['Regeneron','REGN','美'],['Sanofi','SAN.PA','歐'],['GSK','GSK.L','歐'],['Takeda','4502.T','日'],['Daiichi Sankyo','4568.T','日'],['恒瑞醫藥','600276.SS','中'],['藥明康德','2359.HK','中'],['CSL','CSL.AX','澳'],['保瑞藥業','6472.TW','臺']];
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const KEYS=Object.keys(CAT);
+const link=u=>/^https?:\/\//.test(u||'')?` <a href="${esc(u)}" target="_blank" rel="noopener">來源↗</a>`:'';
+const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+let S=Object.assign({theme:'white',days:'7',watch:[{n:'藥華藥',s:'6446.TWO'},{n:'康霈',s:'6919.TW'}],seen:[]},JSON.parse(localStorage.getItem('S')||'{}'));
+let R=JSON.parse(localStorage.getItem('R')||'null');
+let KEY=localStorage.getItem('KEY')||'';
+// 設定連結 #s=...（不含金鑰）
+try{const h=new URLSearchParams(location.hash.slice(1)).get('s');if(h){const x=JSON.parse(decodeURIComponent(escape(atob(h))));S=Object.assign(S,{theme:x.theme,days:x.days,watch:x.watch});history.replaceState(null,'',location.pathname)}}catch(e){}
+const save=()=>localStorage.setItem('S',JSON.stringify(S));
 
-const def=()=>({theme:'white',up:'red',mode:'mine',range:30,count:6,sort:'new',limit:10,time:'08:30',rev:0,
-  cus:{ind:[],co:[],kw:[],src:[]},sel:Object.fromEntries(KEYS.map(k=>[k,CAT[k].filter(x=>x[2]).map(x=>x[0])]))});
-let S=Object.assign(def(),JSON.parse(localStorage.getItem('S')||'{}'));
-let D=JSON.parse(localStorage.getItem('D')||'{}');
-let conn=JSON.parse(localStorage.getItem('conn')||'{}');
-let openId=null,timer;
-
-// 以網址 #u=...&t=... 讓手機一次帶入連線資訊
-if(location.hash.length>2){const h=new URLSearchParams(location.hash.slice(1));if(h.get('u')){conn={u:h.get('u'),t:h.get('t')||''};localStorage.setItem('conn',JSON.stringify(conn));history.replaceState(null,'',location.pathname)}}
-
-const all=k=>CAT[k].concat(S.cus[k]);
-const on=(k,n)=>S.sel[k].includes(n);
-const picked=k=>all(k).filter(x=>on(k,x[0]));
-
-function job(){
-  const co=picked('co');
-  const src=picked('src');
-  return{
-    q:[...co.map(x=>x[0]),...picked('kw').map(x=>x[0]),...picked('ind').map(x=>x[0])],
-    rss:src.filter(x=>/^https?:/.test(x[1])).map(x=>x[1]),
-    dom:src.filter(x=>x[1]&&!/^https?:/.test(x[1])).map(x=>x[1]),
-    sym:[...new Set([...co.map(x=>x[1]).filter(Boolean),...UNI])]};
+async function gem(prompt,search,tries=2){
+  if(!KEY)throw new Error('請先在「設定」貼上 Gemini 金鑰');
+  const body={contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.2}};
+  if(search)body.tools=[{google_search:{}}];
+  const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+encodeURIComponent(KEY),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(r.status===429&&tries>1){await new Promise(z=>setTimeout(z,15000));return gem(prompt,search,tries-1)}
+  const j=await r.json();
+  if(!r.ok)throw new Error(j.error?.message||('HTTP '+r.status));
+  let t=(j.candidates?.[0]?.content?.parts||[]).map(p=>p.text||'').join('').replace(/```json|```/g,'').trim();
+  try{return JSON.parse(t.slice(t.search(/[\[{]/)))}catch(e){return null}
 }
 
-function persist(){
-  localStorage.setItem('S',JSON.stringify(S));
-  clearTimeout(timer);timer=setTimeout(push,1200);
+const co=l=>l.map(x=>`${x[0]}(${x[1]})`).join('、');
+const ROW='回傳陣列，「每一家」公司都要有一筆（即使無新進展）：{"sym":"代號(須與提供者一致)","price":數字,"cur":"幣別","pct":相對前一交易日漲跌百分比數字(跌為負),"pdate":"該價格的日期YYYY/MM/DD","ptype":"即時 或 收盤","events":[{"date":"YYYY/MM/DD","event":"區間內實質重大進展(臨床、核准、財報、併購、訴訟、法規)","catalyst":"後續催化劑與預定日","impact":"對公司的市場影響評估一句","url":"實際搜尋到的網址"}]}。價格必須是「當日即時報價」或「前一交易日官方收盤價」，查不到則 price 填 null，不可估算。無實質新進展則 events 為空陣列。';
+function base(from,to){
+  const now=new Date().toLocaleString('zh-TW',{hour12:false});
+  return `現在時間：${now}。報導區間：${from.replace(/-/g,'/')} ～ ${to.replace(/-/g,'/')}（含）。規則：只收錄此區間內實際發生且搜尋到來源佐證的事件；日期一律 YYYY/MM/DD，無法確認者不得收錄；不可捏造。依現在時間涵蓋美國、歐洲、日本、中國、澳洲、臺灣及其他重要地區當前或前夜的最新動態；板塊含生技醫藥、醫療科技(MedTech)、智慧醫療、醫療服務、醫藥通路、健康管理、長壽科技。以下為已報導過的事項，除非有實質新進展，否則不得重複：${S.seen.slice(0,60).join('；')||'無'}。只回傳純 JSON，不要說明文字。`;
 }
-async function push(){
-  if(!conn.u)return;
-  S.job=job();S.rev=Date.now();localStorage.setItem('S',JSON.stringify(S));
-  try{await fetch(conn.u+'?t='+encodeURIComponent(conn.t),{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(S)})}
-  catch(e){$('#stamp').textContent='設定同步失敗，已存在本機'}
-}
-async function pull(refresh){
-  if(!conn.u){$('#stamp').textContent='請先在「設定」填入後端網址與密碼';return}
-  $('#stamp').textContent=refresh?'更新中，約需 10–30 秒…':'讀取中…';
+
+$('#run').onclick=async()=>{
+  let from,to=new Date();
+  if(S.days==='c'){from=$('#d1').value;to=$('#d2').value;if(!from||!to||from>to)return alert('請選擇正確的起訖日期')}
+  else{from=ymd(new Date(Date.now()-(+S.days)*864e5));to=ymd(to)}
+  if(!KEY){$('#cfgBtn').click();return}
+  $('#run').disabled=true;$('#stamp').textContent='搜尋各國監管與市場消息中，約需 1–3 分鐘…';$('#warn').innerHTML='';
+  const b=base(from,to),warn=[];
+  const reg=gem(b+'\n任務：各國藥監機關（FDA、EMA、NMPA、TFDA、PMDA，可加 TGA、MHRA、Health Canada）公布的政策、規定、新核准、優先審查、部會/委員會審議、即將到期的 PDUFA 日或 CHMP 意見。回傳陣列，最多 20 筆依重要性排序，每筆 {"org":"FDA|EMA|NMPA|TFDA|PMDA|其他","name":"藥品/醫材","company":"藥廠/單位","date":"YYYY/MM/DD","indication":"適應症","type":"核准/優先審查/PDUFA/CHMP意見/政策/審議中","value":"商業與臨床價值一句","url":""}',true);
+  const wl=S.watch.map(w=>[w.n,w.s]);
+  const watch=wl.length?gem(b+'\n任務：以下為使用者指定關注標的：'+co(wl)+'。'+ROW,true):Promise.resolve([]);
+  const gA=gem(b+'\n任務：以下為全球指標生醫業者：'+co(TOP.slice(0,12))+'。'+ROW,true);
+  const gB=gem(b+'\n任務：以下為全球指標生醫業者：'+co(TOP.slice(12))+'。'+ROW+'另外最後可補充至多 5 家區間內有重大進展的其他生醫公司，格式相同並多加 "name" 與 "market" 欄位。',true);
+  const res=await Promise.allSettled([reg,watch,gA,gB]);
+  const val=i=>res[i].status==='fulfilled'?res[i].value:null;
+  res.forEach((x,i)=>{if(x.status==='rejected')warn.push(['藥監動態','關注標的','指標業者(上)','指標業者(下)'][i]+' 失敗：'+x.reason.message);else if(!x.value)warn.push(['藥監動態','關注標的','指標業者(上)','指標業者(下)'][i]+' 回傳格式錯誤，請重試')});
+  const row=(arr,list)=>list.map(x=>({n:x[0],m:x[2]||'',s:x[1],...((arr||[]).find(r=>r.sym===x[1])||{events:[]})}));
+  const extra=(val(3)||[]).filter(r=>r.name&&!TOP.some(t=>t[1]===r.sym)).map(r=>({n:r.name,m:r.market||'其他',s:r.sym,...r}));
+  const rep={ts:Date.now(),from,to,warn,reg:val(0)||[],watch:row(val(1),wl),global:row(val(2),TOP.slice(0,12)).concat(row(val(3),TOP.slice(12)),extra)};
   try{
-    if(refresh)await push();
-    const r=await(await fetch(conn.u+'?t='+encodeURIComponent(conn.t)+(refresh?'&a=refresh':''))).json();
-    if(r.error){$('#stamp').textContent='密碼錯誤';return}
-    if(r.settings&&r.settings.rev>S.rev&&!refresh){S=Object.assign(def(),r.settings);localStorage.setItem('S',JSON.stringify(S))}
-    D=r.data||{};localStorage.setItem('D',JSON.stringify(D));
-    $('#stamp').textContent=D.ts?'資料時間 '+new Date(D.ts).toLocaleString('zh-TW'):'尚無資料，請按「立即更新」';
-  }catch(e){$('#stamp').textContent='連線失敗，顯示本機快取'}
-  render();
-}
+    const dg=JSON.stringify({reg:rep.reg.slice(0,15),watch:rep.watch.filter(w=>w.events?.length),global:rep.global.filter(w=>w.events?.length)}).slice(0,14000);
+    rep.deep=await gem('以下是本期資料(JSON)：'+dg+'\n請挑選最具代表性的 3–5 項核准藥品或突破技術，只使用上述資料，不得加入資料外的事實。回傳陣列，每筆 {"title":"","points":["條列：事實/機轉/臨床價值/風險"],"trend":"產業趨勢預測"}。只回傳 JSON。',false)||[];
+  }catch(e){rep.deep=[];warn.push('深度解析失敗：'+e.message)}
+  if(rep.reg.length||rep.watch.length||rep.global.length){
+    R=rep;S.seen=[...rep.reg.map(x=>x.name+'@'+x.date),...rep.watch.concat(rep.global).flatMap(w=>(w.events||[]).map(e=>w.n+':'+String(e.event).slice(0,24)+'@'+e.date)),...S.seen].slice(0,120);
+    save();try{localStorage.setItem('R',JSON.stringify(R))}catch(e){}
+  }
+  $('#run').disabled=false;render();
+};
 
-function renderCats(){
-  $('#cats').innerHTML=KEYS.map(k=>`<div class="cat"><h3>${TITLE[k]}</h3>${all(k).map(x=>`<span class="pill ${on(k,x[0])?'on':''}" data-k="${k}" data-n="${esc(x[0])}">${esc(x[0])}</span>`).join('')}<input data-add="${k}" placeholder="自訂項目，按 Enter 新增"></div>`).join('');
-  const s=k=>picked(k).length;
-  $('#sum').innerHTML=`<b>追蹤條件</b> <span class="mu">產業 ${s('ind')}・公司 ${s('co')}・關鍵字 ${s('kw')}・網站 ${s('src')}（點此展開）</span>`;
+function px(w){
+  if(w.price==null)return'<span class="mu">查無可靠報價</span>';
+  const a=w.pct>0?'▲':w.pct<0?'▼':'●',c=w.pct>0?'up':w.pct<0?'dn':'fl',p=Number(w.pct)||0;
+  return`<span class="num"><b>${esc(w.price)}</b> ${esc(w.cur||'')}<br><span class="${c}">${a} ${p>0?'+':''}${p}%</span><br><span class="mu">${esc(w.pdate)}・${esc(w.ptype)}</span></span>`;
 }
-function spark(c,up){
-  if(c.length<2)return'';const mn=Math.min(...c),mx=Math.max(...c),w=300,h=56;
-  const pts=c.map((v,i)=>[i/(c.length-1)*w,h-4-(v-mn)/((mx-mn)||1)*(h-8)]);
-  return`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><polyline fill="none" stroke="var(--${up?'up':'dn'})" stroke-width="2" points="${pts.map(p=>p.join(',')).join(' ')}"/></svg>`;
-}
-function symList(){
-  const q=D.quotes||{};
-  if(S.mode==='topcap')return TOP;
-  if(S.mode==='movers')return Object.keys(q).sort((a,b)=>Math.abs(q[b].pct)-Math.abs(q[a].pct));
-  const mine=picked('co').map(x=>x[1]).filter(Boolean);
-  return mine.length?mine:TOP;
-}
-function renderCharts(){
-  const q=D.quotes||{};let list=symList().filter(s=>q[s]);
-  if(S.count!=='all')list=list.slice(0,S.count);
-  $('#cn').value=S.count==='all'?list.length:S.count;
-  const name=s=>{const c=all('co').find(x=>x[1]===s);return c?c[0]:q[s].n};
-  $('#cards').innerHTML=list.length?list.map(s=>{
-    const x=q[s],up=x.pct>=0,c=x.c.slice(-S.range);
-    return`<a class="card" target="_blank" rel="noopener" href="https://www.bloomberg.com/quote/${esc(s.replace(/\.TWO?$/,':TT').replace(/^([A-Z]+)$/,'$1:US'))}"><div class="row"><b>${esc(name(s))}</b><span class="mu">${esc(s)}</span></div><div class="row"><span class="px">${x.p?.toFixed(2)}</span><span class="${up?'up':'dn'}">${up?'▲':'▼'} ${Math.abs(x.pct).toFixed(2)}%</span></div>${spark(c,up)}</a>`}).join(''):'<div class="mu">尚無報價，請按「立即更新」。</div>';
-}
-function renderFeed(){
-  let l=(D.news||[]).slice();const f=$('#find').value.trim().toLowerCase();
-  if(f)l=l.filter(x=>x.t.toLowerCase().includes(f));
-  const cmp={new:(a,b)=>b.d-a.d,old:(a,b)=>a.d-b.d,imp:(a,b)=>b.sc-a.sc,src:(a,b)=>a.s.localeCompare(b.s)}[S.sort];
-  l.sort(cmp);const total=l.length;l=l.slice(0,S.limit);
-  $('#feed').innerHTML=l.length?l.map((x,i)=>`<div class="item ${openId===i?'open':''}"><div class="it" data-i="${i}"><div class="mu">${esc(x.s)}・${new Date(x.d).toLocaleString('zh-TW',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}・重要性 ${x.sc}</div><div>${esc(x.t)}</div></div><div class="det"><p>${x.sm?esc(x.sm):'<span class="mu">此來源只提供標題。於後端設定 GEMINI_KEY 可自動產生摘要。</span>'}</p>${x.h.map(h=>`<span class="tag">${esc(h)}</span>`).join('')}<br>${/^https?:/.test(x.l)?`<a class="go" target="_blank" rel="noopener" href="${esc(x.l)}">前往原始網頁</a>`:''}</div></div>`).join(''):'<div class="mu" style="padding:14px">沒有符合的情報。</div>';
-  $('#feed').dataset.total=total;
-}
+const ev=(w,f)=>(w.events||[]).length?w.events.map(e=>`<div><span class="mu">${esc(e.date)}</span> ${esc(e[f])}${f==='event'?link(e.url):''}</div>`).join(''):'<span class="mu">區間內無實質新進展</span>';
+const dts=w=>(w.events||[]).map(e=>esc(e.date)).join('<br>')||'—';
+
 function render(){
   document.documentElement.dataset.theme=S.theme;
-  const r=document.documentElement.style;r.setProperty('--up',S.up==='red'?'#d92d20':'#12805c');r.setProperty('--dn',S.up==='red'?'#12805c':'#d92d20');
-  $('#mode').value=S.mode;$('#range').value=S.range;$('#sort').value=S.sort;$('#limit').value=S.limit;
-  renderCats();renderCharts();renderFeed();
+  $('#chips').innerHTML=S.watch.map((w,i)=>`<span class="chip">${esc(w.n)} <span class="mu">${esc(w.s)}</span><button data-i="${i}" aria-label="移除">✕</button></span>`).join('')||'<span class="mu">尚未加入</span>';
+  $('#range').value=S.days;$('#custom').hidden=S.days!=='c';
+  if(!R)return;
+  $('#stamp').textContent=`報導區間 ${R.from.replace(/-/g,'/')} ～ ${R.to.replace(/-/g,'/')}｜產生時間 ${new Date(R.ts).toLocaleString('zh-TW')}`;
+  $('#warn').innerHTML=(R.warn||[]).map(w=>`<div class="warn">${esc(w)}</div>`).join('');
+  const t=(h,rows,n)=>`<div class="tw"><table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows||`<tr><td colspan=${n} class="mu">無資料</td></tr>`}</table></div>`;
+  $('#report').innerHTML=
+   '<h2>一、各國藥監機關政策及審查動態</h2>'+t(['監管機關','藥品/醫材','所屬藥廠/單位','日期','適應症與核准類別','商業與臨床價值'],R.reg.map(x=>`<tr><td><span class="tag">${esc(x.org)}</span></td><td><b>${esc(x.name)}</b></td><td>${esc(x.company)}</td><td class="num">${esc(x.date)}</td><td>${esc(x.indication)}<br><span class="tag s">${esc(x.type)}</span></td><td>${esc(x.value)}${link(x.url)}</td></tr>`).join(''),6)+
+   '<h2>二、指定重點關注標的近期動態</h2>'+t(['個股與代號','基準價（日期・漲跌）','事件日期','區間內實質重大進展','後續催化劑'],R.watch.map(w=>`<tr><td><b>${esc(w.n)}</b><br><span class="mu">${esc(w.s)}</span></td><td>${px(w)}</td><td class="num">${dts(w)}</td><td>${ev(w,'event')}</td><td>${ev(w,'catalyst')}</td></tr>`).join(''),5)+
+   '<h2>三、全球指標生醫業者動態</h2>'+t(['個股與市場','基準價（日期・漲跌）','事件日期','最新重大催化劑','市場影響評估'],R.global.map(w=>`<tr><td><b>${esc(w.n)}</b><br><span class="tag s">${esc(w.m)}</span> <span class="mu">${esc(w.s)}</span></td><td>${px(w)}</td><td class="num">${dts(w)}</td><td>${ev(w,'event')}</td><td>${ev(w,'impact')}</td></tr>`).join(''),5)+
+   '<h2>四、核心突破深度解析與產業趨勢預測</h2>'+((R.deep||[]).map(d=>`<div class="deep"><h3>${esc(d.title)}</h3><ul>${(d.points||[]).map(p=>`<li>${esc(p)}</li>`).join('')}</ul><b>趨勢預測：</b>${esc(d.trend)}</div>`).join('')||'<p class="mu">本期資料不足，無深度解析</p>');
 }
 
-// 事件
-$('#trackBar').onclick=()=>{const h=$('#trackBody').hidden=!$('#trackBody').hidden;$('#arrow').textContent=h?'展開 ▾':'收合 ▴'};
-$('#cats').onclick=e=>{const p=e.target.closest('.pill');if(!p)return;const{k,n}=p.dataset;S.sel[k]=on(k,n)?S.sel[k].filter(v=>v!==n):[...S.sel[k],n];persist();renderCats()};
-$('#cats').onkeydown=e=>{
-  if(e.key!=='Enter'||!e.target.dataset.add)return;const k=e.target.dataset.add,v=e.target.value.trim();if(!v)return;
-  const[n,x='']=v.split('|').map(s=>s.trim());S.cus[k].push([n,x,1]);S.sel[k].push(n);persist();renderCats()};
-$('#all').onclick=()=>{KEYS.forEach(k=>S.sel[k]=all(k).map(x=>x[0]));persist();renderCats()};
-$('#none').onclick=()=>{KEYS.forEach(k=>S.sel[k]=[]);persist();renderCats()};
-$('#apply').onclick=()=>{$('#trackBar').click();pull(true)};
-$('#refresh').onclick=()=>pull(true);
-$('#mode').onchange=e=>{S.mode=e.target.value;persist();renderCharts()};
-$('#range').onchange=e=>{S.range=+e.target.value;persist();renderCharts()};
-const setCount=v=>{S.count=v==='all'?'all':Math.max(1,+v||1);persist();renderCharts()};
-$('#cn').onchange=e=>setCount(e.target.value);
-$('#cm').onclick=()=>setCount((S.count==='all'?symList().length:S.count)-1);
-$('#cp').onclick=()=>setCount((S.count==='all'?symList().length:S.count)+1);
-$('#call').onclick=()=>setCount('all');
-$('#sort').onchange=e=>{S.sort=e.target.value;persist();renderFeed()};
-$('#limit').onchange=e=>{S.limit=Math.max(1,+e.target.value||10);persist();renderFeed()};
-$('#find').oninput=renderFeed;
-$('#feed').onclick=e=>{const it=e.target.closest('.it');if(!it)return;const i=+it.dataset.i;openId=openId===i?null:i;renderFeed()};
-$('#openCfg').onclick=()=>{
-  $('#cApi').value=conn.u||'';$('#cTok').value=conn.t||'';$('#cTime').value=S.time;$('#cTheme').value=S.theme;$('#cUp').value=S.up;
-  $('#phone').textContent=conn.u?'換裝置時開啟：'+location.origin+location.pathname+'#u='+encodeURIComponent(conn.u)+'&t='+encodeURIComponent(conn.t)+'（含密碼，請勿公開）':'';
-  $('#cfg').showModal()};
-$('#cClose').onclick=()=>$('#cfg').close();
-$('#cSave').onclick=()=>{
-  conn={u:$('#cApi').value.trim(),t:$('#cTok').value};localStorage.setItem('conn',JSON.stringify(conn));
-  S.time=$('#cTime').value||'08:30';S.theme=$('#cTheme').value;S.up=$('#cUp').value;
-  $('#cfg').close();render();persist();setTimeout(()=>pull(false),1500)};
+function md(){
+  const c=s=>String(s??'').replace(/\|/g,'/').replace(/\n/g,' ');
+  const pm=w=>w.price==null?'查無可靠報價':`${w.price} ${w.cur||''} ${w.pct>0?'▲+':w.pct<0?'▼':'●'}${w.pct}% (${w.pdate} ${w.ptype})`;
+  const ev=(w,f)=>(w.events||[]).length?w.events.map(e=>`${e.date} ${c(e[f])}`).join('；'):'無實質新進展';
+  const tb=(h,rows)=>`| ${h.join(' | ')} |\n|${h.map(()=>'---').join('|')}|\n${rows.join('\n')}`;
+  const d=w=>(w.events||[]).map(e=>e.date).join('、')||'—';
+  return `# 全球生技醫療產業即時情報\n\n報導區間：${R.from} ～ ${R.to}｜產生時間：${new Date(R.ts).toLocaleString('zh-TW')}\n\n## 一、各國藥監機關政策及審查動態\n\n`+
+  tb(['機關','藥品/醫材','藥廠/單位','日期','適應症與類別','商業與臨床價值'],R.reg.map(x=>`| ${c(x.org)} | ${c(x.name)} | ${c(x.company)} | ${c(x.date)} | ${c(x.indication)}（${c(x.type)}） | ${c(x.value)} ${x.url||''} |`))+
+  '\n\n## 二、指定重點關注標的近期動態\n\n'+tb(['個股','基準價','事件日期','重大進展','後續催化劑'],R.watch.map(w=>`| ${c(w.n)} ${w.s} | ${pm(w)} | ${d(w)} | ${ev(w,'event')} | ${ev(w,'catalyst')} |`))+
+  '\n\n## 三、全球指標生醫業者動態\n\n'+tb(['個股與市場','基準價','事件日期','最新重大催化劑','市場影響評估'],R.global.map(w=>`| ${c(w.n)} (${w.m}) ${w.s} | ${pm(w)} | ${d(w)} | ${ev(w,'event')} | ${ev(w,'impact')} |`))+
+  '\n\n## 四、核心突破深度解析與產業趨勢預測\n\n'+(R.deep||[]).map(x=>`### ${x.title}\n${(x.points||[]).map(p=>'- '+p).join('\n')}\n\n**趨勢預測：** ${x.trend}\n`).join('\n')+
+  '\n> AI 搜尋整理，價格與連結請與官方來源核對；不構成投資建議。\n';
+}
 
-render();pull(false);
+$('#range').onchange=e=>{S.days=e.target.value;$('#custom').hidden=S.days!=='c';save()};
+$('#chips').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.watch.splice(+b.dataset.i,1);save();render()};
+$('#wfind').onclick=async()=>{
+  const q=$('#wq').value.trim();if(!q)return;if(!KEY){$('#cfgBtn').click();return}
+  $('#wres').textContent='查詢中…';
+  try{const l=await gem(`請找出名稱最符合「${q}」的上市公司，列出最多 5 個候選（含不同交易所），回傳 JSON 陣列 [{"sym":"Yahoo Finance 格式代號，如 6446.TWO、LLY、4502.T","name":"公司名稱","ex":"交易所"}]。只回傳 JSON。`,true);
+    $('#wres').innerHTML=(l||[]).length?l.map(x=>`<button data-s="${esc(x.sym)}" data-n="${esc(x.name)}">${esc(x.sym)}　${esc(x.name)} <span class="mu">${esc(x.ex)}</span></button>`).join(''):'<span class="mu">找不到，請換關鍵字或英文名稱</span>'}
+  catch(e){$('#wres').textContent='查詢失敗：'+e.message}
+};
+$('#wres').onclick=e=>{const b=e.target.closest('button');if(!b)return;
+  if(!S.watch.some(w=>w.s===b.dataset.s))S.watch.push({n:$('#wq').value.trim()||b.dataset.n,s:b.dataset.s});
+  $('#wres').innerHTML='';$('#wq').value='';save();render()};
+const dl=(n,t,d)=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([d],{type:t}));a.download=n;a.click()};
+$('#dlMd').onclick=()=>R?dl('生技醫療情報_'+R.to+'.md','text/markdown;charset=utf-8','\ufeff'+md()):alert('請先更新情報');
+$('#dlPdf').onclick=()=>{if(!R)return alert('請先更新情報');alert('將開啟列印視窗，請選「另存為 PDF」。');print()};
+$('#cfgBtn').onclick=()=>{$('#cKey').value=KEY;$('#cTheme').value=S.theme;$('#cfg').showModal()};
+$('#cClose').onclick=()=>$('#cfg').close();
+$('#cSave').onclick=()=>{KEY=$('#cKey').value.trim();localStorage.setItem('KEY',KEY);S.theme=$('#cTheme').value;save();$('#cfg').close();render()};
+$('#cLink').onclick=async()=>{
+  const u=location.origin+location.pathname+'#s='+btoa(unescape(encodeURIComponent(JSON.stringify({theme:S.theme,days:S.days,watch:S.watch}))));
+  try{await navigator.clipboard.writeText(u);alert('已複製。在新裝置開啟此連結即可帶入關注標的與偏好（金鑰需另外貼上）。')}catch(e){prompt('請複製：',u)}
+};
+render();
 </script>
 </body>
 </html>
