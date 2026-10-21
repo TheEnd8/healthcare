@@ -1,4 +1,3 @@
-// 由 GitHub Actions 執行：抓報價(Yahoo)、用 Gemini+Google 搜尋整理新事件，累積寫入 data/report.json
 import fs from 'node:fs';
 
 const KEY = process.env.GEMINI_KEY, DAYS = +(process.env.DAYS || 1);
@@ -17,8 +16,9 @@ async function gem(prompt, search = true) {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.2 }, ...(search ? { tools: [{ google_search: {} }] } : {}) })
     });
-    if (r.status === 429 || r.status >= 500) { await sleep(25000); continue; }
+    if (r.status === 429 || r.status >= 500) { console.error('Gemini 暫時失敗 HTTP', r.status, '，稍後重試'); await sleep(25000); continue; }
     const j = await r.json();
+    if (!r.ok) { console.error('Gemini 錯誤 HTTP', r.status, j.error?.message || ''); return null; }
     const t = (j.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join('').replace(/```json|```/g, '').trim();
     try { return JSON.parse(t.slice(t.search(/[\[{]/))); } catch { /* retry */ }
   }
