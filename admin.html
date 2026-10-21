@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>標的清單管理</title>
+<style>
+:root{--line:#dde2e8;--bg2:#f4f6f9;--ac:#0b5cad;--mu:#637083}
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 system-ui,"PingFang TC","Microsoft JhengHei",sans-serif;color:#18222e}
+main{max-width:1200px;margin:0 auto;padding:14px}h1{font-size:1.25rem;margin:0 0 8px}
+button,select,input{font:inherit;border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:#fff}
+button{cursor:pointer}button.p{background:var(--ac);border-color:var(--ac);color:#fff}
+.bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:8px;margin:8px 0}
+.mu{color:var(--mu);font-size:.85rem}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:900px}th{background:var(--bg2);text-align:left;padding:6px}td{padding:4px 6px;border-top:1px solid var(--line)}
+td input[type=text]{width:100%}td.n input{min-width:200px}td.s input{width:110px}
+.bad{color:#c8281c}.ok{color:#0f7a55}
+</style>
+</head>
+<body>
+<main>
+<h1>標的清單管理（tickers.json）</h1>
+<p class="mu">可改名稱、市場、分類，勾選「AI 追蹤」表示每日 AI 搜尋重大事件，未勾選則只提供報價。排序以表格上下順序為準。修改後請按「儲存到 GitHub」或下載後自行上傳。報價狀態來自最近一次自動更新，「無報價」常代表代號格式不對。</p>
+
+<div class="bar">
+  <input id="q" placeholder="搜尋名稱或代號" style="width:180px">
+  <select id="fm"><option value="">全部市場</option></select>
+  <select id="fc"><option value="">全部分類</option></select>
+  <span class="mu">排序：</span>
+  <button data-sort="m">依市場</button><button data-sort="c">依分類</button><button data-sort="n">依名稱</button><button data-sort="s">依代號</button><button data-sort="mc">市場＋分類</button>
+  <button id="add" class="p">＋新增</button>
+</div>
+
+<div class="tw"><table>
+<thead><tr><th>#</th><th>名稱</th><th>代號 (Yahoo 格式)</th><th>市場</th><th>分類</th><th>AI 追蹤</th><th>報價</th><th>順序／刪除</th></tr></thead>
+<tbody id="rows"></tbody></table></div>
+<datalist id="cl"></datalist>
+<p id="count" class="mu"></p>
+
+<div class="bar">
+  <button id="dl">下載 tickers.json</button>
+  <span class="mu">或直接儲存到 GitHub：</span>
+  <input id="gu" placeholder="帳號" style="width:110px"><input id="gr" placeholder="repo 名稱" style="width:120px">
+  <input id="gt" type="password" placeholder="Fine-grained token" style="width:200px">
+  <button id="save" class="p">儲存到 GitHub</button>
+</div>
+<p class="mu">Token 只存在這台裝置的瀏覽器，請用只限本 repo、Contents 讀寫權限的 Fine-grained token。沒有 token 的人無法修改清單。</p>
+</main>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const MK=['美','歐','日','中','臺','澳','其他'];
+const CATS=['大型藥廠','生技新藥','CDMO/CRO/供應鏈','醫療器材/MedTech','智慧醫療/數位健康','醫療服務','醫藥通路','健康管理/長壽科技'];
+let L=[],Q={};
+const idx=(a,v)=>{const i=a.indexOf(v);return i<0?99:i};
+
+async function load(){
+  L=await(await fetch('tickers.json?'+Date.now())).json();
+  try{Q=(await(await fetch('data/report.json?'+Date.now())).json()).quotes||{}}catch(e){}
+  $('#fm').innerHTML='<option value="">全部市場</option>'+MK.map(m=>`<option>${m}</option>`).join('');
+  const h=location.hostname.endsWith('.github.io')?location.hostname.split('.')[0]:'',r=location.pathname.split('/')[1]||'';
+  $('#gu').value=localStorage.gu||h;$('#gr').value=localStorage.gr||r;$('#gt').value=localStorage.gt||'';
+  draw();
+}
+function draw(){
+  const keepC=$('#fc').value;
+  const cats=[...new Set([...CATS,...L.map(x=>x.c).filter(Boolean)])];
+  $('#cl').innerHTML=cats.map(c=>`<option value="${esc(c)}">`).join('');
+  $('#fc').innerHTML='<option value="">全部分類</option>'+cats.map(c=>`<option>${esc(c)}</option>`).join('');
+  $('#fc').value=keepC;
+  const q=$('#q').value.trim().toLowerCase(),m=$('#fm').value,c=$('#fc').value;
+  let n=0;
+  $('#rows').innerHTML=L.map((x,i)=>{
+    if(q&&!(x.n+x.s).toLowerCase().includes(q))return'';if(m&&x.m!==m)return'';if(c&&x.c!==c)return'';n++;
+    const ok=Q[x.s];
+    return`<tr><td class="mu">${i+1}</td><td class="n"><input type="text" data-i="${i}" data-k="n" value="${esc(x.n)}"></td><td class="s"><input type="text" data-i="${i}" data-k="s" value="${esc(x.s)}"></td>
+    <td><select data-i="${i}" data-k="m">${MK.map(v=>`<option ${v===x.m?'selected':''}>${v}</option>`).join('')}</select></td>
+    <td><input type="text" list="cl" data-i="${i}" data-k="c" value="${esc(x.c)}"></td>
+    <td><input type="checkbox" data-i="${i}" data-k="ai" ${x.ai?'checked':''}></td>
+    <td class="${ok?'ok':'bad'}">${ok?'有':'無報價'}</td>
+    <td><button data-up="${i}">↑</button> <button data-dn="${i}">↓</button> <button data-del="${i}">刪除</button></td></tr>`}).join('');
+  $('#count').textContent=`顯示 ${n} / 共 ${L.length} 檔；AI 追蹤 ${L.filter(x=>x.ai).length} 檔（越多，每次更新耗用的免費額度越大）`;
+}
+$('#rows').addEventListener('change',e=>{const t=e.target,i=+t.dataset.i;if(isNaN(i))return;
+  if(t.dataset.k==='ai'){if(t.checked)L[i].ai=1;else delete L[i].ai}else L[i][t.dataset.k]=t.value.trim();
+  if(t.dataset.k==='c'||t.dataset.k==='m')draw()});
+$('#rows').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  const d=b.dataset;
+  if(d.del!==undefined&&confirm('刪除「'+L[+d.del].n+'」？'))L.splice(+d.del,1);
+  if(d.up!==undefined&&+d.up>0){const i=+d.up;[L[i-1],L[i]]=[L[i],L[i-1]]}
+  if(d.dn!==undefined&&+d.dn<L.length-1){const i=+d.dn;[L[i+1],L[i]]=[L[i],L[i+1]]}
+  draw()});
+['#q','#fm','#fc'].forEach(s=>$(s).addEventListener('input',draw));
+$('#add').onclick=()=>{L.unshift({n:'新公司',s:'',m:'美',c:CATS[1]});$('#q').value='';$('#fm').value='';$('#fc').value='';draw();document.querySelector('[data-k=n]').focus()};
+document.querySelectorAll('[data-sort]').forEach(b=>b.onclick=()=>{
+  const k=b.dataset.sort,cmp={m:(a,b)=>idx(MK,a.m)-idx(MK,b.m),c:(a,b)=>idx(CATS,a.c)-idx(CATS,b.c)||String(a.c).localeCompare(b.c),n:(a,b)=>a.n.localeCompare(b.n,'zh-TW'),s:(a,b)=>a.s.localeCompare(b.s)};
+  L.sort(k==='mc'?(a,b)=>cmp.m(a,b)||cmp.c(a,b):cmp[k]);draw()});
+const out=()=>{L=L.filter(x=>x.n&&x.s);return'[\n'+L.map(x=>JSON.stringify(x)).join(',\n')+'\n]\n'};
+$('#dl').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([out()],{type:'application/json'}));a.download='tickers.json';a.click()};
+$('#save').onclick=async()=>{
+  const u=$('#gu').value.trim(),r=$('#gr').value.trim(),t=$('#gt').value.trim();if(!u||!r||!t)return alert('請填帳號、repo 與 token');
+  localStorage.gu=u;localStorage.gr=r;localStorage.gt=t;
+  const api=`https://api.github.com/repos/${u}/${r}/contents/tickers.json`,H={Authorization:'Bearer '+t,Accept:'application/vnd.github+json'};
+  try{
+    const cur=await fetch(api,{headers:H});if(!cur.ok)throw new Error('讀取失敗 '+cur.status+'，請檢查帳號、repo 與 token 權限');
+    const sha=(await cur.json()).sha;
+    const res=await fetch(api,{method:'PUT',headers:H,body:JSON.stringify({message:'update tickers',content:btoa(unescape(encodeURIComponent(out()))),sha})});
+    if(!res.ok)throw new Error('儲存失敗 '+res.status);
+    alert('已儲存。下次自動更新（或手動執行 Actions）後生效。');draw();
+  }catch(e){alert(e.message)}};
+load();
+</script>
+</body>
+</html>
