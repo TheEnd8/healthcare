@@ -66,10 +66,15 @@ const out = {
 
 for (const s of new Set([...T.map(t => t.s), ...out.co.map(e => e.sym)])) { const q = await quote(s); if (q) out.quotes[s] = q; await sleep(200); }
 
-const wk = ymd(Date.now() - 7 * 864e5);
-const dg = JSON.stringify({ reg: out.reg.filter(x => x.date >= wk).slice(0, 15), co: out.co.filter(e => e.date >= wk).slice(0, 25) }).slice(0, 14000);
-const deep = await gem('以下是近一週資料(JSON)：' + dg + '\n請挑選最具代表性的 3–5 項核准藥品或突破技術，只使用上述資料，不得加入資料外的事實。回傳陣列，每筆 {"title":"","points":["條列：事實/機轉/臨床價值/風險"],"trend":"產業趨勢預測"}。只回傳 JSON。', false);
-if (deep?.length) out.deep = deep;
+const dFrom = ymd(Date.now() - Math.max(DAYS, 14) * 864e5);
+const DT = ['政策變化', '重大事件', '技術突破'];
+const seenDeep = (old.deep || []).filter(x => x.d).slice(-40).map(x => x.title).join('；') || '無';
+const deepNew = await gem(`現在時間：${new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false })}（台北）。請搜尋 ${dFrom} ～ ${today} 全球生技醫療產業的：` +
+  '(1) 政策變化（法規、審查制度、藥價、醫保、關稅、貿易與出口管制等）；(2) 重大事件（疾病、疫情、產業整合、併購、分拆、聯盟、供應鏈事件等）；(3) 技術突破（新機轉、平台技術、重大臨床或科學突破）。' +
+  '規則：只收錄已搜尋到來源佐證的事實，不可捏造；日期一律 YYYY/MM/DD；相關業者若為上市公司，代號用 Yahoo Finance 格式，非上市則 s 填空字串。' +
+  `已收錄標題（除非有實質新進展，否則不得重複）：${seenDeep}。回傳陣列，最多 12 筆依重要性排序，每筆 {"type":"政策變化|重大事件|技術突破","title":"標題","d":"YYYY/MM/DD（事件開始或公布日）","period":"YYYY/MM/DD 或 YYYY/MM/DD～YYYY/MM/DD（事件期間，持續中請寫起日～迄今）","points":["事實：…","背景：…","影響：…"],"trend":"趨勢預測（需是推測，並說明依據）","cos":[{"n":"業者名稱","s":"代號"}],"url":"實際搜尋到的網址"}。只回傳純 JSON。`);
+const okDeep = x => x && DT.includes(x.type) && okd(x.d) && x.d >= dFrom && x.d <= today && x.title;
+out.deep = merge((old.deep || []).filter(x => x.d), (deepNew || []).filter(okDeep), x => x.title);
 
 fs.mkdirSync('data', { recursive: true });
 fs.writeFileSync('data/report.json', JSON.stringify(out));

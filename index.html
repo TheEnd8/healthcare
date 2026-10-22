@@ -34,7 +34,15 @@ td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}tr:la
 a{color:var(--ac)}
 .chipb{border-radius:99px;padding:2px 10px;font-size:.82rem;margin:2px}.chipb.on{background:var(--ac);border-color:var(--ac);color:#fff}
 .g td{background:var(--bg2);font-weight:700}
-@media print{.bar,.noprint{display:none!important}:root,[data-theme]{--bg:#fff;--bg2:#f4f6f9;--tx:#000;--line:#bbb}main{max-width:none;padding:0}table{min-width:0;font-size:9pt}.tw{overflow:visible}h2{break-after:avoid}tr{break-inside:avoid}@page{size:A4 landscape;margin:10mm}}
+.gh{font-weight:700;margin:12px 0 4px;padding:4px 10px;background:var(--bg2);border-radius:6px}
+.fg{margin:6px 0}.fb{margin:0 6px}.fb button{font-size:.75rem;padding:1px 8px;margin:0 2px}
+.ctl{margin:6px 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.sec>summary{list-style:none;cursor:pointer}.sec>summary h2{display:inline-block;margin:18px 0 6px}
+.nav{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0;position:sticky;top:0;background:var(--bg);padding:6px 0;z-index:5}
+.nav a{border:1px solid var(--line);border-radius:99px;padding:2px 12px;text-decoration:none;font-size:.85rem;background:var(--bg2);color:var(--tx)}
+.lk a,.cos a{font-size:.76rem;margin-right:6px}.cos{margin-top:8px}.co{display:inline-block;margin:2px 14px 2px 0}
+
+@media print{.bar,.noprint,.ctl,.nav{display:none!important}:root,[data-theme]{--bg:#fff;--bg2:#f4f6f9;--tx:#000;--line:#bbb}main{max-width:none;padding:0}table{min-width:0;font-size:9pt}.tw{overflow:visible}h2{break-after:avoid}tr{break-inside:avoid}@page{size:A4 landscape;margin:10mm}}
 </style>
 </head>
 <body>
@@ -93,37 +101,73 @@ const evs=(l,f)=>l.length?l.map(e=>`<div><span class="mu">${esc(e.date)}</span> 
 const tbl=(h,rows,n)=>`<div class="tw"><table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows||`<tr><td colspan=${n} class="mu">此區間無符合事件</td></tr>`}</table></div>`;
 
 const CATS=['大型藥廠','生技新藥','CDMO/CRO/供應鏈','醫療器材/MedTech','智慧醫療/數位健康','醫療服務','醫藥通路','健康管理/長壽科技'];
-const MKS=['美','歐','日','中','臺','澳','其他'],ORGS=['FDA','EMA','NMPA','TFDA','PMDA','其他'];
-const off=(k,v)=>(S.x?.[k]||[]).includes(v);
+const MKS=['美','歐','日','中','臺','澳','其他'],ORGS=['FDA','EMA','NMPA','TFDA','PMDA','其他'],DTS=['政策變化','重大事件','技術突破'];
+S.sort=Object.assign({reg:'date',watch:'date',glob:'date',deep:'date'},S.sort);
+S.grp=Object.assign({reg:'org',watch:'cat',glob:'cat',deep:'type'},S.grp);
+S.x=S.x||{};
+const CL=new Set();let FL={},GK={};
+const off=(k,v)=>(S.x[k]||[]).includes(v);
 const normOrg=o=>ORGS.includes(o)?o:'其他';
+const GX={T:'TYO',HK:'HKG',SS:'SHA',SZ:'SHE',TW:'TPE',TWO:'TPE',SW:'SWX',PA:'EPA',L:'LON',DE:'ETR',BR:'EBR',AS:'AMS',CO:'CPH',HE:'HEL',MC:'BME',AX:'ASX'};
+const BX={T:'JP',HK:'HK',SS:'CH',SZ:'CH',TW:'TT',TWO:'TT',SW:'SW',PA:'FP',L:'LN',DE:'GR',BR:'BB',AS:'NA',CO:'DC',HE:'FH',MC:'SM',AX:'AU'};
+function lk(s,n){
+  const a=(u,t)=>`<a href="${esc(u)}" target="_blank" rel="noopener">${t}</a>`;
+  const gs=a('https://www.google.com/search?q='+encodeURIComponent(n+' 公司'),'公司');
+  if(!s)return gs;
+  const m=s.match(/^(.+)\.([A-Z]+)$/),b=m?m[1]:s,x=m?m[2]:'',hb=x==='HK'?b.replace(/^0+/,''):b;
+  const g=GX[x]?'https://www.google.com/finance/quote/'+encodeURIComponent(hb)+':'+GX[x]:'https://www.google.com/search?q='+encodeURIComponent(s+' stock');
+  const bb=(!x||BX[x])&&!/-/.test(hb)?'https://www.bloomberg.com/quote/'+encodeURIComponent(hb)+':'+(x?BX[x]:'US'):'https://www.bloomberg.com/search?query='+encodeURIComponent(s);
+  return gs+' '+a('https://finance.yahoo.com/quote/'+encodeURIComponent(s),'Yahoo')+' '+a(g,'Google')+' '+a(bb,'Bloomberg');
+}
 function view(){
   const [f,t]=win(),inR=e=>e.date>=f&&e.date<=t;
   const pool=Object.fromEntries(R.T.map(x=>[x.s,x]));
   const byS={};R.co.filter(inR).forEach(e=>(byS[e.sym]=byS[e.sym]||[]).push(e));
   const info=s=>({s,n:pool[s]?.n||byS[s]?.[0]?.name||s,m:pool[s]?.m||byS[s]?.[0]?.market||'其他',c:pool[s]?.c||'其他分類',ai:!pool[s]||!!pool[s].ai,ev:(byS[s]||[]).sort((a,b)=>b.date.localeCompare(a.date))});
   const okF=w=>!off('mk',w.m)&&!off('cat',w.c);
-  const reg=R.reg.filter(x=>x.date>=f&&(x.date<=t||/PDUFA|CHMP|審議/.test(x.type||''))&&!off('org',normOrg(x.org))).sort((a,b)=>b.date.localeCompare(a.date));
+  const reg=R.reg.filter(x=>x.date>=f&&(x.date<=t||/PDUFA|CHMP|審議/.test(x.type||''))&&!off('org',normOrg(x.org)));
   const watch=S.watch.map(info).filter(okF);
-  const glob=Object.keys(byS).map(info).filter(okF).sort((a,b)=>b.ev[0].date.localeCompare(a.ev[0].date));
-  return{f,t,reg,watch,glob};
+  const glob=Object.keys(byS).map(info).filter(okF);
+  const deep=(R.deep||[]).filter(d=>d.d&&d.d>=f&&d.d<=t&&!off('dt',d.type));
+  return{f,t,reg,watch,glob,deep};
 }
-const grp=(rows,keyf,base,fn,n)=>[...new Set([...base,...rows.map(keyf)])].map(k=>{const l=rows.filter(r=>keyf(r)===k);return l.length?`<tr class="g"><td colspan=${n}>${esc(k)}（${l.length}）</td></tr>`+l.map(fn).join(''):''}).join('');
+const pcU=w=>q(w.s)?.pct??-999,pcD=w=>q(w.s)?.pct??999,d0=w=>w.ev[0]?.date||'';
+const SRT={
+  reg:{date:(a,b)=>b.date.localeCompare(a.date),org:(a,b)=>ORGS.indexOf(normOrg(a.org))-ORGS.indexOf(normOrg(b.org))||b.date.localeCompare(a.date),co:(a,b)=>String(a.company).localeCompare(String(b.company))},
+  co:{date:(a,b)=>d0(b).localeCompare(d0(a)),up:(a,b)=>pcU(b)-pcU(a),dn:(a,b)=>pcD(a)-pcD(b),name:(a,b)=>a.n.localeCompare(b.n,'zh-TW')},
+  deep:{date:(a,b)=>b.d.localeCompare(a.d),type:(a,b)=>DTS.indexOf(a.type)-DTS.indexOf(b.type)||b.d.localeCompare(a.d)}};
+const grp=(rows,mode,fn,n)=>{
+  if(mode==='none'||!GK[mode])return rows.map(fn).join('');
+  const[kf,base]=GK[mode];
+  return[...new Set([...base,...rows.map(kf)])].map(k=>{const l=rows.filter(r=>kf(r)===k);
+    return l.length?(n?`<tr class="g"><td colspan=${n}>${esc(k)}（${l.length}）</td></tr>`:`<div class="gh">${esc(k)}（${l.length}）</div>`)+l.map(fn).join(''):''}).join('')};
+const sel=(sec,k,o,cur)=>`<select data-sec="${sec}" data-k="${k}">${o.map(([v,l])=>`<option value="${v}" ${v===cur?'selected':''}>${l}</option>`).join('')}</select>`;
+const ctl=(sec,so,go)=>`<div class="ctl noprint"><span class="mu">排序</span>${sel(sec,'sort',so,S.sort[sec])}<span class="mu">分組</span>${sel(sec,'grp',go,S.grp[sec])}</div>`;
+const SO_REG=[['date','日期（新→舊）'],['org','監管機關'],['co','藥廠/單位']],GO_REG=[['org','依監管機關'],['none','不分組']];
+const SO_CO=[['date','事件日期（新→舊）'],['up','漲幅（高→低）'],['dn','跌幅（大→小）'],['name','名稱']],GO_CO=[['cat','依產業分類'],['mk','依市場'],['none','不分組']];
+const SO_DP=[['date','日期（新→舊）'],['type','類別']],GO_DP=[['type','依類別'],['none','不分組']];
+const card=d=>`<div class="deep"><div><span class="tag">${esc(d.type)}</span> <span class="mu num">${esc(d.period||d.d)}</span></div><h3>${esc(d.title)}</h3><ul>${(d.points||[]).map(p=>`<li>${esc(p)}</li>`).join('')}</ul>${d.trend?`<p><b>趨勢預測（推測）：</b>${esc(d.trend)}</p>`:''}${(d.cos||[]).length?`<div class="cos"><span class="mu">相關業者：</span>${d.cos.map(c=>`<span class="co"><b>${esc(c.n)}</b> ${c.s?`<span class="mu">${esc(c.s)}</span> `:''}${lk(c.s,c.n)}</span>`).join('')}</div>`:''}${link(d.url)}</div>`;
 
 function render(){
   document.documentElement.dataset.theme=S.theme;$('#theme').value=S.theme;$('#range').value=S.days;$('#custom').hidden=S.days!=='c';
   const cats=[...new Set([...CATS,...(R?.T||[]).map(x=>x.c).filter(Boolean)])];
-  const ch=(k,label,l)=>`<span class="mu">${label}</span> `+l.map(v=>`<button class="chipb ${off(k,v)?'':'on'}" data-k="${k}" data-v="${esc(v)}">${esc(v)}</button>`).join('');
-  $('#filters').innerHTML=[ch('org','藥監機關',ORGS),ch('mk','市場',MKS),ch('cat','產業分類',cats)].join('<br>')+' <button id="fall">全部顯示</button>';
+  FL={org:ORGS,mk:MKS,cat:cats,dt:DTS};
+  GK={cat:[w=>w.c,cats],mk:[w=>w.m,MKS],org:[x=>normOrg(x.org),ORGS],type:[d=>d.type,DTS]};
+  const ch=(k,label,l)=>`<div class="fg"><b>${label}</b><span class="fb"><button data-act="all" data-k="${k}">全選</button><button data-act="none" data-k="${k}">全部取消</button></span>`+l.map(v=>`<button class="chipb ${off(k,v)?'':'on'}" data-k="${k}" data-v="${esc(v)}">${esc(v)}</button>`).join('')+'</div>';
+  $('#filters').innerHTML=`<details id="fdet" ${CL.has('fdet')?'':'open'}><summary><b>篩選條件</b> <span class="mu">提示：全部選取時，點任一項會只顯示該項；再點其他項可加入</span></summary>`+ch('org','藥監機關',ORGS)+ch('mk','市場',MKS)+ch('cat','產業分類',cats)+ch('dt','深度解析類別',DTS)+'<button id="fall">重設全部篩選</button></details>';
   $('#chips').innerHTML=S.watch.map((s,i)=>`<span class="chip">${esc(R?.T.find(x=>x.s===s)?.n||s)} <span class="mu">${esc(s)}</span><button data-i="${i}" aria-label="移除">✕</button></span>`).join('')||'<span class="mu">尚未加入</span>';
   if(!R){return}
   const v=view();
+  v.reg.sort(SRT.reg[S.sort.reg]);v.watch.sort(SRT.co[S.sort.watch]);v.glob.sort(SRT.co[S.sort.glob]);v.deep.sort(SRT.deep[S.sort.deep]);
   $('#stamp').textContent=`報導區間 ${v.f} ～ ${v.t}｜資料更新 ${new Date(R.ts).toLocaleString('zh-TW')}`;
-  const cat=w=>`<td><b>${esc(w.n)}</b><br>${w.m?`<span class="tag s">${esc(w.m)}</span> `:''}<span class="mu">${esc(w.s)}</span>${w.ai?'':'<br><span class="mu">僅報價，未納入 AI 事件搜尋</span>'}</td><td>${px(w.s)}</td><td class="num">${w.ev.map(e=>esc(e.date)).join('<br>')||'—'}</td>`;
-  $('#report').innerHTML=
-   '<h2>一、各國藥監機關政策及審查動態</h2>'+tbl(['監管機關','藥品/醫材','所屬藥廠/單位','日期','適應症與核准類別','商業與臨床價值'],grp(v.reg,x=>normOrg(x.org),ORGS,x=>`<tr><td><span class="tag">${esc(x.org)}</span></td><td><b>${esc(x.name)}</b></td><td>${esc(x.company)}</td><td class="num">${esc(x.date)}</td><td>${esc(x.indication)}<br><span class="tag s">${esc(x.type)}</span></td><td>${esc(x.value)}${link(x.url)}</td></tr>`,6),6)+
-   '<h2>二、指定重點關注標的近期動態</h2>'+tbl(['個股與代號','基準價（日期・漲跌）','事件日期','區間內實質重大進展','後續催化劑'],grp(v.watch,w=>w.c,cats,w=>`<tr>${cat(w)}<td>${evs(w.ev,'event')}</td><td>${w.ev.map(e=>esc(e.catalyst)).join('<br>')||'—'}</td></tr>`,5),5)+
-   '<h2>三、全球指標生醫業者動態</h2>'+tbl(['個股與市場','基準價（日期・漲跌）','事件日期','最新重大催化劑','市場影響評估'],grp(v.glob,w=>w.c,cats,w=>`<tr>${cat(w)}<td>${evs(w.ev,'event')}</td><td>${evs(w.ev,'impact')}</td></tr>`,5),5)+
-   '<h2>四、核心突破深度解析與產業趨勢預測</h2>'+((R.deep||[]).map(d=>`<div class="deep"><h3>${esc(d.title)}</h3><ul>${(d.points||[]).map(p=>`<li>${esc(p)}</li>`).join('')}</ul><b>趨勢預測：</b>${esc(d.trend)}</div>`).join('')||'<p class="mu">資料累積中，尚無深度解析</p>')+'<p class="mu">深度解析以近一週資料為準，不隨區間變動。</p>';
+  const cat=w=>`<td><b>${esc(w.n)}</b><br>${w.m?`<span class="tag s">${esc(w.m)}</span> `:''}<span class="mu">${esc(w.s)}</span>${w.ai?'':'<br><span class="mu">僅報價，未納入 AI 事件搜尋</span>'}<br><span class="lk">${lk(w.s,w.n)}</span></td><td>${px(w.s)}</td><td class="num">${w.ev.map(e=>esc(e.date)).join('<br>')||'—'}</td>`;
+  const sec=(id,t,c,ct,body)=>`<details class="sec" id="${id}" ${CL.has(id)?'':'open'}><summary><h2>${t} <span class="mu">${c} 筆</span></h2></summary>${ct}${body}</details>`;
+  const nav='<div class="nav noprint">'+[['s1','一、藥監動態'],['s2','二、關注標的'],['s3','三、全球業者'],['s4','四、深度解析']].map(([i,t])=>`<a href="#${i}">${t}</a>`).join('')+'</div>';
+  $('#report').innerHTML=nav+
+   sec('s1','一、各國藥監機關政策及審查動態',v.reg.length,ctl('reg',SO_REG,GO_REG),tbl(['監管機關','藥品/醫材','所屬藥廠/單位','日期','適應症與核准類別','商業與臨床價值'],grp(v.reg,S.grp.reg,x=>`<tr><td><span class="tag">${esc(x.org)}</span></td><td><b>${esc(x.name)}</b></td><td>${esc(x.company)}</td><td class="num">${esc(x.date)}</td><td>${esc(x.indication)}<br><span class="tag s">${esc(x.type)}</span></td><td>${esc(x.value)}${link(x.url)}</td></tr>`,6),6))+
+   sec('s2','二、指定重點關注標的近期動態',v.watch.length,ctl('watch',SO_CO,GO_CO),tbl(['個股與代號','基準價（日期・漲跌）','事件日期','區間內實質重大進展','後續催化劑'],grp(v.watch,S.grp.watch,w=>`<tr>${cat(w)}<td>${evs(w.ev,'event')}</td><td>${w.ev.map(e=>esc(e.catalyst)).join('<br>')||'—'}</td></tr>`,5),5))+
+   sec('s3','三、全球指標生醫業者動態',v.glob.length,ctl('glob',SO_CO,GO_CO),tbl(['個股與市場','基準價（日期・漲跌）','事件日期','最新重大催化劑','市場影響評估'],grp(v.glob,S.grp.glob,w=>`<tr>${cat(w)}<td>${evs(w.ev,'event')}</td><td>${evs(w.ev,'impact')}</td></tr>`,5),5))+
+   sec('s4','四、核心突破深度解析與產業趨勢預測',v.deep.length,ctl('deep',SO_DP,GO_DP),grp(v.deep,S.grp.deep,card,0)||'<p class="mu">此區間尚無符合的政策、重大事件或技術突破</p>');
 }
 
 function md(){
@@ -135,13 +179,20 @@ function md(){
   tb(['機關','藥品/醫材','藥廠/單位','日期','適應症與類別','商業與臨床價值'],v.reg.map(x=>`| ${c(x.org)} | ${c(x.name)} | ${c(x.company)} | ${x.date} | ${c(x.indication)}（${c(x.type)}） | ${c(x.value)} ${x.url||''} |`))+
   '\n\n## 二、指定重點關注標的近期動態\n\n'+tb(['個股','基準價','事件日期','重大進展','後續催化劑'],v.watch.map(w=>`| ${c(w.n)} ${w.s} | ${pm(w.s)} | ${w.ev.map(e=>e.date).join('、')||'—'} | ${ev(w.ev,'event')} | ${w.ev.map(e=>c(e.catalyst)).join('；')||'—'} |`))+
   '\n\n## 三、全球指標生醫業者動態\n\n'+tb(['個股與市場','基準價','事件日期','最新重大催化劑','市場影響評估'],v.glob.map(w=>`| ${c(w.n)} (${w.m}) ${w.s} | ${pm(w.s)} | ${w.ev.map(e=>e.date).join('、')} | ${ev(w.ev,'event')} | ${ev(w.ev,'impact')} |`))+
-  '\n\n## 四、核心突破深度解析與產業趨勢預測\n\n'+(R.deep||[]).map(x=>`### ${x.title}\n${(x.points||[]).map(p=>'- '+p).join('\n')}\n\n**趨勢預測：** ${x.trend}\n`).join('\n')+
+  '\n\n## 四、核心突破深度解析與產業趨勢預測\n\n'+v.deep.map(x=>`### [${x.type}] ${x.title}（${x.period||x.d}）\n${(x.points||[]).map(p=>'- '+p).join('\n')}\n\n**趨勢預測（推測）：** ${x.trend||'—'}\n\n相關業者：${(x.cos||[]).map(c=>c.s?`${c.n}（${c.s}，https://finance.yahoo.com/quote/${c.s}）`:c.n).join('、')||'—'}\n`).join('\n')+
   '\n> AI 搜尋整理，價格與連結請與官方來源核對；不構成投資建議。\n';
 }
 
 $('#range').onchange=e=>{S.days=e.target.value;save();render()};
 $('#d1').onchange=$('#d2').onchange=render;
-$('#filters').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.x=S.x||{org:[],mk:[],cat:[]};if(b.id==='fall')S.x={org:[],mk:[],cat:[]};else{const l=S.x[b.dataset.k],v=b.dataset.v,i=l.indexOf(v);i<0?l.push(v):l.splice(i,1)}save();render()};
+$('#filters').onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.k;
+  if(b.id==='fall')S.x={};
+  else if(b.dataset.act==='all')S.x[k]=[];
+  else if(b.dataset.act==='none')S.x[k]=[...FL[k]];
+  else{const v=b.dataset.v,cur=S.x[k]||[];if(!cur.length)S.x[k]=FL[k].filter(z=>z!==v);else{const n=cur.indexOf(v);n<0?cur.push(v):cur.splice(n,1);S.x[k]=cur}}
+  save();render()};
+$('#report').onchange=e=>{const t=e.target;if(!t.dataset.sec)return;(t.dataset.k==='sort'?S.sort:S.grp)[t.dataset.sec]=t.value;save();render()};
+document.addEventListener('toggle',e=>{const t=e.target;if(t.id)t.open?CL.delete(t.id):CL.add(t.id)},true);
 $('#theme').onchange=e=>{S.theme=e.target.value;save();render()};
 $('#chips').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.watch.splice(+b.dataset.i,1);save();render()};
 $('#wq').oninput=e=>{
