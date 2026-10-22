@@ -5,44 +5,57 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>全球生技醫療產業即時情報</title>
 <style>
-:root{--bg:#fff;--bg2:#f4f6f9;--line:#dde2e8;--tx:#18222e;--mu:#637083;--ac:#0b5cad;--up:#c8281c;--dn:#0f7a55}
-[data-theme=sage]{--bg:#f1f6f1;--bg2:#e3ede3;--line:#c9d9c9;--tx:#192b1b;--mu:#566e59;--ac:#2a7330}
-[data-theme=ivory]{--bg:#fbf7ee;--bg2:#f0e9d9;--line:#e0d4bb;--tx:#2c2316;--mu:#74654d;--ac:#9a4f0a}
-[data-theme=dark]{--bg:#11171e;--bg2:#1b232c;--line:#2c3743;--tx:#e8edf2;--mu:#97a3b2;--ac:#5aa9f0}
+:root{--bg:#fff;--bg2:#e9eff6;--line:#b3bfcd;--tx:#0e1a27;--mu:#4b5a6b;--ac:#0b5cad;--up:#c8281c;--dn:#0f7a55;--s1:#0b5cad;--s2:#0f766e;--s3:#b45309;--wl:#fff1c2;--wlb:#e0a800}
+[data-theme=sage]{--bg:#f3f8f2;--bg2:#dcead9;--line:#a3bda0;--tx:#13261a;--mu:#4a634d;--ac:#2a7330;--s1:#2a6f3a;--s2:#1f6f78;--s3:#9a5a12;--wl:#f7efc2}
+[data-theme=ivory]{--bg:#fcf8ef;--bg2:#efe4cd;--line:#cbb68c;--tx:#2a2012;--mu:#6b5a3f;--ac:#9a4f0a;--s1:#8a4b0f;--s2:#4f6a1f;--s3:#8c2f39;--wl:#fde6b8}
+[data-theme=dark]{--bg:#0f151c;--bg2:#1d2833;--line:#3d4e60;--tx:#eef3f8;--mu:#a5b2c1;--ac:#6db7ff;--s1:#2f7fcf;--s2:#1f9488;--s3:#c9791f;--wl:#3b3315;--wlb:#e0a800}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.6 system-ui,"PingFang TC","Microsoft JhengHei",sans-serif}
-main{max-width:1280px;margin:0 auto;padding:16px}
-h1{font-size:1.45rem;margin:0 0 2px}h2{font-size:1.1rem;margin:26px 0 8px;padding-left:10px;border-left:4px solid var(--ac)}
+main{max-width:1320px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:0 0 2px}
 .mu{color:var(--mu);font-size:.85rem}
-button,select,input{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+button,select,input{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:5px 10px}
 button{cursor:pointer}button.p{background:var(--ac);border-color:var(--ac);color:#fff}
 :focus-visible{outline:2px solid var(--ac);outline-offset:1px}
 .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:10px 0}
+#filters{display:block;border:2px solid var(--line)}
+.fg{margin:6px 0;padding:4px 0;border-top:1px dashed var(--line)}.fg:first-of-type{border-top:0}
+.fb{margin:0 8px}.fb button{font-size:.75rem;padding:1px 8px;margin:0 2px}
+.chipb{border-radius:99px;padding:2px 11px;font-size:.82rem;margin:2px}.chipb.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.kwc{display:inline-flex;align-items:center}.kwc .x{border:0;background:none;padding:0 4px;color:var(--mu)}
 .chip{display:inline-flex;gap:4px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:2px 4px 2px 10px;font-size:.84rem;margin:0 4px 4px 0}
 .chip button{border:0;padding:0 6px;background:none;color:var(--mu)}
 .res button{display:block;width:100%;text-align:left;margin-top:4px}
-.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
-table{border-collapse:collapse;width:100%;min-width:760px;font-size:.88rem}
-th{background:var(--bg2);text-align:left;padding:8px 10px;white-space:nowrap;border-bottom:1px solid var(--line)}
-td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}tr:last-child td{border-bottom:0}
+.nav{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0;position:sticky;top:0;background:var(--bg);padding:6px 0;z-index:5}
+.nav a{border-radius:99px;padding:3px 14px;text-decoration:none;font-size:.85rem;color:#fff}
+.nav a:nth-child(1){background:var(--s1)}.nav a:nth-child(2){background:var(--s2)}.nav a:nth-child(3){background:var(--s3)}
+.sec{margin:22px 0;border:2px solid var(--sc);border-radius:12px;overflow:hidden;background:var(--bg)}
+#s1{--sc:var(--s1)}#s2{--sc:var(--s2)}#s3{--sc:var(--s3)}
+.sec>summary{background:var(--sc);color:#fff;padding:9px 14px;cursor:pointer;list-style:none}
+.sec>summary h2{display:inline;margin:0;font-size:1.12rem;color:#fff}.sec>summary .mu{color:#fff;opacity:.9}
+.ctl{margin:8px 12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.tw{overflow-x:auto;margin:0 12px 12px;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;min-width:820px;font-size:.88rem}
+th{background:var(--bg2);text-align:left;padding:8px 10px;white-space:nowrap;border-bottom:2px solid var(--sc)}
+td{padding:8px 10px;vertical-align:top;border-top:1px solid var(--line)}
+tr.g td{background:var(--sc);color:#fff;font-weight:700;border-top:0}
+tr.wl td{background:var(--wl)}tr.bg td{background:var(--bg)}
+tr.wl td:first-child{box-shadow:inset 5px 0 var(--wlb)}
+tr.cf td{border-top:3px solid var(--line)}tr.en td{border-top:1px dashed var(--line)}
+.dt{display:inline-block;font-weight:700;color:var(--sc);font-variant-numeric:tabular-nums}
+.no{display:inline-block;min-width:1.4em;text-align:center;border-radius:99px;background:var(--sc);color:#fff;font-size:.75rem;margin-right:6px}
 .tag{display:inline-block;padding:1px 8px;border-radius:5px;font-size:.76rem;font-weight:600;background:var(--ac);color:#fff;white-space:nowrap}
-.tag.s{background:var(--bg2);color:var(--tx);border:1px solid var(--line)}
+.tag.s{background:var(--bg2);color:var(--tx);border:1px solid var(--line)}.tag.w{background:var(--wlb);color:#1a1200}
+.tag.t0{background:#0b5cad}.tag.t1{background:#b45309}.tag.t2{background:#0f7a55}
 .up{color:var(--up);font-weight:700}.dn{color:var(--dn);font-weight:700}.fl{color:var(--mu);font-weight:700}
 .num{white-space:nowrap;font-variant-numeric:tabular-nums}
-.deep{border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px}.deep h3{margin:0 0 6px;font-size:1rem}.deep li{margin:3px 0}
+.dbody{padding:0 12px 6px}.gh{font-weight:700;margin:12px 0 6px;padding:5px 10px;background:var(--sc);color:#fff;border-radius:6px}
+.deep{border:1px solid var(--line);border-left:6px solid var(--sc);border-radius:8px;padding:10px 16px;margin-bottom:10px;background:var(--bg)}
+.deep h3{margin:6px 0;font-size:1rem}.deep li{margin:3px 0}
+.lk a,.cos a{font-size:.76rem;margin-right:6px}.cos{margin-top:8px}.co{display:inline-block;margin:2px 14px 2px 0}
 .warn{background:#fff4e5;color:#7a4300;border-radius:8px;padding:8px 12px;margin:8px 0}
 a{color:var(--ac)}
-.chipb{border-radius:99px;padding:2px 10px;font-size:.82rem;margin:2px}.chipb.on{background:var(--ac);border-color:var(--ac);color:#fff}
-.g td{background:var(--bg2);font-weight:700}
-.gh{font-weight:700;margin:12px 0 4px;padding:4px 10px;background:var(--bg2);border-radius:6px}
-.fg{margin:6px 0}.fb{margin:0 6px}.fb button{font-size:.75rem;padding:1px 8px;margin:0 2px}
-.ctl{margin:6px 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.sec>summary{list-style:none;cursor:pointer}.sec>summary h2{display:inline-block;margin:18px 0 6px}
-.nav{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0;position:sticky;top:0;background:var(--bg);padding:6px 0;z-index:5}
-.nav a{border:1px solid var(--line);border-radius:99px;padding:2px 12px;text-decoration:none;font-size:.85rem;background:var(--bg2);color:var(--tx)}
-.lk a,.cos a{font-size:.76rem;margin-right:6px}.cos{margin-top:8px}.co{display:inline-block;margin:2px 14px 2px 0}
-
-@media print{.bar,.noprint,.ctl,.nav{display:none!important}:root,[data-theme]{--bg:#fff;--bg2:#f4f6f9;--tx:#000;--line:#bbb}main{max-width:none;padding:0}table{min-width:0;font-size:9pt}.tw{overflow:visible}h2{break-after:avoid}tr{break-inside:avoid}@page{size:A4 landscape;margin:10mm}}
+@media print{.bar,.noprint,.ctl,.nav{display:none!important}:root,[data-theme]{--bg:#fff;--bg2:#eef2f7;--tx:#000;--line:#999}main{max-width:none;padding:0}table{min-width:0;font-size:9pt}.tw{overflow:visible}tr{break-inside:avoid}@page{size:A4 landscape;margin:10mm}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style>
 </head>
 <body>
@@ -62,10 +75,10 @@ a{color:var(--ac)}
   <button id="share">複製我的設定連結</button>
 </div>
 
-<div class="bar noprint" id="filters" style="display:block"></div>
+<div class="bar noprint" id="filters"></div>
 
 <details class="noprint" open>
-  <summary><b>重點關注標的</b> <span class="mu">（輸入名稱或代號，從清單中選擇；僅存在你的裝置）</span></summary>
+  <summary><b>★ 指定重點關注標的</b> <span class="mu">（輸入名稱或代號，從清單中選擇；僅存在你的裝置）</span></summary>
   <div style="margin:8px 0" id="chips"></div>
   <input id="wq" placeholder="例如：藥華藥 / Moderna / 6446" style="width:240px">
   <div class="res" id="wres" style="max-width:440px"></div>
@@ -73,7 +86,7 @@ a{color:var(--ac)}
 
 <div id="warn"></div>
 <div id="report"></div>
-<p class="mu">資料每日自動更新 3 次（台北約 06:30、14:30、21:30），由 AI 搜尋整理；全球指標業者在所選區間內若無實質新進展則不顯示。價格來自 Yahoo Finance，可能延遲，請與交易所或官方來源核對；不構成投資建議。</p>
+<p class="mu">資料每日自動更新 3 次（台北約 06:30、14:30、21:30），由 AI 搜尋整理；非指定標的的業者在所選區間若無實質新進展則不顯示。價格來自 Yahoo Finance，可能延遲，請與交易所或官方來源核對；不構成投資建議。</p>
 </main>
 
 <script>
@@ -81,15 +94,23 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const link=u=>/^https?:\/\//.test(u||'')?` <a href="${esc(u)}" target="_blank" rel="noopener">來源↗</a>`:'';
 const fmtD=d=>d.getFullYear()+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getDate()).padStart(2,'0');
-let S=Object.assign({theme:'white',days:'1',watch:['6446.TWO','6919.TW','6472.TW']},JSON.parse(localStorage.getItem('S')||'{}'));
+const uniq=(a,b)=>[...new Set([...a,...b.filter(Boolean)])];
+const CATS=['大型藥廠','生技新藥','CDMO/CRO/供應鏈','醫療器材/MedTech','智慧醫療/數位健康','醫療服務','醫藥通路','健康管理/長壽科技'];
+const MKS=['美','歐','日','中','臺','澳','其他'],ORGS=['FDA','EMA','NMPA','TFDA','PMDA'],DTS=['政策變化','重大事件','技術突破'];
+const TIER=['★ 指定重點關注標的','全球主要業者'];
+
+let S=Object.assign({theme:'white',days:'1',watch:['6446.TWO','6919.TW','6472.TW'],x:{},kw:[],sort:{},grp:{}},JSON.parse(localStorage.getItem('S')||'{}'));
 try{const h=new URLSearchParams(location.hash.slice(1)).get('s');if(h){Object.assign(S,JSON.parse(decodeURIComponent(escape(atob(h)))));history.replaceState(null,'',location.pathname)}}catch(e){}
+S.sort=Object.assign({reg:'date',co:'date',deep:'date'},S.sort);
+S.grp=Object.assign({reg:'org',co:'tier',deep:'type'},S.grp);
+S.x=S.x||{};S.kw=S.kw||[];
 const save=()=>localStorage.setItem('S',JSON.stringify(S));
-let R=null;
+let R=null,FL={},GK={};const CL=new Set();
+const off=(k,v)=>(S.x[k]||[]).includes(v);
 
 function win(){
-  const now=new Date();
-  if(S.days==='c'){const a=$('#d1').value,b=$('#d2').value;return a&&b?[a.replace(/-/g,'/'),b.replace(/-/g,'/')]:[fmtD(new Date(Date.now()-864e5)),fmtD(now)]}
-  return[fmtD(new Date(Date.now()-(+S.days)*864e5)),fmtD(now)];
+  if(S.days==='c'){const a=$('#d1').value,b=$('#d2').value;if(a&&b)return[a.replace(/-/g,'/'),b.replace(/-/g,'/')]}
+  const n=S.days==='c'?1:+S.days;return[fmtD(new Date(Date.now()-n*864e5)),fmtD(new Date())];
 }
 const q=s=>R.quotes?.[s];
 function px(s){
@@ -97,17 +118,6 @@ function px(s){
   const a=x.pct>0?'▲':x.pct<0?'▼':'●',c=x.pct>0?'up':x.pct<0?'dn':'fl';
   return`<span class="num"><b>${x.p}</b> ${esc(x.cur||'')}<br><span class="${c}">${a} ${x.pct>0?'+':''}${x.pct}%</span><br><span class="mu">${x.date}・${x.live?'即時':'收盤'}</span></span>`;
 }
-const evs=(l,f)=>l.length?l.map(e=>`<div><span class="mu">${esc(e.date)}</span> ${esc(e[f])}${f==='event'?link(e.url):''}</div>`).join(''):'<span class="mu">區間內無實質新進展</span>';
-const tbl=(h,rows,n)=>`<div class="tw"><table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows||`<tr><td colspan=${n} class="mu">此區間無符合事件</td></tr>`}</table></div>`;
-
-const CATS=['大型藥廠','生技新藥','CDMO/CRO/供應鏈','醫療器材/MedTech','智慧醫療/數位健康','醫療服務','醫藥通路','健康管理/長壽科技'];
-const MKS=['美','歐','日','中','臺','澳','其他'],ORGS=['FDA','EMA','NMPA','TFDA','PMDA','其他'],DTS=['政策變化','重大事件','技術突破'];
-S.sort=Object.assign({reg:'date',watch:'date',glob:'date',deep:'date'},S.sort);
-S.grp=Object.assign({reg:'org',watch:'cat',glob:'cat',deep:'type'},S.grp);
-S.x=S.x||{};
-const CL=new Set();let FL={},GK={};
-const off=(k,v)=>(S.x[k]||[]).includes(v);
-const normOrg=o=>ORGS.includes(o)?o:'其他';
 const GX={T:'TYO',HK:'HKG',SS:'SHA',SZ:'SHE',TW:'TPE',TWO:'TPE',SW:'SWX',PA:'EPA',L:'LON',DE:'ETR',BR:'EBR',AS:'AMS',CO:'CPH',HE:'HEL',MC:'BME',AX:'ASX'};
 const BX={T:'JP',HK:'HK',SS:'CH',SZ:'CH',TW:'TT',TWO:'TT',SW:'SW',PA:'FP',L:'LN',DE:'GR',BR:'BB',AS:'NA',CO:'DC',HE:'FH',MC:'SM',AX:'AU'};
 function lk(s,n){
@@ -119,86 +129,111 @@ function lk(s,n){
   const bb=(!x||BX[x])&&!/-/.test(hb)?'https://www.bloomberg.com/quote/'+encodeURIComponent(hb)+':'+(x?BX[x]:'US'):'https://www.bloomberg.com/search?query='+encodeURIComponent(s);
   return gs+' '+a('https://finance.yahoo.com/quote/'+encodeURIComponent(s),'Yahoo')+' '+a(g,'Google')+' '+a(bb,'Bloomberg');
 }
-function view(){
+const tbl=(h,rows,n)=>`<div class="tw"><table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows||`<tr><td colspan=${n} class="mu">此區間無符合事件</td></tr>`}</table></div>`;
+
+// ---------- 資料整理 ----------
+const mv=w=>{const x=q(w.s);return!x?'無報價':x.pct>0?'上漲':x.pct<0?'下跌':'持平'};
+const pcU=w=>q(w.s)?.pct??-999,pcD=w=>q(w.s)?.pct??999,ab=w=>q(w.s)?Math.abs(q(w.s).pct):-1;
+const d0=w=>w.ev[0]?.date||'',L=(a,b)=>String(a??'').localeCompare(String(b??''),'zh-TW');
+const SRT={
+  reg:{date:(a,b)=>b.date.localeCompare(a.date),dateasc:(a,b)=>a.date.localeCompare(b.date),org:(a,b)=>L(a.org,b.org)||b.date.localeCompare(a.date),type:(a,b)=>L(a.type,b.type)||b.date.localeCompare(a.date),company:(a,b)=>L(a.company,b.company),name:(a,b)=>L(a.name,b.name)},
+  co:{date:(a,b)=>d0(b).localeCompare(d0(a)),dateasc:(a,b)=>(d0(a)||'9').localeCompare(d0(b)||'9'),up:(a,b)=>pcU(b)-pcU(a),dn:(a,b)=>pcD(a)-pcD(b),abs:(a,b)=>ab(b)-ab(a),ev:(a,b)=>b.ev.length-a.ev.length,mk:(a,b)=>MKS.indexOf(a.m)-MKS.indexOf(b.m),name:(a,b)=>L(a.n,b.n)},
+  deep:{date:(a,b)=>b.d.localeCompare(a.d),dateasc:(a,b)=>a.d.localeCompare(b.d),type:(a,b)=>DTS.indexOf(a.type)-DTS.indexOf(b.type)||b.d.localeCompare(a.d),cos:(a,b)=>(b.cos||[]).length-(a.cos||[]).length}};
+
+function prep(){
   const [f,t]=win(),inR=e=>e.date>=f&&e.date<=t;
+  const kwOn=S.kw.filter(k=>k.on).map(k=>k.t.toLowerCase());
+  const kwOk=s=>!kwOn.length||kwOn.some(k=>s.toLowerCase().includes(k));
   const pool=Object.fromEntries(R.T.map(x=>[x.s,x]));
   const byS={};R.co.filter(inR).forEach(e=>(byS[e.sym]=byS[e.sym]||[]).push(e));
-  const info=s=>({s,n:pool[s]?.n||byS[s]?.[0]?.name||s,m:pool[s]?.m||byS[s]?.[0]?.market||'其他',c:pool[s]?.c||'其他分類',ai:!pool[s]||!!pool[s].ai,ev:(byS[s]||[]).sort((a,b)=>b.date.localeCompare(a.date))});
-  const okF=w=>!off('mk',w.m)&&!off('cat',w.c);
-  const reg=R.reg.filter(x=>x.date>=f&&(x.date<=t||/PDUFA|CHMP|審議/.test(x.type||''))&&!off('org',normOrg(x.org)));
-  const watch=S.watch.map(info).filter(okF);
-  const glob=Object.keys(byS).map(info).filter(okF);
-  const deep=(R.deep||[]).filter(d=>d.d&&d.d>=f&&d.d<=t&&!off('dt',d.type));
-  return{f,t,reg,watch,glob,deep};
+  const info=s=>({s,n:pool[s]?.n||byS[s]?.[0]?.name||s,m:pool[s]?.m||byS[s]?.[0]?.market||'其他',c:pool[s]?.c||'其他分類',ai:!pool[s]||!!pool[s].ai,wl:S.watch.includes(s),ev:(byS[s]||[]).sort((a,b)=>b.date.localeCompare(a.date))});
+  const reg=R.reg.filter(x=>x.date>=f&&(x.date<=t||/PDUFA|CHMP|審議/.test(x.type||''))&&!off('org',x.org||'其他')&&!off('rt',x.type)&&kwOk([x.name,x.company,x.indication,x.value,x.type].join(' '))).sort(SRT.reg[S.sort.reg]);
+  const rows=uniq(S.watch,Object.keys(byS)).map(info).filter(w=>!off('mk',w.m)&&!off('cat',w.c)&&kwOk(w.n+' '+w.s+' '+w.ev.map(e=>[e.event,e.catalyst,e.impact].join(' ')).join(' ')))
+    .sort((a,b)=>(a.wl===b.wl?0:a.wl?-1:1)||SRT.co[S.sort.co](a,b));
+  const deep=(R.deep||[]).filter(d=>d.d&&d.d>=f&&d.d<=t&&!off('dt',d.type)&&kwOk([d.title,...(d.points||[]),...(d.cos||[]).map(c=>c.n)].join(' '))).sort(SRT.deep[S.sort.deep]);
+  return{f,t,reg,rows,deep};
 }
-const pcU=w=>q(w.s)?.pct??-999,pcD=w=>q(w.s)?.pct??999,d0=w=>w.ev[0]?.date||'';
-const SRT={
-  reg:{date:(a,b)=>b.date.localeCompare(a.date),org:(a,b)=>ORGS.indexOf(normOrg(a.org))-ORGS.indexOf(normOrg(b.org))||b.date.localeCompare(a.date),co:(a,b)=>String(a.company).localeCompare(String(b.company))},
-  co:{date:(a,b)=>d0(b).localeCompare(d0(a)),up:(a,b)=>pcU(b)-pcU(a),dn:(a,b)=>pcD(a)-pcD(b),name:(a,b)=>a.n.localeCompare(b.n,'zh-TW')},
-  deep:{date:(a,b)=>b.d.localeCompare(a.d),type:(a,b)=>DTS.indexOf(a.type)-DTS.indexOf(b.type)||b.d.localeCompare(a.d)}};
 const grp=(rows,mode,fn,n)=>{
   if(mode==='none'||!GK[mode])return rows.map(fn).join('');
   const[kf,base]=GK[mode];
-  return[...new Set([...base,...rows.map(kf)])].map(k=>{const l=rows.filter(r=>kf(r)===k);
+  return uniq(base,rows.map(kf)).map(k=>{const l=rows.filter(r=>kf(r)===k);
     return l.length?(n?`<tr class="g"><td colspan=${n}>${esc(k)}（${l.length}）</td></tr>`:`<div class="gh">${esc(k)}（${l.length}）</div>`)+l.map(fn).join(''):''}).join('')};
-const sel=(sec,k,o,cur)=>`<select data-sec="${sec}" data-k="${k}">${o.map(([v,l])=>`<option value="${v}" ${v===cur?'selected':''}>${l}</option>`).join('')}</select>`;
-const ctl=(sec,so,go)=>`<div class="ctl noprint"><span class="mu">排序</span>${sel(sec,'sort',so,S.sort[sec])}<span class="mu">分組</span>${sel(sec,'grp',go,S.grp[sec])}</div>`;
-const SO_REG=[['date','日期（新→舊）'],['org','監管機關'],['co','藥廠/單位']],GO_REG=[['org','依監管機關'],['none','不分組']];
-const SO_CO=[['date','事件日期（新→舊）'],['up','漲幅（高→低）'],['dn','跌幅（大→小）'],['name','名稱']],GO_CO=[['cat','依產業分類'],['mk','依市場'],['none','不分組']];
-const SO_DP=[['date','日期（新→舊）'],['type','類別']],GO_DP=[['type','依類別'],['none','不分組']];
-const card=d=>`<div class="deep"><div><span class="tag">${esc(d.type)}</span> <span class="mu num">${esc(d.period||d.d)}</span></div><h3>${esc(d.title)}</h3><ul>${(d.points||[]).map(p=>`<li>${esc(p)}</li>`).join('')}</ul>${d.trend?`<p><b>趨勢預測（推測）：</b>${esc(d.trend)}</p>`:''}${(d.cos||[]).length?`<div class="cos"><span class="mu">相關業者：</span>${d.cos.map(c=>`<span class="co"><b>${esc(c.n)}</b> ${c.s?`<span class="mu">${esc(c.s)}</span> `:''}${lk(c.s,c.n)}</span>`).join('')}</div>`:''}${link(d.url)}</div>`;
+
+// ---------- 選單 ----------
+const sel=(sec,k,o)=>`<select data-sec="${sec}" data-k="${k}">${o.map(([v,l])=>`<option value="${v}" ${v===S[k][sec]?'selected':''}>${l}</option>`).join('')}</select>`;
+const ctl=(sec,so,go)=>`<div class="ctl noprint"><span class="mu">排序</span>${sel(sec,'sort',so)}<span class="mu">分組</span>${sel(sec,'grp',go)}</div>`;
+const DA=[['date','日期（新→舊）'],['dateasc','日期（舊→新）']];
+const SO_REG=[...DA,['org','監管機關'],['type','審查類別'],['company','藥廠/單位'],['name','藥品名稱']];
+const GO_REG=[['org','依監管機關'],['rtype','依審查類別'],['month','依月份'],['date','依日期'],['company','依藥廠/單位'],['none','不分組']];
+const SO_CO=[...DA,['up','漲幅（高→低）'],['dn','跌幅（大→小）'],['abs','漲跌幅絕對值（大→小）'],['ev','事件數（多→少）'],['mk','市場'],['name','名稱']];
+const GO_CO=[['tier','指定標的／全球業者'],['cat','依產業分類'],['mk','依市場'],['move','依漲跌'],['none','不分組']];
+const SO_DP=[...DA,['type','類別'],['cos','相關業者數']];
+const GO_DP=[['type','依類別'],['month','依月份'],['none','不分組']];
+
+// ---------- 版面 ----------
+const cc=w=>`<b>${esc(w.n)}</b> ${w.wl?'<span class="tag w">★ 關注</span>':''}<br>${w.m?`<span class="tag s">${esc(w.m)}</span> `:''}<span class="mu">${esc(w.s)}</span>${w.ai?'':'<br><span class="mu">僅報價，未納入 AI 事件搜尋</span>'}<br><span class="lk">${lk(w.s,w.n)}</span>`;
+const rowC=w=>{
+  const n=w.ev.length||1,cl=w.wl?'wl':'bg',h=`<td rowspan="${n}">${cc(w)}</td><td rowspan="${n}">${px(w.s)}</td>`;
+  if(!w.ev.length)return`<tr class="${cl} cf">${h}<td colspan="3" class="mu">區間內無實質新進展</td></tr>`;
+  return w.ev.map((e,i)=>`<tr class="${cl} ${i?'en':'cf'}">${i?'':h}<td>${n>1?`<span class="no">${i+1}</span>`:''}<span class="dt">${esc(e.date)}</span><br>${esc(e.event)}${link(e.url)}</td><td>${esc(e.catalyst||'—')}</td><td>${esc(e.impact||'—')}</td></tr>`).join('');
+};
+const rowR=x=>`<tr class="bg cf"><td><span class="tag">${esc(x.org||'其他')}</span></td><td><b>${esc(x.name)}</b></td><td>${esc(x.company)}</td><td class="num"><span class="dt">${esc(x.date)}</span></td><td>${esc(x.indication)}<br><span class="tag s">${esc(x.type)}</span></td><td>${esc(x.value)}${link(x.url)}</td></tr>`;
+const card=d=>`<div class="deep"><div><span class="tag t${DTS.indexOf(d.type)}">${esc(d.type)}</span> <span class="dt">${esc(d.period||d.d)}</span></div><h3>${esc(d.title)}</h3><ul>${(d.points||[]).map(p=>`<li>${esc(p)}</li>`).join('')}</ul>${d.trend?`<p><b>趨勢預測（推測）：</b>${esc(d.trend)}</p>`:''}${(d.cos||[]).length?`<div class="cos"><span class="mu">相關業者：</span>${d.cos.map(c=>`<span class="co"><b>${esc(c.n)}</b> ${c.s?`<span class="mu">${esc(c.s)}</span> `:''}${lk(c.s,c.n)}</span>`).join('')}</div>`:''}${link(d.url)}</div>`;
 
 function render(){
   document.documentElement.dataset.theme=S.theme;$('#theme').value=S.theme;$('#range').value=S.days;$('#custom').hidden=S.days!=='c';
-  const cats=[...new Set([...CATS,...(R?.T||[]).map(x=>x.c).filter(Boolean)])];
-  FL={org:ORGS,mk:MKS,cat:cats,dt:DTS};
-  GK={cat:[w=>w.c,cats],mk:[w=>w.m,MKS],org:[x=>normOrg(x.org),ORGS],type:[d=>d.type,DTS]};
-  const ch=(k,label,l)=>`<div class="fg"><b>${label}</b><span class="fb"><button data-act="all" data-k="${k}">全選</button><button data-act="none" data-k="${k}">全部取消</button></span>`+l.map(v=>`<button class="chipb ${off(k,v)?'':'on'}" data-k="${k}" data-v="${esc(v)}">${esc(v)}</button>`).join('')+'</div>';
-  $('#filters').innerHTML=`<details id="fdet" ${CL.has('fdet')?'':'open'}><summary><b>篩選條件</b> <span class="mu">提示：全部選取時，點任一項會只顯示該項；再點其他項可加入</span></summary>`+ch('org','藥監機關',ORGS)+ch('mk','市場',MKS)+ch('cat','產業分類',cats)+ch('dt','深度解析類別',DTS)+'<button id="fall">重設全部篩選</button></details>';
-  $('#chips').innerHTML=S.watch.map((s,i)=>`<span class="chip">${esc(R?.T.find(x=>x.s===s)?.n||s)} <span class="mu">${esc(s)}</span><button data-i="${i}" aria-label="移除">✕</button></span>`).join('')||'<span class="mu">尚未加入</span>';
-  if(!R){return}
-  const v=view();
-  v.reg.sort(SRT.reg[S.sort.reg]);v.watch.sort(SRT.co[S.sort.watch]);v.glob.sort(SRT.co[S.sort.glob]);v.deep.sort(SRT.deep[S.sort.deep]);
+  const T=R?.T||[];
+  FL={org:uniq(ORGS,(R?.reg||[]).map(x=>x.org||'其他')),rt:uniq([],(R?.reg||[]).map(x=>x.type)),mk:uniq(MKS,T.map(x=>x.m)),cat:uniq(CATS,T.map(x=>x.c)),dt:uniq(DTS,(R?.deep||[]).map(x=>x.type))};
+  GK={org:[x=>x.org||'其他',FL.org],rtype:[x=>x.type,[]],month:[x=>(x.date||x.d||'').slice(0,7),[]],date:[x=>x.date,[]],company:[x=>x.company,[]],
+      tier:[w=>w.wl?TIER[0]:TIER[1],TIER],cat:[w=>w.c,FL.cat],mk:[w=>w.m,FL.mk],move:[mv,['上漲','下跌','持平','無報價']],type:[d=>d.type,FL.dt]};
+  const ch=(k,label,l)=>l.length?`<div class="fg"><b>${label}</b><span class="fb"><button data-act="all" data-k="${k}">全選</button><button data-act="none" data-k="${k}">全部取消</button></span>`+l.map(v=>`<button class="chipb ${off(k,v)?'':'on'}" data-k="${k}" data-v="${esc(v)}">${esc(v)}</button>`).join('')+'</div>':'';
+  const kw=`<div class="fg"><b>自訂關鍵字</b><span class="fb"><button data-act="kwoff">全部關閉</button></span>`+S.kw.map((k,i)=>`<span class="kwc"><button class="chipb ${k.on?'on':''}" data-kw="${i}">${esc(k.t)}</button><button class="x" data-kwdel="${i}" aria-label="刪除">✕</button></span>`).join('')+` <input id="kwin" placeholder="新增關鍵字，Enter 加入（符合任一開啟項才顯示）" style="width:300px"></div>`;
+  $('#filters').innerHTML=`<details id="fdet" ${CL.has('fdet')?'':'open'}><summary><b>篩選條件</b> <span class="mu">選項依實際資料自動產生；全部選取時點任一項會只顯示該項</span></summary>`+ch('org','藥監機關',FL.org)+ch('rt','審查／公布類別',FL.rt)+ch('mk','市場',FL.mk)+ch('cat','產業分類',FL.cat)+ch('dt','深度解析類別',FL.dt)+kw+'<button id="fall">重設全部篩選</button></details>';
+  $('#chips').innerHTML=S.watch.map((s,i)=>`<span class="chip">${esc(T.find(x=>x.s===s)?.n||s)} <span class="mu">${esc(s)}</span><button data-i="${i}" aria-label="移除">✕</button></span>`).join('')||'<span class="mu">尚未加入</span>';
+  if(!R)return;
+  const v=prep();
   $('#stamp').textContent=`報導區間 ${v.f} ～ ${v.t}｜資料更新 ${new Date(R.ts).toLocaleString('zh-TW')}`;
-  const cat=w=>`<td><b>${esc(w.n)}</b><br>${w.m?`<span class="tag s">${esc(w.m)}</span> `:''}<span class="mu">${esc(w.s)}</span>${w.ai?'':'<br><span class="mu">僅報價，未納入 AI 事件搜尋</span>'}<br><span class="lk">${lk(w.s,w.n)}</span></td><td>${px(w.s)}</td><td class="num">${w.ev.map(e=>esc(e.date)).join('<br>')||'—'}</td>`;
-  const sec=(id,t,c,ct,body)=>`<details class="sec" id="${id}" ${CL.has(id)?'':'open'}><summary><h2>${t} <span class="mu">${c} 筆</span></h2></summary>${ct}${body}</details>`;
-  const nav='<div class="nav noprint">'+[['s1','一、藥監動態'],['s2','二、關注標的'],['s3','三、全球業者'],['s4','四、深度解析']].map(([i,t])=>`<a href="#${i}">${t}</a>`).join('')+'</div>';
-  $('#report').innerHTML=nav+
-   sec('s1','一、各國藥監機關政策及審查動態',v.reg.length,ctl('reg',SO_REG,GO_REG),tbl(['監管機關','藥品/醫材','所屬藥廠/單位','日期','適應症與核准類別','商業與臨床價值'],grp(v.reg,S.grp.reg,x=>`<tr><td><span class="tag">${esc(x.org)}</span></td><td><b>${esc(x.name)}</b></td><td>${esc(x.company)}</td><td class="num">${esc(x.date)}</td><td>${esc(x.indication)}<br><span class="tag s">${esc(x.type)}</span></td><td>${esc(x.value)}${link(x.url)}</td></tr>`,6),6))+
-   sec('s2','二、指定重點關注標的近期動態',v.watch.length,ctl('watch',SO_CO,GO_CO),tbl(['個股與代號','基準價（日期・漲跌）','事件日期','區間內實質重大進展','後續催化劑'],grp(v.watch,S.grp.watch,w=>`<tr>${cat(w)}<td>${evs(w.ev,'event')}</td><td>${w.ev.map(e=>esc(e.catalyst)).join('<br>')||'—'}</td></tr>`,5),5))+
-   sec('s3','三、全球指標生醫業者動態',v.glob.length,ctl('glob',SO_CO,GO_CO),tbl(['個股與市場','基準價（日期・漲跌）','事件日期','最新重大催化劑','市場影響評估'],grp(v.glob,S.grp.glob,w=>`<tr>${cat(w)}<td>${evs(w.ev,'event')}</td><td>${evs(w.ev,'impact')}</td></tr>`,5),5))+
-   sec('s4','四、核心突破深度解析與產業趨勢預測',v.deep.length,ctl('deep',SO_DP,GO_DP),grp(v.deep,S.grp.deep,card,0)||'<p class="mu">此區間尚無符合的政策、重大事件或技術突破</p>');
+  const sec=(id,t,c,ct,body)=>`<details class="sec" id="${id}" ${CL.has(id)?'':'open'}><summary><h2>${t}</h2> <span class="mu">${c}</span></summary>${ct}${body}</details>`;
+  $('#report').innerHTML='<div class="nav noprint"><a href="#s1">一、藥監動態</a><a href="#s2">二、業者與關注標的</a><a href="#s3">三、深度解析</a></div>'+
+    sec('s1','一、各國藥監機關政策及審查動態',v.reg.length+' 筆',ctl('reg',SO_REG,GO_REG),tbl(['監管機關','藥品/醫材','所屬藥廠/單位','日期','適應症與核准類別','商業與臨床價值'],grp(v.reg,S.grp.reg,rowR,6),6))+
+    sec('s2','二、全球主要業者及指定重點關注標的動態',v.rows.length+' 家（★ 為指定標的，黃底）',ctl('co',SO_CO,GO_CO),tbl(['個股與市場','基準價（日期・漲跌）','重大進展（日期標於前）','後續催化劑','市場影響評估'],grp(v.rows,S.grp.co,rowC,5),5))+
+    sec('s3','三、核心突破深度解析與產業趨勢預測',v.deep.length+' 則',ctl('deep',SO_DP,GO_DP),`<div class="dbody">${grp(v.deep,S.grp.deep,card,0)||'<p class="mu">此區間尚無符合的政策、重大事件或技術突破</p>'}</div>`);
 }
 
 function md(){
-  const v=view(),c=s=>String(s??'').replace(/\|/g,'/').replace(/\n/g,' ');
+  const v=prep(),c=s=>String(s??'').replace(/\|/g,'/').replace(/\n/g,' ');
   const pm=s=>{const x=q(s);return x?`${x.p} ${x.cur||''} ${x.pct>0?'▲+':x.pct<0?'▼':'●'}${x.pct}% (${x.date} ${x.live?'即時':'收盤'})`:'無報價'};
-  const ev=(l,k)=>l.length?l.map(e=>`${e.date} ${c(e[k])}`).join('；'):'無實質新進展';
+  const ev=(w,f)=>w.ev.length?w.ev.map((e,i)=>`${w.ev.length>1?(i+1)+'. ':''}${f==='event'?e.date+' ':''}${c(e[f]||'—')}`).join('<br>'):(f==='event'?'區間內無實質新進展':'—');
   const tb=(h,r)=>`| ${h.join(' | ')} |\n|${h.map(()=>'---').join('|')}|\n${r.join('\n')}`;
   return `# 全球生技醫療產業即時情報\n\n報導區間：${v.f} ～ ${v.t}｜資料更新：${new Date(R.ts).toLocaleString('zh-TW')}\n\n## 一、各國藥監機關政策及審查動態\n\n`+
   tb(['機關','藥品/醫材','藥廠/單位','日期','適應症與類別','商業與臨床價值'],v.reg.map(x=>`| ${c(x.org)} | ${c(x.name)} | ${c(x.company)} | ${x.date} | ${c(x.indication)}（${c(x.type)}） | ${c(x.value)} ${x.url||''} |`))+
-  '\n\n## 二、指定重點關注標的近期動態\n\n'+tb(['個股','基準價','事件日期','重大進展','後續催化劑'],v.watch.map(w=>`| ${c(w.n)} ${w.s} | ${pm(w.s)} | ${w.ev.map(e=>e.date).join('、')||'—'} | ${ev(w.ev,'event')} | ${w.ev.map(e=>c(e.catalyst)).join('；')||'—'} |`))+
-  '\n\n## 三、全球指標生醫業者動態\n\n'+tb(['個股與市場','基準價','事件日期','最新重大催化劑','市場影響評估'],v.glob.map(w=>`| ${c(w.n)} (${w.m}) ${w.s} | ${pm(w.s)} | ${w.ev.map(e=>e.date).join('、')} | ${ev(w.ev,'event')} | ${ev(w.ev,'impact')} |`))+
-  '\n\n## 四、核心突破深度解析與產業趨勢預測\n\n'+v.deep.map(x=>`### [${x.type}] ${x.title}（${x.period||x.d}）\n${(x.points||[]).map(p=>'- '+p).join('\n')}\n\n**趨勢預測（推測）：** ${x.trend||'—'}\n\n相關業者：${(x.cos||[]).map(c=>c.s?`${c.n}（${c.s}，https://finance.yahoo.com/quote/${c.s}）`:c.n).join('、')||'—'}\n`).join('\n')+
+  '\n\n## 二、全球主要業者及指定重點關注標的動態（★ 為指定標的）\n\n'+tb(['個股與市場','基準價','重大進展','後續催化劑','市場影響評估'],v.rows.map(w=>`| ${w.wl?'★ ':''}${c(w.n)} (${w.m}) ${w.s} | ${pm(w.s)} | ${ev(w,'event')} | ${ev(w,'catalyst')} | ${ev(w,'impact')} |`))+
+  '\n\n## 三、核心突破深度解析與產業趨勢預測\n\n'+v.deep.map(x=>`### [${x.type}] ${x.title}（${x.period||x.d}）\n${(x.points||[]).map(p=>'- '+p).join('\n')}\n\n**趨勢預測（推測）：** ${x.trend||'—'}\n\n相關業者：${(x.cos||[]).map(c=>c.s?`${c.n}（${c.s}，https://finance.yahoo.com/quote/${c.s}）`:c.n).join('、')||'—'}\n`).join('\n')+
   '\n> AI 搜尋整理，價格與連結請與官方來源核對；不構成投資建議。\n';
 }
 
+// ---------- 事件 ----------
 $('#range').onchange=e=>{S.days=e.target.value;save();render()};
 $('#d1').onchange=$('#d2').onchange=render;
-$('#filters').onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.k;
-  if(b.id==='fall')S.x={};
-  else if(b.dataset.act==='all')S.x[k]=[];
-  else if(b.dataset.act==='none')S.x[k]=[...FL[k]];
-  else{const v=b.dataset.v,cur=S.x[k]||[];if(!cur.length)S.x[k]=FL[k].filter(z=>z!==v);else{const n=cur.indexOf(v);n<0?cur.push(v):cur.splice(n,1);S.x[k]=cur}}
-  save();render()};
-$('#report').onchange=e=>{const t=e.target;if(!t.dataset.sec)return;(t.dataset.k==='sort'?S.sort:S.grp)[t.dataset.sec]=t.value;save();render()};
-document.addEventListener('toggle',e=>{const t=e.target;if(t.id)t.open?CL.delete(t.id):CL.add(t.id)},true);
 $('#theme').onchange=e=>{S.theme=e.target.value;save();render()};
 $('#chips').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.watch.splice(+b.dataset.i,1);save();render()};
+$('#filters').onclick=e=>{const b=e.target.closest('button');if(!b)return;const d=b.dataset,k=d.k;
+  if(b.id==='fall'){S.x={};S.kw.forEach(x=>x.on=0)}
+  else if(d.act==='kwoff')S.kw.forEach(x=>x.on=0);
+  else if(d.kw!==undefined)S.kw[+d.kw].on=S.kw[+d.kw].on?0:1;
+  else if(d.kwdel!==undefined)S.kw.splice(+d.kwdel,1);
+  else if(d.act==='all')S.x[k]=[];
+  else if(d.act==='none')S.x[k]=[...FL[k]];
+  else if(k){const cur=S.x[k]||[];if(!cur.length)S.x[k]=FL[k].filter(z=>z!==d.v);else{const n=cur.indexOf(d.v);n<0?cur.push(d.v):cur.splice(n,1);S.x[k]=cur}}
+  else return;
+  save();render()};
+$('#filters').onkeydown=e=>{if(e.key==='Enter'&&e.target.id==='kwin'){const t=e.target.value.trim();if(t&&!S.kw.some(k=>k.t===t))S.kw.push({t,on:1});save();render()}};
+$('#report').onchange=e=>{const t=e.target;if(!t.dataset.sec)return;S[t.dataset.k][t.dataset.sec]=t.value;save();render()};
+document.addEventListener('toggle',e=>{const t=e.target;if(t.id)t.open?CL.delete(t.id):CL.add(t.id)},true);
 $('#wq').oninput=e=>{
   const k=e.target.value.trim().toLowerCase();if(!k||!R){$('#wres').innerHTML='';return}
   const l=R.T.filter(x=>(x.n+x.s).toLowerCase().includes(k)&&!S.watch.includes(x.s)).slice(0,6);
-  $('#wres').innerHTML=l.length?l.map(x=>`<button data-s="${esc(x.s)}">${esc(x.s)}　${esc(x.n)} <span class="mu">${esc(x.m)}</span></button>`).join(''):'<span class="mu">清單內找不到。可請網站管理者在 tickers.json 新增該公司。</span>';
+  $('#wres').innerHTML=l.length?l.map(x=>`<button data-s="${esc(x.s)}">${esc(x.s)}　${esc(x.n)} <span class="mu">${esc(x.m)}</span></button>`).join(''):'<span class="mu">清單內找不到。可請網站管理者在管理頁新增該公司。</span>';
 };
 $('#wres').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.watch.push(b.dataset.s);$('#wq').value='';$('#wres').innerHTML='';save();render()};
 const dl=(n,t,d)=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([d],{type:t}));a.download=n;a.click()};
