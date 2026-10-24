@@ -114,3 +114,16 @@ test('catalyst quality audit links individual warnings to source and event searc
   assert.match(html, /定位事件/);
   assert.match(html, /safeUrl\(e\.url\)/);
 });
+
+
+test('catalyst evidence traceability shows source facts and saves local review metadata', () => {
+  assert.match(html, /function evidenceTraceMarkup\(e\)/);
+  assert.match(html, /來源證據摘要/);
+  assert.match(html, /data-review-status/);
+  assert.match(html, /data-review-notes/);
+  assert.match(html, /data-save-review/);
+  assert.match(html, /healthcare\.catalystReviews/);
+  assert.match(html, /人工覆核備註/);
+  assert.match(html, /evidenceSummary/);
+  assert.match(html, /來源證據摘要/);
+});
