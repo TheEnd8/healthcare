@@ -73,3 +73,14 @@ test('catalyst expected-versus-actual timing variance is shown and exported', ()
   assert.match(html, /時程差異標籤/);
   assert.match(html, /dateVariance\(e\)\?\.days/);
 });
+
+test('catalyst historical review dashboard shows descriptive counts and caveats', () => {
+  assert.match(html, /催化劑歷史回顧/);
+  assert.match(html, /function renderReviewDashboard\(\)/);
+  assert.match(html, /reviewKnown/);
+  assert.match(html, /reviewVarianceN/);
+  assert.match(html, /結果狀態分布/);
+  assert.match(html, /時程差異分布/);
+  assert.match(html, /不代表預測能力或投資績效/);
+  assert.match(html, /缺失資料與選樣偏差/);
+});
