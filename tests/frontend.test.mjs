@@ -64,3 +64,12 @@ test('catalyst outcome tracking is displayed and exported', () => {
   assert.match(html, /outcomeImpactFollowup/);
   assert.match(html, /結果摘要/);
 });
+
+test('catalyst expected-versus-actual timing variance is shown and exported', () => {
+  assert.match(html, /function dateVariance\(e\)/);
+  assert.match(html, /function varianceMarkup\(e\)/);
+  assert.match(html, /預定／實際日期差異/);
+  assert.match(html, /日期差異（天；實際－預定）/);
+  assert.match(html, /時程差異標籤/);
+  assert.match(html, /dateVariance\(e\)\?\.days/);
+});
