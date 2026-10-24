@@ -104,7 +104,8 @@ test('investment workspace exposes catalyst data quality audit', () => {
   assert.match(html, /不自動修正資料/);
 });
 
-\ntest('catalyst quality audit links individual warnings to source and event search', () => {
+
+test('catalyst quality audit links individual warnings to source and event search', () => {
   assert.match(html, /data-quality-search/);
   assert.match(html, /data-quality-company/);
   assert.match(html, /id="qualitySeverity"/);
