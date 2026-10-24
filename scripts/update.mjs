@@ -1,5 +1,6 @@
 // 由 GitHub Actions 執行：抓報價(Yahoo)、用 Gemini+Google 搜尋整理新事件，累積寫入 data/report.json
 import fs from 'node:fs';
+import { validateRegulatoryEvents, validateCompanyEvents, validateDeepEvents } from './validate.mjs';
 
 const KEY = process.env.GEMINI_KEY, DAYS = +(process.env.DAYS || 1);
 if (!KEY) { console.error('缺少 GEMINI_KEY'); process.exit(1); }
@@ -54,9 +55,9 @@ const jobs = [
 const [reg, ...cos] = await Promise.all(jobs);
 if (!reg && cos.every(x => !x)) { console.error('AI 全部失敗，不更新'); process.exit(1); }
 
-const merge = (a, b, key) => { const m = new Map(a.map(x => [key(x), x])); b.forEach(x => m.set(key(x), x)); return [...m.values()].filter(x => x.date >= keep); };
-const newReg = (reg || []).filter(x => okd(x.date) && x.date >= from);
-const newCo = cos.flatMap(x => x || []).filter(e => e.sym && okd(e.date) && e.date >= from && e.date <= today);
+const merge = (a, b, key, dateOf = x => x.date) => { const m = new Map(a.map(x => [key(x), x])); b.forEach(x => m.set(key(x), x)); return [...m.values()].filter(x => dateOf(x) >= keep && dateOf(x) <= today); };
+const newReg = validateRegulatoryEvents(reg, from, today);
+const newCo = validateCompanyEvents(cos.flatMap(x => x || []), from, today);
 const out = {
   ts: Date.now(), window: DAYS, T,
   reg: merge(old.reg, newReg, x => x.name + '@' + x.date),
@@ -73,9 +74,8 @@ const deepNew = await gem(`現在時間：${new Date().toLocaleString('zh-TW', {
   '(1) 政策變化（法規、審查制度、藥價、醫保、關稅、貿易與出口管制等）；(2) 重大事件（疾病、疫情、產業整合、併購、分拆、聯盟、供應鏈事件等）；(3) 技術突破（新機轉、平台技術、重大臨床或科學突破）。' +
   '規則：只收錄已搜尋到來源佐證的事實，不可捏造；日期一律 YYYY/MM/DD；相關業者若為上市公司，代號用 Yahoo Finance 格式，非上市則 s 填空字串。' +
   `已收錄標題（除非有實質新進展，否則不得重複）：${seenDeep}。回傳陣列，最多 12 筆依重要性排序，每筆 {"type":"政策變化|重大事件|技術突破","title":"標題","d":"YYYY/MM/DD（事件開始或公布日）","period":"YYYY/MM/DD 或 YYYY/MM/DD～YYYY/MM/DD（事件期間，持續中請寫起日～迄今）","points":["事實：…","背景：…","影響：…"],"trend":"趨勢預測（需是推測，並說明依據）","cos":[{"n":"業者名稱","s":"代號"}],"url":"實際搜尋到的網址"}。只回傳純 JSON。`);
-const okDeep = x => x && DT.includes(x.type) && okd(x.d) && x.d >= dFrom && x.d <= today && x.title;
-out.deep = merge((old.deep || []).filter(x => x.d), (deepNew || []).filter(okDeep), x => x.title);
+const validDeep = validateDeepEvents(deepNew, dFrom, today);
+out.deep = merge((old.deep || []).filter(x => x.d && x.d >= keep), validDeep, x => x.title, x => x.d);
 
 fs.mkdirSync('data', { recursive: true });
-fs.writeFileSync('data/report.json', JSON.stringify(out));
-console.log('完成：事件', out.co.length, '藥監', out.reg.length, '報價', Object.keys(out.quotes).length);
+fs.writeFileSync('data/report.json', JSON.stringify(out));console.log('完成：事件', out.co.length, '藥監', out.reg.length, '報價', Object.keys(out.quotes).length);

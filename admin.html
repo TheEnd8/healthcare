@@ -61,7 +61,7 @@ async function load(){
   try{Q=(await(await fetch('data/report.json?'+Date.now())).json()).quotes||{}}catch(e){}
   $('#fm').innerHTML='<option value="">全部市場</option>'+MK.map(m=>`<option>${m}</option>`).join('');
   const h=location.hostname.endsWith('.github.io')?location.hostname.split('.')[0]:'',r=location.pathname.split('/')[1]||'';
-  $('#gu').value=localStorage.gu||h;$('#gr').value=localStorage.gr||r;$('#gt').value=localStorage.gt||'';
+  $('#gu').value=localStorage.gu||h;$('#gr').value=localStorage.gr||r;$('#gt').value='';
   draw();
 }
 function draw(){
@@ -101,7 +101,7 @@ const out=()=>{L=L.filter(x=>x.n&&x.s);return'[\n'+L.map(x=>JSON.stringify(x)).j
 $('#dl').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([out()],{type:'application/json'}));a.download='tickers.json';a.click()};
 $('#save').onclick=async()=>{
   const u=$('#gu').value.trim(),r=$('#gr').value.trim(),t=$('#gt').value.trim();if(!u||!r||!t)return alert('請填帳號、repo 與 token');
-  localStorage.gu=u;localStorage.gr=r;localStorage.gt=t;
+  localStorage.gu=u;localStorage.gr=r; // Never persist the personal access token in browser storage.
   const api=`https://api.github.com/repos/${u}/${r}/contents/tickers.json`,H={Authorization:'Bearer '+t,Accept:'application/vnd.github+json'};
   try{
     const cur=await fetch(api,{headers:H});if(!cur.ok)throw new Error('讀取失敗 '+cur.status+'，請檢查帳號、repo 與 token 權限');
@@ -109,7 +109,7 @@ $('#save').onclick=async()=>{
     const res=await fetch(api,{method:'PUT',headers:H,body:JSON.stringify({message:'update tickers',content:btoa(unescape(encodeURIComponent(out()))),sha})});
     if(!res.ok)throw new Error('儲存失敗 '+res.status);
     alert('已儲存。下次自動更新（或手動執行 Actions）後生效。');draw();
-  }catch(e){alert(e.message)}};
+  }catch(e){alert(e.message)}finally{$('#gt').value=''}};
 load();
 </script>
 </body>
