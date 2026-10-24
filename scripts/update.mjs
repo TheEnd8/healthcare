@@ -1,14 +1,14 @@
 // 由 GitHub Actions 執行：抓報價(Yahoo)、用 Gemini+Google 搜尋整理新事件，累積寫入 data/report.json
 import fs from 'node:fs';
-import { validateRegulatoryEvents, validateCompanyEvents, validateDeepEvents } from './validate.mjs';
+import { validateRegulatoryEvents, validateCompanyEvents, validateDeepEvents, validateCatalysts } from './validate.mjs';
 
 const KEY = process.env.GEMINI_KEY, DAYS = +(process.env.DAYS || 1);
 if (!KEY) { console.error('缺少 GEMINI_KEY'); process.exit(1); }
 const rd = (f, d) => { try { return JSON.parse(fs.readFileSync(f, 'utf8')); } catch { return d; } };
 const T = rd('tickers.json', []);
-const old = rd('data/report.json', { reg: [], co: [], quotes: {}, deep: [] });
+const old = rd('data/report.json', { reg: [], co: [], quotes: {}, deep: [], cat: [] });
 const ymd = t => new Date(t).toLocaleDateString('en-CA', { timeZone: 'Asia/Taipei' }).replace(/-/g, '/');
-const today = ymd(Date.now()), from = ymd(Date.now() - DAYS * 864e5), keep = ymd(Date.now() - 400 * 864e5);
+const today = ymd(Date.now()), from = ymd(Date.now() - DAYS * 864e5), keep = ymd(Date.now() - 400 * 864e5), horizon = ymd(Date.now() + 1095 * 864e5);
 const okd = d => /^\d{4}\/\d{2}\/\d{2}$/.test(d || '');
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
@@ -50,10 +50,11 @@ const fmt = l => l.map(x => `${x.n}(${x.s})`).join('、');
 
 const jobs = [
   gem(base + '\n任務：各國藥監機關（FDA、EMA、NMPA、TFDA、PMDA，可加 TGA、MHRA、Health Canada）的政策、規定、新核准、優先審查、部會/委員會審議、即將到期的 PDUFA 日或 CHMP 意見。回傳陣列，最多 20 筆，每筆 {"org":"FDA|EMA|NMPA|TFDA|PMDA|其他","name":"藥品/醫材","company":"藥廠/單位","date":"YYYY/MM/DD","indication":"適應症","type":"核准/優先審查/PDUFA/CHMP意見/政策/審議中","value":"商業與臨床價值一句","url":""}'),
+  gem(`現在時間：${new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false })}（台北）。請搜尋今日起至 ${horizon} 全球生技醫療公司的未來臨床與法規催化劑。只收錄有可追溯來源的預定里程碑，不要把預估日期寫成確定日期；日期須 YYYY/MM/DD，日期不明則不收錄。範圍包括臨床試驗主要讀出、試驗啟動/完成、FDA PDUFA/監管決策、CHMP 意見、上市申請、公司財報/指引、專利與商業里程碑。最多 40 筆，優先上市生技藥廠與 MedTech。回傳陣列，每筆 {\"company\":\"公司名稱\",\"asset\":\"藥品/產品/試驗\",\"type\":\"臨床讀出|臨床試驗啟動/完成|PDUFA/監管決策|CHMP/監管意見|上市申請|財報/指引|專利/商業里程碑|其他\",\"status\":\"已確認|預估|公司指引|待確認\",\"date\":\"YYYY/MM/DD\",\"title\":\"里程碑摘要\",\"sourceName\":\"來源機構或公告名稱\",\"url\":\"實際來源網址\",\"impact\":\"可能影響及需觀察事項\"}。只回傳純 JSON。`),
   ...chunks.map((c, i) => gem(base + `\n任務：${fmt(c)}。` + EV + (i === 0 ? '另可補充至多 5 家其他有重大進展的生醫公司（sym 用 Yahoo Finance 格式）。' : ''))),
 ];
-const [reg, ...cos] = await Promise.all(jobs);
-if (!reg && cos.every(x => !x)) { console.error('AI 全部失敗，不更新'); process.exit(1); }
+const [reg, catalysts, ...cos] = await Promise.all(jobs);
+if (!reg && !catalysts && cos.every(x => !x)) { console.error('AI 全部失敗，不更新'); process.exit(1); }
 
 const merge = (a, b, key, dateOf = x => x.date) => { const m = new Map(a.map(x => [key(x), x])); b.forEach(x => m.set(key(x), x)); return [...m.values()].filter(x => dateOf(x) >= keep && dateOf(x) <= today); };
 const newReg = validateRegulatoryEvents(reg, from, today);
@@ -64,6 +65,11 @@ const out = {
   co: merge(old.co, newCo, e => e.sym + '@' + e.date + (e.event || '').slice(0, 20)),
   quotes: old.quotes || {}, deep: old.deep || []
 };
+
+const validCatalysts = validateCatalysts([...(old.cat || []), ...(Array.isArray(catalysts) ? catalysts : [])], today, horizon);
+const catalystMap = new Map();
+validCatalysts.forEach(x => catalystMap.set([x.company, x.asset, x.date, x.type].join('@'), x));
+out.cat = [...catalystMap.values()].sort((a, b) => a.date.localeCompare(b.date));
 
 for (const s of new Set([...T.map(t => t.s), ...out.co.map(e => e.sym)])) { const q = await quote(s); if (q) out.quotes[s] = q; await sleep(200); }
 

@@ -36,3 +36,11 @@ export function validateDeepEvents(items, from, to) {
     isWithin(x.d, from, to) && isHttpUrl(x.url) &&
     Array.isArray(x.points) && x.points.length > 0);
 }
+
+// Validation for forward-looking catalyst dates; planned dates are intentionally not limited to the news window.
+export function validateCatalysts(items, today, horizon) {
+  const types = new Set(['臨床讀出', '臨床試驗啟動/完成', 'PDUFA/監管決策', 'CHMP/監管意見', '上市申請', '財報/指引', '專利/商業里程碑', '其他']);
+  const statuses = new Set(['已確認', '預估', '公司指引', '待確認']);
+  if (!Array.isArray(items)) return [];
+  return items.filter(x => x && typeof x === 'object' && typeof x.company === 'string' && x.company.trim() && typeof x.asset === 'string' && x.asset.trim() && types.has(x.type) && statuses.has(x.status) && isValidDate(x.date) && x.date >= today && x.date <= horizon && typeof x.title === 'string' && x.title.trim() && typeof x.sourceName === 'string' && x.sourceName.trim() && isHttpUrl(x.url));
+}
