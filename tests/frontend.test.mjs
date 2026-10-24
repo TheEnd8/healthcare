@@ -84,3 +84,13 @@ test('catalyst historical review dashboard shows descriptive counts and caveats'
   assert.match(html, /不代表預測能力或投資績效/);
   assert.match(html, /缺失資料與選樣偏差/);
 });
+
+
+test('catalyst segment review groups by company, indication, or type with a minimum sample threshold', () => {
+  assert.match(html, /公司／適應症分組回顧/);
+  assert.match(html, /id="segmentBy"/);
+  assert.match(html, /function renderSegmentReview\(\)/);
+  assert.match(html, /未標註適應症/);
+  assert.match(html, /樣本不足（n<5）/);
+  assert.match(html, /描述性統計/);
+});
