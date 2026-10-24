@@ -132,7 +132,7 @@ test('catalyst evidence traceability shows source facts and saves local review m
 test('catalyst review ledger supports portable JSON export and conflict-safe import', () => {
   assert.match(html, /id="exportReviews"/);
   assert.match(html, /id="importReviews"/);
-  assert.match(html, /healthcare\\.catalyst-review-ledger/);
+  assert.match(html, /healthcare\.catalyst-review-ledger/);
   assert.match(html, /schemaVersion:1/);
   assert.match(html, /function exportReviewLedger\(\)/);
   assert.match(html, /較舊紀錄不覆蓋較新版本/);
