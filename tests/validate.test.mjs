@@ -38,3 +38,10 @@ test('deep events require supported type, source, date and points', () => {
   const good = {type:'技術突破',title:'New platform',d:'2026/10/24',url:'https://example.com/a',points:['事實：x']};
   assert.equal(validateDeepEvents([good,{...good,d:'2026/10/25'},{...good,points:[]},{...good,url:'bad'}], '2026/10/22','2026/10/24').length, 1);
 });
+
+test('forward catalysts accept sourced future dates but reject missing evidence and distant dates', async () => {
+  const { validateCatalysts } = await import('../scripts/validate.mjs');
+  const good = {company:'Example Bio',asset:'Drug X',type:'臨床讀出',status:'公司指引',date:'2027/06/30',title:'Phase 3 top-line results',sourceName:'Company investor relations',url:'https://example.com/ir'};
+  const rows = [good,{...good,date:'2026/10/23'},{...good,url:'javascript:alert(1)'},{...good,status:'未定義'}];
+  assert.equal(validateCatalysts(rows,'2026/10/24','2029/10/24').length,1);
+});
