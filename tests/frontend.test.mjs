@@ -103,3 +103,14 @@ test('investment workspace exposes catalyst data quality audit', () => {
   assert.match(html, /疑似重複事件/);
   assert.match(html, /不自動修正資料/);
 });
+
+
+test('catalyst quality audit links individual warnings to source and event search', () => {
+  assert.match(html, /data-quality-search/);
+  assert.match(html, /data-quality-company/);
+  assert.match(html, /id="qualitySeverity"/);
+  assert.match(html, /只看錯誤/);
+  assert.match(html, /檢視來源 ↗/);
+  assert.match(html, /定位事件/);
+  assert.match(html, /safeUrl\(e\.url\)/);
+});
