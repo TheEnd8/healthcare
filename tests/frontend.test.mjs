@@ -34,3 +34,16 @@ test('investment workspace exposes a separate forward-catalyst view', () => {
 test('updater module passes Node syntax check', () => {
   execFileSync(process.execPath, ['--check', fileURLToPath(new URL('../scripts/update.mjs', import.meta.url))]);
 });
+
+test('catalyst cards expose lifecycle status and date-change history', () => {
+  assert.match(html, /e\.lifecycle/);
+  assert.match(html, /日期變更紀錄/);
+  assert.match(html, /class="tag lifecycle"/);
+});
+
+test('catalyst lifecycle filter and CSV history fields are available', () => {
+  assert.match(html, /id="lifecycle"/);
+  assert.match(html, /日期已過・待確認/);
+  assert.match(html, /日期變更次數/);
+  assert.match(html, /\('#lifecycle'\)/);
+});

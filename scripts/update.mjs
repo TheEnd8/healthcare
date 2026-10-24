@@ -50,7 +50,7 @@ const fmt = l => l.map(x => `${x.n}(${x.s})`).join('、');
 
 const jobs = [
   gem(base + '\n任務：各國藥監機關（FDA、EMA、NMPA、TFDA、PMDA，可加 TGA、MHRA、Health Canada）的政策、規定、新核准、優先審查、部會/委員會審議、即將到期的 PDUFA 日或 CHMP 意見。回傳陣列，最多 20 筆，每筆 {"org":"FDA|EMA|NMPA|TFDA|PMDA|其他","name":"藥品/醫材","company":"藥廠/單位","date":"YYYY/MM/DD","indication":"適應症","type":"核准/優先審查/PDUFA/CHMP意見/政策/審議中","value":"商業與臨床價值一句","url":""}'),
-  gem(`現在時間：${new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false })}（台北）。請搜尋今日起至 ${horizon} 全球生技醫療公司的未來臨床與法規催化劑。只收錄有可追溯來源的預定里程碑，不要把預估日期寫成確定日期；日期須 YYYY/MM/DD，日期不明則不收錄。範圍包括臨床試驗主要讀出、試驗啟動/完成、FDA PDUFA/監管決策、CHMP 意見、上市申請、公司財報/指引、專利與商業里程碑。最多 40 筆，優先上市生技藥廠與 MedTech。回傳陣列，每筆 {\"company\":\"公司名稱\",\"asset\":\"藥品/產品/試驗\",\"type\":\"臨床讀出|臨床試驗啟動/完成|PDUFA/監管決策|CHMP/監管意見|上市申請|財報/指引|專利/商業里程碑|其他\",\"status\":\"已確認|預估|公司指引|待確認\",\"date\":\"YYYY/MM/DD\",\"title\":\"里程碑摘要\",\"sourceName\":\"來源機構或公告名稱\",\"url\":\"實際來源網址\",\"impact\":\"可能影響及需觀察事項\"}。只回傳純 JSON。`),
+  gem(`現在時間：${new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false })}（台北）。請整理全球生技醫療公司未來三年的臨床與法規催化劑，並回顧最近 400 天內已公布結果、延期或取消的相關事件。只收錄有可追溯來源的資訊；預估日期不可標成已確認，日期須 YYYY/MM/DD，日期不明則不收錄。範圍包括臨床試驗主要讀出、試驗啟動/完成、FDA PDUFA/監管決策、CHMP 意見、上市申請、公司財報/指引、專利與商業里程碑。最多 50 筆，優先上市生技藥廠與 MedTech。status 只能是 已確認、預估、公司指引、待確認、結果已公布、已延期、已取消。只有來源明確證實結果已公布、延期或取消時才使用後三種狀態；結果已公布時 date 填實際公告/讀出日期，並引用官方公司公告、試驗登錄或監管來源。回傳陣列，每筆 {\"company\":\"公司名稱\",\"asset\":\"藥品/產品/試驗\",\"type\":\"臨床讀出|臨床試驗啟動/完成|PDUFA/監管決策|CHMP/監管意見|上市申請|財報/指引|專利/商業里程碑|其他\",\"status\":\"已確認|預估|公司指引|待確認|結果已公布|已延期|已取消\",\"date\":\"YYYY/MM/DD\",\"title\":\"里程碑摘要\",\"sourceName\":\"來源機構或公告名稱\",\"url\":\"實際來源網址\",\"impact\":\"可能影響及需觀察事項\"}。只回傳純 JSON。`),
   ...chunks.map((c, i) => gem(base + `\n任務：${fmt(c)}。` + EV + (i === 0 ? '另可補充至多 5 家其他有重大進展的生醫公司（sym 用 Yahoo Finance 格式）。' : ''))),
 ];
 const [reg, catalysts, ...cos] = await Promise.all(jobs);
@@ -66,10 +66,17 @@ const out = {
   quotes: old.quotes || {}, deep: old.deep || []
 };
 
-const validCatalysts = validateCatalysts([...(old.cat || []), ...(Array.isArray(catalysts) ? catalysts : [])], today, horizon);
-const catalystMap = new Map();
-validCatalysts.forEach(x => catalystMap.set([x.company, x.asset, x.date, x.type].join('@'), x));
-out.cat = [...catalystMap.values()].sort((a, b) => a.date.localeCompare(b.date));
+const validOldCatalysts = validateCatalysts(old.cat || [], today, horizon);
+const validNewCatalysts = validateCatalysts(Array.isArray(catalysts) ? catalysts : [], today, horizon);
+const catalystIdentity = x => [x.company, x.asset, x.type, x.title].map(v => String(v || '').trim().toLowerCase()).join('@');
+const catalystMap = new Map(validOldCatalysts.map(x => [catalystIdentity(x), x]));
+for (const item of validNewCatalysts) {
+  const key = catalystIdentity(item), prior = catalystMap.get(key);
+  const history = Array.isArray(prior?.history) ? [...prior.history] : [];
+  if (prior && prior.date !== item.date) history.push({ date: prior.date, recordedAt: today, changedTo: item.date, reason: '來源更新了里程碑日期' });
+  catalystMap.set(key, { ...prior, ...item, history });
+}
+out.cat = [...catalystMap.values()].map(x => ({ ...x, lifecycle: x.status === '結果已公布' ? '結果已公布' : x.status === '已延期' ? '已延期' : x.status === '已取消' ? '已取消' : x.date < today ? '日期已過・待確認' : x.date === today ? '今日到期' : x.history?.length ? '日期曾變更' : '即將到期' })).sort((a, b) => a.date.localeCompare(b.date));
 
 for (const s of new Set([...T.map(t => t.s), ...out.co.map(e => e.sym)])) { const q = await quote(s); if (q) out.quotes[s] = q; await sleep(200); }
 
