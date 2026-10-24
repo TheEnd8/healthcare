@@ -127,3 +127,16 @@ test('catalyst evidence traceability shows source facts and saves local review m
   assert.match(html, /evidenceSummary/);
   assert.match(html, /來源證據摘要/);
 });
+
+
+test('catalyst review ledger supports portable JSON export and conflict-safe import', () => {
+  assert.match(html, /id="exportReviews"/);
+  assert.match(html, /id="importReviews"/);
+  assert.match(html, /healthcare\\.catalyst-review-ledger/);
+  assert.match(html, /schemaVersion:1/);
+  assert.match(html, /function exportReviewLedger\(\)/);
+  assert.match(html, /較舊紀錄不覆蓋較新版本/);
+  assert.match(html, /匯入中止/);
+  assert.match(html, /createdAt:prior\.createdAt\|\|now/);
+  assert.match(html, /revision:\(Number\(prior\.revision\)\|\|0\)\+1/);
+});
