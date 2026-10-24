@@ -140,3 +140,13 @@ test('catalyst review ledger supports portable JSON export and conflict-safe imp
   assert.match(html, /createdAt:prior\.createdAt\|\|now/);
   assert.match(html, /revision:\(Number\(prior\.revision\)\|\|0\)\+1/);
 });
+
+
+test('catalyst review notes keep bounded version history and show prior/current comparison', () => {
+  assert.match(html, /function reviewHistoryMarkup\(saved\)/);
+  assert.match(html, /review-version-grid/);
+  assert.match(html, /history\.slice\(-50\)/);
+  assert.match(html, /上一版備註/);
+  assert.match(html, /目前備註/);
+  assert.match(html, /snapshot=prior\.revision\?/);
+});
