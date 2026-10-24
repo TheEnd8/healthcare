@@ -94,3 +94,12 @@ test('catalyst segment review groups by company, indication, or type with a mini
   assert.match(html, /樣本不足（n<5）/);
   assert.match(html, /描述性統計/);
 });
+
+
+test('investment workspace exposes catalyst data quality audit', () => {
+  assert.match(html, /催化劑資料品質檢查/);
+  assert.match(html, /function renderQualityAudit\(\)/);
+  assert.match(html, /outcome_missing_actual_date/);
+  assert.match(html, /疑似重複事件/);
+  assert.match(html, /不自動修正資料/);
+});

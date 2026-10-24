@@ -61,3 +61,22 @@ test('catalyst outcome fields are retained for historical reconciliation', async
   assert.equal(row.outcomeSummary,'Primary endpoint met');
   assert.equal(row.outcomeImpactFollowup,'Potentially improves regulatory confidence');
 });
+
+
+test('catalyst quality audit flags source, date, outcome-date, lifecycle conflict, and duplicates', async () => {
+  const { auditCatalysts } = await import('../scripts/validate.mjs');
+  const base = { company: 'Example Bio', asset: 'Drug A', type: '臨床讀出', status: '已延期', date: '2027/01/01', title: 'Phase 3 readout', sourceName: '', url: 'bad', outcomeStatus: '優於預期', actualDate: '' };
+  const issues = auditCatalysts([base, { ...base }]);
+  const codes = issues.map(x => x.code);
+  assert.ok(codes.includes('missing_source_name'));
+  assert.ok(codes.includes('invalid_source_url'));
+  assert.ok(codes.includes('outcome_missing_actual_date'));
+  assert.ok(codes.includes('lifecycle_outcome_conflict'));
+  assert.ok(codes.includes('possible_duplicate'));
+});
+test('catalyst quality audit distinguishes missing actual dates from unpublished outcomes', async () => {
+  const { auditCatalysts } = await import('../scripts/validate.mjs');
+  const row = { company: 'Example Bio', asset: 'Drug A', type: '臨床讀出', status: '預估', date: '2027/01/01', title: 'Phase 3 readout', sourceName: 'Company IR', url: 'https://example.com', outcomeStatus: '尚未公布' };
+  assert.equal(auditCatalysts([row]).some(x => x.code === 'outcome_missing_actual_date'), false);
+  assert.equal(auditCatalysts([{ ...row, date: '2027/02/30' }]).some(x => x.code === 'invalid_expected_date'), true);
+});
