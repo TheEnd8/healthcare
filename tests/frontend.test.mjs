@@ -56,3 +56,11 @@ test('investment workspace exposes explainable three-factor research scoring', (
   assert.match(html, /研究優先/);
   assert.match(html, /\/100/);
 });
+
+test('catalyst outcome tracking is displayed and exported', () => {
+  assert.match(html, /function outcomeMarkup\(e\)/);
+  assert.match(html, /結果追蹤/);
+  assert.match(html, /實際公告日期/);
+  assert.match(html, /outcomeImpactFollowup/);
+  assert.match(html, /結果摘要/);
+});

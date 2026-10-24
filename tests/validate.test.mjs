@@ -51,3 +51,13 @@ test('catalyst validator retains recent past milestones for outcome reconciliati
   const past = {company:'Example Bio',asset:'Drug X',type:'臨床讀出',status:'結果已公布',date:'2026/10/20',title:'Phase 3 top-line results',sourceName:'Company investor relations',url:'https://example.com/ir'};
   assert.equal(validateCatalysts([past],'2026/10/24','2029/10/24').length,1);
 });
+
+test('catalyst outcome fields are retained for historical reconciliation', async () => {
+  const { validateCatalysts } = await import('../scripts/validate.mjs');
+  const past = {company:'Example Bio',asset:'Drug X',type:'臨床讀出',status:'結果已公布',date:'2026/10/20',title:'Phase 3 results',sourceName:'Company IR',url:'https://example.com/ir',outcomeStatus:'優於預期',actualDate:'2026/10/20',outcomeSummary:'Primary endpoint met',outcomeImpactFollowup:'Potentially improves regulatory confidence'};
+  const [row] = validateCatalysts([past],'2026/10/24','2029/10/24');
+  assert.equal(row.outcomeStatus,'優於預期');
+  assert.equal(row.actualDate,'2026/10/20');
+  assert.equal(row.outcomeSummary,'Primary endpoint met');
+  assert.equal(row.outcomeImpactFollowup,'Potentially improves regulatory confidence');
+});
