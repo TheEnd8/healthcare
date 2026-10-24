@@ -42,6 +42,12 @@ test('deep events require supported type, source, date and points', () => {
 test('forward catalysts accept sourced future dates but reject missing evidence and distant dates', async () => {
   const { validateCatalysts } = await import('../scripts/validate.mjs');
   const good = {company:'Example Bio',asset:'Drug X',type:'臨床讀出',status:'公司指引',date:'2027/06/30',title:'Phase 3 top-line results',sourceName:'Company investor relations',url:'https://example.com/ir'};
-  const rows = [good,{...good,date:'2026/10/23'},{...good,url:'javascript:alert(1)'},{...good,status:'未定義'}];
+  const rows = [good,{...good,date:'2025/01/01'},{...good,url:'javascript:alert(1)'},{...good,status:'未定義'}];
   assert.equal(validateCatalysts(rows,'2026/10/24','2029/10/24').length,1);
+});
+
+test('catalyst validator retains recent past milestones for outcome reconciliation', async () => {
+  const { validateCatalysts } = await import('../scripts/validate.mjs');
+  const past = {company:'Example Bio',asset:'Drug X',type:'臨床讀出',status:'結果已公布',date:'2026/10/20',title:'Phase 3 top-line results',sourceName:'Company investor relations',url:'https://example.com/ir'};
+  assert.equal(validateCatalysts([past],'2026/10/24','2029/10/24').length,1);
 });
