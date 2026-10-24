@@ -56,3 +56,11 @@ test('investment workspace exposes explainable three-factor research scoring', (
   assert.match(html, /研究優先/);
   assert.match(html, /\/100/);
 });
+
+test('catalyst impact assessment separates sourced facts from analysis and exports dimensions', () => {
+  assert.match(html, /impactFacts/);
+  assert.match(html, /impactInference/);
+  assert.match(html, /影響評估｜來源支持的事實/);
+  assert.match(html, /分析推論（非已證實事實）/);
+  assert.match(html, /營收／商業化影響/);
+});
