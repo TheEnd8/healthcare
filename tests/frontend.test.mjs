@@ -47,3 +47,12 @@ test('catalyst lifecycle filter and CSV history fields are available', () => {
   assert.match(html, /日期變更次數/);
   assert.match(html, /\('#lifecycle'\)/);
 });
+
+test('investment workspace exposes explainable three-factor research scoring', () => {
+  assert.match(html, /function assess\(e\)/);
+  assert.match(html, /importance\/5/);
+  assert.match(html, /時間敏感度/);
+  assert.match(html, /來源品質/);
+  assert.match(html, /研究優先/);
+  assert.match(html, /\/100/);
+});
