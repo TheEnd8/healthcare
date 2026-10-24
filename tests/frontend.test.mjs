@@ -138,7 +138,7 @@ test('catalyst review ledger supports portable JSON export and conflict-safe imp
   assert.match(html, /較舊紀錄不覆蓋較新版本/);
   assert.match(html, /匯入中止/);
   assert.match(html, /createdAt:prior\.createdAt\|\|now/);
-  assert.match(html, /revision:\(Number\(prior\.revision\)\|\|0\)\+1/);
+  assert.match(html, /revision=\(Number\(prior\.revision\)\|\|0\)\+1/);
 });
 
 
