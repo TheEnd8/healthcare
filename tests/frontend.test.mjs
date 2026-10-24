@@ -21,3 +21,10 @@ test('admin page does not persist the personal access token', () => {
   assert.doesNotMatch(admin, /localStorage\.gt\s*=/);
   assert.match(admin, /finally\{\$\('#gt'\)\.value=''\}/);
 });
+
+test('investment workspace exposes a separate forward-catalyst view', () => {
+  assert.match(html, /value="catalyst"/);
+  assert.match(html, /未來催化劑/);
+  assert.match(html, /r\.cat\|\|\[\]/);
+  assert.match(html, /來源：/);
+});
