@@ -150,3 +150,25 @@ test('catalyst review notes keep bounded version history and show prior/current 
   assert.match(html, /目前備註/);
   assert.match(html, /snapshot=prior\.revision\?/);
 });
+
+
+test('watchlist supports CSV or pasted batch import without third-party scraping', () => {
+  assert.match(html, /id="watchImportText"/);
+  assert.match(html, /id="watchImportFile"/);
+  assert.match(html, /function parseWatchlistImport\(text\)/);
+  assert.match(html, /Symbol、Ticker、Code、股票代號、公司名稱欄/);
+  assert.match(html, /Investing\.com 美國 healthcare 篩選器/);
+  assert.match(html, /Goodinfo 台灣生技醫療自訂篩選/);
+  assert.match(html, /不會直接抓取第三方網站/);
+  assert.match(html, /healthcare\.watchlist/);
+});
+
+test('users can persist validated preferred information-site URLs locally', () => {
+  assert.match(html, /id="preferredSources"/);
+  assert.match(html, /id="savePreferredSources"/);
+  assert.match(html, /const preferredSourcesKey='healthcare\.preferredSources'/);
+  assert.match(html, /function savePreferredSources\(\)/);
+  assert.match(html, /function renderPreferredSourceSearch\(\)/);
+  assert.match(html, /僅接受 HTTP\(S\) 網址/);
+  assert.match(html, /site:'\+host/);
+});
