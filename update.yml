@@ -9,6 +9,9 @@ on:
       days:
         description: '回溯天數（首次建議 30，之後用 1）'
         default: '1'
+      digest:
+        description: '是否立即產生週報（填 1）'
+        default: ''
 permissions:
   contents: write
 concurrency: update-report
@@ -24,8 +27,10 @@ jobs:
         env:
           GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
           DAYS: ${{ github.event.inputs.days || '1' }}
+          FORCE_DIGEST: ${{ github.event.inputs.digest }}
       - run: |
           git config user.name "report-bot"
           git config user.email "report-bot@users.noreply.github.com"
           git add data
+          if [ -d reports ]; then git add reports; fi
           git diff --cached --quiet || (git commit -m "update report" && git push)
