@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-TW" data-theme="white">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>每日綜合分析</title>
+<style>
+:root{--bg:#fff;--bg2:#e9eff6;--line:#b3bfcd;--tx:#0e1a27;--mu:#4b5a6b;--ac:#0b5cad;--s1:#0b5cad;--s2:#0f766e;--s3:#b45309;--s4:#7a3fb5;--z2:#eef4fa}
+[data-theme=sage]{--bg:#f3f8f2;--bg2:#dcead9;--line:#a3bda0;--tx:#13261a;--mu:#4a634d;--ac:#2a7330;--s1:#2a6f3a;--s2:#1f6f78;--s3:#9a5a12;--s4:#6b3a99;--z2:#e4f0e1}
+[data-theme=ivory]{--bg:#fcf8ef;--bg2:#efe4cd;--line:#cbb68c;--tx:#2a2012;--mu:#6b5a3f;--ac:#9a4f0a;--s1:#8a4b0f;--s2:#4f6a1f;--s3:#8c2f39;--s4:#5a3a7a;--z2:#f3e8d0}
+[data-theme=dark]{--bg:#0f151c;--bg2:#1d2833;--line:#3d4e60;--tx:#eef3f8;--mu:#a5b2c1;--ac:#6db7ff;--s1:#2f7fcf;--s2:#1f9488;--s3:#c9791f;--s4:#9a6bd1;--z2:#18232e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.65 system-ui,"PingFang TC","Microsoft JhengHei",sans-serif}
+main{max-width:1100px;margin:0 auto;padding:16px}
+h1{font-size:1.45rem;margin:0 0 2px}.mu{color:var(--mu);font-size:.85rem}
+button,select,input{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:5px 10px}
+button{cursor:pointer}:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
+a{color:var(--ac)}.top{text-align:right;margin-bottom:-6px}.top a{color:var(--mu);font-size:.85rem;text-decoration:none}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:10px 0}
+.sec{margin:20px 0;border:2px solid var(--sc);border-radius:12px;overflow:hidden;background:var(--bg)}
+.sec>h2{margin:0;padding:8px 14px;background:var(--sc);color:#fff;font-size:1.08rem}.sec>.bd{padding:12px 14px}
+.s1{--sc:var(--s1)}.s2{--sc:var(--s2)}.s3{--sc:var(--s3)}.s4{--sc:var(--s4)}
+.card{border:1px solid var(--line);border-left:6px solid var(--sc);border-radius:8px;padding:10px 14px;margin-bottom:10px;background:var(--bg)}
+.card.z1{background:var(--z2)}.card h3{margin:0 0 4px;font-size:1rem}
+.chg{background:var(--bg2);border-radius:6px;padding:4px 10px;margin:6px 0;font-size:.9rem}
+.tag{display:inline-block;padding:1px 8px;border-radius:5px;font-size:.76rem;font-weight:600;background:var(--ac);color:#fff}
+.tag.c{background:#0b5cad}.tag.i{background:#0f7a55}.tag.t{background:#7a3fb5}
+.chip{display:inline-block;margin:2px 6px 2px 0;padding:1px 10px;border:1px solid var(--line);border-radius:99px;background:var(--bg2);color:var(--tx);text-decoration:none;font-size:.82rem}
+.rf{display:inline-block;min-width:1.6em;text-align:center;border-radius:5px;background:var(--sc,var(--ac));color:#fff;text-decoration:none;font-size:.72rem;margin:0 1px;padding:0 4px}
+.cols{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.cols h4{margin:0 0 4px;color:var(--sc)}.cols ul{margin:0;padding-left:1.2em}
+.btn{display:inline-block;padding:2px 10px;border-radius:6px;background:var(--ac);color:#fff!important;text-decoration:none;font-size:.8rem;margin-left:6px}
+.tl{border-left:3px solid var(--sc);margin-left:8px;padding-left:14px}.tl>div{margin-bottom:12px}
+.dt{font-weight:700;color:var(--sc);font-variant-numeric:tabular-nums}
+table{border-collapse:collapse;width:100%;font-size:.9rem}th{background:var(--bg2);text-align:left;padding:6px 8px}td{padding:6px 8px;border-top:1px solid var(--line)}tr:nth-child(even) td{background:var(--z2)}
+.warn{background:#fff4e5;color:#7a4300;border-radius:8px;padding:8px 12px;margin:8px 0}
+@media print{.bar,.top{display:none}}
+</style>
+</head>
+<body>
+<main>
+<div class="top"><a href="./">← 返回即時情報</a></div>
+<h1>每日綜合分析</h1>
+<div class="mu" id="stamp">載入中…</div>
+<div class="bar">
+  <button id="prev" aria-label="較早一天">‹ 前一日</button>
+  <select id="dsel" aria-label="日期"></select>
+  <button id="next" aria-label="較新一天">後一日 ›</button>
+  <input id="q" list="el" placeholder="搜尋公司／產業／主題" style="width:220px">
+  <datalist id="el"></datalist>
+  <a href="#e=">瀏覽全部對象</a>
+</div>
+<div id="view"></div>
+<p class="mu">本頁由 AI 彙整已收錄報告的摘要重點而成，僅呈現報告內容的整理與關聯，不構成投資建議；報告連結需具備對應 Google Drive 權限才能開啟，請以原報告為準。</p>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+try{document.documentElement.dataset.theme=JSON.parse(localStorage.getItem('S')||'{}').theme||'white'}catch(e){}
+const GX={T:'TYO',HK:'HKG',SS:'SHA',SZ:'SHE',TW:'TPE',TWO:'TPE',SW:'SWX',PA:'EPA',L:'LON',DE:'ETR',BR:'EBR',AS:'AMS',CO:'CPH',HE:'HEL',MC:'BME',AX:'ASX'};
+function lk(s){
+  if(!s)return'';const a=(u,t)=>`<a href="${esc(u)}" target="_blank" rel="noopener">${t}</a>`;
+  const m=s.match(/^(.+)\.([A-Z]+)$/),b=m?m[1]:s,x=m?m[2]:'',hb=x==='HK'?b.replace(/^0+/,''):b;
+  const g=GX[x]?'https://www.google.com/finance/quote/'+encodeURIComponent(hb)+':'+GX[x]:'https://www.google.com/search?q='+encodeURIComponent(s+' stock');
+  return a('https://finance.yahoo.com/quote/'+encodeURIComponent(s),'Yahoo')+' '+a(g,'Google')+' '+a('https://www.bloomberg.com/search?query='+encodeURIComponent(s),'Bloomberg');
+}
+const rf=s=>esc(s).replace(/\[(R\d+)\]/g,'<a class="rf" data-r="$1" href="#">$1</a>');
+const TY={company:['公司','c'],industry:['產業','i'],theme:['主題','t']};
+const tp=t=>`<span class="tag ${(TY[t]||TY.theme)[1]}">${(TY[t]||TY.theme)[0]}</span>`;
+const dlbtn=u=>/^https?:\/\//.test(u||'')?`<a class="btn" href="${esc(u)}" target="_blank" rel="noopener">開啟／下載</a>`:'';
+let IDX=[],EIDX=[];
+const j=async u=>{const r=await fetch(u+'?'+Date.now());if(!r.ok)throw new Error(r.status);return r.json()};
+const ent=(s,E)=>`<a class="chip" href="#e=${encodeURIComponent(s)}">${esc(E[s]?.n||s)}</a>`;
+
+async function day(date){
+  const i=IDX.findIndex(x=>x.date===date);
+  $('#dsel').value=date;$('#prev').disabled=i>=IDX.length-1;$('#next').disabled=i<=0;
+  let D;try{D=await j(`analysis/daily/${date}.json`)}catch(e){$('#view').innerHTML='<div class="warn">讀取失敗</div>';return}
+  $('#stamp').textContent=`${date}｜彙整 ${D.reports.length} 份報告、${D.entities.length} 個公司／產業／主題｜產生於 ${new Date(D.ts).toLocaleString('zh-TW')}`;
+  const E=Object.fromEntries(D.entities.map(e=>[e.slug,e])),R=Object.fromEntries(D.reports.map(r=>[r.ref,r]));
+  const key=D.entities.filter(e=>e.type==='company').concat(D.entities.filter(e=>e.type!=='company')).slice(0,12).map(e=>ent(e.slug,E)).join('');
+  const li=a=>a&&a.length?`<ul>${a.map(x=>`<li>${rf(x)}</li>`).join('')}</ul>`:'<span class="mu">—</span>';
+  const groups=[['company','公司'],['industry','產業'],['theme','主題']];
+  const entCard=(e,z)=>{const rs=D.reports.filter(r=>r.entities.includes(e.slug));
+    return`<div class="card z${z%2}"><div>${tp(e.type)} <b>${esc(e.n)}</b> ${e.sym?`<span class="mu">${esc(e.sym)}</span> <span class="mu">${lk(e.sym)}</span>`:''}</div>
+    <div>${rs.map(r=>`<div>• <a class="rf" data-r="${r.ref}" href="#">${r.ref}</a> ${esc(r.title)} <span class="mu">${esc(r.source)}</span>${dlbtn(r.driveUrl)}</div>`).join('')}</div>
+    <div style="margin-top:4px"><a href="#e=${encodeURIComponent(e.slug)}">查看歷史脈絡 →</a></div></div>`};
+  $('#view').innerHTML=
+   `<div class="sec s1"><h2>一、總體觀</h2><div class="bd"><h3 style="margin:0 0 6px">${esc(D.headline)}</h3><p style="margin:0 0 8px">${rf(D.overview)}</p><div>${key}</div></div></div>`+
+   `<div class="sec s2"><h2>二、主題分析（${D.themes.length}）</h2><div class="bd">${D.themes.map((t,z)=>`<div class="card z${z%2}"><h3>${esc(t.title)}</h3><div>${rf(t.summary)}</div>${t.change?`<div class="chg"><b>相較先前：</b>${rf(t.change)}</div>`:''}<div>${t.entities.map(s=>ent(s,E)).join('')}</div><div>${t.reports.map(r=>`<a class="rf" data-r="${esc(r)}" href="#">${esc(r)}</a>`).join('')}</div></div>`).join('')||'<span class="mu">—</span>'}</div></div>`+
+   `<div class="sec s3"><h2>三、共識、分歧、風險與待追蹤</h2><div class="bd cols"><div><h4>跨報告共識</h4>${li(D.consensus)}</div><div><h4>分歧與矛盾</h4>${li(D.divergence)}</div><div><h4>風險</h4>${li(D.risks)}</div><div><h4>待追蹤事項</h4>${li(D.watch)}</div></div></div>`+
+   `<div class="sec s4"><h2>四、涉及的公司與產業（附相關報告連結）</h2><div class="bd">${groups.map(([t,l])=>{const l2=D.entities.filter(e=>(e.type||'theme')===t);return l2.length?`<h3 style="margin:8px 0">${l}（${l2.length}）</h3>`+l2.map(entCard).join(''):''}).join('')}</div></div>`+
+   `<div class="sec s1"><h2>五、本日收錄報告（${D.reports.length}）</h2><div class="bd" style="overflow-x:auto"><table><tr><th>編號</th><th>報告</th><th>來源</th><th>一句重點</th><th>對象</th></tr>${D.reports.map(r=>`<tr id="r-${r.ref}"><td><b>${r.ref}</b></td><td>${esc(r.title)}${dlbtn(r.driveUrl)}</td><td>${esc(r.source)}</td><td>${esc(r.key)}</td><td>${r.entities.map(s=>ent(s,E)).join('')}</td></tr>`).join('')}</table><p class="mu">報告連結需具備對應 Google Drive 權限才能開啟。</p></div></div>`;
+}
+
+async function entity(slug){
+  let F;try{F=await j(`analysis/entities/${encodeURIComponent(slug)}.json`)}catch(e){$('#view').innerHTML='<div class="warn">找不到此對象。</div>';return}
+  $('#stamp').textContent=`${F.n} 的歷史脈絡｜共 ${F.mentions.length} 個日期被提及`;
+  $('#view').innerHTML=`<div class="sec s2"><h2>${tp(F.type)} ${esc(F.n)} ${F.sym?`<span style="font-weight:400;font-size:.85rem">${esc(F.sym)}</span>`:''}</h2><div class="bd">${F.sym?`<p>${lk(F.sym)}</p>`:''}<div class="tl">`+
+   F.mentions.map(m=>`<div><a class="dt" href="#d=${m.date}">${m.date}</a>（<a href="#d=${m.date}">當日綜合分析</a>）${m.reports.map(r=>`<div>• ${esc(r.title)} <span class="mu">${esc(r.source)}</span>${dlbtn(r.driveUrl)}<div class="mu" style="margin-left:1em">${esc(r.key)}</div></div>`).join('')}</div>`).join('')+`</div></div></div>`;
+}
+
+function browse(){
+  $('#stamp').textContent=`累積 ${EIDX.length} 個公司／產業／主題`;
+  const draw=()=>{const t=$('#ft').value,k=$('#fk').value.trim().toLowerCase(),so=$('#fs').value;
+    const l=EIDX.filter(e=>(!t||e.type===t)&&(!k||(e.n+e.sym).toLowerCase().includes(k))).sort((a,b)=>so==='n'?b.count-a.count:b.last.localeCompare(a.last));
+    $('#bt').innerHTML=l.map(e=>`<tr><td>${tp(e.type)}</td><td><a href="#e=${encodeURIComponent(e.slug)}">${esc(e.n)}</a> <span class="mu">${esc(e.sym)}</span></td><td>${e.count}</td><td>${e.last}</td></tr>`).join('')||'<tr><td colspan=4 class="mu">無資料</td></tr>'};
+  $('#view').innerHTML=`<div class="sec s2"><h2>全部公司與產業</h2><div class="bd"><div class="bar"><select id="ft"><option value="">全部類型</option><option value="company">公司</option><option value="industry">產業</option><option value="theme">主題</option></select><select id="fs"><option value="d">依最近提及</option><option value="n">依提及次數</option></select><input id="fk" placeholder="關鍵字"></div><table><tr><th>類型</th><th>名稱</th><th>提及次數</th><th>最近</th></tr><tbody id="bt"></tbody></table></div></div>`;
+  ['#ft','#fs'].forEach(s=>$(s).onchange=draw);$('#fk').oninput=draw;draw();
+}
+
+function route(){
+  const h=new URLSearchParams(location.hash.slice(1));
+  if(h.has('e'))return h.get('e')?entity(h.get('e')):browse();
+  if(!IDX.length){$('#stamp').textContent='';$('#view').innerHTML='<div class="warn">尚無分析資料。請先讓報告摘要進入收件匣，再到 GitHub Actions 手動執行「daily-analysis」。</div>';return}
+  day(h.get('d')||IDX[0].date);
+}
+$('#dsel').onchange=e=>{location.hash='d='+e.target.value};
+$('#prev').onclick=()=>{const i=IDX.findIndex(x=>x.date===$('#dsel').value);if(i<IDX.length-1)location.hash='d='+IDX[i+1].date};
+$('#next').onclick=()=>{const i=IDX.findIndex(x=>x.date===$('#dsel').value);if(i>0)location.hash='d='+IDX[i-1].date};
+$('#q').onchange=e=>{const v=e.target.value.trim().toLowerCase(),m=EIDX.find(x=>x.n.toLowerCase()===v||(x.sym||'').toLowerCase()===v)||EIDX.find(x=>(x.n+x.sym).toLowerCase().includes(v));if(m){location.hash='e='+encodeURIComponent(m.slug);e.target.value=''}};
+document.addEventListener('click',e=>{const a=e.target.closest('.rf');if(!a)return;e.preventDefault();const t=document.getElementById('r-'+a.dataset.r);if(t)t.scrollIntoView({behavior:'smooth',block:'center'})});
+window.addEventListener('hashchange',route);
+(async()=>{
+  try{IDX=await j('analysis/index.json')}catch(e){}
+  try{EIDX=await j('analysis/entities/index.json')}catch(e){}
+  $('#dsel').innerHTML=IDX.map(x=>`<option value="${x.date}">${x.date}（${x.n} 份）</option>`).join('');
+  $('#el').innerHTML=EIDX.map(e=>`<option value="${esc(e.n)}">${esc(e.sym||'')}</option>`).join('');
+  route();
+})();
+</script>
+</body>
+</html>
