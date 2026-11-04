@@ -39,7 +39,7 @@ table{border-collapse:collapse;width:100%;min-width:820px;font-size:.88rem}
 th{background:var(--bg2);text-align:left;padding:8px 10px;white-space:nowrap;border-bottom:2px solid var(--sc)}
 td{padding:8px 10px;vertical-align:top;border-top:1px solid var(--line)}
 tr.g td{background:var(--sc);color:#fff;font-weight:700;border-top:0}
-tr.wl td{background:var(--wl)}tr.bg td{background:var(--bg)}
+tr.wl.z0 td{background:var(--wl)}tr.wl.z1 td{background:var(--wl2)}tr.bg.z0 td{background:var(--bg)}tr.bg.z1 td{background:var(--z2)}tr.ev1 td{background-image:linear-gradient(var(--ov),var(--ov))}
 tr.wl td:first-child{box-shadow:inset 5px 0 var(--wlb)}
 tr.cf td{border-top:3px solid var(--line)}tr.en td{border-top:1px dashed var(--line)}
 .dt{display:inline-block;font-weight:700;color:var(--sc);font-variant-numeric:tabular-nums}
@@ -55,6 +55,20 @@ tr.cf td{border-top:3px solid var(--line)}tr.en td{border-top:1px dashed var(--l
 .lk a,.cos a{font-size:.76rem;margin-right:6px}.cos{margin-top:8px}.co{display:inline-block;margin:2px 14px 2px 0}
 .warn{background:#fff4e5;color:#7a4300;border-radius:8px;padding:8px 12px;margin:8px 0}
 a{color:var(--ac)}
+:root{--z2:#eef4fa;--wl2:#ffe28a;--ov:rgba(0,0,0,.06)}
+[data-theme=sage]{--z2:#e4f0e1;--wl2:#f3e39c}
+[data-theme=ivory]{--z2:#f3e8d0;--wl2:#fad486}
+[data-theme=dark]{--z2:#18232e;--wl2:#4d4215;--ov:rgba(255,255,255,.07)}
+.fhead{margin-bottom:6px}.ftabs{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.ftab{border:2px solid var(--tc);border-radius:8px;font-weight:700;padding:4px 14px}.ftab.on{background:var(--tc);color:#fff}
+.bdg{display:inline-block;min-width:1.3em;margin-left:6px;border-radius:99px;background:#c8281c;color:#fff;font-size:.72rem;text-align:center}
+.fpanel{border:2px solid var(--tc);border-radius:10px;padding:8px 12px;margin-top:8px;background:var(--bg)}
+.chipb.cc{border-left:5px solid var(--tc)}.chipb.cc.on{background:var(--tc);border-color:var(--tc);color:#fff}
+.chipb.z{opacity:.45}.chipb small{opacity:.85}
+.ig{display:inline-block;margin:3px 10px 3px 0;padding:3px 6px;border:1px solid var(--tc);border-radius:10px}
+.ig .gl{border:0;background:var(--tc);color:#fff;border-radius:6px;font-size:.76rem;margin-right:4px}
+.mc.z1{background:var(--z2)}.mc.wl.z0{background:var(--wl)}.mc.wl.z1{background:var(--wl2)}
+.deep.z1{background:var(--z2)}.deep{border-left:6px solid var(--tc,var(--sc))}
 .imp{display:inline-block;padding:0 7px;border-radius:5px;font-size:.74rem;font-weight:700;border:1px solid var(--line)}
 .imp.h{background:#c8281c;color:#fff;border-color:#c8281c}.imp.m{background:#f2b705;color:#1a1200;border-color:#f2b705}.imp.l{background:var(--bg2);color:var(--mu)}
 .tag.stale{background:#7a4300;color:#fff}
@@ -112,12 +126,20 @@ const TIER=['★ 指定重點關注標的','全球主要業者'];
 const KINDS=['臨床','核准','財報','併購','法規','訴訟','合作','產能','其他'],IMPS=['高 (4–5)','中 (3)','低 (1–2)'];
 const impB=n=>n>=4?IMPS[0]:n===3?IMPS[1]:IMPS[2];
 const impT=n=>{n=n||3;return`<span class="imp ${n>=4?'h':n===3?'m':'l'}">重要 ${n}</span>`};
+const TOPICS=['核准與審查','臨床與技術','政策與法規','財報與業績','併購與合作','訴訟與安全','產能與供應鏈','其他'];
+const TC={'核准與審查':'#0b5cad','臨床與技術':'#0f7a55','政策與法規':'#7a3fb5','財報與業績':'#b45309','併購與合作':'#0f766e','訴訟與安全':'#c8281c','產能與供應鏈':'#8a5a2b','其他':'#637083'};
+const K2T={臨床:'臨床與技術',核准:'核准與審查',財報:'財報與業績',併購:'併購與合作',合作:'併購與合作',法規:'政策與法規',訴訟:'訴訟與安全',產能:'產能與供應鏈',其他:'其他'};
+const ORG2R={FDA:'美',EMA:'歐',MHRA:'歐',PMDA:'日',NMPA:'中',TFDA:'臺',TGA:'澳'};
+const IND4={'藥品':['大型藥廠','生技新藥'],'供應鏈':['CDMO/CRO/供應鏈'],'器材與數位':['醫療器材/MedTech','智慧醫療/數位健康'],'醫療服務與健康':['醫療服務','醫藥通路','健康管理/長壽科技']};
+const ICOL={'藥品':'#0b5cad','供應鏈':'#7a3fb5','器材與數位':'#0f7a55','醫療服務與健康':'#b45309','其他':'#637083'};
+const ind4=c=>Object.keys(IND4).find(k=>IND4[k].includes(c))||'其他';
 
 let S=Object.assign({theme:'white',days:'1',watch:['6446.TWO','6919.TW','6472.TW'],x:{},kw:[],sort:{},grp:{}},JSON.parse(localStorage.getItem('S')||'{}'));
 try{const h=new URLSearchParams(location.hash.slice(1)).get('s');if(h){Object.assign(S,JSON.parse(decodeURIComponent(escape(atob(h)))));history.replaceState(null,'',location.pathname)}}catch(e){}
 S.sort=Object.assign({reg:'date',co:'date',deep:'date'},S.sort);
 S.grp=Object.assign({reg:'org',co:'tier',deep:'type'},S.grp);
 S.x=S.x||{};S.kw=S.kw||[];
+if(['mk','kind','org','rt','dt'].some(k=>k in S.x))S.x={imp:S.x.imp||[],cat:S.x.cat||[],region:S.x.mk||[]};
 const save=()=>localStorage.setItem('S',JSON.stringify(S));
 let R=null,FL={},GK={};const CL=new Set();
 const off=(k,v)=>(S.x[k]||[]).includes(v);
@@ -147,74 +169,116 @@ const tbl=(h,rows,n)=>`<div class="tw"><table><tr>${h.map(x=>`<th>${x}</th>`).jo
 
 // ---------- 資料整理 ----------
 const mv=w=>{const x=q(w.s);return!x?'無報價':x.pct>0?'上漲':x.pct<0?'下跌':'持平'};
-const pcU=w=>q(w.s)?.pct??-999,pcD=w=>q(w.s)?.pct??999,ab=w=>q(w.s)?Math.abs(q(w.s).pct):-1;
+const pcU=w=>q(w.s)?.pct??-999,pcD=w=>q(w.s)?.pct??999;
 const d0=w=>w.ev[0]?.date||'',L=(a,b)=>String(a??'').localeCompare(String(b??''),'zh-TW'),I=x=>x.imp||3;
 const SRT={
-  reg:{date:(a,b)=>b.date.localeCompare(a.date),dateasc:(a,b)=>a.date.localeCompare(b.date),imp:(a,b)=>I(b)-I(a)||b.date.localeCompare(a.date),org:(a,b)=>L(a.org,b.org)||b.date.localeCompare(a.date),type:(a,b)=>L(a.type,b.type)||b.date.localeCompare(a.date),company:(a,b)=>L(a.company,b.company),name:(a,b)=>L(a.name,b.name)},
-  co:{date:(a,b)=>d0(b).localeCompare(d0(a)),dateasc:(a,b)=>(d0(a)||'9').localeCompare(d0(b)||'9'),imp:(a,b)=>b.imp-a.imp||d0(b).localeCompare(d0(a)),up:(a,b)=>pcU(b)-pcU(a),dn:(a,b)=>pcD(a)-pcD(b),abs:(a,b)=>ab(b)-ab(a),ev:(a,b)=>b.ev.length-a.ev.length,mk:(a,b)=>MKS.indexOf(a.m)-MKS.indexOf(b.m),name:(a,b)=>L(a.n,b.n)},
-  deep:{date:(a,b)=>b.d.localeCompare(a.d),dateasc:(a,b)=>a.d.localeCompare(b.d),imp:(a,b)=>I(b)-I(a)||b.d.localeCompare(a.d),type:(a,b)=>DTS.indexOf(a.type)-DTS.indexOf(b.type)||b.d.localeCompare(a.d),cos:(a,b)=>(b.cos||[]).length-(a.cos||[]).length}};
+  reg:{date:(a,b)=>b.date.localeCompare(a.date),dateasc:(a,b)=>a.date.localeCompare(b.date),imp:(a,b)=>I(b)-I(a)||b.date.localeCompare(a.date),org:(a,b)=>L(a.org,b.org)||b.date.localeCompare(a.date),company:(a,b)=>L(a.company,b.company),name:(a,b)=>L(a.name,b.name)},
+  co:{date:(a,b)=>d0(b).localeCompare(d0(a)),dateasc:(a,b)=>(d0(a)||'9').localeCompare(d0(b)||'9'),imp:(a,b)=>b.imp-a.imp||d0(b).localeCompare(d0(a)),up:(a,b)=>pcU(b)-pcU(a),dn:(a,b)=>pcD(a)-pcD(b),mk:(a,b)=>MKS.indexOf(a.m)-MKS.indexOf(b.m),name:(a,b)=>L(a.n,b.n)},
+  deep:{date:(a,b)=>b.d.localeCompare(a.d),dateasc:(a,b)=>a.d.localeCompare(b.d),imp:(a,b)=>I(b)-I(a)||b.d.localeCompare(a.d),type:(a,b)=>DTS.indexOf(a.type)-DTS.indexOf(b.type)||b.d.localeCompare(a.d)}};
+
+// ---- 分類歸納：事件性質、地區、產業；長期少於 3 筆的選項自動併入「其他」----
+let MINOR={region:new Set(),topic:new Set(),cat:new Set()},FTAB='';
+const nz=(d,v,o)=>MINOR[d].has(v)?o:v;
+const rawTR=x=>/核准|優先審查|PDUFA|CHMP|審議/.test(x.type||'')?'核准與審查':/政策|規定|法規/.test(x.type||'')?'政策與法規':/警訊|安全|召回/.test(x.type||'')?'訴訟與安全':'其他';
+const rawTD=d=>d.type==='政策變化'?'政策與法規':d.type==='技術突破'?'臨床與技術':/併購|整合|分拆|聯盟|合作|收購/.test(d.title||'')?'併購與合作':/疫|疾病|安全|召回|短缺/.test(d.title||'')?'訴訟與安全':'其他';
+const topicE=e=>nz('topic',K2T[e.kind]||'其他','其他'),topicR=x=>nz('topic',rawTR(x),'其他'),topicD=d=>nz('topic',rawTD(d),'其他');
+const regR=x=>nz('region',ORG2R[x.org]||'其他','其他'),regC=w=>nz('region',w.m||'其他','其他'),catC=w=>nz('cat',w.c||'其他分類','其他分類');
+function calcMinor(){
+  const c={region:{},topic:{},cat:{}},add=(d,v)=>c[d][v]=(c[d][v]||0)+1,pool=Object.fromEntries(R.T.map(x=>[x.s,x]));
+  R.reg.forEach(x=>{add('region',ORG2R[x.org]||'其他');add('topic',rawTR(x))});
+  R.co.forEach(e=>{add('region',pool[e.sym]?.m||e.market||'其他');add('topic',K2T[e.kind]||'其他')});
+  (R.deep||[]).forEach(d=>add('topic',rawTD(d)));
+  R.T.forEach(t=>add('cat',t.c||'其他分類'));
+  MINOR={region:new Set(),topic:new Set(),cat:new Set()};
+  const rich=R.reg.length+R.co.length+(R.deep||[]).length>=60;
+  const vals={region:MKS,topic:TOPICS,cat:uniq(CATS,R.T.map(t=>t.c))};
+  for(const d of ['region','topic','cat'])if(d==='cat'?R.T.length>=30:rich)for(const v of vals[d])if((c[d][v]||0)<3&&v!=='其他'&&v!=='其他分類')MINOR[d].add(v);
+}
 
 function prep(){
   const [f,t]=win(),inR=e=>e.date>=f&&e.date<=t;
   const kwOn=S.kw.filter(k=>k.on).map(k=>k.t.toLowerCase());
   const kwOk=s=>!kwOn.length||kwOn.some(k=>s.toLowerCase().includes(k));
-  const evOk=e=>!off('kind',e.kind||'其他')&&!off('imp',impB(I(e)));
   const pool=Object.fromEntries(R.T.map(x=>[x.s,x]));
-  const byS={};R.co.filter(inR).filter(evOk).forEach(e=>(byS[e.sym]=byS[e.sym]||[]).push(e));
+  const regB=R.reg.filter(x=>x.date>=f&&(x.date<=t||/PDUFA|CHMP|審議/.test(x.type||''))),coB=R.co.filter(inR),deepB=(R.deep||[]).filter(d=>d.d&&d.d>=f&&d.d<=t);
+  const cnt={imp:{},topic:{},region:{},cat:{}},add=(k,v)=>cnt[k][v]=(cnt[k][v]||0)+1;
+  regB.forEach(x=>{add('imp',impB(I(x)));add('topic',topicR(x));add('region',regR(x))});
+  deepB.forEach(d=>{add('imp',impB(I(d)));add('topic',topicD(d))});
+  coB.forEach(e=>{add('imp',impB(I(e)));add('topic',topicE(e));add('region',nz('region',pool[e.sym]?.m||e.market||'其他','其他'))});
+  const byS={};coB.filter(e=>!off('topic',topicE(e))&&!off('imp',impB(I(e)))).forEach(e=>(byS[e.sym]=byS[e.sym]||[]).push(e));
   const info=s=>{const ev=(byS[s]||[]).sort((a,b)=>b.date.localeCompare(a.date));return{s,n:pool[s]?.n||byS[s]?.[0]?.name||s,m:pool[s]?.m||byS[s]?.[0]?.market||'其他',c:pool[s]?.c||'其他分類',ai:!pool[s]||!!pool[s].ai,wl:S.watch.includes(s),ev,imp:ev.reduce((m,e)=>Math.max(m,I(e)),0)}};
-  const reg=R.reg.filter(x=>x.date>=f&&(x.date<=t||/PDUFA|CHMP|審議/.test(x.type||''))&&!off('org',x.org||'其他')&&!off('rt',x.type)&&!off('imp',impB(I(x)))&&kwOk([x.name,x.company,x.indication,x.value,x.type].join(' '))).sort(SRT.reg[S.sort.reg]);
-  const rows=uniq(S.watch,Object.keys(byS)).map(info).filter(w=>!off('mk',w.m)&&!off('cat',w.c)&&kwOk(w.n+' '+w.s+' '+w.ev.map(e=>[e.event,e.catalyst,e.impact].join(' ')).join(' ')))
+  const all=uniq(S.watch,Object.keys(byS)).map(info);all.forEach(w=>add('cat',catC(w)));
+  const reg=regB.filter(x=>!off('region',regR(x))&&!off('topic',topicR(x))&&!off('imp',impB(I(x)))&&kwOk([x.name,x.company,x.indication,x.value,x.type].join(' '))).sort(SRT.reg[S.sort.reg]);
+  const rows=all.filter(w=>!off('region',regC(w))&&!off('cat',catC(w))&&kwOk(w.n+' '+w.s+' '+w.ev.map(e=>[e.event,e.catalyst,e.impact].join(' ')).join(' ')))
     .sort((a,b)=>(a.wl===b.wl?0:a.wl?-1:1)||SRT.co[S.sort.co](a,b));
-  const deep=(R.deep||[]).filter(d=>d.d&&d.d>=f&&d.d<=t&&!off('dt',d.type)&&!off('imp',impB(I(d)))&&kwOk([d.title,...(d.points||[]),...(d.cos||[]).map(c=>c.n)].join(' '))).sort(SRT.deep[S.sort.deep]);
-  return{f,t,reg,rows,deep};
+  const deep=deepB.filter(d=>!off('topic',topicD(d))&&!off('imp',impB(I(d)))&&kwOk([d.title,...(d.points||[]),...(d.cos||[]).map(c=>c.n)].join(' '))).sort(SRT.deep[S.sort.deep]);
+  return{f,t,reg,rows,deep,cnt};
 }
 const grp=(rows,mode,fn,n)=>{
-  if(mode==='none'||!GK[mode])return rows.map(fn).join('');
-  const[kf,base]=GK[mode];
+  if(mode==='none'||!GK[mode])return rows.map((r,i)=>fn(r,i)).join('');
+  const[kf,base]=GK[mode];let z=0;
   return uniq(base,rows.map(kf)).map(k=>{const l=rows.filter(r=>kf(r)===k);
-    return l.length?(n?`<tr class="g"><td colspan=${n}>${esc(k)}（${l.length}）</td></tr>`:`<div class="gh">${esc(k)}（${l.length}）</div>`)+l.map(fn).join(''):''}).join('')};
+    return l.length?(n?`<tr class="g"><td colspan=${n}>${esc(k)}（${l.length}）</td></tr>`:`<div class="gh">${esc(k)}（${l.length}）</div>`)+l.map(r=>fn(r,z++)).join(''):''}).join('')};
 
-// ---------- 選單 ----------
+// ---------- 排序／分組選單（精簡）----------
 const sel=(sec,k,o)=>`<select data-sec="${sec}" data-k="${k}">${o.map(([v,l])=>`<option value="${v}" ${v===S[k][sec]?'selected':''}>${l}</option>`).join('')}</select>`;
 const ctl=(sec,so,go)=>`<div class="ctl noprint"><span class="mu">排序</span>${sel(sec,'sort',so)}<span class="mu">分組</span>${sel(sec,'grp',go)}</div>`;
 const DA=[['date','日期（新→舊）'],['dateasc','日期（舊→新）']],IM=['imp','重要性（高→低）'];
-const SO_REG=[...DA,IM,['org','監管機關'],['type','審查類別'],['company','藥廠/單位'],['name','藥品名稱']];
-const GO_REG=[['org','依監管機關'],['rimp','依重要性'],['rtype','依審查類別'],['month','依月份'],['date','依日期'],['company','依藥廠/單位'],['none','不分組']];
-const SO_CO=[...DA,IM,['up','漲幅（高→低）'],['dn','跌幅（大→小）'],['abs','漲跌幅絕對值（大→小）'],['ev','事件數（多→少）'],['mk','市場'],['name','名稱']];
-const GO_CO=[['tier','指定標的／全球業者'],['cimp','依重要性'],['cat','依產業分類'],['mk','依市場'],['move','依漲跌'],['none','不分組']];
-const SO_DP=[...DA,IM,['type','類別'],['cos','相關業者數']];
-const GO_DP=[['type','依類別'],['dimp','依重要性'],['month','依月份'],['none','不分組']];
+const SO_REG=[...DA,IM,['org','監管機關'],['company','藥廠/單位'],['name','藥品名稱']];
+const GO_REG=[['org','依監管機關'],['rtopic','依主題'],['rimp','依重要性'],['month','依月份'],['none','不分組']];
+const SO_CO=[...DA,IM,['up','漲幅（高→低）'],['dn','跌幅（大→小）'],['mk','地區'],['name','名稱']];
+const GO_CO=[['tier','指定標的／全球業者'],['cgrp','依產業大項'],['cat','依產業細分'],['mk','依地區'],['cimp','依重要性'],['move','依漲跌'],['none','不分組']];
+const SO_DP=[...DA,IM,['type','類別']];
+const GO_DP=[['type','依類別'],['dtopic','依主題'],['dimp','依重要性'],['month','依月份'],['none','不分組']];
+const okv=(l,v,d)=>l.some(x=>x[0]===v)?v:d;
+S.sort.reg=okv(SO_REG,S.sort.reg,'date');S.sort.co=okv(SO_CO,S.sort.co,'date');S.sort.deep=okv(SO_DP,S.sort.deep,'date');
+S.grp.reg=okv(GO_REG,S.grp.reg,'org');S.grp.co=okv(GO_CO,S.grp.co,'tier');S.grp.deep=okv(GO_DP,S.grp.deep,'type');
 
 // ---------- 版面 ----------
+const tTag=(txt,t)=>`<span class="tag" style="background:${TC[t]||TC['其他']}">${esc(txt)}</span>`;
 const cc=w=>`<b>${esc(w.n)}</b> ${w.wl?'<span class="tag w">★ 關注</span>':''}<br>${w.m?`<span class="tag s">${esc(w.m)}</span> `:''}<span class="mu">${esc(w.s)}</span>${w.ai?'':'<br><span class="mu">僅報價，未納入 AI 事件搜尋</span>'}<br><span class="lk">${lk(w.s,w.n)}</span>`;
-const evHead=(e,n,i)=>`${n>1?`<span class="no">${i+1}</span>`:''}<span class="dt">${esc(e.date)}</span> <span class="tag s">${esc(e.kind||'其他')}</span> ${impT(e.imp)}`;
+const evHead=(e,n,i)=>`${n>1?`<span class="no">${i+1}</span>`:''}<span class="dt">${esc(e.date)}</span> ${tTag(e.kind||'其他',topicE(e))} ${impT(e.imp)}`;
 const NONE='區間內無符合條件的進展';
-const rowC=w=>{
-  const n=w.ev.length||1,cl=w.wl?'wl':'bg',h=`<td rowspan="${n}">${cc(w)}</td><td rowspan="${n}">${px(w.s)}</td>`;
+const rowC=(w,z)=>{
+  const n=w.ev.length||1,cl=`${w.wl?'wl':'bg'} z${z%2}`,h=`<td rowspan="${n}">${cc(w)}</td><td rowspan="${n}">${px(w.s)}</td>`;
   if(!w.ev.length)return`<tr class="${cl} cf">${h}<td colspan="3" class="mu">${NONE}</td></tr>`;
-  return w.ev.map((e,i)=>`<tr class="${cl} ${i?'en':'cf'}">${i?'':h}<td>${evHead(e,n,i)}<br>${esc(e.event)}${link(e.url,e.v)}</td><td>${esc(e.catalyst||'—')}</td><td>${esc(e.impact||'—')}</td></tr>`).join('');
+  return w.ev.map((e,i)=>`<tr class="${cl} ${i?'en':'cf'} ev${i%2}">${i?'':h}<td>${evHead(e,n,i)}<br>${esc(e.event)}${link(e.url,e.v)}</td><td>${esc(e.catalyst||'—')}</td><td>${esc(e.impact||'—')}</td></tr>`).join('');
 };
-const cardC=w=>{const n=w.ev.length;return`<div class="mc ${w.wl?'wl':''}"><div><b>${esc(w.n)}</b> ${w.wl?'<span class="tag w">★ 關注</span>':''} <span class="tag s">${esc(w.m)}</span> <span class="mu">${esc(w.s)}</span></div><div>${px(w.s)}</div><div class="lk">${lk(w.s,w.n)}</div>`+
+const cardC=(w,z)=>{const n=w.ev.length;return`<div class="mc ${w.wl?'wl':''} z${z%2}"><div><b>${esc(w.n)}</b> ${w.wl?'<span class="tag w">★ 關注</span>':''} <span class="tag s">${esc(w.m)}</span> <span class="mu">${esc(w.s)}</span></div><div>${px(w.s)}</div><div class="lk">${lk(w.s,w.n)}</div>`+
   (n?w.ev.map((e,i)=>`<div class="evb">${evHead(e,n,i)}<br>${esc(e.event)}${link(e.url,e.v)}<br><span class="lbl">後續催化劑</span> ${esc(e.catalyst||'—')}<br><span class="lbl">市場影響</span> ${esc(e.impact||'—')}</div>`).join(''):`<div class="evb mu">${NONE}</div>`)+'</div>'};
-const rowR=x=>`<tr class="bg cf"><td><span class="tag">${esc(x.org||'其他')}</span><br><span class="tag s">${x.off?'官方來源':'AI 搜尋'}</span></td><td><b>${esc(x.name)}</b></td><td>${esc(x.company)}</td><td class="num"><span class="dt">${esc(x.date)}</span></td><td>${esc(x.indication)}<br><span class="tag s">${esc(x.type)}</span> ${impT(x.imp)}</td><td>${esc(x.value)}${link(x.url,x.v)}</td></tr>`;
-const cardR=x=>`<div class="mc"><div><span class="tag">${esc(x.org||'其他')}</span> <span class="tag s">${x.off?'官方來源':'AI 搜尋'}</span> <span class="dt">${esc(x.date)}</span> ${impT(x.imp)}</div><div><b>${esc(x.name)}</b></div><div class="mu">${esc(x.company)}｜${esc(x.indication)}｜${esc(x.type)}</div><div>${esc(x.value)}${link(x.url,x.v)}</div></div>`;
-const card=d=>`<div class="deep"><div><span class="tag t${DTS.indexOf(d.type)}">${esc(d.type)}</span> ${impT(d.imp)} <span class="dt">${esc(d.period||d.d)}</span></div><h3>${esc(d.title)}</h3><ul>${(d.points||[]).map(p=>`<li>${esc(p)}</li>`).join('')}</ul>${d.trend?`<p><b>趨勢預測（推測）：</b>${esc(d.trend)}</p>`:''}${(d.cos||[]).length?`<div class="cos"><span class="mu">相關業者：</span>${d.cos.map(c=>`<span class="co"><b>${esc(c.n)}</b> ${c.s?`<span class="mu">${esc(c.s)}</span> `:''}${lk(c.s,c.n)}</span>`).join('')}</div>`:''}${link(d.url,d.v)}</div>`;
+const rowR=(x,z)=>`<tr class="bg z${z%2} cf"><td><span class="tag">${esc(x.org||'其他')}</span><br><span class="tag s">${x.off?'官方來源':'AI 搜尋'}</span></td><td><b>${esc(x.name)}</b></td><td>${esc(x.company)}</td><td class="num"><span class="dt">${esc(x.date)}</span></td><td>${esc(x.indication)}<br>${tTag(x.type,topicR(x))} ${impT(x.imp)}</td><td>${esc(x.value)}${link(x.url,x.v)}</td></tr>`;
+const cardR=(x,z)=>`<div class="mc z${z%2}"><div><span class="tag">${esc(x.org||'其他')}</span> <span class="tag s">${x.off?'官方來源':'AI 搜尋'}</span> <span class="dt">${esc(x.date)}</span> ${impT(x.imp)}</div><div><b>${esc(x.name)}</b> ${tTag(x.type,topicR(x))}</div><div class="mu">${esc(x.company)}｜${esc(x.indication)}</div><div>${esc(x.value)}${link(x.url,x.v)}</div></div>`;
+const card=(d,z)=>`<div class="deep z${z%2}" style="--tc:${TC[topicD(d)]}"><div>${tTag(d.type,topicD(d))} ${impT(d.imp)} <span class="dt">${esc(d.period||d.d)}</span></div><h3>${esc(d.title)}</h3><ul>${(d.points||[]).map(p=>`<li>${esc(p)}</li>`).join('')}</ul>${d.trend?`<p><b>趨勢預測（推測）：</b>${esc(d.trend)}</p>`:''}${(d.cos||[]).length?`<div class="cos"><span class="mu">相關業者：</span>${d.cos.map(c=>`<span class="co"><b>${esc(c.n)}</b> ${c.s?`<span class="mu">${esc(c.s)}</span> `:''}${lk(c.s,c.n)}</span>`).join('')}</div>`:''}${link(d.url,d.v)}</div>`;
 
+const IC={[IMPS[0]]:'#c8281c',[IMPS[1]]:'#c99700',[IMPS[2]]:'#637083'};
 function render(){
   document.documentElement.dataset.theme=S.theme;$('#theme').value=S.theme;$('#range').value=S.days;$('#custom').hidden=S.days!=='c';
   const T=R?.T||[];
-  FL={org:uniq(ORGS,(R?.reg||[]).map(x=>x.org||'其他')),rt:uniq([],(R?.reg||[]).map(x=>x.type)),imp:IMPS,kind:uniq(KINDS,(R?.co||[]).map(e=>e.kind)),mk:uniq(MKS,T.map(x=>x.m)),cat:uniq(CATS,T.map(x=>x.c)),dt:uniq(DTS,(R?.deep||[]).map(x=>x.type))};
-  GK={org:[x=>x.org||'其他',FL.org],rimp:[x=>impB(I(x)),IMPS],rtype:[x=>x.type,[]],month:[x=>(x.date||x.d||'').slice(0,7),[]],date:[x=>x.date,[]],company:[x=>x.company,[]],
-      tier:[w=>w.wl?TIER[0]:TIER[1],TIER],cimp:[w=>w.ev.length?impB(w.imp):'無事件',[...IMPS,'無事件']],cat:[w=>w.c,FL.cat],mk:[w=>w.m,FL.mk],move:[mv,['上漲','下跌','持平','無報價']],type:[d=>d.type,FL.dt],dimp:[d=>impB(I(d)),IMPS]};
-  const ch=(k,label,l)=>l.length?`<div class="fg"><b>${label}</b><span class="fb"><button data-act="all" data-k="${k}">全選</button><button data-act="none" data-k="${k}">全部取消</button></span>`+l.map(v=>`<button class="chipb ${off(k,v)?'':'on'}" data-k="${k}" data-v="${esc(v)}">${esc(v)}</button>`).join('')+'</div>':'';
-  const kw=`<div class="fg"><b>自訂關鍵字</b><span class="fb"><button data-act="kwoff">全部關閉</button></span>`+S.kw.map((k,i)=>`<span class="kwc"><button class="chipb ${k.on?'on':''}" data-kw="${i}">${esc(k.t)}</button><button class="x" data-kwdel="${i}" aria-label="刪除">✕</button></span>`).join('')+` <input id="kwin" placeholder="新增關鍵字，Enter 加入（符合任一開啟項才顯示）" style="width:300px;max-width:100%"></div>`;
-  $('#filters').innerHTML=`<details id="fdet" ${CL.has('fdet')?'':'open'}><summary><b>篩選條件</b> <span class="mu">選項依實際資料自動產生；全部選取時點任一項會只顯示該項</span></summary>`+ch('imp','重要性',IMPS)+ch('kind','事件類型',FL.kind)+ch('org','藥監機關',FL.org)+ch('rt','審查／公布類別',FL.rt)+ch('mk','市場',FL.mk)+ch('cat','產業分類',FL.cat)+ch('dt','深度解析類別',FL.dt)+kw+'<button id="fall">重設全部篩選</button></details>';
+  if(R)calcMinor();
+  const v=R?prep():null,cn=v?v.cnt:null;
+  const REGS=[...new Set(MKS.map(m=>nz('region',m,'其他')))],TOPS=[...new Set(TOPICS.map(t=>nz('topic',t,'其他')))],CATSN=[...new Set(uniq(CATS,T.map(x=>x.c)).map(c=>nz('cat',c,'其他分類')))];
+  FL={imp:IMPS,topic:TOPS,region:REGS,cat:CATSN};
+  GK={org:[x=>x.org||'其他',uniq(ORGS,(R?.reg||[]).map(x=>x.org||'其他'))],rimp:[x=>impB(I(x)),IMPS],rtopic:[topicR,TOPS],month:[x=>(x.date||x.d||'').slice(0,7),[]],
+      tier:[w=>w.wl?TIER[0]:TIER[1],TIER],cimp:[w=>w.ev.length?impB(w.imp):'無事件',[...IMPS,'無事件']],cat:[catC,CATSN],cgrp:[w=>ind4(catC(w)),[...Object.keys(IND4),'其他']],mk:[regC,REGS],move:[mv,['上漲','下跌','持平','無報價']],
+      type:[d=>d.type,DTS],dtopic:[topicD,TOPS],dimp:[d=>impB(I(d)),IMPS]};
+  const chip=(k,val,col)=>{const n=cn?(cn[k][val]||0):null;return`<button class="chipb ${col?'cc':''} ${off(k,val)?'':'on'} ${n===0?'z':''}" ${col?`style="--tc:${col}"`:''} data-k="${k}" data-v="${esc(val)}">${esc(val)}${n===null?'':` <small>${n}</small>`}</button>`};
+  const dim=(k,label,html)=>`<div class="fg"><b>${label}</b><span class="fb"><button data-act="all" data-k="${k}">全選</button><button data-act="none" data-k="${k}">全部取消</button></span>${html}</div>`;
+  const hImp=dim('imp','重要性',IMPS.map(x=>chip('imp',x,IC[x])).join(''));
+  const hTop=dim('topic','主題（事件性質）',TOPS.map(x=>chip('topic',x,TC[x])).join(''));
+  const hReg=dim('region','地區（業者所在市場／藥監機關所屬地區）',REGS.map(x=>chip('region',x)).join(''));
+  const hCat=dim('cat','產業（點大項可整組切換）',[...Object.keys(IND4),'其他'].map(g=>{const kids=CATSN.filter(c=>ind4(c)===g);return kids.length?`<span class="ig" style="--tc:${ICOL[g]}"><button class="gl" data-act="grp" data-g="${esc(g)}">${esc(g)}</button>${kids.map(c=>chip('cat',c,ICOL[g])).join('')}</span>`:''}).join(''));
+  const kwH=`<div class="fg"><b>自訂關鍵字</b><span class="fb"><button data-act="kwoff">全部關閉</button></span>`+S.kw.map((k,i)=>`<span class="kwc"><button class="chipb ${k.on?'on':''}" data-kw="${i}">${esc(k.t)}</button><button class="x" data-kwdel="${i}" aria-label="刪除">✕</button></span>`).join('')+` <input id="kwin" placeholder="新增關鍵字，Enter 加入（符合任一開啟項才顯示）" style="width:300px;max-width:100%"></div>`;
+  const kwN=S.kw.filter(k=>k.on).length,nA=ks=>ks.filter(k=>(S.x[k]||[]).length).length;
+  const tabs=[['a','內容',nA(['imp','topic']),'#0b5cad',hImp+hTop],['b','地區與產業',nA(['region','cat']),'#0f766e',hReg+hCat],['c','關鍵字',kwN,'#b45309',kwH]];
+  const lab={imp:'重要性',topic:'主題',region:'地區',cat:'產業'},act=[];
+  for(const k of Object.keys(lab)){const ex=S.x[k]||[];if(ex.length){const inc=FL[k].filter(z=>!ex.includes(z));act.push(`${lab[k]}：${inc.length?inc.join('、'):'（全部取消）'}`)}}
+  if(kwN)act.push('關鍵字：'+S.kw.filter(k=>k.on).map(k=>k.t).join('、'));
+  $('#filters').innerHTML=`<div class="fhead"><b>篩選</b> <span class="mu">${esc(act.join('｜')||'目前顯示全部')}</span></div><div class="ftabs">`+tabs.map(([id,l,n,col])=>`<button class="ftab ${FTAB===id?'on':''}" style="--tc:${col}" data-tab="${id}">${l}${n?`<span class="bdg">${n}</span>`:''}</button>`).join('')+'<button id="fall">重設全部</button><span class="mu">選項右側數字＝目前區間的筆數；長期筆數極少的選項會自動併入「其他」</span></div>'+tabs.filter(x=>x[0]===FTAB).map(x=>`<div class="fpanel" style="--tc:${x[3]}">${x[4]}</div>`).join('');
   $('#chips').innerHTML=S.watch.map((s,i)=>`<span class="chip">${esc(T.find(x=>x.s===s)?.n||s)} <span class="mu">${esc(s)}</span><button data-i="${i}" aria-label="移除">✕</button></span>`).join('')||'<span class="mu">尚未加入</span>';
   if(!R)return;
   const hrs=Math.floor((Date.now()-R.ts)/36e5);
   $('#warn').innerHTML=hrs>=12?`<div class="warn">⚠ 資料已超過 ${hrs} 小時未更新，可能是自動更新失敗；請網站管理者到 GitHub Actions 查看。目前內容可能不是最新。</div>`:'';
   $('#srcs').innerHTML=R.srcs?`<details class="noprint"><summary class="mu">資料來源狀態</summary><div class="mu">官方來源：${R.srcs.map(x=>`${esc(x.n)} ${x.ok?`✓（${x.count} 則）`:`✗（${esc(x.err||'失敗')}）`}`).join('；')}<br>本次 AI 呼叫 ${R.aiCalls??'—'} 次；報價失敗 ${R.qfail??0} 檔。NMPA、TFDA、PMDA 目前無穩定的公開訂閱源，內容來自 AI 搜尋，請特別留意核對。</div></details>`:'';
-  const v=prep();
   $('#stamp').textContent=`報導區間 ${v.f} ～ ${v.t}｜資料更新 ${new Date(R.ts).toLocaleString('zh-TW')}`;
   const sec=(id,t,c,ct,body)=>`<details class="sec" id="${id}" ${CL.has(id)?'':'open'}><summary><h2>${t}</h2> <span class="mu">${c}</span></summary>${ct}${body}</details>`;
   const dual=(h,rows,n,cards,empty)=>`<div class="desktop">${tbl(h,rows,n)}</div><div class="mobile">${cards||`<p class="mu" style="margin:8px 12px">${empty}</p>`}</div>`;
@@ -242,16 +306,19 @@ $('#d1').onchange=$('#d2').onchange=render;
 $('#theme').onchange=e=>{S.theme=e.target.value;save();render()};
 $('#chips').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.watch.splice(+b.dataset.i,1);save();render()};
 $('#filters').onclick=e=>{const b=e.target.closest('button');if(!b)return;const d=b.dataset,k=d.k;
+  if(d.tab){FTAB=FTAB===d.tab?'':d.tab;render();return}
   if(b.id==='fall'){S.x={};S.kw.forEach(x=>x.on=0)}
   else if(d.act==='kwoff')S.kw.forEach(x=>x.on=0);
   else if(d.kw!==undefined)S.kw[+d.kw].on=S.kw[+d.kw].on?0:1;
   else if(d.kwdel!==undefined)S.kw.splice(+d.kwdel,1);
+  else if(d.act==='grp'){const kids=FL.cat.filter(c=>ind4(c)===d.g),ex=S.x.cat||[];
+    if(!ex.length)S.x.cat=FL.cat.filter(z=>!kids.includes(z));else if(kids.every(z=>!ex.includes(z)))S.x.cat=uniq(ex,kids);else S.x.cat=ex.filter(z=>!kids.includes(z))}
   else if(d.act==='all')S.x[k]=[];
   else if(d.act==='none')S.x[k]=[...FL[k]];
   else if(k){const cur=S.x[k]||[];if(!cur.length)S.x[k]=FL[k].filter(z=>z!==d.v);else{const n=cur.indexOf(d.v);n<0?cur.push(d.v):cur.splice(n,1);S.x[k]=cur}}
   else return;
   save();render()};
-$('#filters').onkeydown=e=>{if(e.key==='Enter'&&e.target.id==='kwin'){const t=e.target.value.trim();if(t&&!S.kw.some(k=>k.t===t))S.kw.push({t,on:1});save();render()}};
+$('#filters').onkeydown=e=>{if(e.key==='Enter'&&e.target.id==='kwin'){const t=e.target.value.trim();if(t&&!S.kw.some(k=>k.t===t))S.kw.push({t,on:1});save();FTAB='c';render()}};
 $('#report').onchange=e=>{const t=e.target;if(!t.dataset.sec)return;S[t.dataset.k][t.dataset.sec]=t.value;save();render()};
 document.addEventListener('toggle',e=>{const t=e.target;if(t.id)t.open?CL.delete(t.id):CL.add(t.id)},true);
 $('#wq').oninput=e=>{
