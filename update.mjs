@@ -3,6 +3,7 @@ import fs from 'node:fs';
 
 const KEY = process.env.GEMINI_KEY, DAYS = +(process.env.DAYS || 1);
 const MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash', MAXCALLS = +(process.env.AI_MAX_CALLS || 30);
+const FALLBACK = process.env.GEMINI_FALLBACK ?? '';   // 備援模型（選用，於 Actions 變數 GEMINI_FALLBACK 設定）；主要模型暫時過載時改用
 if (!KEY) { console.error('缺少 GEMINI_KEY'); process.exit(1); }
 const rd = (f, d) => { try { return JSON.parse(fs.readFileSync(f, 'utf8')); } catch { return d; } };
 const T = rd('tickers.json', []);
@@ -28,23 +29,36 @@ function extract(t) {
   }
   return null;
 }
+let quotaDead = false, fbBad = false;
 async function gem(prompt, search = true) {
+  if (quotaDead) return null;
   if (calls >= MAXCALLS) { console.error('已達 AI 呼叫上限', MAXCALLS); return null; }
   calls++;
   for (let i = 0; i < 3; i++) {
-    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${KEY}`, {
+    const useFb = i >= 1 && FALLBACK && !fbBad, model = useFb ? FALLBACK : MODEL;
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${KEY}`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.2 }, ...(search ? { tools: [{ google_search: {} }] } : {}) })
     });
-    if (r.status === 429 || r.status >= 500) { console.error('Gemini 暫時失敗 HTTP', r.status, '，稍後重試'); await sleep(25000); continue; }
-    const j = await r.json();
-    if (!r.ok) { console.error('Gemini 錯誤 HTTP', r.status, j.error?.message || ''); return null; }
-    const t = (j.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join('').replace(/```json|```/g, '').trim();
-    try { return JSON.parse(extract(t)); } catch { /* retry */ }
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) {
+      const t = (j.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join('').replace(/```json|```/g, '').trim();
+      try { return JSON.parse(extract(t)); } catch { continue; }
+    }
+    const msg = JSON.stringify(j.error || {});
+    if (r.status === 404 && useFb) { fbBad = true; console.error(`備援模型 ${FALLBACK} 不可用，改回主要模型：`, (j.error?.message || '').slice(0, 100)); continue; }
+    if (r.status === 429) {
+      if (/PerDay|per day|daily/i.test(msg)) { quotaDead = true; console.error('Gemini 每日額度已用完，本次不再呼叫 AI'); return null; }
+      const m = msg.match(/"retryDelay":"(\d+)/), wait = Math.min(90, (m ? +m[1] : 20 * (i + 1)) + 3);
+      console.error(`Gemini 429（請求過於頻繁），${wait} 秒後重試`); await sleep(wait * 1000); continue;
+    }
+    if (r.status >= 500) { console.error('Gemini 暫時失敗 HTTP', r.status, `，${20 * (i + 1)} 秒後重試`); await sleep(20000 * (i + 1)); continue; }
+    console.error('Gemini 錯誤 HTTP', r.status, (j.error?.message || '').slice(0, 200)); return null;
   }
+  console.error('Gemini 連續失敗，這一批略過');
   return null;
 }
-async function pool(fns, n = 3) { const o = []; for (let i = 0; i < fns.length; i += n) o.push(...await Promise.all(fns.slice(i, i + n).map(f => f()))); return o; }
+async function pool(fns, n = 2) { const o = []; for (let i = 0; i < fns.length; i += n) { if (i) await sleep(8000); o.push(...await Promise.all(fns.slice(i, i + n).map(f => f()))); } return o; }
 
 // ---------- 官方來源 RSS / Atom ----------
 const FEEDS = [
@@ -88,7 +102,7 @@ const fmt = l => l.map(x => `${x.n}(${x.s})`).join('、');
 // 追蹤旗標：ai=1 每次；ai=2 依市場收盤時段每日一次（美=0、亞洲=1、歐=2）；回補(DAYS>1)則全部執行
 const h = new Date().getUTCHours(), slot = (h >= 20 || h < 3) ? 0 : h < 10 ? 1 : 2;
 const SLOT = { 美: 0, 歐: 2, 日: 1, 中: 1, 臺: 1, 澳: 1 };
-const ai = T.filter(t => t.ai === 1 || t.ai === true || DAYS > 1 || (t.ai && (SLOT[t.m] ?? 1) === slot));
+const ai = T.filter(t => t.ai && (t.ai === 1 || t.ai === true || DAYS > 1 || (SLOT[t.m] ?? 1) === slot));
 const chunks = []; for (let i = 0; i < ai.length; i += 10) chunks.push(ai.slice(i, i + 10));
 console.log(`本次時段 ${slot}，AI 追蹤 ${ai.length} 檔，分 ${chunks.length} 批`);
 
@@ -106,11 +120,12 @@ const deepPrompt = `現在時間：${new Date().toLocaleString('zh-TW', { timeZo
   `已收錄標題（除非有實質新進展，否則不得重複）：${seenDeep}。回傳陣列，最多 12 筆依重要性排序，每筆 {"type":"政策變化|重大事件|技術突破","title":"標題","d":"YYYY/MM/DD（事件開始或公布日）","period":"YYYY/MM/DD 或 YYYY/MM/DD～YYYY/MM/DD（持續中請寫起日～迄今）","points":["事實：…","背景：…","影響：…"],"trend":"趨勢預測（需是推測，並說明依據）","imp":3,"cos":[{"n":"業者名稱","s":"代號"}],"url":"實際搜尋到的網址"}。` + IMP + '只回傳純 JSON。';
 
 const [reg, deepNew, ...cos] = await pool([() => gem(regPrompt), () => gem(deepPrompt), ...chunks.map((c, i) => () => gem(base + `\n任務：${fmt(c)}。` + EV + (i === 0 ? '另可補充至多 5 家其他有重大進展的生醫公司（sym 用 Yahoo Finance 格式）。' : '')))]);
-if (!reg && cos.every(x => !x) && !deepNew) { console.error('AI 全部失敗，不更新'); process.exit(1); }
+const aiFail = !reg && cos.every(x => !x) && !deepNew;
+if (aiFail) console.error('AI 全部失敗：本次僅更新報價與官方公告');
 
 // ---------- 正規化 ----------
 const merge = (a, b, key) => { const m = new Map(a.map(x => [key(x), x])); b.forEach(x => m.set(key(x), x)); return [...m.values()].filter(x => (x.date || x.d) >= keep); };
-const newReg = (reg || []).map(x => {
+const newReg = (reg || (aiFail ? offi.slice(0, 25).map((o, i) => ({ ref: i, name: o.t, company: '', indication: '', type: '官方公告', value: '', imp: 3 })) : [])).map(x => {
   const o = Number.isInteger(x.ref) ? offi[x.ref] : null;
   return { ...x, ...(o ? { date: o.date, url: o.l, org: o.org, off: 1, v: 1 } : {}), imp: nImp(x.imp) };
 }).filter(x => x.name && okd(x.date) && x.date >= from);
@@ -135,7 +150,7 @@ for (let i = 0; i < toCheck.length; i += 8) await Promise.all(toCheck.slice(i, i
 console.log('連結驗證：', toCheck.length, '筆，失效', toCheck.filter(e => e.v === -1 && !e.url).length);
 
 const out = {
-  ts: Date.now(), window: DAYS, T, srcs, aiCalls: calls, slot,
+  ts: Date.now(), window: DAYS, T, srcs, aiCalls: calls, slot, aiFail: aiFail ? 1 : 0,
   reg: merge(old.reg, newReg, x => x.name + '@' + x.date),
   co: merge(old.co, newCo, e => e.sym + '@' + e.date + (e.event || '').slice(0, 20)),
   quotes: old.quotes || {},

@@ -278,7 +278,7 @@ function render(){
   $('#chips').innerHTML=S.watch.map((s,i)=>`<span class="chip">${esc(T.find(x=>x.s===s)?.n||s)} <span class="mu">${esc(s)}</span><button data-i="${i}" aria-label="移除">✕</button></span>`).join('')||'<span class="mu">尚未加入</span>';
   if(!R)return;
   const hrs=Math.floor((Date.now()-R.ts)/36e5);
-  $('#warn').innerHTML=hrs>=12?`<div class="warn">⚠ 資料已超過 ${hrs} 小時未更新，可能是自動更新失敗；請網站管理者到 GitHub Actions 查看。目前內容可能不是最新。</div>`:'';
+  $('#warn').innerHTML=(R.aiFail?'<div class="warn">⚠ 本次 AI 搜尋失敗（額度或服務暫時問題），只更新了報價與官方公告；其他內容沿用先前資料。</div>':'')+(hrs>=12?`<div class="warn">⚠ 資料已超過 ${hrs} 小時未更新，可能是自動更新失敗；請網站管理者到 GitHub Actions 查看。目前內容可能不是最新。</div>`:'');
   $('#srcs').innerHTML=R.srcs?`<details class="noprint"><summary class="mu">資料來源狀態</summary><div class="mu">官方來源：${R.srcs.map(x=>`${esc(x.n)} ${x.ok?`✓（${x.count} 則）`:`✗（${esc(x.err||'失敗')}）`}`).join('；')}<br>本次 AI 呼叫 ${R.aiCalls??'—'} 次；報價失敗 ${R.qfail??0} 檔。NMPA、TFDA、PMDA 目前無穩定的公開訂閱源，內容來自 AI 搜尋，請特別留意核對。</div></details>`:'';
   $('#stamp').textContent=`報導區間 ${v.f} ～ ${v.t}｜資料更新 ${new Date(R.ts).toLocaleString('zh-TW')}`;
   const sec=(id,t,c,ct,body)=>`<details class="sec" id="${id}" ${CL.has(id)?'':'open'}><summary><h2>${t}</h2> <span class="mu">${c}</span></summary>${ct}${body}</details>`;

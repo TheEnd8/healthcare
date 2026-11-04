@@ -1,0 +1,38 @@
+name: daily-analysis
+on:
+  schedule:
+    - cron: '30 15 * * *'   # 台北 23:30：彙整當天收到的報告（可自行改時間，注意 cron 為 UTC）
+  workflow_dispatch:
+    inputs:
+      date:
+        description: '指定日期 YYYYMMDD（留空＝自動補齊最近尚未分析的日期）'
+        default: ''
+permissions:
+  contents: write
+concurrency: daily-analysis
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 取得私有收件匣（選用：僅在設定了 INBOX_REPO 變數時執行）
+        if: ${{ vars.INBOX_REPO != '' }}
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.INBOX_REPO }}
+          token: ${{ secrets.INBOX_TOKEN }}
+          path: inbox-repo
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/analyze.mjs
+        env:
+          GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
+          ANALYZE_DATE: ${{ github.event.inputs.date }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          GEMINI_FALLBACK: ${{ vars.GEMINI_FALLBACK }}
+      - run: |
+          git config user.name "report-bot"
+          git config user.email "report-bot@users.noreply.github.com"
+          git add analysis
+          git diff --cached --quiet || (git commit -m "daily analysis" && git pull --rebase origin ${{ github.ref_name }} && git push)
