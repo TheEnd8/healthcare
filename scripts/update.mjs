@@ -3,6 +3,7 @@ import fs from 'node:fs';
 
 const KEY = process.env.GEMINI_KEY, DAYS = +(process.env.DAYS || 1);
 const MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash', MAXCALLS = +(process.env.AI_MAX_CALLS || 30);
+const FALLBACK = process.env.GEMINI_FALLBACK ?? 'gemini-2.5-flash-lite';   // 主要模型連續過載時改用；設為空字串可停用
 if (!KEY) { console.error('缺少 GEMINI_KEY'); process.exit(1); }
 const rd = (f, d) => { try { return JSON.parse(fs.readFileSync(f, 'utf8')); } catch { return d; } };
 const T = rd('tickers.json', []);
@@ -32,19 +33,20 @@ async function gem(prompt, search = true) {
   if (calls >= MAXCALLS) { console.error('已達 AI 呼叫上限', MAXCALLS); return null; }
   calls++;
   for (let i = 0; i < 3; i++) {
-    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${KEY}`, {
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${(i >= 1 && FALLBACK) ? FALLBACK : MODEL}:generateContent?key=${KEY}`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.2 }, ...(search ? { tools: [{ google_search: {} }] } : {}) })
     });
-    if (r.status === 429 || r.status >= 500) { console.error('Gemini 暫時失敗 HTTP', r.status, '，稍後重試'); await sleep(25000); continue; }
+    if (r.status === 429 || r.status >= 500) { console.error('Gemini 暫時失敗 HTTP', r.status, `，${20 * (i + 1)} 秒後重試${i === 0 && FALLBACK ? '（改用備援模型 ' + FALLBACK + '）' : ''}`); await sleep(20000 * (i + 1)); continue; }
     const j = await r.json();
     if (!r.ok) { console.error('Gemini 錯誤 HTTP', r.status, j.error?.message || ''); return null; }
     const t = (j.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join('').replace(/```json|```/g, '').trim();
     try { return JSON.parse(extract(t)); } catch { /* retry */ }
   }
+  console.error('Gemini 連續失敗，這一批略過');
   return null;
 }
-async function pool(fns, n = 3) { const o = []; for (let i = 0; i < fns.length; i += n) o.push(...await Promise.all(fns.slice(i, i + n).map(f => f()))); return o; }
+async function pool(fns, n = 2) { const o = []; for (let i = 0; i < fns.length; i += n) o.push(...await Promise.all(fns.slice(i, i + n).map(f => f()))); return o; }
 
 // ---------- 官方來源 RSS / Atom ----------
 const FEEDS = [
@@ -88,7 +90,7 @@ const fmt = l => l.map(x => `${x.n}(${x.s})`).join('、');
 // 追蹤旗標：ai=1 每次；ai=2 依市場收盤時段每日一次（美=0、亞洲=1、歐=2）；回補(DAYS>1)則全部執行
 const h = new Date().getUTCHours(), slot = (h >= 20 || h < 3) ? 0 : h < 10 ? 1 : 2;
 const SLOT = { 美: 0, 歐: 2, 日: 1, 中: 1, 臺: 1, 澳: 1 };
-const ai = T.filter(t => t.ai === 1 || t.ai === true || DAYS > 1 || (t.ai && (SLOT[t.m] ?? 1) === slot));
+const ai = T.filter(t => t.ai && (t.ai === 1 || t.ai === true || DAYS > 1 || (SLOT[t.m] ?? 1) === slot));
 const chunks = []; for (let i = 0; i < ai.length; i += 10) chunks.push(ai.slice(i, i + 10));
 console.log(`本次時段 ${slot}，AI 追蹤 ${ai.length} 檔，分 ${chunks.length} 批`);
 
