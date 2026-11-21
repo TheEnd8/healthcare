@@ -90,13 +90,14 @@ for (const f of FEEDS) {
 console.log('官方來源：', srcs.map(s => `${s.n}:${s.ok ? s.count : '失敗(' + s.err + ')'}`).join('；'));
 
 // ---------- 提示詞 ----------
-const recent = [...old.reg.map(x => x.name), ...old.co.map(e => `${e.name || e.sym}:${(e.event || '').slice(0, 20)}`)].slice(-80).join('；') || '無';
+const recent = [...old.reg.map(x => x.name), ...old.co.map(e => `${e.name || e.sym}:${(e.event || '').slice(0, 20)}`)].slice(-150).join('；') || '無';
 const base = `現在時間：${new Date().toLocaleString('zh-TW', { timeZone: TZ, hour12: false })}（台北）。報導區間：${from} ～ ${today}（含）。` +
   '規則：只收錄此區間內實際發生、且已用搜尋找到來源佐證的事件；日期一律 YYYY/MM/DD，無法確認者不得收錄；不可捏造；url 須為實際搜尋到的網址。' +
   '涵蓋美國、歐洲、日本、中國、澳洲、臺灣及其他重要地區當前或前夜最新動態；板塊含生技醫藥、醫療科技(MedTech)、智慧醫療、醫療服務、醫藥通路、健康管理、長壽科技。' +
   `以下事項已收錄，除非有實質新進展，否則不得重複：${recent}。只回傳純 JSON。`;
+const FRESH = '重要：事件日期必須是事件本身發生或公告的日期，不是網頁的更新、改版或彙整日期；若只是舊事件的重新報導、頁面更新，沒有實質新進展，請不要收錄。每筆加 "fresh":true（此區間內首次出現的新進展）與 "delta":"相較先前新增的實質內容，30 字內"；文字務必精簡：event 50 字內、catalyst 30 字內、impact 30 字內。';
 const IMP = 'imp 為重要性 1–5 的整數（5=足以改變產業格局或明顯影響股價，3=一般，1=次要）。';
-const EV = '只輸出區間內有「實質重大進展」的公司，沒有就不要輸出。回傳陣列，每筆 {"sym":"代號(須與提供者一致)","name":"公司","market":"市場","date":"YYYY/MM/DD","kind":"臨床|核准|財報|併購|法規|訴訟|合作|產能|其他","event":"重大進展","catalyst":"後續催化劑與預定日","impact":"市場影響評估一句","imp":3,"url":""}。' + IMP;
+const EV = '只輸出區間內有「實質重大進展」的公司，沒有就不要輸出。回傳陣列，每筆 {"sym":"代號(須與提供者一致)","name":"公司","market":"市場","date":"YYYY/MM/DD","kind":"臨床|核准|財報|併購|法規|訴訟|合作|產能|其他","event":"重大進展","catalyst":"後續催化劑與預定日","impact":"市場影響評估一句","imp":3,"fresh":true,"delta":"","url":""}。' + IMP + FRESH;
 const fmt = l => l.map(x => `${x.n}(${x.s})`).join('、');
 
 // 追蹤旗標：ai=1 每次；ai=2 依市場收盤時段每日一次（美=0、亞洲=1、歐=2）；回補(DAYS>1)則全部執行
@@ -109,7 +110,7 @@ console.log(`本次時段 ${slot}，AI 追蹤 ${ai.length} 檔，分 ${chunks.le
 const offList = offi.slice(0, 60).map((x, i) => `[${i}] ${x.org}｜${x.date}｜${x.t}`).join('\n') || '（官方來源本次無可用公告）';
 const regPrompt = base + `\n任務：各國藥監機關動態。以下為官方來源近期公告（可信）：\n${offList}\n` +
   '請從中挑出與生技醫藥、醫療器材相關者（新核准、優先審查、政策、規定、審議、安全警訊等），以編號填入 ref；另請搜尋 NMPA、TFDA、PMDA、TGA、Health Canada 及 FDA/EMA 的重大事項（ref 填 null）。' +
-  '回傳陣列，最多 25 筆，每筆 {"ref":編號或null,"org":"FDA|EMA|NMPA|TFDA|PMDA|其他","name":"藥品/醫材/政策主題","company":"藥廠/單位","date":"YYYY/MM/DD","indication":"適應症","type":"核准/優先審查/PDUFA/CHMP意見/政策/審議中/安全警訊","value":"商業與臨床價值一句","imp":3,"url":""}。' + IMP;
+  '回傳陣列，最多 25 筆，每筆 {"ref":編號或null,"org":"FDA|EMA|NMPA|TFDA|PMDA|其他","name":"藥品/醫材/政策主題","company":"藥廠/單位","date":"YYYY/MM/DD","indication":"適應症","type":"核准/優先審查/PDUFA/CHMP意見/政策/審議中/安全警訊","value":"商業與臨床價值一句（40 字內）","imp":3,"fresh":true,"delta":"","url":""}。' + IMP + FRESH;
 
 const dFrom = ymd(Date.now() - Math.max(DAYS, 14) * 864e5);
 const DT = ['政策變化', '重大事件', '技術突破'];
@@ -117,7 +118,7 @@ const seenDeep = (old.deep || []).filter(x => x.d).slice(-40).map(x => x.title).
 const deepPrompt = `現在時間：${new Date().toLocaleString('zh-TW', { timeZone: TZ, hour12: false })}（台北）。請搜尋 ${dFrom} ～ ${today} 全球生技醫療產業的：` +
   '(1) 政策變化（法規、審查制度、藥價、醫保、關稅、貿易與出口管制等）；(2) 重大事件（疾病、疫情、產業整合、併購、分拆、聯盟、供應鏈事件等）；(3) 技術突破（新機轉、平台技術、重大臨床或科學突破）。' +
   '規則：只收錄已搜尋到來源佐證的事實，不可捏造；日期一律 YYYY/MM/DD；相關業者若為上市公司，代號用 Yahoo Finance 格式，非上市則 s 填空字串。' +
-  `已收錄標題（除非有實質新進展，否則不得重複）：${seenDeep}。回傳陣列，最多 12 筆依重要性排序，每筆 {"type":"政策變化|重大事件|技術突破","title":"標題","d":"YYYY/MM/DD（事件開始或公布日）","period":"YYYY/MM/DD 或 YYYY/MM/DD～YYYY/MM/DD（持續中請寫起日～迄今）","points":["事實：…","背景：…","影響：…"],"trend":"趨勢預測（需是推測，並說明依據）","imp":3,"cos":[{"n":"業者名稱","s":"代號"}],"url":"實際搜尋到的網址"}。` + IMP + '只回傳純 JSON。';
+  `已收錄標題（除非有實質新進展，否則不得重複）：${seenDeep}。回傳陣列，最多 12 筆依重要性排序，每筆 {"type":"政策變化|重大事件|技術突破","title":"標題","d":"YYYY/MM/DD（事件開始或公布日）","period":"YYYY/MM/DD 或 YYYY/MM/DD～YYYY/MM/DD（持續中請寫起日～迄今）","points":["事實：…","背景：…","影響：…"],"trend":"趨勢預測（需是推測，並說明依據）","imp":3,"fresh":true,"delta":"","cos":[{"n":"業者名稱","s":"代號"}],"url":"實際搜尋到的網址"}。` + IMP + FRESH + '只回傳純 JSON。';
 
 const [reg, deepNew, ...cos] = await pool([() => gem(regPrompt), () => gem(deepPrompt), ...chunks.map((c, i) => () => gem(base + `\n任務：${fmt(c)}。` + EV + (i === 0 ? '另可補充至多 5 家其他有重大進展的生醫公司（sym 用 Yahoo Finance 格式）。' : '')))]);
 const aiFail = !reg && cos.every(x => !x) && !deepNew;
@@ -125,36 +126,53 @@ if (aiFail) console.error('AI 全部失敗：本次僅更新報價與官方公�
 
 // ---------- 正規化 ----------
 const merge = (a, b, key) => { const m = new Map(a.map(x => [key(x), x])); b.forEach(x => m.set(key(x), x)); return [...m.values()].filter(x => (x.date || x.d) >= keep); };
-const newReg = (reg || (aiFail ? offi.slice(0, 25).map((o, i) => ({ ref: i, name: o.t, company: '', indication: '', type: '官方公告', value: '', imp: 3 })) : [])).map(x => {
+const isFresh = x => x.fresh !== false && x.fresh !== 'false';
+const newReg = (reg || (aiFail ? offi.slice(0, 25).map((o, i) => ({ ref: i, name: o.t, company: '', indication: '', type: '官方公告', value: '', imp: 3 })) : [])).filter(isFresh).map(x => {
   const o = Number.isInteger(x.ref) ? offi[x.ref] : null;
   return { ...x, ...(o ? { date: o.date, url: o.l, org: o.org, off: 1, v: 1 } : {}), imp: nImp(x.imp) };
 }).filter(x => x.name && okd(x.date) && x.date >= from);
-const newCo = cos.flatMap(x => x || []).filter(e => e.sym && okd(e.date) && e.date >= from && e.date <= today).map(e => ({ ...e, imp: nImp(e.imp), kind: nKind(e.kind) }));
+const newCo = cos.flatMap(x => x || []).filter(e => e.sym && okd(e.date) && e.date >= from && e.date <= today && isFresh(e)).map(e => ({ ...e, imp: nImp(e.imp), kind: nKind(e.kind) }));
 const okDeep = x => x && DT.includes(x.type) && okd(x.d) && x.d >= dFrom && x.d <= today && x.title;
-const newDeep = (deepNew || []).filter(okDeep).map(x => ({ ...x, imp: nImp(x.imp) }));
+const newDeep = (deepNew || []).filter(okDeep).filter(isFresh).map(x => ({ ...x, imp: nImp(x.imp) }));
 
 // ---------- 連結驗證（只驗證新項目；404/410 移除，其餘無法確認者標示未驗證）----------
+const toDate = d => { const t = Date.parse(String(d).replace(/\//g, '-')); return Number.isFinite(t) ? t : 0; };
+async function readHead(r, max = 150000) {
+  try {
+    const rd = r.body.getReader(); let txt = '', n = 0; const dec = new TextDecoder();
+    while (n < max) { const { done, value } = await rd.read(); if (done) break; n += value.length; txt += dec.decode(value, { stream: true }); }
+    await rd.cancel(); return txt;
+  } catch { return ''; }
+}
+function pubTime(h) {
+  const m = h.match(/"datePublished"\s*:\s*"([^"]+)"/) || h.match(/property=["']article:published_time["'][^>]*content=["']([^"']+)/i) || h.match(/content=["']([^"']+)["'][^>]*property=["']article:published_time["']/i) || h.match(/<meta[^>]+name=["'](?:pubdate|publishdate|date)["'][^>]*content=["']([^"']+)/i) || h.match(/<time[^>]+datetime=["']([^"']+)/i);
+  const t = m ? Date.parse(m[1]) : NaN; return Number.isFinite(t) ? t : 0;
+}
+let dropOld = 0;
 async function verify(e) {
   if (e.v === 1) return;
   if (!/^https?:\/\//.test(e.url || '')) { e.url = ''; e.v = -1; return; }
   try {
     const r = await fetch(e.url, { redirect: 'follow', headers: { 'User-Agent': 'Mozilla/5.0' }, signal: AbortSignal.timeout(8000) });
-    await r.body?.cancel();
-    if (r.status === 404 || r.status === 410) { e.url = ''; e.v = -1; }
-    else if (r.ok) { e.url = r.url || e.url; e.v = 1; }
-    else e.v = 0;
+    if (r.status === 404 || r.status === 410) { await r.body?.cancel(); e.url = ''; e.v = -1; return; }
+    if (!r.ok) { await r.body?.cancel(); e.v = 0; return; }
+    e.url = r.url || e.url; e.v = 1;
+    if (/html/i.test(r.headers.get('content-type') || '')) {
+      const pub = pubTime(await readHead(r)), ev = toDate(e.date || e.d);
+      if (pub && ev && ev - pub > 45 * 864e5) { e._old = 1; dropOld++; }   // 頁面首次發布日期遠早於所稱事件日期＝舊聞更新
+    } else await r.body?.cancel();
   } catch { e.v = 0; }
 }
 const toCheck = [...newReg, ...newCo, ...newDeep].filter(e => e.v === undefined).slice(0, 80);
 for (let i = 0; i < toCheck.length; i += 8) await Promise.all(toCheck.slice(i, i + 8).map(verify));
-console.log('連結驗證：', toCheck.length, '筆，失效', toCheck.filter(e => e.v === -1 && !e.url).length);
+console.log('連結驗證：', toCheck.length, '筆，失效', toCheck.filter(e => e.v === -1 && !e.url).length, '，判定為舊聞頁面更新而剔除', dropOld);
 
 const out = {
   ts: Date.now(), window: DAYS, T, srcs, aiCalls: calls, slot, aiFail: aiFail ? 1 : 0,
-  reg: merge(old.reg, newReg, x => x.name + '@' + x.date),
-  co: merge(old.co, newCo, e => e.sym + '@' + e.date + (e.event || '').slice(0, 20)),
+  reg: merge(old.reg, newReg.filter(x => !x._old), x => x.name + '@' + x.date),
+  co: merge(old.co, newCo.filter(x => !x._old), e => e.sym + '@' + e.date + (e.event || '').slice(0, 20)),
   quotes: old.quotes || {},
-  deep: merge((old.deep || []).filter(x => x.d), newDeep, x => x.title)
+  deep: merge((old.deep || []).filter(x => x.d), newDeep.filter(x => !x._old), x => x.title)
 };
 
 // ---------- 報價（失敗時保留舊價並標示過期）----------
