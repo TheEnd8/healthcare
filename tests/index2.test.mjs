@@ -78,3 +78,17 @@ test('company boilerplate updates and empty regulator/catalyst sections are supp
   assert.ok(html.includes('if(cats.length)h+='));
   assert.ok(!html.includes("||'原始資料未提供')"));
 });
+
+
+test('daily briefing renders as a compact reader-facing table, not stacked cards or code markers', () => {
+  const start = html.indexOf('function renderDaily(){');
+  const end = html.indexOf('function badge(', start);
+  const daily = html.slice(start, end);
+  assert.ok(daily.includes('<table class="daily-table">'));
+  assert.ok(daily.includes('<th>重點摘要</th>'));
+  assert.ok(daily.includes('MODULES[k][0]'));
+  assert.ok(!daily.includes('data-module'));
+  assert.ok(!daily.includes('data-agency'));
+  assert.ok(!daily.includes('此模組沒有符合條件的項目'));
+  assert.ok(html.includes('.daily-table{width:100%;border-collapse:collapse'));
+});
