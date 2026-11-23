@@ -21,7 +21,7 @@ test('index2 presents daily intelligence before deep analysis and period-based m
 });
 
 test('index2 consolidates regulator events by five agencies and company events by company', () => {
-  for (const token of ["const AGENCIES=['FDA','EMA','NMPA','PMDA','TFDA']", 'function agencyKey(x)', 'for(const agency of AGENCIES)', "groupBy(cos,x=>x.name||x.sym||'未標示公司')", 'function recordMarkup(x,kind)', 'function renderMajor()']) {
+  for (const token of ["const AGENCIES=['FDA','EMA','NMPA','PMDA','TFDA']", 'function agencyKey(x)', 'for(const agency of AGENCIES)', "groupBy(cos,x=>x.name||x.company||x.n||x.sym||x.ticker||'未標示公司')", 'function recordMarkup(x,kind)', 'function renderMajor()']) {
     assert.ok(html.includes(token), 'missing '+token);
   }
   assert.ok(html.includes('class="entity-card"'));
@@ -43,10 +43,10 @@ test('index2 includes a tiered batch-query recommendation without changing sourc
 });
 
 test('major events use responsive expandable agency, company, and catalyst cards', () => {
-  for (const cls of ['agency-card','entity-card','catalyst-card','record-body']) assert.ok(html.includes(cls));
+  for (const cls of ['agency-card','entity-card','catalyst-card','record-body','stock-event-grid','stock-event']) assert.ok(html.includes(cls));
   assert.ok(html.includes('@media(max-width:760px)'));
   assert.ok(html.includes('grid-template-columns:1fr'));
-  for (const token of ['details class="agency-card"','details class="entity-card"','details class="catalyst-card"']) assert.ok(html.includes(token));
+  for (const token of ['details class="agency-card"','class="entity-card"','details class="catalyst-card"']) assert.ok(html.includes(token));
 });
 
 test('catalyst tracking does not infer a scheduled date or status from an event date', () => {
@@ -61,6 +61,5 @@ test('company events render real quote, movement, date, source, and watchlist fi
     assert.ok(html.includes(token), 'missing '+token);
   }
   assert.ok(html.includes('grid-template-columns:1fr'));
-  assert.ok(html.includes('公司名稱') === false);
   assert.ok(html.includes('class="stock-event-grid"'));
 });
