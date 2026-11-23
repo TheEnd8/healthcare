@@ -1,5 +1,566 @@
 [
   {
+    "id": "2026-11-23-am",
+    "date": "2026/11/23",
+    "session": "早報",
+    "window": "2026/11/23",
+    "headline": "台灣罕藥擬改平行審查制加速給付、Capricor 今召開 CRL 說明會、NTHI 迎 FDA 會議",
+    "topics": [
+      "CAPR Capricor Therapeutics",
+      "NTHI NeOnc Technologies",
+      "4502.T / TAK Takeda",
+      "RARE Ultragenyx",
+      "TFDA",
+      "FDA",
+      "EMA"
+    ],
+    "co": [
+      {
+        "ticker": "CAPR",
+        "name": "Capricor Therapeutics",
+        "price": "$7.57",
+        "change": "▲ +0.50%",
+        "date": "2026/11/22 參考",
+        "summary": "將於今日美東 11/23 8:30 AM 召開投資人電話會議，說明 DMD 細胞療法 deramiocel 第二次 CRL 後續策略。｜",
+        "url": "https://www.google.com/url?q=https://www.marketbeat.com/fda-calendar/upcoming/&amp;source=gmail&amp;ust=1795477663964000&amp;sa=E",
+        "source": "MarketBeat",
+        "watchlist": false
+      },
+      {
+        "ticker": "NTHI",
+        "name": "NeOnc Technologies",
+        "price": "—",
+        "change": "●",
+        "date": "2026/11/23",
+        "summary": "今日（11/23）與美國 FDA 舉行口服腦腫瘤候選藥 NEO212 之 End-of-Phase 1 Type B 會議。",
+        "url": "https://www.google.com/url?q=https://www.stocktitan.net/news/NTHI/ne-onc-technologies-announces-fda-rescheduled-neo212-end-of-phase-1-rodurb907u2f.html&amp;source=gmail&amp;ust=1795477663964000&amp;sa=E",
+        "source": "StockTitan",
+        "watchlist": false
+      },
+      {
+        "ticker": "4502.T / TAK",
+        "name": "Takeda",
+        "price": "¥6,869.0 (▼ -0.89%) ADS $21.28",
+        "change": "▼ -1.69%",
+        "date": "2026/11/18 參考",
+        "summary": "同步推進東南亞裕利醫藥通路結盟與日本 SAKIGAKE ADC 開發。",
+        "url": "https://www.google.com/url?q=https://www.takeda.com/investors/stock-information/&amp;source=gmail&amp;ust=1795477663964000&amp;sa=E",
+        "source": "Takeda IR",
+        "watchlist": false
+      },
+      {
+        "ticker": "RARE",
+        "name": "Ultragenyx",
+        "price": "市值 $1.68B",
+        "change": "●",
+        "date": "2026/11/22 結算",
+        "summary": "罕病研發公司市值維持 $1.68B 區間整理。",
+        "url": "https://www.google.com/url?q=https://www.macrotrends.net/stocks/charts/RARE/ultragenyx-pharmaceutical/market-cap&amp;source=gmail&amp;ust=1795477663964000&amp;sa=E",
+        "source": "Macrotrends",
+        "watchlist": false
+      },
+      {
+        "ticker": "睿泉生技 Vernus AI（未上市）",
+        "name": "睿泉生技 Vernus AI（未上市）",
+        "price": "—",
+        "change": "●",
+        "date": "2026/11/22",
+        "summary": "宣布攜手仁寶參加 12/3–6「2026 台灣醫療科技展」，展示結合 AI、物理模擬與量子退火最佳化之 ReAIX 製程開發平台。",
+        "url": "https://www.google.com/url?q=https://vernus.ai/zh/news/healthcare-expo-2026/&amp;source=gmail&amp;ust=1795477663964000&amp;sa=E",
+        "source": "Vernus AI",
+        "watchlist": false
+      }
+    ],
+    "reg": [
+      {
+        "agency": "TFDA",
+        "date": "2026/11/22",
+        "title": "罕病藥物「平行審查制」",
+        "detail": "衛福部長石崇良表示將整合國健署、食藥署（TFDA）與健保署三道程序改採「平行審查」，罕藥認定與健保給付評估同步進行，新制預計 2027 Q1 公布。",
+        "url": "https://www.google.com/url?q=https://www.merit-times.com.tw/NewsPage.aspx?unid%3D946995&amp;source=gmail&amp;ust=1795477663964000&amp;sa=E",
+        "source": "人間福報"
+      },
+      {
+        "agency": "FDA",
+        "date": "2026/11/23",
+        "title": "NEO212 Type B 會議（NeOnc）",
+        "detail": "今日召開 End-of-Phase 1 Type B 會議，討論口服 NEO212 後續臨床開發路徑。",
+        "url": "https://www.google.com/url?q=https://www.stocktitan.net/news/NTHI/ne-onc-technologies-announces-fda-rescheduled-neo212-end-of-phase-1-rodurb907u2f.html&amp;source=gmail&amp;ust=1795477663964000&amp;sa=E",
+        "source": "StockTitan"
+      },
+      {
+        "agency": "EMA",
+        "date": "2026/11/23",
+        "title": "亞歐週一開盤前無新增公告",
+        "detail": "近 12 小時三大藥監無新增藥證／醫材證發布。",
+        "url": "",
+        "source": "來源"
+      }
+    ],
+    "cat": [
+      {
+        "asset": "NEO212（NeOnc / NTHI）",
+        "type": "試驗里程碑",
+        "date": "2026/11/23",
+        "status": "預期發生",
+        "outcome": "預期發生",
+        "note": "今日舉行 FDA End-of-Phase 1 Type B 會議。",
+        "url": "https://www.google.com/url?q=https://www.stocktitan.net/news/NTHI/ne-onc-technologies-announces-fda-rescheduled-neo212-end-of-phase-1-rodurb907u2f.html&amp;source=gmail&amp;ust=1795477663964000&amp;sa=E"
+      },
+      {
+        "asset": "Lanifibranor (NATiV3)（Inventiva / IVA）",
+        "type": "臨床數據讀出",
+        "date": "2026 Q4",
+        "status": "預期發生",
+        "outcome": "預期發生",
+        "note": "MASH 關鍵三期 NATiV3 試驗預計於本季公布頂線數據。",
+        "url": "https://www.google.com/url?q=https://www.perplexity.ai/finance/IVA/earnings&amp;source=gmail&amp;ust=1795477663964000&amp;sa=E"
+      }
+    ],
+    "deep": [
+      {
+        "cat": "政策變化",
+        "title": "台灣罕藥採「平行審查」打通最後一哩路，預計 2027 Q1 上路",
+        "body": "過去台灣罕藥從疾病認定、藥證審核到健保給付須經三道關卡耗時逾一年；衛福部規劃整合國健署、TFDA 與健保署同步審查，可望大幅縮短 25 項待給付罕藥的上市與收載時程，對國內外罕病新藥廠商業化具正面助益（）。",
+        "url": "https://www.google.com/url?q=https://www.merit-times.com.tw/NewsPage.aspx?unid%3D946995&amp;source=gmail&amp;ust=1795477663964000&amp;sa=E",
+        "source": "人間福報"
+      },
+      {
+        "cat": "重大事件",
+        "title": "感恩節短週登場，週初聚焦 Capricor CRL 說明會與台股生技止穩測試",
+        "body": "美股本週因感恩節假期交易日縮短，週一（11/23）盤前先看 Capricor 說明 deramiocel 後續補件計畫；台股今日（11/23）開盤則觀察藥華藥（1,105 元）能否守住 1,100 元整數關卡（）。",
+        "url": "https://www.google.com/url?q=https://www.parentprojectmd.org/fda-issues-complete-response-letter-for-deramiocel/&amp;source=gmail&amp;ust=1795477663964000&amp;sa=E",
+        "source": "PPMD"
+      },
+      {
+        "cat": "技術突破",
+        "title": "AI 與量子退火最佳化滲透台灣生醫製程開發（CMC）",
+        "body": "隨著 2026 台灣醫療科技展臨近，本土 AI 製藥平台（如睿泉生技 ReAIX）正將物理模擬與最佳化演算法導入小分子合成、抗體可開發性預測與製劑穩定性評估，加速電子大廠（如仁寶）與生技製藥跨界整合（）。",
+        "url": "https://www.google.com/url?q=https://vernus.ai/zh/news/healthcare-expo-2026/&amp;source=gmail&amp;ust=1795477663964000&amp;sa=E",
+        "source": "Vernus AI"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-22-pm",
+    "date": "2026/11/22",
+    "session": "晚報",
+    "window": "2026/11/22",
+    "headline": "FDA 對 Capricor 細胞療法發出第二次 CRL、Savara 證實未獲新 PDUFA 時程、LLY 收盤穩居 $1,352",
+    "topics": [
+      "CAPR Capricor Therapeutics",
+      "SVRA Savara",
+      "LLY Eli Lilly",
+      "TMO Thermo Fisher",
+      "FDA",
+      "TFDA"
+    ],
+    "co": [
+      {
+        "ticker": "CAPR",
+        "name": "Capricor Therapeutics",
+        "price": "—",
+        "change": "▼",
+        "date": "2026/11/21 揭露",
+        "summary": "原定 2026/11/22 PDUFA 之 DMD 細胞療法 deramiocel 遭 FDA CBER 發出第二次完全回覆函（CRL），聚焦過敏反應不平衡（42% vs 15%）與統計分析計畫變更。",
+        "url": "https://www.google.com/url?q=https://www.neurologylive.com/view/fda-issues-second-complete-response-letter-deramiocel-dmd&amp;source=gmail&amp;ust=1795426528688000&amp;sa=E",
+        "source": "NeurologyLive",
+        "watchlist": false
+      },
+      {
+        "ticker": "SVRA",
+        "name": "Savara",
+        "price": "股價重挫",
+        "change": "▼",
+        "date": "2026/11/21 公告",
+        "summary": "正式公告 FDA 確認無法於 2026/11/22 PDUFA 期限前對 molgramostim BLA 做出決策，且未提供新審查日。｜",
+        "url": "https://www.google.com/url?q=https://investors.savarapharma.com/news/news-details/2026/Savara-Informed-That-FDA-Will-Not-Take-Action-on-the-Molgramostim-BLA-for-Autoimmune-Pulmonary-Alveolar-Proteinosis-Autoimmune-PAP-by-the-PDUFA-Date/default.aspx&amp;source=gmail&amp;ust=1795426528688000&amp;sa=E",
+        "source": "Savara IR",
+        "watchlist": false
+      },
+      {
+        "ticker": "LLY",
+        "name": "Eli Lilly",
+        "price": "$1,352.27",
+        "change": "▲ +0.08%",
+        "date": "2026/11/20 收盤",
+        "summary": "11/20 終場微漲 $1.15 收 $1,352.27；91.67% 分析師維持買進評等，12 個月共識目標價 $1,468.57。｜",
+        "url": "https://www.google.com/url?q=https://dhan.co/us-stocks/LLY-eli-lilly-and-co-share-price/&amp;source=gmail&amp;ust=1795426528688000&amp;sa=E",
+        "source": "Dhan",
+        "watchlist": false
+      },
+      {
+        "ticker": "TMO",
+        "name": "Thermo Fisher",
+        "price": "市值 $256.15B",
+        "change": "●",
+        "date": "2026/11/21 結算",
+        "summary": "生命科學工具龍頭市值維持 $256.15B 區間高檔整理。",
+        "url": "https://www.google.com/url?q=https://www.macrotrends.net/stocks/charts/TMO/thermo-fisher-scientific/market-cap&amp;source=gmail&amp;ust=1795426528688000&amp;sa=E",
+        "source": "Macrotrends",
+        "watchlist": false
+      },
+      {
+        "ticker": "ONC",
+        "name": "BeOne Medicines",
+        "price": "市值 $42.92B",
+        "change": "●",
+        "date": "2026/11/21 結算",
+        "summary": "原百濟神州更名後市值穩居 $42.92B，持續領跑亞太腫瘤創新藥出海。",
+        "url": "https://www.google.com/url?q=https://www.macrotrends.net/stocks/charts/ONC/beone-medicines--/net-worth&amp;source=gmail&amp;ust=1795426528688000&amp;sa=E",
+        "source": "Macrotrends",
+        "watchlist": false
+      }
+    ],
+    "reg": [
+      {
+        "agency": "FDA",
+        "date": "2026/11/21–22",
+        "title": "Deramiocel（Capricor）",
+        "detail": "針對 DMD 細胞療法發出第二次 CRL，要求解決隨機期後分析計畫變更、遺漏數據敏感度及安全性不平衡疑慮。",
+        "url": "https://www.google.com/url?q=https://www.neurologylive.com/view/fda-issues-second-complete-response-letter-deramiocel-dmd&amp;source=gmail&amp;ust=1795426528688000&amp;sa=E",
+        "source": "NeurologyLive"
+      },
+      {
+        "agency": "FDA",
+        "date": "2026/11/21–22",
+        "title": "Molgramostim（Savara）",
+        "detail": "正式確認錯過 2026/11/22 PDUFA 期限，審查持續進行但未給出新目標日。",
+        "url": "https://www.google.com/url?q=https://investors.savarapharma.com/news/news-details/2026/Savara-Informed-That-FDA-Will-Not-Take-Action-on-the-Molgramostim-BLA-for-Autoimmune-Pulmonary-Alveolar-Proteinosis-Autoimmune-PAP-by-the-PDUFA-Date/default.aspx&amp;source=gmail&amp;ust=1795426528689000&amp;sa=E",
+        "source": "Savara IR"
+      },
+      {
+        "agency": "TFDA",
+        "date": "2026/11/24 預告",
+        "title": "藥品政策與韌性整備會議",
+        "detail": "食藥署訂於 11/24（週二）於國家生技研究園區召開公協會溝通會議，配合國家藥物韌性整備計畫推進。｜",
+        "url": "https://www.google.com/url?q=http://capa.org.tw/pages/?Ipg%3D1009%26showPg%3D2378&amp;source=gmail&amp;ust=1795426528689000&amp;sa=E",
+        "source": "CAPA"
+      },
+      {
+        "agency": "EMA",
+        "date": "2026/11/22",
+        "title": "週末無新增藥證公告",
+        "detail": "週日休市期間無新增藥證／醫材證發布。",
+        "url": "",
+        "source": "來源"
+      }
+    ],
+    "cat": [
+      {
+        "asset": "Deramiocel（Capricor / CAPR）",
+        "type": "PDUFA監管決策",
+        "date": "2026/11/21–22",
+        "status": "已通過已完成",
+        "outcome": "低於預期",
+        "note": "遭 FDA CBER 發出第二次 CRL，未獲核准。",
+        "url": "https://www.google.com/url?q=https://www.neurologylive.com/view/fda-issues-second-complete-response-letter-deramiocel-dmd&amp;source=gmail&amp;ust=1795426528689000&amp;sa=E"
+      },
+      {
+        "asset": "Molgramostim（Savara / SVRA）",
+        "type": "PDUFA監管決策",
+        "date": "2026/11/22",
+        "status": "預期發生",
+        "outcome": "低於預期",
+        "note": "Savara 證實 FDA 錯過今日 PDUFA 期限且未給新日期。",
+        "url": "https://www.google.com/url?q=https://investors.savarapharma.com/news/news-details/2026/Savara-Informed-That-FDA-Will-Not-Take-Action-on-the-Molgramostim-BLA-for-Autoimmune-Pulmonary-Alveolar-Proteinosis-Autoimmune-PAP-by-the-PDUFA-Date/default.aspx&amp;source=gmail&amp;ust=1795426528689000&amp;sa=E"
+      }
+    ],
+    "deep": [
+      {
+        "cat": "政策變化",
+        "title": "FDA 雙重考驗",
+        "body": "CBER 統計嚴審與審查行政延宕並存：同為 11/22 到期的兩項罕病 BLA（Capricor 的 deramiocel 與 Savara 的 molgramostim）雙雙受阻，前者遭 CBER 因事後分析調整與過敏不平衡發出第二次 CRL，後者則因 FDA 審查延宕錯過期限。顯示投資人評估美國罕病／細胞療法藥證時，除臨床數據外，更須納入「試驗統計完整性」與「機構審查頻寬」雙重折價（｜）。",
+        "url": "https://www.google.com/url?q=https://www.neurologylive.com/view/fda-issues-second-complete-response-letter-deramiocel-dmd&amp;source=gmail&amp;ust=1795426528689000&amp;sa=E",
+        "source": "NeurologyLive"
+      },
+      {
+        "cat": "重大事件",
+        "title": "大型醫藥與工具股穩健領航，靜待下週感恩節週交投",
+        "body": "禮來（LLY）穩居 $1,352 以上高檔，91.67% 分析師維持買進；Thermo Fisher（$256.15B）與 BeOne（$42.92B）市值穩健，市場下週焦點將轉向 11/27 BridgeBio（BBP-418）及 11/30 Vertex（povetacicept）PDUFA（｜）。",
+        "url": "https://www.google.com/url?q=https://dhan.co/us-stocks/LLY-eli-lilly-and-co-share-price/&amp;source=gmail&amp;ust=1795426528689000&amp;sa=E",
+        "source": "Dhan"
+      },
+      {
+        "cat": "技術突破",
+        "title": "細胞療法安全與試驗設計門檻提高，台灣聚焦藥物韌性與數位平台",
+        "body": "Capricor 第二次 CRL 反映細胞製劑在長期追蹤數據與不良反應管理上的嚴格要求；台灣衛福部與食藥署則持續推進「國家藥物韌性整備計畫」與「臺灣醫療資訊標準大平台」，強化本土藥品供應鏈與臨床數據標準化（｜）。",
+        "url": "https://www.google.com/url?q=https://www.neurologylive.com/view/fda-issues-second-complete-response-letter-deramiocel-dmd&amp;source=gmail&amp;ust=1795426528689000&amp;sa=E",
+        "source": "NeurologyLive"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-22-am",
+    "date": "2026/11/22",
+    "session": "早報",
+    "window": "2026/11/22",
+    "headline": "FDA 局長提名破局添變數、SMMT 共同執行長行權增持、下週 BridgeBio BBP-418 PDUFA 登場",
+    "topics": [
+      "CYTK Cytokinetics",
+      "VKTX Viking Therapeutics",
+      "SMMT Summit Therapeutics",
+      "FDA",
+      "TFDA",
+      "EMA"
+    ],
+    "co": [
+      {
+        "ticker": "CYTK",
+        "name": "Cytokinetics",
+        "price": "$50.76",
+        "change": "▼ -1.36%",
+        "date": "2026/11/20 收盤",
+        "summary": "11/20 終場小跌 $0.70 收在 $50.76，持續推進 MYQORZO 商業化。",
+        "url": "https://www.google.com/url?q=https://www.marketbeat.com/stocks/NASDAQ/CYTK/news/&amp;source=gmail&amp;ust=1795389192333000&amp;sa=E",
+        "source": "MarketBeat",
+        "watchlist": false
+      },
+      {
+        "ticker": "VKTX",
+        "name": "Viking Therapeutics",
+        "price": "$24.77",
+        "change": "▼ -4.14%",
+        "date": "2026/11/20 收盤",
+        "summary": "11/20 回落 4.14%；目前有 4 項 VK2735 減重三期臨床試驗同步推進中。",
+        "url": "https://www.google.com/url?q=https://www.fool.com/investing/2026/11/18/have-1000-this-beaten-down-biotech-has-4-phase-3-obesity-trials-underway/&amp;source=gmail&amp;ust=1795389192333000&amp;sa=E",
+        "source": "Motley Fool",
+        "watchlist": false
+      },
+      {
+        "ticker": "SMMT",
+        "name": "Summit Therapeutics",
+        "price": "—",
+        "change": "●",
+        "date": "2026/11/21 揭露",
+        "summary": "共同執行長 Mahkam Zanganeh 於 11/20 申報 Form 4，以每股 $1.06 執行 30 萬股選擇權，直接持股增至 83.1 萬股。",
+        "url": "https://www.google.com/url?q=https://kalkinemedia.com/us/news/announcements/summit-therapeutics-mahkam-zanganeh-executes-300000-stock-options-at-106-on-november-20-2026&amp;source=gmail&amp;ust=1795389192333000&amp;sa=E",
+        "source": "Kalkine Media",
+        "watchlist": false
+      }
+    ],
+    "reg": [
+      {
+        "agency": "FDA",
+        "date": "2026/11/20–21",
+        "title": "FDA 局長提名撤案 / CDRH 血管導絲警訊",
+        "detail": "白宮撤回 Heidi Overton 之 FDA 局長提名，代理局長 Kyle Diamantes 計畫年底離任（）；CDRH 於 11/20 發布 Heraeus 血管導絲回收早階警訊（）。",
+        "url": "https://www.google.com/url?q=https://finance.biggo.com.tw/podcast/d18f03a2aa0fc696&amp;source=gmail&amp;ust=1795389192334000&amp;sa=E",
+        "source": "BigGo 財經"
+      },
+      {
+        "agency": "TFDA",
+        "date": "2026/11/21",
+        "title": "藥品醫材與組合產品法規科學發展",
+        "detail": "台灣醫藥品法規學會（TsRAP）舉辦聯合學術研討會專場，聚焦 AI 決策中樞、外泌體再生醫療與含藥醫材法規布局。",
+        "url": "https://www.google.com/url?q=https://tsrap.org.tw/news_article-1.php?id%3D1176&amp;source=gmail&amp;ust=1795389192334000&amp;sa=E",
+        "source": "TsRAP"
+      },
+      {
+        "agency": "EMA",
+        "date": "2026/11/22",
+        "title": "週末無新增藥證公告",
+        "detail": "週末休市期間無新增藥證／醫材證發布。",
+        "url": "",
+        "source": "來源"
+      }
+    ],
+    "cat": [
+      {
+        "asset": "APR-1051（Aprea / APRE）",
+        "type": "臨床數據讀出",
+        "date": "2026/11/20",
+        "status": "已通過已完成",
+        "outcome": "符合預期",
+        "note": "ACESOT-1051 一期實體腫瘤試驗數據讀出。",
+        "url": "https://www.google.com/url?q=https://app.bpiq.com/catalyst-calendar?twclid%3D24iqx4ecibjzvtc1y83ymwzfbq&amp;source=gmail&amp;ust=1795389192334000&amp;sa=E"
+      },
+      {
+        "asset": "NewcelX (NCEL)",
+        "type": "商業里程碑",
+        "date": "2026/11/23",
+        "status": "預期發生",
+        "outcome": "預期發生",
+        "note": "預計完成 1,550 萬美元股權募資交割。",
+        "url": "https://www.google.com/url?q=https://kalkine.com.au/news/healthcare/why-has-newcelx-nasdaqncel-dropped-1227-pre-market-following-a-usd-155-million-equity-raise&amp;source=gmail&amp;ust=1795389192334000&amp;sa=E"
+      },
+      {
+        "asset": "Alpha Tau Medical (DRTS)",
+        "type": "財報指引",
+        "date": "2026/11/24",
+        "status": "預期發生",
+        "outcome": "預期發生",
+        "note": "發布財報並更新復發性膠質母細胞瘤臨床進度。",
+        "url": "https://www.google.com/url?q=https://seekingalpha.com/article/4969791-alpha-tau-medical-the-rubber-meets-the-road-in-h1-2027&amp;source=gmail&amp;ust=1795389192334000&amp;sa=E"
+      },
+      {
+        "asset": "BBP-418（BridgeBio / BBIO）",
+        "type": "PDUFA監管決策",
+        "date": "2026/11/27",
+        "status": "預期發生",
+        "outcome": "預期發生",
+        "note": "治療肢帶型肌營養不良症 LGMD2I/R9 優先審查目標行動日。",
+        "url": "https://www.google.com/url?q=https://www.nasdaq.com/press-release/run-fda-target-dates-fills-biotech-calendar-late-november-year-end-2026-11-12&amp;source=gmail&amp;ust=1795389192334000&amp;sa=E"
+      }
+    ],
+    "deep": [
+      {
+        "cat": "政策變化",
+        "title": "FDA 局長人選懸缺恐影響跨年度審評一致性",
+        "body": "Heidi Overton 提名在參議院表決前夕撤回，且代理局長預計年底離任，加上 2027 年國會席次變動將拉高同意門檻；儘管 2026 年 CDER 與 CBER 核准數仍居歷史前五高，藥廠對 FDA 長期審評政策一致性的擔憂正逐步升溫（）。",
+        "url": "https://www.google.com/url?q=https://finance.biggo.com.tw/podcast/d18f03a2aa0fc696&amp;source=gmail&amp;ust=1795389192334000&amp;sa=E",
+        "source": "BigGo 財經"
+      },
+      {
+        "cat": "重大事件",
+        "title": "年末 PDUFA 密集登場，下週焦點鎖定 BridgeBio",
+        "body": "自 11/27 起至年底前將有至少 9 項關鍵 PDUFA 審查決策接力登場，下週率先由 BridgeBio 治療罕見肌肉病變 LGMD2I/R9 的 BBP-418 打頭陣，緊接著 11/30 由 Vertex 的 IgAN 新藥 povetacicept 接棒（）。",
+        "url": "https://www.google.com/url?q=https://www.nasdaq.com/press-release/run-fda-target-dates-fills-biotech-calendar-late-november-year-end-2026-11-12&amp;source=gmail&amp;ust=1795389192334000&amp;sa=E",
+        "source": "Nasdaq"
+      },
+      {
+        "cat": "技術突破",
+        "title": "台灣法規科學聚焦外泌體再生醫療與 AI 臨床決策",
+        "body": "TsRAP 2026 研討會顯示台灣產官學正加速對接《再生醫療製劑條例》下的外泌體、精準檢測與含藥醫材法規路徑，有助縮短創新技術從實驗室走向商轉的法規落差（）。",
+        "url": "https://www.google.com/url?q=https://tsrap.org.tw/news_article-1.php?id%3D1176&amp;source=gmail&amp;ust=1795389192334000&amp;sa=E",
+        "source": "TsRAP"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-21-pm",
+    "date": "2026/11/21",
+    "session": "晚報",
+    "window": "2026/11/21",
+    "headline": "DHR/VRTX 週五收盤更新、維立志博 4-1BB 雙抗數據、台股生醫基本面與評價重估",
+    "topics": [
+      "DHR Danaher",
+      "VRTX Vertex",
+      "REGN Regeneron",
+      "維立志博 Leads Biolabs 維立志博 Leads Biolabs",
+      "FDA",
+      "EMA"
+    ],
+    "co": [
+      {
+        "ticker": "DHR",
+        "name": "Danaher",
+        "price": "$220.36",
+        "change": "▼ -3.16%",
+        "date": "2026/11/20 收盤",
+        "summary": "市值 $154.91B，11/20 收盤隨生命科學工具板塊回檔 3.16%；日前宣布與微軟合作開發 AI 代理智慧實驗室平台。",
+        "url": "https://www.google.com/url?q=https://www.globalbankingandfinance.com/danaher-dhr-falls-2026-11-20/&amp;source=gmail&amp;ust=1795341643982000&amp;sa=E",
+        "source": "Global Banking &amp; Finance",
+        "watchlist": false
+      },
+      {
+        "ticker": "VRTX",
+        "name": "Vertex",
+        "price": "$520.66",
+        "change": "▼ -1.08%",
+        "date": "2026/11/20 收盤",
+        "summary": "11/20 終場小跌 $5.64，市場靜待 11/30 povetacicept IgAN 藥證審查決策。",
+        "url": "https://www.google.com/url?q=https://www.google.com/finance/quote/VRTX:NASDAQ&amp;source=gmail&amp;ust=1795341643982000&amp;sa=E",
+        "source": "Google Finance",
+        "watchlist": false
+      },
+      {
+        "ticker": "REGN",
+        "name": "Regeneron",
+        "price": "$920.69",
+        "change": "●",
+        "date": "2026/11/20 收盤",
+        "summary": "高檔橫盤整理，gMG 新藥 Livsayis 剛獲 FDA 核准，12 月 ASH 年會將發表 Ordspono 關鍵數據。",
+        "url": "https://www.google.com/url?q=https://www.google.com/finance/quote/VRTX:NASDAQ&amp;source=gmail&amp;ust=1795341643982000&amp;sa=E",
+        "source": "Google Finance",
+        "watchlist": false
+      },
+      {
+        "ticker": "維立志博 Leads Biolabs",
+        "name": "維立志博 Leads Biolabs",
+        "price": "—",
+        "change": "●",
+        "date": "2026/11/20–21",
+        "summary": "於 Jefferies 全球醫療大會詳述 PD-L1/4-1BB 雙抗 Opamtistomig 長期生存期數據及 2027 年 ADC 聯合療法計畫（NMPA 已受理 NDA，有望成全球首款獲批 4-1BB 療法）。",
+        "url": "https://www.google.com/url?q=https://www.biopharminternational.com/view/leads-biolabs-details-long-term-survival-data-and-2027-adc-combination-plans-for-pd-l1-4-1bb-bispecific-opamtistomig&amp;source=gmail&amp;ust=1795341643982000&amp;sa=E",
+        "source": "BioPharm International",
+        "watchlist": false
+      },
+      {
+        "ticker": "6446.TW",
+        "name": "保瑞 (6472.TW) / 藥華藥",
+        "price": "保瑞 355 元 (11/17) 藥華藥 1,105 元",
+        "change": "11/20",
+        "date": "2026/11/18 彙整",
+        "summary": "法人評估保瑞 CDMO 新簽約 4.37 億美元創高（3Q 單季年化 EPS 19.16 元）；藥華藥前三季 EPS 18.43 元創高，回檔後本益比大幅收斂。",
+        "url": "https://www.google.com/url?q=https://www.sinotrade.com.tw/richclub/hotstock/%25E8%2597%25A5%25E8%258F%25AF%25E8%2597%25A5-%25E4%25BF%259D%25E7%2591%259E%25E7%258D%25B2%25E5%2588%25A9%25E5%2589%25B5%25E9%25AB%2598%25E5%258D%25BB%25E9%2580%25A3%25E5%2585%25A9%25E6%2597%25A5%25E8%25B5%25B0%25E4%25BD%258E-%25E5%258F%25B0%25E8%2582%25A1%25E6%2580%25A5%25E6%25AE%25BA%25E5%25BE%258C-%25E7%2594%259F%25E6%258A%2580%25E8%2582%25A1%25E6%2598%25AF%25E9%258C%25AF%25E6%25AE%25BA%25E9%2582%2584%25E6%2598%25AF%25E9%2587%258D%25E6%2596%25B0%25E8%25A9%2595%25E5%2583%25B9--%25E7%2594%25A2%25E6%25A5%25AD%25E7%2586%25B1%25E8%25A9%25B1-6afd384153ac4f25b806a2c5&amp;source=gmail&amp;ust=1795341643982000&amp;sa=E",
+        "source": "永豐金證券",
+        "watchlist": true
+      }
+    ],
+    "reg": [
+      {
+        "agency": "FDA",
+        "date": "2026/11/17",
+        "title": "Shenzhen Benliju Biotech 警告信",
+        "detail": "FDA 公布向深圳 Benliju Biotech 發出警告信（320-27-21），指出其藥品紀錄查核存在重大違規。",
+        "url": "https://www.google.com/url?q=https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/shenzhen-benliju-biotech-co-ltd-738522-11062026&amp;source=gmail&amp;ust=1795341643982000&amp;sa=E",
+        "source": "FDA Warning Letters"
+      },
+      {
+        "agency": "EMA",
+        "date": "2026/11/21",
+        "title": "週末無新增藥證公告",
+        "detail": "週六休市期間四大藥監均無新增藥證／醫材證發布（維持 2026/11/21 早報進度）。",
+        "url": "",
+        "source": "來源"
+      }
+    ],
+    "cat": [
+      {
+        "asset": "Opamtistomig (PD-L1/4-1BB 雙抗)（維立志博）",
+        "type": "臨床數據讀出",
+        "date": "2026/11/20–21",
+        "status": "已通過已完成",
+        "outcome": "優於預期",
+        "note": "公開長期生存期正面數據並預告 2027 年 ADC 聯合療法計畫，NMPA NDA 審查中。",
+        "url": "https://www.google.com/url?q=https://www.biopharminternational.com/view/leads-biolabs-details-long-term-survival-data-and-2027-adc-combination-plans-for-pd-l1-4-1bb-bispecific-opamtistomig&amp;source=gmail&amp;ust=1795341643982000&amp;sa=E"
+      },
+      {
+        "asset": "Povetacicept（Vertex / VRTX）",
+        "type": "PDUFA監管決策",
+        "date": "2026/11/30",
+        "status": "預期發生",
+        "outcome": "預期發生",
+        "note": "倒數 9 天迎來成人 IgAN 加速核准決策。",
+        "url": "https://www.google.com/url?q=https://seekingalpha.com/article/4970549-vertex-pharmaceuticals-look-for-povetacicept-approval-in-2-weeks-as-next-catalyst&amp;source=gmail&amp;ust=1795341643982000&amp;sa=E"
+      }
+    ],
+    "deep": [
+      {
+        "cat": "政策變化",
+        "title": "FDA 加嚴跨境數據與生產紀錄查核",
+        "body": "FDA 公布對中國生技製造廠發出紀錄違規警告信，搭配近期對跨區域腫瘤試驗要求完整總生存期（OS）數據，顯示藥監機關在製造合規與臨床證據兩端同步拉高門檻（）。",
+        "url": "https://www.google.com/url?q=https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/shenzhen-benliju-biotech-co-ltd-738522-11062026&amp;source=gmail&amp;ust=1795341643982000&amp;sa=E",
+        "source": "FDA"
+      },
+      {
+        "cat": "重大事件",
+        "title": "資金自高估值科技輪動至現金流醫療資產，台廠基本面與籌碼現背離",
+        "body": "美股醫療保健板塊在科技股修正期間展現防禦現金流價值；反觀台股藥華藥（前三季 EPS 18.43 元）與保瑞（CDMO 新簽約 4.37 億美元）基本面創高卻隨大盤急殺，短線本益比收斂後浮現評價重估契機（）。",
+        "url": "https://www.google.com/url?q=https://www.sinotrade.com.tw/richclub/hotstock/%25E8%2597%25A5%25E8%258F%25AF%25E8%2597%25A5-%25E4%25BF%259D%25E7%2591%259E%25E7%258D%25B2%25E5%2588%25A9%25E5%2589%25B5%25E9%25AB%2598%25E5%258D%25BB%25E9%2580%25A3%25E5%2585%25A9%25E6%2597%25A5%25E8%25B5%25B0%25E4%25BD%258E-%25E5%258F%25B0%25E8%2582%25A1%25E6%2580%25A5%25E6%25AE%25BA%25E5%25BE%258C-%25E7%2594%259F%25E6%258A%2580%25E8%2582%25A1%25E6%2598%25AF%25E9%258C%25AF%25E6%25AE%25BA%25E9%2582%2584%25E6%2598%25AF%25E9%2587%258D%25E6%2596%25B0%25E8%25A9%2595%25E5%2583%25B9--%25E7%2594%25A2%25E6%25A5%25AD%25E7%2586%25B1%25E8%25A9%25B1-6afd384153ac4f25b806a2c5&amp;source=gmail&amp;ust=1795341643982000&amp;sa=E",
+        "source": "永豐金證券"
+      },
+      {
+        "cat": "技術突破",
+        "title": "4-1BB 雙抗結合 ADC 成 2027 腫瘤聯合療法新方向",
+        "body": "維立志博在 Jefferies 大會公布 PD-L1/4-1BB 雙抗 Opamtistomig 長期生存數據並布局 2027 年與 ADC 聯用，顯示「雙抗＋ADC」正成為克服單藥耐藥性的重要臨床路徑（）。",
+        "url": "https://www.google.com/url?q=https://www.biopharminternational.com/view/leads-biolabs-details-long-term-survival-data-and-2027-adc-combination-plans-for-pd-l1-4-1bb-bispecific-opamtistomig&amp;source=gmail&amp;ust=1795341643982000&amp;sa=E",
+        "source": "BioPharm International"
+      }
+    ]
+  },
+  {
     "id": "2026-11-21-am",
     "date": "2026/11/21",
     "session": "早報",
