@@ -51,7 +51,7 @@ test('major events use responsive expandable agency, company, and catalyst cards
 });
 
 test('catalyst tracking does not infer a scheduled date or status from an event date', () => {
-  assert.ok(html.includes('原始資料未提供'));
+  assert.ok(!html.includes('原始資料未提供'));
   assert.ok(html.includes('x.expectedDate||x.expected_date||x.catalystDate'));
   assert.ok(!html.includes('此期間資料沒有獨立的催化劑欄位'));
 });
