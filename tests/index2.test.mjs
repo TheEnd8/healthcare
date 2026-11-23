@@ -29,11 +29,12 @@ test('index2 consolidates regulator events by five agencies and company events b
 });
 
 test('index2 offers simple date, keyword, visibility, theme, and local priority settings', () => {
-  for (const id of ['range','keyword','showDaily','showDeep','showMajor','themeBtn','watchInput']) {
+  for (const id of ['range','keyword','showDaily','showDeep','showMajor','themeBtn']) {
     assert.ok(html.includes('id="'+id+'"'), 'missing '+id);
   }
   assert.ok(html.includes('healthcare.index2.settings'));
-  assert.ok(html.includes('重點標示'));
+  assert.ok(!html.includes('watchInput'));
+  assert.ok(!html.includes('watchChips'));
 });
 
 test('index2 includes a tiered batch-query recommendation without changing source workflows', () => {
@@ -56,10 +57,24 @@ test('catalyst tracking does not infer a scheduled date or status from an event 
 });
 
 
-test('company events render real quote, movement, date, source, and watchlist fields as responsive cards', () => {
-  for (const token of ['stock-event-grid','stock-event-quote','stock-price','stock-change','stock-event-summary','stock-event-meta','stock-watch','x.ticker||x.sym||x.symbol','x.price??x.close??x.lastPrice','x.change??x.pctChange??x.pct','x.source||x.sourceName||x.publisher','x.watchlist===true','x.summary||x.value||x.impact||x.detail||x.text||x.event']) {
+test('company events and analyses use compact single-row reader layout', () => {
+  for (const token of ['stock-event-grid{display:block','stock-event{display:flex','deep-row{display:flex','function meaningfulCompanyRecord','const merged={...sorted[0]','summary:[...new Set(sorted.map','date:[...new Set(sorted.map']) {
     assert.ok(html.includes(token), 'missing '+token);
   }
-  assert.ok(html.includes('grid-template-columns:1fr'));
-  assert.ok(html.includes('class="stock-event-grid"'));
+  assert.ok(html.includes('stock-price'));
+  assert.ok(html.includes('stock-change'));
+  assert.ok(html.includes('stock-event-summary'));
+  assert.ok(html.includes('stock-event-meta'));
+  assert.ok(!html.includes('watchlist'));
+  assert.ok(!html.includes('關注名單'));
+  assert.ok(!html.includes('watchInput'));
+  assert.ok(!html.includes('watchChips'));
+});
+
+test('company boilerplate updates and empty regulator/catalyst sections are suppressed', () => {
+  assert.ok(html.includes('本週持穩無重大新增事件'));
+  assert.ok(html.includes('if(!text)return false'));
+  assert.ok(html.includes('if(!list.length)continue'));
+  assert.ok(html.includes('if(cats.length)h+='));
+  assert.ok(!html.includes("||'原始資料未提供')"));
 });
