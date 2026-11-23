@@ -1,5 +1,216 @@
 [
   {
+    "id": "2026-11-24-am",
+    "date": "2026/11/24",
+    "session": "早報",
+    "window": "2026/11/24",
+    "headline": "FDA 單日四連批（BridgeBio/Roche/AbbVie/Novo）、禮來 7.25 億美元收購 LoQus23、Arcus 終止胰臟癌三期",
+    "topics": [
+      "BBIO BridgeBio",
+      "RHHBY Roche",
+      "ABBV AbbVie",
+      "LLY Eli Lilly",
+      "FDA",
+      "NMPA"
+    ],
+    "co": [
+      {
+        "ticker": "BBIO",
+        "name": "BridgeBio",
+        "price": "—",
+        "change": "▲",
+        "date": "2026/11/23",
+        "summary": "旗下罕病新藥 Welgemda (ribitol / BBP-418) 提前於 11/23 獲 FDA 核准，成為首款治療肢帶型肌營養不良症 LGMD2I/R9 療法。｜",
+        "url": "https://www.google.com/url?q=https://casrai.org/news/fda-approves-welgemda-first-treatment-limb-girdle-muscular-dystrophy-2i-r9-2026&amp;source=gmail&amp;ust=1795561696227000&amp;sa=E",
+        "source": "CASRAI",
+        "watchlist": false
+      },
+      {
+        "ticker": "RHHBY",
+        "name": "Roche",
+        "price": "—",
+        "change": "●",
+        "date": "2026/11/23",
+        "summary": "口服 SERD Wilserdly (giredestrant) 再奪 FDA 核准，用於早期 ER+/HER2- 乳癌術後輔助治療，為逾 20 年來首款早期乳癌新內分泌療法。",
+        "url": "https://www.google.com/url?q=https://www.gene.com/media/news-features/fda-approves-the-first-new-endocrine-therapy-for-early-stage-er-positive-her2-negative-breast-cancer-in-over-20-years&amp;source=gmail&amp;ust=1795561696227000&amp;sa=E",
+        "source": "Genentech",
+        "watchlist": false
+      },
+      {
+        "ticker": "ABBV",
+        "name": "AbbVie",
+        "price": "—",
+        "change": "●",
+        "date": "2026/11/23",
+        "summary": "RINVOQ (upadacitinib) 獲 FDA 核准用於 12 歲以上非節段型白斑症（NSV），成為美國首款獲批之系統性白斑症療法。",
+        "url": "https://www.google.com/url?q=https://news.abbvie.com/2026-11-23-AbbVies-RINVOQ-R-upadacitinib-Approved-as-the-First-Systemic-Therapy-in-the-U-S-to-Treat-Adult-and-Pediatric-Patients-With-Nonsegmental-Vitiligo&amp;source=gmail&amp;ust=1795561696227000&amp;sa=E",
+        "source": "AbbVie IR",
+        "watchlist": false
+      },
+      {
+        "ticker": "LLY",
+        "name": "Eli Lilly",
+        "price": "—",
+        "change": "●",
+        "date": "2026/11/23",
+        "summary": "宣布以最高 7.25 億美元收購亨丁頓舞蹈症新創 LoQus23，持續強化神經退化疾病管線。",
+        "url": "https://www.google.com/url?q=https://endpoints.news/lilly-buys-huntingtons-startup-loqus23-for-up-to-725m/&amp;source=gmail&amp;ust=1795561696227000&amp;sa=E",
+        "source": "Endpoints News",
+        "watchlist": false
+      },
+      {
+        "ticker": "NVO",
+        "name": "Novo Nordisk",
+        "price": "庫藏股均價 DKK 277.02",
+        "change": "●",
+        "date": "2026/11/23",
+        "summary": "長效生長激素 Sogroya 獲 FDA 擴增兒童透納氏症適應症（）；同日公告本輪庫藏股已累計買回 3,008.5 萬股 B 股（）。",
+        "url": "https://www.google.com/url?q=https://www.zacks.com/stock/news/3034030/novos-sogroya-gets-fda-label-expansion-for-pediatric-turner-syndrome&amp;source=gmail&amp;ust=1795561696227000&amp;sa=E",
+        "source": "Zacks",
+        "watchlist": false
+      },
+      {
+        "ticker": "IVVD",
+        "name": "Invivyd",
+        "price": "—",
+        "change": "▲",
+        "date": "2026/11/23",
+        "summary": "公布單株抗體 VYD2311 於三期 DECLARATION 試驗期中分析達標正面結果。｜",
+        "url": "https://www.google.com/url?q=https://investors.invivyd.com/news-releases/news-release-details/invivyd-announces-positive-declaration-trial-data-monoclonal&amp;source=gmail&amp;ust=1795561696227000&amp;sa=E",
+        "source": "Invivyd IR",
+        "watchlist": false
+      },
+      {
+        "ticker": "RCUS",
+        "name": "Arcus Biosciences",
+        "price": "—",
+        "change": "▼",
+        "date": "2026/11/23",
+        "summary": "宣布終止 CD73 抑制劑 quemliclustat 治療轉移性胰臟癌之三期 PRISM-1 臨床試驗。",
+        "url": "https://www.google.com/url?q=https://casrai.org/news/fda-approves-welgemda-first-treatment-limb-girdle-muscular-dystrophy-2i-r9-2026&amp;source=gmail&amp;ust=1795561696227000&amp;sa=E",
+        "source": "CASRAI",
+        "watchlist": false
+      },
+      {
+        "ticker": "DHR",
+        "name": "Vertex (VRTX) / Danaher",
+        "price": "VRTX 市值 $130.58B",
+        "change": "●",
+        "date": "2026/11/23",
+        "summary": "VRTX 市值穩居 $130.58B（）；DHR 高階主管 Matthew Gugino 申報 Form 144 擬出售 5,222 股（約 $1.18M）（）。",
+        "url": "https://www.google.com/url?q=https://www.macrotrends.net/stocks/charts/VRTX/vertex-pharmaceuticals/market-cap&amp;source=gmail&amp;ust=1795561696227000&amp;sa=E",
+        "source": "Macrotrends",
+        "watchlist": false
+      },
+      {
+        "ticker": "02637.HK",
+        "name": "海西新藥",
+        "price": "—",
+        "change": "●",
+        "date": "2026/11/23",
+        "summary": "口服眼底創新藥 HX9428 治療糖尿病性黃斑水腫（DME）獲中國 NMPA CDE 核准展開 II 期臨床試驗。",
+        "url": "https://www.google.com/url?q=https://tw.tradingview.com/news/gelonghui:4a4c6c977acdf:0/&amp;source=gmail&amp;ust=1795561696227000&amp;sa=E",
+        "source": "TradingView",
+        "watchlist": false
+      }
+    ],
+    "reg": [
+      {
+        "agency": "FDA",
+        "date": "2026/11/23",
+        "title": "Welgemda / Wilserdly / RINVOQ / Sogroya",
+        "detail": "單日連批四項關鍵適應症：LGMD2I/R9 首款療法 Welgemda、早期乳癌輔助口服 SERD Wilserdly、白斑症首款系統性療法 RINVOQ、以及兒童透納氏症 Sogroya。｜｜",
+        "url": "https://www.google.com/url?q=https://www.fda.gov/&amp;source=gmail&amp;ust=1795561696227000&amp;sa=E",
+        "source": "FDA 官網"
+      },
+      {
+        "agency": "FDA",
+        "date": "2026/11/23",
+        "title": "Copper Cu 64 PSMA I&T",
+        "detail": "授予攝護腺癌影像診斷劑快速審查認定（Fast Track）。",
+        "url": "https://www.google.com/url?q=https://www.urologytimes.com/view/fda-grants-fast-track-designation-to-copper-cu-64-psma-i-t-for-prostate-cancer-imaging&amp;source=gmail&amp;ust=1795561696227000&amp;sa=E",
+        "source": "Urology Times"
+      },
+      {
+        "agency": "NMPA",
+        "date": "2026/11/23",
+        "title": "HX9428 (DME) II 期 IND & 醫材送達批件",
+        "detail": "CDE 核准海西新藥 HX9428 開展 II 期臨床（）；同日發布 11/23 醫療器械批准證明文件送達資訊（）。",
+        "url": "https://www.google.com/url?q=https://tw.tradingview.com/news/gelonghui:4a4c6c977acdf:0/&amp;source=gmail&amp;ust=1795561696227000&amp;sa=E",
+        "source": "TradingView"
+      },
+      {
+        "agency": "EMA",
+        "date": "2026/11/24",
+        "title": "無新增藥證增量",
+        "detail": "近 12 小時歐台日藥監無新增核准（台灣 TFDA 今日召開公協會藥品韌性會議）。",
+        "url": "",
+        "source": "來源"
+      }
+    ],
+    "cat": [
+      {
+        "asset": "Welgemda (BBP-418)（BridgeBio）",
+        "type": "PDUFA監管決策",
+        "date": "2026/11/23",
+        "status": "已通過已完成",
+        "outcome": "優於預期",
+        "note": "較原定 11/27 期限提前 4 天獲 FDA 核准。",
+        "url": "https://www.google.com/url?q=https://casrai.org/news/fda-approves-welgemda-first-treatment-limb-girdle-muscular-dystrophy-2i-r9-2026&amp;source=gmail&amp;ust=1795561696228000&amp;sa=E"
+      },
+      {
+        "asset": "Wilserdly (giredestrant)（Roche）",
+        "type": "PDUFA監管決策",
+        "date": "2026/11/23",
+        "status": "已通過已完成",
+        "outcome": "優於預期",
+        "note": "繼 11/16 晚期乳癌後，火速拿下早期乳癌輔助治療大市場。",
+        "url": "https://www.google.com/url?q=https://www.gene.com/media/news-features/fda-approves-the-first-new-endocrine-therapy-for-early-stage-er-positive-her2-negative-breast-cancer-in-over-20-years&amp;source=gmail&amp;ust=1795561696228000&amp;sa=E"
+      },
+      {
+        "asset": "VYD2311 (DECLARATION)（Invivyd）",
+        "type": "臨床數據讀出",
+        "date": "2026/11/23",
+        "status": "已通過已完成",
+        "outcome": "優於預期",
+        "note": "三期期中分析達標，將推進加速核准 BLA 送件。",
+        "url": "https://www.google.com/url?q=https://investors.invivyd.com/news-releases/news-release-details/invivyd-announces-positive-declaration-trial-data-monoclonal&amp;source=gmail&amp;ust=1795561696228000&amp;sa=E"
+      },
+      {
+        "asset": "Quemliclustat (PRISM-1)（Arcus）",
+        "type": "臨床數據讀出",
+        "date": "2026/11/23",
+        "status": "已通過已完成",
+        "outcome": "低於預期",
+        "note": "因療效未達標終止胰臟癌三期試驗。",
+        "url": "https://www.google.com/url?q=https://casrai.org/news/fda-approves-welgemda-first-treatment-limb-girdle-muscular-dystrophy-2i-r9-2026&amp;source=gmail&amp;ust=1795561696228000&amp;sa=E"
+      }
+    ],
+    "deep": [
+      {
+        "cat": "政策變化",
+        "title": "美國國會發布美中生技競爭最終報告、跨國授權合規風險升溫",
+        "body": "美國眾議院委員會於 11/23 發布美中生技競賽最終報告，示警中國授權交易熱度與國安審查交織（｜）；同時 FDA 單日高效核准四項新藥／新適應症，展現審查中心作業並未因局長懸缺而停擺。",
+        "url": "https://www.google.com/url?q=https://endpoints.news/house-committee-issues-final-report-on-us-china-biotech-race/&amp;source=gmail&amp;ust=1795561696228000&amp;sa=E",
+        "source": "Endpoints News"
+      },
+      {
+        "cat": "重大事件",
+        "title": "Roche 一週連奪兩張乳癌口服 SERD 藥證、禮來再買神經新創",
+        "body": "Roche 在一週內（11/16 與 11/23）將 Wilserdly 從晚期推向早期 ER+/HER2- 輔助治療，商業天花板倍增；禮來斥資最高 7.25 億美元收購 LoQus23 布局亨丁頓舞蹈症，顯示現金充沛的減重龍頭正積極多角化投資（｜）。",
+        "url": "https://www.google.com/url?q=https://www.gene.com/media/news-features/fda-approves-the-first-new-endocrine-therapy-for-early-stage-er-positive-her2-negative-breast-cancer-in-over-20-years&amp;source=gmail&amp;ust=1795561696228000&amp;sa=E",
+        "source": "Genentech"
+      },
+      {
+        "cat": "技術突破",
+        "title": "AI 藥物開發年度授權突破 460 億美元、STAT6 降解劑與核醫影像加速",
+        "body": "2026 年 AI 製藥授權總額已達 460 億美元（78% 前二十大藥廠參與）且臨床成功率高於傳統基準（）；技術端 Kymera STAT6 降解劑突破異位性皮膚炎中期試驗，Cu-64 PSMA 影像劑亦獲快速審查，標靶蛋白降解與精準核醫雙線並進（）。",
+        "url": "https://www.google.com/url?q=https://emergent.sh/news/ai-drug-developers-hit-46b-deals-trial&amp;source=gmail&amp;ust=1795561696228000&amp;sa=E",
+        "source": "Emergent"
+      }
+    ]
+  },
+  {
     "id": "2026-11-23-pm",
     "date": "2026/11/23",
     "session": "晚報",
