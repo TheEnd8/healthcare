@@ -23,7 +23,8 @@ test('index2 presents daily intelligence before deep analysis and period-based m
 test('index2 consolidates regulatory events by agency and company events by company', () => {
   assert.match(html, /groupBy\(regs,x=>x\.org\|\|'其他機關'\)/);
   assert.match(html, /groupBy\(cos,x=>x\.name\|\|x\.sym\|\|'未標示公司'\)/);
-  assert.match(html, /監管機關彙整/);\n  assert.match(html, /k==='reg'\?groupBy\(items,x=>x\.group\|\|'未標示機關'\)/);
+  assert.match(html, /監管機關彙整/);
+  assert.match(html, /k==='reg'\?groupBy\(items,x=>x\.group\|\|'未標示機關'\)/);
 });
 
 test('index2 offers simple date, keyword, visibility, theme, and local priority settings', () => {
