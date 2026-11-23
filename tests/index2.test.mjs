@@ -54,3 +54,13 @@ test('catalyst tracking does not infer a scheduled date or status from an event 
   assert.ok(html.includes('x.expectedDate||x.expected_date||x.catalystDate'));
   assert.ok(html.includes('此期間資料沒有獨立的催化劑欄位'));
 });
+
+
+test('company events render real quote, movement, date, source, and watchlist fields as responsive cards', () => {
+  for (const token of ['stock-event-grid','stock-event-quote','stock-price','stock-change','stock-event-summary','stock-event-meta','stock-watch','x.ticker||x.sym||x.symbol','x.price??x.close??x.lastPrice','x.change??x.pctChange??x.pct','x.source||x.sourceName||x.publisher','x.watchlist===true','x.summary||x.value||x.impact||x.detail||x.text||x.event']) {
+    assert.ok(html.includes(token), 'missing '+token);
+  }
+  assert.ok(html.includes('grid-template-columns:1fr'));
+  assert.ok(html.includes('公司名稱') === false);
+  assert.ok(html.includes('class="stock-event-grid"'));
+});
