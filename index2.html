@@ -833,8 +833,14 @@
           const res = await fetch('./data/reports_index.json', { cache: 'no-store' });
           if (res.ok) {
             const remote = await res.json();
-            if (Array.isArray(remote) && remote.length > 0 && remote[0].co) {
-              state.reports = remote;
+            if (Array.isArray(remote) && remote.length > 0) {
+              const mergedMap = new Map();
+              REPORTS_DATA.forEach(r => mergedMap.set(r.id, r));
+              remote.forEach(r => {
+                if (r && r.id && Array.isArray(r.co)) mergedMap.set(r.id, r);
+              });
+              state.reports = Array.from(mergedMap.values()).sort((a, b) => String(b.id).localeCompare(String(a.id)));
+              state.currentIndex = 0;
               render();
             }
           }
