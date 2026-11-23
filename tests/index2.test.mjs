@@ -21,10 +21,10 @@ test('index2 presents daily intelligence before deep analysis and period-based m
 });
 
 test('index2 consolidates regulatory events by agency and company events by company', () => {
-  assert.match(html, /groupBy\(regs,x=>x\.org\|\|'其他機關'\)/);
-  assert.match(html, /groupBy\(cos,x=>x\.name\|\|x\.sym\|\|'未標示公司'\)/);
+  assert.match(html, /const AGENCIES=\['FDA','EMA','NMPA','PMDA','TFDA'\]/);\n  assert.match(html, /function agencyKey\(x\)/);\n  assert.match(html, /for\(const agency of AGENCIES\)/);
+  assert.match(html, /groupBy\(cos,x=>x\.name\|\|x\.sym\|\|'未標示公司'\)/);\n  assert.match(html, /class=\\"entity-card\\"/);\n  assert.match(html, /class=\\"record\\"/);
   assert.match(html, /監管機關彙整/);
-  assert.match(html, /k==='reg'\?groupBy\(items,x=>x\.group\|\|'未標示機關'\)/);
+  assert.match(html, /function recordMarkup\(x,kind\)/);\n  assert.match(html, /function renderMajor\(\)/);
 });
 
 test('index2 offers simple date, keyword, visibility, theme, and local priority settings', () => {
@@ -40,4 +40,21 @@ test('index2 includes a tiered batch-query recommendation without changing sourc
   assert.match(html, /第 2 層｜中型市值／成長型/);
   assert.match(html, /第 3 層｜小型／早期／低關注/);
   assert.match(html, /每批約 20–30 家/);
+});
+
+test('major events use responsive expandable agency, company, and catalyst cards', () => {
+  for (const cls of ['agency-card','entity-card','catalyst-card','record-body']) {
+    assert.ok(html.includes(cls), 'missing responsive component '+cls);
+  }
+  assert.match(html, /@media\(max-width:760px\)/);
+  assert.match(html, /grid-template-columns:1fr/);
+  assert.match(html, /details class="agency-card"/);
+  assert.match(html, /details class="entity-card"/);
+  assert.match(html, /details class="catalyst-card"/);
+});
+
+test('catalyst tracking does not infer a scheduled date or status from an event date', () => {
+  assert.match(html, /原始資料未提供/);
+  assert.match(html, /x\.expectedDate\|\|x\.expected_date\|\|x\.catalystDate/);
+  assert.match(html, /原始資料沒有獨立的催化劑欄位/);
 });
