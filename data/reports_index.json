@@ -1,5 +1,184 @@
 [
   {
+    "id": "2026-11-23-pm",
+    "date": "2026/11/23",
+    "session": "晚報",
+    "window": "2026/11/23",
+    "headline": "諾華 Leqvio 三期心血管結果達標、中國啟動單抗生物藥聯盟集採、綠葉/恆瑞獲 NMPA 核准",
+    "topics": [
+      "6446.TW 藥華藥",
+      "NVS Novartis",
+      "600276.SH 綠葉製藥 (2186.HK) / 恆瑞醫藥",
+      "CSL.AX CSL Limited",
+      "NMPA",
+      "EMA",
+      "TFDA"
+    ],
+    "co": [
+      {
+        "ticker": "6446.TW",
+        "name": "藥華藥",
+        "price": "1,080.00 元",
+        "change": "▼ -1.82%",
+        "date": "2026/11/23 收盤",
+        "summary": "11/23 開盤 1,100 元、盤中低點 1,065 元、終場收 1,080 元（今日為台灣 50 指數成分股比價日）。",
+        "url": "https://www.google.com/url?q=https://www.wantgoo.com/stock/6446/technical-chart&amp;source=gmail&amp;ust=1795513113755000&amp;sa=E",
+        "source": "玩股網",
+        "watchlist": true
+      },
+      {
+        "ticker": "NVS",
+        "name": "Novartis",
+        "price": "—",
+        "change": "●",
+        "date": "2026/11/23",
+        "summary": "宣布 siRNA 降脂藥 Leqvio (inclisiran) 於三期 ORION-4 試驗取得正面頂線結果，為首款證實降低 ASCVD 心血管事件風險之 siRNA 療法（完整數據預計 2027 H1 公布）。",
+        "url": "https://www.google.com/url?q=https://www.novartis.com/news/media-releases/twice-yearly-leqvio-inclisiran-reduced-cardiovascular-event-risk-first-outcomes-study-sirna-therapy-ascvd&amp;source=gmail&amp;ust=1795513113755000&amp;sa=E",
+        "source": "Novartis 新聞稿",
+        "watchlist": false
+      },
+      {
+        "ticker": "600276.SH",
+        "name": "綠葉製藥 (2186.HK) / 恆瑞醫藥",
+        "price": "—",
+        "change": "●",
+        "date": "2026/11/23",
+        "summary": "綠葉 1 類新藥若欣林獲 NMPA 核准抗焦慮新適應症；恆瑞 1 類雙靶止吐針劑瑞坦寧獲批預防中度致吐性化療（MEC）噁心嘔吐。",
+        "url": "https://www.google.com/url?q=https://www.mrjjxw.com/articles/2026-11-22/4655194.html&amp;source=gmail&amp;ust=1795513113755000&amp;sa=E",
+        "source": "每日經濟新聞",
+        "watchlist": false
+      },
+      {
+        "ticker": "CSL.AX",
+        "name": "CSL Limited",
+        "price": "買回均價 A$190.92",
+        "change": "●",
+        "date": "2026/11/23 公告",
+        "summary": "申報累計已買回 1,136,019 股（總額 A$2.1689 億，達 11.5 億澳幣庫藏股上限約 18.9%）。",
+        "url": "https://www.google.com/url?q=https://kalkine.com.au/stock-analysis/healthcare/how-does-csls-asxcsl-a115-billion-on-market-buy-back-work-and-how-many-shares-has-it-bought&amp;source=gmail&amp;ust=1795513113755000&amp;sa=E",
+        "source": "Kalkine Media",
+        "watchlist": false
+      },
+      {
+        "ticker": "7972.TW",
+        "name": "三福生醫",
+        "price": "11/25 登錄興櫃",
+        "change": "●",
+        "date": "2026/11/23",
+        "summary": "今日舉辦興櫃前法說會，預計 11/25 登錄興櫃，推進自美日引進之三款 First-in-Class 免疫與實體腫瘤新藥。",
+        "url": "https://www.google.com/url?q=https://news.gbimonthly.com/tw/invest/show.php?num%3D91582%26range%3Dnews&amp;source=gmail&amp;ust=1795513113755000&amp;sa=E",
+        "source": "環球生技月刊",
+        "watchlist": false
+      },
+      {
+        "ticker": "IVVD",
+        "name": "Invivyd",
+        "price": "—",
+        "change": "●",
+        "date": "2026/11/23",
+        "summary": "今日召開電話會議公布 Phase 3 DECLARATION 臨床試驗期中分析結果。",
+        "url": "https://www.google.com/url?q=https://investors.invivyd.com/news-releases/news-release-details/invivyd-host-conference-call-announce-results-interim-analysis&amp;source=gmail&amp;ust=1795513113755000&amp;sa=E",
+        "source": "Invivyd IR",
+        "watchlist": false
+      }
+    ],
+    "reg": [
+      {
+        "agency": "NMPA",
+        "date": "2026/11/23",
+        "title": "全國單抗集採啟動 & 若欣林/瑞坦寧獲批",
+        "detail": "啟動 7 個單抗品種聯盟集採（總規模 340.8 億人民幣，11/24–27 開放申報）（）；NMPA 同日核准綠葉若欣林與恆瑞瑞坦寧新適應症（）。",
+        "url": "https://www.google.com/url?q=https://www.sfccn.com/2026/11-23/0MMDE0MDdfMjMxNDQ0Mg.html&amp;source=gmail&amp;ust=1795513113755000&amp;sa=E",
+        "source": "南方財經網"
+      },
+      {
+        "agency": "EMA",
+        "date": "2026/11/23",
+        "title": "歐盟醫藥法規包裹案（EU Pharma Package）",
+        "detail": "歐洲議會今日表定進行二讀投票，聚焦資料保護期（8+2+1 年）與新藥研發誘因改革。",
+        "url": "https://www.google.com/url?q=https://foodandpharmalaw.com/pharmaceutical-regulatory-compliance/&amp;source=gmail&amp;ust=1795513113755000&amp;sa=E",
+        "source": "Food &amp; Pharma Law"
+      },
+      {
+        "agency": "TFDA",
+        "date": "2026/11/23",
+        "title": "116 年度精準檢測與藥品供應鏈計畫",
+        "detail": "公告「精準醫療分子檢測實驗室認證管理制度研析計畫」及「完善藥品追溯追蹤及供應鏈管理機制計畫」。",
+        "url": "https://www.google.com/url?q=https://www.fda.gov.tw/&amp;source=gmail&amp;ust=1795513113755000&amp;sa=E",
+        "source": "TFDA 官網"
+      },
+      {
+        "agency": "FDA",
+        "date": "2026/11/23",
+        "title": "無新藥證增量公告",
+        "detail": "近 12 小時美日藥監無新增藥證／醫材證發布。",
+        "url": "",
+        "source": "來源"
+      }
+    ],
+    "cat": [
+      {
+        "asset": "Leqvio (ORION-4)（Novartis / NVS）",
+        "type": "臨床數據讀出",
+        "date": "2026/11/23",
+        "status": "已通過已完成",
+        "outcome": "優於預期",
+        "note": "首款證實降低 ASCVD 心血管事件風險之 siRNA 療法，打破心血管結局門檻。",
+        "url": "https://www.google.com/url?q=https://www.novartis.com/news/media-releases/twice-yearly-leqvio-inclisiran-reduced-cardiovascular-event-risk-first-outcomes-study-sirna-therapy-ascvd&amp;source=gmail&amp;ust=1795513113756000&amp;sa=E"
+      },
+      {
+        "asset": "若欣林 & 瑞坦寧（綠葉 / 恆瑞）",
+        "type": "PDUFA監管決策",
+        "date": "2026/11/23",
+        "status": "已通過已完成",
+        "outcome": "符合預期",
+        "note": "雙雙獲 NMPA 核准擴展關鍵新適應症。",
+        "url": "https://www.google.com/url?q=https://www.mrjjxw.com/articles/2026-11-22/4655194.html&amp;source=gmail&amp;ust=1795513113756000&amp;sa=E"
+      },
+      {
+        "asset": "64Cu-SAR-bisPSMA (AMPLIFY)（Clarity）",
+        "type": "試驗里程碑",
+        "date": "2026/11/19",
+        "status": "已通過已完成",
+        "outcome": "符合預期",
+        "note": "前列腺癌診斷三期試驗完成所有受試者最終追蹤評估。",
+        "url": "https://www.google.com/url?q=https://www.claritypharmaceuticals.com/news/&amp;source=gmail&amp;ust=1795513113756000&amp;sa=E"
+      },
+      {
+        "asset": "三福生醫 (7972.TW)",
+        "type": "商業里程碑",
+        "date": "2026/11/25",
+        "status": "預期發生",
+        "outcome": "預期發生",
+        "note": "預計週三正式登錄台灣興櫃市場。",
+        "url": "https://www.google.com/url?q=https://news.gbimonthly.com/tw/invest/show.php?num%3D91582%26range%3Dnews&amp;source=gmail&amp;ust=1795513113756000&amp;sa=E"
+      }
+    ],
+    "deep": [
+      {
+        "cat": "政策變化",
+        "title": "中國首次啟動全國單抗聯盟集採，量產履歷與智財承諾成硬門檻",
+        "body": "中國單抗集採正式涵蓋貝伐珠單抗（147 億人民幣）等 7 大品種（總盤子 340.8 億人民幣），雖將壓縮成熟生物相似藥毛利，但要求「無侵權承諾」與「境外 GMP 查驗／量產履歷」，有助淘汰低質產能並提升龍頭藥企市占率（）。",
+        "url": "https://www.google.com/url?q=https://www.sfccn.com/2026/11-23/0MMDE0MDdfMjMxNDQ0Mg.html&amp;source=gmail&amp;ust=1795513113756000&amp;sa=E",
+        "source": "南方財經網"
+      },
+      {
+        "cat": "重大事件",
+        "title": "諾華 Leqvio 取得 siRNA 心血管結局實證，台股藥華藥測底整理",
+        "body": "Leqvio 在 ORION-4 證實降低重大心血管事件，將大幅強化諾華與醫保給付談判力並打開一線降脂滲透率；台股方面，藥華藥收 1,080 元進入台灣 50 比價觀察期，短線籌碼消化後仍視基本面支撐（｜）。",
+        "url": "https://www.google.com/url?q=https://www.novartis.com/news/media-releases/twice-yearly-leqvio-inclisiran-reduced-cardiovascular-event-risk-first-outcomes-study-sirna-therapy-ascvd&amp;source=gmail&amp;ust=1795513113756000&amp;sa=E",
+        "source": "Novartis"
+      },
+      {
+        "cat": "技術突破",
+        "title": "半年打一次 siRNA 改寫慢性病治療週期、核醫診斷推進三期收官",
+        "body": "Leqvio 半年一針的 siRNA 結局數據成功樹立長效核酸療法典範，與核醫診斷劑 64Cu-SAR-bisPSMA（AMPLIFY 完成追蹤）共同展現精準長效與靶向診療的技術成熟度（｜）。",
+        "url": "https://www.google.com/url?q=https://www.novartis.com/news/media-releases/twice-yearly-leqvio-inclisiran-reduced-cardiovascular-event-risk-first-outcomes-study-sirna-therapy-ascvd&amp;source=gmail&amp;ust=1795513113756000&amp;sa=E",
+        "source": "Novartis"
+      }
+    ]
+  },
+  {
     "id": "2026-11-23-am",
     "date": "2026/11/23",
     "session": "早報",
