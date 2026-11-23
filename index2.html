@@ -127,11 +127,11 @@
     </div>
 
     <!-- SECTION 1: 每日早報／晚報 -->
-    <section id="sec1Container" class="space-y-4">
+    <section id="sec1Container" class="space-y-4 bg-sky-50/45 border border-sky-200/80 rounded-2xl p-4 sm:p-5">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
           <div class="flex items-center gap-2 flex-wrap">
-            <h2 class="text-lg sm:text-xl font-bold text-slate-900">一、每日早報／晚報</h2>
+            <h2 class="text-lg sm:text-xl font-bold text-slate-900 border-l-4 border-sky-500 pl-3">一、每日早報／晚報</h2>
             <span id="editionBadge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-100 text-sky-800">2026/11/23 早報</span>
           </div>
           <p id="editionHeadline" class="text-xs sm:text-sm text-slate-600 mt-1"></p>
@@ -160,9 +160,9 @@
     </section>
 
     <!-- SECTION 2: 深度解析：政策、重大事件與技術突破 -->
-    <section id="sec2Container" class="space-y-3 pt-2 border-t border-slate-200">
+    <section id="sec2Container" class="space-y-3 bg-amber-50/40 border border-amber-200/80 rounded-2xl p-4 sm:p-5">
       <div class="flex items-center justify-between gap-2 flex-wrap">
-        <h2 class="text-lg sm:text-xl font-bold text-slate-900">二、深度解析：政策、重大事件與技術突破</h2>
+        <h2 class="text-lg sm:text-xl font-bold text-slate-900 border-l-4 border-amber-500 pl-3">二、深度解析：政策、重大事件與技術突破</h2>
         <div class="flex items-center gap-2">
           <select id="sec2Sort" class="text-xs border border-slate-300 rounded-lg px-2.5 py-1.5 bg-white text-slate-700 cursor-pointer">
             <option value="date">依日期排序（新→舊）</option>
@@ -174,9 +174,9 @@
     </section>
 
     <!-- SECTION 3: 各國藥監機關動態 -->
-    <section id="sec3Container" class="space-y-3 pt-2 border-t border-slate-200">
+    <section id="sec3Container" class="space-y-3 bg-indigo-50/40 border border-indigo-200/80 rounded-2xl p-4 sm:p-5">
       <div class="flex items-center justify-between gap-2 flex-wrap">
-        <h2 class="text-lg sm:text-xl font-bold text-slate-900">三、各國藥監機關動態</h2>
+        <h2 class="text-lg sm:text-xl font-bold text-slate-900 border-l-4 border-indigo-500 pl-3">三、各國藥監機關動態</h2>
         <select id="sec3Sort" class="text-xs border border-slate-300 rounded-lg px-2.5 py-1.5 bg-white text-slate-700 cursor-pointer">
           <option value="agency">依藥監機關分組</option>
           <option value="date">依日期排序（新→舊）</option>
@@ -186,9 +186,9 @@
     </section>
 
     <!-- SECTION 4: 全球主要業者及指定重點關注標的 -->
-    <section id="sec4Container" class="space-y-3 pt-2 border-t border-slate-200 pb-8">
+    <section id="sec4Container" class="space-y-3 bg-emerald-50/35 border border-emerald-200/80 rounded-2xl p-4 sm:p-5 mb-6">
       <div class="flex items-center justify-between gap-2 flex-wrap">
-        <h2 class="text-lg sm:text-xl font-bold text-slate-900">四、全球主要業者及指定重點關注標的</h2>
+        <h2 class="text-lg sm:text-xl font-bold text-slate-900 border-l-4 border-emerald-500 pl-3">四、全球主要業者及指定重點關注標的</h2>
         <select id="sec4Sort" class="text-xs border border-slate-300 rounded-lg px-2.5 py-1.5 bg-white text-slate-700 cursor-pointer">
           <option value="group">關注標的優先分組</option>
           <option value="change">依漲跌幅排序</option>
@@ -385,6 +385,24 @@
       return 'text-slate-500';
     }
 
+    function agencyBadgeClass(agency) {
+      const map = {
+        FDA: 'bg-blue-100 text-blue-800 border border-blue-200',
+        EMA: 'bg-indigo-100 text-indigo-800 border border-indigo-200',
+        NMPA: 'bg-rose-100 text-rose-800 border border-rose-200',
+        TFDA: 'bg-emerald-100 text-emerald-800 border border-emerald-200',
+        PMDA: 'bg-purple-100 text-purple-800 border border-purple-200'
+      };
+      return map[agency] || 'bg-slate-100 text-slate-700 border border-slate-200';
+    }
+
+    function deepCatClass(cat) {
+      if (cat === '政策變化') return 'bg-blue-700 text-white';
+      if (cat === '重大事件') return 'bg-rose-700 text-white';
+      if (cat === '技術突破') return 'bg-teal-700 text-white';
+      return 'bg-slate-800 text-white';
+    }
+
     function outcomeBadge(outcome) {
       if (outcome.includes('優於預期')) return 'bg-emerald-50 text-emerald-700 border-emerald-200';
       if (outcome.includes('低於預期')) return 'bg-rose-50 text-rose-700 border-rose-200';
@@ -408,11 +426,18 @@
     }
 
     function renderTableBlock(title, dotColor, headers, rowsHtml) {
+      const accentMap = {
+        'bg-sky-500': 'border-l-4 border-l-sky-500 bg-sky-50/80',
+        'bg-indigo-500': 'border-l-4 border-l-indigo-500 bg-indigo-50/80',
+        'bg-emerald-500': 'border-l-4 border-l-emerald-500 bg-emerald-50/80',
+        'bg-amber-500': 'border-l-4 border-l-amber-500 bg-amber-50/80'
+      };
+      const hdrCls = accentMap[dotColor] || 'bg-slate-50';
       return `
         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-          <div class="px-4 py-2.5 bg-slate-50 border-b border-slate-200">
+          <div class="px-4 py-2.5 border-b border-slate-200 ${hdrCls}">
             <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full ${dotColor}"></span>
+              <span class="w-2.5 h-2.5 rounded-full ${dotColor}"></span>
               ${title}
             </h3>
           </div>
@@ -475,7 +500,7 @@
             out += renderTableBlock('五大藥監機關動態', 'bg-indigo-500', ['藥監', '日期', '藥品 / 法規案', '最新決議'], f.reg.map((item, idx) => {
               const key = `${r.id}-reg-${idx}`, isOpen = Boolean(state.expandedIds[key]), isLong = item.detail.length > 45;
               return `<tr class="hover:bg-slate-50/80">
-                <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-bold bg-indigo-50 text-indigo-700">${escapeHtml(item.agency)}</span></td>
+                <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-bold ${agencyBadgeClass(item.agency)}">${escapeHtml(item.agency)}</span></td>
                 <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(item.date)}</td>
                 <td class="py-2.5 px-3 align-top font-semibold text-slate-900 whitespace-nowrap">${highlightText(item.title, q)}</td>
                 <td class="py-2.5 px-3 align-top text-slate-700 min-w-[240px]">${highlightText(isLong && !isOpen ? item.detail.slice(0, 45) + '…' : item.detail, q)} ${isLong ? `<button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-sky-600 hover:underline cursor-pointer">${isOpen ? '收合' : '展開'}</button>` : ''} <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(item.source)}]</a></td>
@@ -498,7 +523,7 @@
             out += renderTableBlock('深度研報與趨勢', 'bg-amber-500', ['類別', '主題', '重點解析'], f.deep.map((item, idx) => {
               const key = `${r.id}-deep-${idx}`, isOpen = Boolean(state.expandedIds[key]), isLong = item.body.length > 45;
               return `<tr class="hover:bg-slate-50/80">
-                <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-semibold bg-slate-800 text-white">${escapeHtml(item.cat)}</span></td>
+                <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-semibold ${deepCatClass(item.cat)}">${escapeHtml(item.cat)}</span></td>
                 <td class="py-2.5 px-3 align-top font-bold text-slate-900 min-w-[180px]">${highlightText(item.title, q)}</td>
                 <td class="py-2.5 px-3 align-top text-slate-700 min-w-[240px]">${highlightText(isLong && !isOpen ? item.body.slice(0, 45) + '…' : item.body, q)} ${isLong ? `<button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-sky-600 hover:underline cursor-pointer">${isOpen ? '收合' : '展開'}</button>` : ''} <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(item.source)}]</a></td>
               </tr>`;
@@ -506,9 +531,9 @@
           }
         } else {
           if (showCo) out += `<div class="space-y-2">${f.co.map((item, idx) => renderExpandableCard(`${r.id}-c-co-${idx}`, `<div class="flex items-center justify-between gap-2 flex-wrap"><span class="font-bold text-slate-900 text-sm">${item.watchlist ? '<span class="text-amber-500 mr-1">★</span>' : ''}${highlightText(item.name, q)} <span class="text-xs font-normal text-slate-500">${highlightText(item.ticker, q)}</span></span><span class="text-xs"><span class="font-semibold">${escapeHtml(item.price)}</span> <span class="${changeColor(item.change)}">${escapeHtml(item.change)}</span> <span class="text-slate-400">${escapeHtml(item.date)}</span></span></div>`, `<p>${highlightText(item.summary, q)}</p><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-xs font-semibold text-sky-600 hover:underline">查看來源（${escapeHtml(item.source)}）→</a>`)).join('')}</div>`;
-          if (showReg) out += `<div class="space-y-2">${f.reg.map((item, idx) => renderExpandableCard(`${r.id}-c-reg-${idx}`, `<div class="flex items-center justify-between gap-2"><div class="flex items-center gap-2 min-w-0"><span class="px-2 py-0.5 rounded text-xs font-bold bg-indigo-50 text-indigo-700 shrink-0">${escapeHtml(item.agency)}</span><span class="font-bold text-slate-900 text-sm truncate">${highlightText(item.title, q)}</span></div><span class="text-xs text-slate-400 shrink-0">${escapeHtml(item.date)}</span></div>`, `<p>${highlightText(item.detail, q)}</p><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-xs font-semibold text-sky-600 hover:underline">查看來源（${escapeHtml(item.source)}）→</a>`)).join('')}</div>`;
+          if (showReg) out += `<div class="space-y-2">${f.reg.map((item, idx) => renderExpandableCard(`${r.id}-c-reg-${idx}`, `<div class="flex items-center justify-between gap-2"><div class="flex items-center gap-2 min-w-0"><span class="px-2 py-0.5 rounded text-xs font-bold ${agencyBadgeClass(item.agency)} shrink-0">${escapeHtml(item.agency)}</span><span class="font-bold text-slate-900 text-sm truncate">${highlightText(item.title, q)}</span></div><span class="text-xs text-slate-400 shrink-0">${escapeHtml(item.date)}</span></div>`, `<p>${highlightText(item.detail, q)}</p><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-xs font-semibold text-sky-600 hover:underline">查看來源（${escapeHtml(item.source)}）→</a>`)).join('')}</div>`;
           if (showCat) out += `<div class="space-y-2">${f.cat.map((item, idx) => renderExpandableCard(`${r.id}-c-cat-${idx}`, `<div class="flex items-center justify-between gap-2 flex-wrap"><span class="font-bold text-slate-900 text-sm">${highlightText(item.asset, q)} · <span class="text-xs font-normal text-slate-500">${escapeHtml(item.type)}</span></span><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold border ${outcomeBadge(item.outcome)}">${escapeHtml(item.outcome)}</span></div>`, `<p>${highlightText(item.note, q)}</p><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-xs font-semibold text-sky-600 hover:underline">查看來源（${escapeHtml(item.source)}）→</a>`)).join('')}</div>`;
-          if (showDeep) out += `<div class="space-y-2">${f.deep.map((item, idx) => renderExpandableCard(`${r.id}-c-deep-${idx}`, `<div class="flex items-center gap-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold bg-slate-800 text-white shrink-0">${escapeHtml(item.cat)}</span><span class="font-bold text-slate-900 text-sm truncate">${highlightText(item.title, q)}</span></div>`, `<p>${highlightText(item.body, q)}</p><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-xs font-semibold text-sky-600 hover:underline">閱讀來源（${escapeHtml(item.source)}）→</a>`)).join('')}</div>`;
+          if (showDeep) out += `<div class="space-y-2">${f.deep.map((item, idx) => renderExpandableCard(`${r.id}-c-deep-${idx}`, `<div class="flex items-center gap-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold ${deepCatClass(item.cat)} shrink-0">${escapeHtml(item.cat)}</span><span class="font-bold text-slate-900 text-sm truncate">${highlightText(item.title, q)}</span></div>`, `<p>${highlightText(item.body, q)}</p><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-xs font-semibold text-sky-600 hover:underline">閱讀來源（${escapeHtml(item.source)}）→</a>`)).join('')}</div>`;
         }
         return out;
       };
@@ -532,7 +557,7 @@
         `sec2-${d.id}`,
         `<div class="flex items-center justify-between gap-2 flex-wrap">
           <div class="flex items-center gap-2 min-w-0">
-            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-slate-800 text-white shrink-0">${escapeHtml(d.cat)}</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-bold ${deepCatClass(d.cat)} shrink-0">${escapeHtml(d.cat)}</span>
             <span class="font-bold text-slate-900 text-sm truncate">${highlightText(d.title, q)}</span>
           </div>
           <span class="text-xs text-slate-400 shrink-0">${escapeHtml(d.date)}</span>
@@ -560,7 +585,7 @@
         `sec3-${r.id}`,
         `<div class="flex items-center justify-between gap-2 flex-wrap">
           <div class="flex items-center gap-2 min-w-0">
-            <span class="px-2 py-0.5 rounded text-xs font-bold bg-indigo-50 text-indigo-700 shrink-0">${escapeHtml(r.agency)}</span>
+            <span class="px-2 py-0.5 rounded text-xs font-bold ${agencyBadgeClass(r.agency)} shrink-0">${escapeHtml(r.agency)}</span>
             <span class="font-bold text-slate-900 text-sm truncate">${highlightText(r.title, q)}</span>
           </div>
           <span class="text-xs text-slate-400 shrink-0">${escapeHtml(r.date)}</span>
@@ -801,7 +826,24 @@
       if (e.key === 'ArrowRight') switchEdition(state.currentIndex + 1, 'left');
     });
 
+
+    async function tryLoadRemoteJson() {
+      if (location.protocol === 'http:' || location.protocol === 'https:') {
+        try {
+          const res = await fetch('./data/reports_index.json', { cache: 'no-store' });
+          if (res.ok) {
+            const remote = await res.json();
+            if (Array.isArray(remote) && remote.length > 0 && remote[0].co) {
+              state.reports = remote;
+              render();
+            }
+          }
+        } catch (_) { /* Fallback to embedded data */ }
+      }
+    }
+
     render();
+    tryLoadRemoteJson();
   </script>
 </body>
 </html>
