@@ -669,9 +669,9 @@
               <td class="py-2.5 px-3 align-top whitespace-nowrap font-bold text-slate-900">${item.watchlist ? '<span class="text-amber-500 mr-0.5">★</span>' : ''}${highlightText(item.name, q)} <span class="text-xs font-normal text-slate-500">${highlightText(item.ticker, q)}</span></td>
               <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="font-medium">${escapeHtml(item.price)}</span> <span class="text-xs ${changeColor(item.change)}">${escapeHtml(item.change)}</span></td>
               <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(item.date)}</td>
-              <td class="py-2.5 px-3 align-top text-slate-700 min-w-[260px]">
+              <td class="py-2.5 px-3 align-top text-slate-700 min-w-0">
                 <div>${highlightText(item.summary, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-sky-600 hover:underline cursor-pointer">${isOpen ? '收合短評' : '展開短評'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(item.source)}]</a></div>
-                ${isOpen && item.analysis ? `<div class="mt-2 p-2.5 rounded-lg bg-sky-50/70 border border-sky-200/80 text-xs text-slate-700"><span class="font-bold text-sky-900">短評與意涵：</span>${highlightText(item.analysis, q)}</div>` : ''}
+                ${isOpen ? `<div class="mt-2 p-2.5 rounded-lg bg-sky-50/70 border border-sky-200/80 text-xs text-slate-700 space-y-1"><div><span class="font-bold text-sky-900">短評與意涵：</span>${highlightText(item.analysis || (item.summary + '（持續追蹤後續營收與法規進度）'), q)}</div><div class="text-[11px] text-slate-500">日期：${escapeHtml(item.date)}｜來源：${escapeHtml(item.source)}</div></div>` : ''}
               </td>
             </tr>`;
           }).join(''));
@@ -683,9 +683,9 @@
               <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-bold ${agencyBadgeClass(item.agency)}">${escapeHtml(item.agency)}</span></td>
               <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(item.date)}</td>
               <td class="py-2.5 px-3 align-top font-semibold text-slate-900 whitespace-nowrap">${highlightText(item.title, q)}</td>
-              <td class="py-2.5 px-3 align-top text-slate-700 min-w-[260px]">
+              <td class="py-2.5 px-3 align-top text-slate-700 min-w-0">
                 <div>${highlightText(item.detail, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-indigo-600 hover:underline cursor-pointer">${isOpen ? '收合短評' : '展開短評'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(item.source)}]</a></div>
-                ${isOpen && item.analysis ? `<div class="mt-2 p-2.5 rounded-lg bg-indigo-50/70 border border-indigo-200/80 text-xs text-slate-700"><span class="font-bold text-indigo-900">法規解讀：</span>${highlightText(item.analysis, q)}</div>` : ''}
+                ${isOpen ? `<div class="mt-2 p-2.5 rounded-lg bg-indigo-50/70 border border-indigo-200/80 text-xs text-slate-700 space-y-1"><div><span class="font-bold text-indigo-900">法規解讀：</span>${highlightText(item.analysis || item.detail, q)}</div><div class="text-[11px] text-slate-500">機構：${escapeHtml(item.agency)}｜日期：${escapeHtml(item.date)}</div></div>` : ''}
               </td>
             </tr>`;
           }).join(''));
@@ -698,9 +698,9 @@
               <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-600">${escapeHtml(item.type)}</td>
               <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(item.date)}</td>
               <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold border ${outcomeBadge(item.outcome)}">${escapeHtml(item.outcome)}</span></td>
-              <td class="py-2.5 px-3 align-top text-slate-700 min-w-[240px]">
+              <td class="py-2.5 px-3 align-top text-slate-700 min-w-0">
                 <div>${highlightText(item.note, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-emerald-600 hover:underline cursor-pointer">${isOpen ? '收合短評' : '展開短評'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(item.source)}]</a></div>
-                ${isOpen && item.analysis ? `<div class="mt-2 p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200/80 text-xs text-slate-700"><span class="font-bold text-emerald-900">投資意涵：</span>${highlightText(item.analysis, q)}</div>` : ''}
+                ${isOpen ? `<div class="mt-2 p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200/80 text-xs text-slate-700 space-y-1"><div><span class="font-bold text-emerald-900">投資意涵：</span>${highlightText(item.analysis || item.note, q)}</div><div class="text-[11px] text-slate-500">類型：${escapeHtml(item.type)}｜評估：${escapeHtml(item.outcome)}</div></div>` : ''}
               </td>
             </tr>`;
           }).join(''));
@@ -710,10 +710,10 @@
             const key = `s1-deep-${idx}`, isOpen = Boolean(state.expandedIds[key]);
             return `<tr class="hover:bg-slate-50/80">
               <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-semibold ${deepCatClass(item.cat)}">${escapeHtml(item.cat)}</span></td>
-              <td class="py-2.5 px-3 align-top font-bold text-slate-900 min-w-[180px]">${highlightText(item.title, q)}</td>
-              <td class="py-2.5 px-3 align-top text-slate-700 min-w-[260px]">
+              <td class="py-2.5 px-3 align-top font-bold text-slate-900 min-w-0">${highlightText(item.title, q)}</td>
+              <td class="py-2.5 px-3 align-top text-slate-700 min-w-0">
                 <div>${highlightText(item.body, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-amber-700 hover:underline cursor-pointer">${isOpen ? '收合短評' : '展開短評'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(item.source)}]</a></div>
-                ${isOpen && item.analysis ? `<div class="mt-2 p-2.5 rounded-lg bg-amber-50/70 border border-amber-200/80 text-xs text-slate-700"><span class="font-bold text-amber-900">深度短評：</span>${highlightText(item.analysis, q)}</div>` : ''}
+                ${isOpen ? `<div class="mt-2 p-2.5 rounded-lg bg-amber-50/70 border border-amber-200/80 text-xs text-slate-700"><div><span class="font-bold text-amber-900">深度短評：</span>${highlightText(item.analysis || item.body, q)}</div></div>` : ''}
               </td>
             </tr>`;
           }).join(''));
@@ -754,8 +754,8 @@
           return `<tr class="hover:bg-slate-50/80">
             <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-bold ${deepCatClass(d.cat)}">${escapeHtml(d.cat)}</span></td>
             <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(d.date)}</td>
-            <td class="py-2.5 px-3 align-top font-bold text-slate-900 min-w-[200px]">${highlightText(d.title, q)}</td>
-            <td class="py-2.5 px-3 align-top text-slate-700 min-w-[260px]">
+            <td class="py-2.5 px-3 align-top font-bold text-slate-900 min-w-0">${highlightText(d.title, q)}</td>
+            <td class="py-2.5 px-3 align-top text-slate-700 min-w-0">
               <div>${highlightText(d.fact, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-amber-700 hover:underline cursor-pointer">${isOpen ? '收合深度' : '展開深度'}</button> <a href="${escapeHtml(d.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(d.source)}]</a></div>
               ${isOpen ? `<div class="mt-2 p-2.5 rounded-lg bg-amber-50/80 border border-amber-200 text-xs space-y-1"><div><b>背景：</b>${highlightText(d.background, q)}</div><div><b>影響：</b>${highlightText(d.impact, q)}</div><div><b>趨勢預測：</b>${highlightText(d.forecast, q)}</div></div>` : ''}
             </td>
@@ -789,7 +789,7 @@
             <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-bold ${agencyBadgeClass(r.agency)}">${escapeHtml(r.agency)}</span></td>
             <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(r.date)}</td>
             <td class="py-2.5 px-3 align-top font-bold text-slate-900 whitespace-nowrap">${highlightText(r.title, q)}</td>
-            <td class="py-2.5 px-3 align-top text-slate-700 min-w-[260px]">
+            <td class="py-2.5 px-3 align-top text-slate-700 min-w-0">
               <div>${highlightText(r.detail, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-violet-700 hover:underline cursor-pointer">${isOpen ? '收合解讀' : '展開解讀'}</button> <a href="${escapeHtml(r.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(r.source)}]</a></div>
               ${isOpen && r.analysis ? `<div class="mt-2 p-2.5 rounded-lg bg-violet-50/80 border border-violet-200 text-xs"><b>監管解讀：</b>${highlightText(r.analysis, q)}</div>` : ''}
             </td>
@@ -824,7 +824,7 @@
             <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-1.5 py-0.5 rounded text-[11px] bg-slate-100 text-slate-600">${escapeHtml(c.market)}</span></td>
             <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="font-medium">${escapeHtml(c.price)}</span> <span class="text-xs ${changeColor(c.changeText)}">${escapeHtml(c.changeText)}</span></td>
             <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(c.date)}</td>
-            <td class="py-2.5 px-3 align-top text-slate-700 min-w-[260px]">
+            <td class="py-2.5 px-3 align-top text-slate-700 min-w-0">
               <div>${highlightText(c.events[0], q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-emerald-700 hover:underline cursor-pointer">${isOpen ? '收合' : '展開短評'}</button></div>
               ${isOpen ? `<div class="mt-2 p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200 text-xs space-y-1.5"><ul class="list-disc pl-4">${c.events.map(ev => `<li>${highlightText(ev, q)}</li>`).join('')}</ul><div><b>評價短評：</b>${highlightText(c.analysis || '', q)}</div><div class="flex gap-3 pt-1"><a href="${escapeHtml(c.yahoo)}" target="_blank" rel="noopener noreferrer" class="text-sky-600 font-semibold hover:underline">Yahoo Finance ↗</a><a href="${escapeHtml(c.google)}" target="_blank" rel="noopener noreferrer" class="text-sky-600 font-semibold hover:underline">Google Finance ↗</a></div></div>` : ''}
             </td>
@@ -988,9 +988,12 @@
     document.querySelector('main').addEventListener('click', (e) => {
       const btn = e.target.closest('.expand-btn');
       if (!btn) return;
+      e.preventDefault();
+      const scrollY = window.scrollY;
       const key = btn.dataset.toggle;
       state.expandedIds[key] = !state.expandedIds[key];
       render();
+      window.scrollTo(0, scrollY);
     });
 
     $('searchInput').addEventListener('input', (e) => {
@@ -1060,11 +1063,18 @@
     $('sec3Sort').addEventListener('change', (e) => { state.sec3Sort = e.target.value; savePrefs(); renderSection3(); if (window.lucide) lucide.createIcons(); });
     $('sec4Sort').addEventListener('change', (e) => { state.sec4Sort = e.target.value; savePrefs(); renderSection4(); if (window.lucide) lucide.createIcons(); });
 
-    let sx = 0, sy = 0;
-    $('swipeContainer').addEventListener('touchstart', (e) => { sx = e.changedTouches[0].screenX; sy = e.changedTouches[0].screenY; }, { passive: true });
+    let sx = 0, sy = 0, ignoreSwipe = false;
+    $('swipeContainer').addEventListener('touchstart', (e) => {
+      ignoreSwipe = Boolean(e.target.closest('.overflow-x-auto, table, input, select, button, a'));
+      sx = e.changedTouches[0].screenX;
+      sy = e.changedTouches[0].screenY;
+    }, { passive: true });
     $('swipeContainer').addEventListener('touchend', (e) => {
+      if (ignoreSwipe) return;
       const dx = e.changedTouches[0].screenX - sx, dy = e.changedTouches[0].screenY - sy;
-      if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4) switchEdition(state.currentIndex + (dx < 0 ? 1 : -1), dx < 0 ? 'left' : 'right');
+      if (Math.abs(dx) > 85 && Math.abs(dx) > Math.abs(dy) * 2.0) {
+        switchEdition(state.currentIndex + (dx < 0 ? 1 : -1), dx < 0 ? 'left' : 'right');
+      }
     }, { passive: true });
 
     document.addEventListener('keydown', (e) => {
