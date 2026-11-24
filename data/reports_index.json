@@ -1,5 +1,204 @@
 [
   {
+    "id": "2026-11-25-am",
+    "date": "2026/11/25",
+    "session": "早報",
+    "window": "2026/11/25",
+    "headline": "Sanofi 410 億美元現金收購 Insmed、FDA 核准 Cogent GIST 新藥 Ekitna、華為動態血糖儀獲 NMPA 三類證",
+    "topics": [
+      "INSM Sanofi (SNY) / Insmed",
+      "COGT Cogent Biosciences",
+      "VRTX Vertex",
+      "TMO Thermo Fisher",
+      "FDA",
+      "NMPA"
+    ],
+    "co": [
+      {
+        "ticker": "INSM",
+        "name": "Sanofi (SNY) / Insmed",
+        "price": "INSM 盤前暴漲逾 14.5% 近 $170.78",
+        "change": "▲",
+        "date": "2026/11/24",
+        "summary": "賽諾菲正式宣布以 410 億美元全現金收購 Insmed，鎖定其呼吸與罕病商業化管線以因應 Dupixent 專利懸崖。｜",
+        "url": "https://www.google.com/url?q=https://www.sanofi.com/en/media-room/press-releases/2026/2026-11-24-06-30-00-3409002&amp;source=gmail&amp;ust=1795648972911000&amp;sa=E",
+        "source": "Sanofi 新聞稿",
+        "watchlist": false
+      },
+      {
+        "ticker": "COGT",
+        "name": "Cogent Biosciences",
+        "price": "股價勁揚",
+        "change": "▲",
+        "date": "2026/11/24",
+        "summary": "旗下選擇性 KIT 抑制劑 Ekitna (bezuclastinib) 聯用 sunitinib 獲 FDA 核准治療晚期 GIST（三期 PEAK mPFS 16.5 vs 9.2 個月），正式啟動商業上市。",
+        "url": "https://www.google.com/url?q=https://www.pharmexec.com/view/fda-approves-cogent-biosciences-ekitna-advanced-gist-doubling-progression-free-survival&amp;source=gmail&amp;ust=1795648972911000&amp;sa=E",
+        "source": "PharmExec",
+        "watchlist": false
+      },
+      {
+        "ticker": "VRTX",
+        "name": "Vertex",
+        "price": "$556.94",
+        "change": "▲ +3.42%",
+        "date": "2026/11/24 盤中",
+        "summary": "續漲 $18.40 逼近 52 週高點，市值達 $141.21B，市場樂觀迎接 11/30 povetacicept IgAN 藥證審查。",
+        "url": "https://www.google.com/url?q=https://www.marketbeat.com/instant-alerts/list-biotech-stocks-to-keep-an-eye-on-november-24th-2026-11-24/&amp;source=gmail&amp;ust=1795648972911000&amp;sa=E",
+        "source": "MarketBeat",
+        "watchlist": false
+      },
+      {
+        "ticker": "TMO",
+        "name": "Thermo Fisher",
+        "price": "$688.43",
+        "change": "▲ +2.82%",
+        "date": "2026/11/24 盤中",
+        "summary": "隨生命科學工具板塊反彈，盤中走高 $18.89 至 $688.43。",
+        "url": "https://www.google.com/url?q=https://dhan.co/us-stocks/TMO-thermo-fisher-scientific-inc-share-price/&amp;source=gmail&amp;ust=1795648972911000&amp;sa=E",
+        "source": "Dhan",
+        "watchlist": false
+      },
+      {
+        "ticker": "KYMR",
+        "name": "Kymera Therapeutics",
+        "price": "—",
+        "change": "●",
+        "date": "2026/11/24",
+        "summary": "在 STAT6 降解劑二期試驗達標後，宣布啟動高達 17.5 億美元歷史級現金增資。",
+        "url": "https://www.google.com/url?q=https://endpoints.news/kymeras-historica-1-75b-offering-diamedicas-fetal-growth-restriction-data/&amp;source=gmail&amp;ust=1795648972911000&amp;sa=E",
+        "source": "Endpoints News",
+        "watchlist": false
+      },
+      {
+        "ticker": "AZN",
+        "name": "加科思 Jacobio (1167.HK) / AstraZeneca",
+        "price": "—",
+        "change": "●",
+        "date": "2026/11/24",
+        "summary": "宣布與阿斯特捷利康合作之泛 KRAS 抑制劑 JAB-23E73 聯用 cetuximab 在美國完成大腸直腸癌 Phase 1/2a 首例病患給藥。",
+        "url": "https://www.google.com/url?q=https://oncodaily.com/gastrointestinal-oncology/pan-kras-cetuximab-640027&amp;source=gmail&amp;ust=1795648972911000&amp;sa=E",
+        "source": "OncoDaily",
+        "watchlist": false
+      },
+      {
+        "ticker": "CYTK",
+        "name": "Cytokinetics",
+        "price": "—",
+        "change": "●",
+        "date": "2026/11/24",
+        "summary": "預告 12/1 與 12/8 出席 Piper Sandler 及 Nasdaq 倫敦投資人會議。",
+        "url": "https://www.google.com/url?q=https://www.globenewswire.com/news-release/2026/11/24/3409856/35409/en/cytokinetics-to-participate-in-december-investor-conferences.html&amp;source=gmail&amp;ust=1795648972911000&amp;sa=E",
+        "source": "GlobeNewswire",
+        "watchlist": false
+      },
+      {
+        "ticker": "MAIA",
+        "name": "MAIA Biotechnology",
+        "price": "—",
+        "change": "●",
+        "date": "2026/11/24",
+        "summary": "端粒標靶療法 ateganosine 於西班牙啟動樞紐三期 THIO-104 三線肺癌病患給藥。",
+        "url": "https://www.google.com/url?q=https://www.globenewswire.com/news-release/2026/11/24/3409277/0/en/maia-biotechnology-begins-dosing-patients-in-spain-for-pivotal-phase-3-thio-104-clinical-trial-in-non-small-cell-lung-cancer.html&amp;source=gmail&amp;ust=1795648972911000&amp;sa=E",
+        "source": "GlobeNewswire",
+        "watchlist": false
+      }
+    ],
+    "reg": [
+      {
+        "agency": "FDA",
+        "date": "2026/11/24",
+        "title": "Ekitna (bezuclastinib)（Cogent）",
+        "detail": "透過即時腫瘤審查（RTOR）核准聯用 sunitinib 治療 imatinib 經治晚期 GIST（風險降低 50%）。",
+        "url": "https://www.google.com/url?q=https://www.pharmexec.com/view/fda-approves-cogent-biosciences-ekitna-advanced-gist-doubling-progression-free-survival&amp;source=gmail&amp;ust=1795648972911000&amp;sa=E",
+        "source": "PharmExec"
+      },
+      {
+        "agency": "FDA",
+        "date": "2026/11/24",
+        "title": "IMiDs REMS 放寬 / 加速核准仿單標示",
+        "detail": "放寬 lenalidomide 等 IMiDs 類藥物 REMS 限制（納入居家驗孕）（）；另計畫於病患端仿單明確標示加速核准狀態（）。",
+        "url": "https://www.google.com/url?q=https://www.targetedonc.com/view/miracle-trial-reports-32-blinded-remission-in-post-venetoclax-aml&amp;source=gmail&amp;ust=1795648972911000&amp;sa=E",
+        "source": "Targeted Oncology"
+      },
+      {
+        "agency": "NMPA",
+        "date": "2026/11/24",
+        "title": "華為動態血糖儀「維感 G1」（國械注準20263072228）",
+        "detail": "獲 NMPA 三類醫療器械註冊證，正式切入醫療級連續血糖監測（CGM）市場。",
+        "url": "https://www.google.com/url?q=https://www.smarthey.com/detail/528203701812.html&amp;source=gmail&amp;ust=1795648972911000&amp;sa=E",
+        "source": "SmartHey"
+      },
+      {
+        "agency": "PMDA",
+        "date": "2026/11/24",
+        "title": "安全性情報 No. 434 & RS 戰略諮詢 FAQ",
+        "detail": "發布最新藥品與醫材安全性情報第 434 期及 RS 戰略諮詢手續費減免 FAQ。",
+        "url": "https://www.google.com/url?q=https://www.pmda.go.jp/0017.html&amp;source=gmail&amp;ust=1795648972911000&amp;sa=E",
+        "source": "PMDA 新着情報"
+      },
+      {
+        "agency": "TFDA",
+        "date": "2026/11/24",
+        "title": "人類胞外體製劑臨床試驗申請指引",
+        "detail": "轉知各醫院 IRB 公告「人類胞外體製劑臨床試驗申請指引」，規範外泌體新藥臨床送件標準。",
+        "url": "https://www.google.com/url?q=https://www.femh-irb.org/&amp;source=gmail&amp;ust=1795648972911000&amp;sa=E",
+        "source": "亞東醫院 IRB"
+      }
+    ],
+    "cat": [
+      {
+        "asset": "Ekitna (bezuclastinib)（Cogent / COGT）",
+        "type": "PDUFA監管決策",
+        "date": "2026/11/24",
+        "status": "已通過已完成",
+        "outcome": "優於預期",
+        "note": "成功拿下 GIST 首張 FDA 藥證，後續 12/30 還將迎來非晚期 SM 審查。",
+        "url": "https://www.google.com/url?q=https://www.pharmexec.com/view/fda-approves-cogent-biosciences-ekitna-advanced-gist-doubling-progression-free-survival&amp;source=gmail&amp;ust=1795648972911000&amp;sa=E"
+      },
+      {
+        "asset": "JAB-23E73 + Cetuximab（加科思 / AZN）",
+        "type": "試驗里程碑",
+        "date": "2026/11/24",
+        "status": "已通過已完成",
+        "outcome": "符合預期",
+        "note": "美國大腸直腸癌 Phase 1/2a 完成首例病患給藥。",
+        "url": "https://www.google.com/url?q=https://oncodaily.com/gastrointestinal-oncology/pan-kras-cetuximab-640027&amp;source=gmail&amp;ust=1795648972911000&amp;sa=E"
+      },
+      {
+        "asset": "Kymera (KYMR) 現金增資",
+        "type": "商業里程碑",
+        "date": "2026/11/24",
+        "status": "預期發生",
+        "outcome": "優於預期",
+        "note": "募資規模高達 17.5 億美元，充實 STAT6 降解劑三期銀彈。",
+        "url": "https://www.google.com/url?q=https://endpoints.news/kymeras-historica-1-75b-offering-diamedicas-fetal-growth-restriction-data/&amp;source=gmail&amp;ust=1795648972911000&amp;sa=E"
+      }
+    ],
+    "deep": [
+      {
+        "cat": "政策變化",
+        "title": "FDA 鬆綁 IMiDs 風險管理但強化加速核准透明度，台灣落地外泌體臨床指引",
+        "body": "FDA 允許 lenalidomide 等藥物改採居家驗孕降低病患負擔，同時推動在病患端仿單標示加速核准資訊；台灣方面亦正式透過 IRB 系統推進「人類胞外體製劑臨床試驗申請指引」，加速外泌體新藥合規化（｜）。",
+        "url": "https://www.google.com/url?q=https://www.targetedonc.com/view/miracle-trial-reports-32-blinded-remission-in-post-venetoclax-aml&amp;source=gmail&amp;ust=1795648972911000&amp;sa=E",
+        "source": "Targeted Oncology"
+      },
+      {
+        "cat": "重大事件",
+        "title": "賽諾菲 410 億美元現金併購 Insmed，寫下近三年全球最大生技併購案",
+        "body": "面對 Dupixent 2030 年代初專利到期，Sanofi 果斷出手 410 億美元買下 Insmed 搶占吸入性呼吸與罕病商業資產（規模直逼 2023 年輝瑞 430 億收購 Seagen），將大幅提振中大型已商業化生技股的併購溢價預期（｜）。",
+        "url": "https://www.google.com/url?q=https://www.sanofi.com/en/media-room/press-releases/2026/2026-11-24-06-30-00-3409002&amp;source=gmail&amp;ust=1795648972912000&amp;sa=E",
+        "source": "Sanofi"
+      },
+      {
+        "cat": "技術突破",
+        "title": "選擇性 KIT 與泛 KRAS 精準標靶雙線推進，科技大廠跨界搶進三類醫材 CGM",
+        "body": "Cogent Ekitna 在 GIST 展現倍增 ORR 並啟動 2026/12/30 下一項審查，加科思與 AZN 的泛 KRAS 抑制劑亦進軍美國大腸癌臨床；醫材端華為「維感 G1」取得 NMPA 三類醫療器械認證，穿戴式連續血糖監測正加速邁入消費電子大廠競局（｜）。",
+        "url": "https://www.google.com/url?q=https://www.pharmexec.com/view/fda-approves-cogent-biosciences-ekitna-advanced-gist-doubling-progression-free-survival&amp;source=gmail&amp;ust=1795648972912000&amp;sa=E",
+        "source": "PharmExec"
+      }
+    ]
+  },
+  {
     "id": "2026-11-24-pm",
     "date": "2026/11/24",
     "session": "晚報",
@@ -9819,154 +10018,6 @@
         "date": "$186.70 ▲ 高檔抗跌（10/23 收盤）",
         "title": "2026/10/23",
         "detail": "於 ESMO 2026 年會發表三期 RASolute 302 整體存活期（OS）亞組分析，證實 RASONQUE 在轉移性胰臟癌經治患者中療效一致且顯著超越常規化療。",
-        "url": "",
-        "source": "來源"
-      }
-    ],
-    "cat": [
-      {
-        "asset": "Alnylam (`ALNY`)",
-        "type": "Brezosiran (ALN-HTT02)",
-        "date": "`臨床數據讀出`",
-        "status": "2026/10/26",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "AstraZeneca (`AZN`)",
-        "type": "Sonesitatug vedotin (Sone-Ve)",
-        "date": "`臨床數據讀出`",
-        "status": "2026/10/24",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "AbbVie (`ABBV`)",
-        "type": "SKYRIZI",
-        "date": "`PDUFA/監管決策`",
-        "status": "2026/10/23",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "Revolution Med. (`RVMD`)",
-        "type": "RASONQUE",
-        "date": "`臨床數據讀出`",
-        "status": "2026/10/23",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "Indivior (`INDV`)",
-        "type": "Q3 財報與指引",
-        "date": "`財報指引`",
-        "status": "2026/10/29",
-        "outcome": "預期發生",
-        "note": "",
-        "url": ""
-      }
-    ],
-    "deep": []
-  },
-  {
-    "id": "2026-10-26-am",
-    "date": "2026/10/26",
-    "session": "早報",
-    "window": "2026/10/26",
-    "headline": "重點個股、五大藥監與催化劑追蹤",
-    "topics": [
-      "INDV Indivior",
-      "6847.TW 普瑞博",
-      "6785.TW 昱展新藥",
-      "AstraZeneca (AZN) 美股 大型藥廠 (`tickers.json`)",
-      "Alnylam (ALNY) 美股 生技新藥 (`tickers.json`)",
-      "Summit Ther. (SMMT) 美股 生技新藥 (`tickers.json`)"
-    ],
-    "co": [
-      {
-        "ticker": "INDV",
-        "name": "Indivior",
-        "price": "$35.08 ▲ +1.92%（10/23 收盤）",
-        "change": "●",
-        "date": "2026/10/22",
-        "summary": "標普道瓊指數公司發布 Supernus 被收購之指數成分替換公告，併購整合推進；外資維持 45.17 美元 目標價，本週四（10/29）盤前發布 Q3 財報。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      },
-      {
-        "ticker": "6847.TW",
-        "name": "普瑞博",
-        "price": "70.00 元 ● 持平（10/23 收盤）",
-        "change": "●",
-        "date": "2026/10/23",
-        "summary": "現金增資特定人繳款於 10/23 截止，增資募資順利收尾，資金將全力挹注抗沾黏雙離子白血球減除過濾膜之歐盟 MDR 取證與海外擴產。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      },
-      {
-        "ticker": "6785.TW",
-        "name": "昱展新藥",
-        "price": "86.20 元 ● 持平（10/23 收盤）",
-        "change": "●",
-        "date": "2026/10/16",
-        "summary": "向美國 FDA 送件之新劑型新藥 ALA-3000（難治型憂鬱症 TRD）臨床二期 IND 審查中，In-Relar 原位凝膠平台海外授權動能穩健。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      }
-    ],
-    "reg": [
-      {
-        "agency": "AstraZeneca (AZN) 美股 大型藥廠 (`tickers.json`)",
-        "date": "$81.15 ▲ 高檔抗跌（10/23 收盤）",
-        "title": "2026/10/24",
-        "detail": "於 ESMO 2026 總統主席研討會發表 CLARITY-Gastric01 三期數據：全資擁有的 Claudin-18.2 ADC（Sone-Ve）在晚期胃癌二線治療中達成具統計與臨床顯著之整體存活期（OS）改善，創全球首款 CLDN18.2 ADC 三期獲益紀錄。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "Alnylam (ALNY) 美股 生技新藥 (`tickers.json`)",
-        "date": "$254.07 ● 穩健盤整（10/23 收盤）",
-        "title": "2026/10/26",
-        "detail": "今日（10/26）上午 10:00 ET 舉行第十屆 RNAi 圓桌會議，重點解析中樞神經 Brezosiran（ALN-HTT02）臨床 1b 期數據：單次給藥展現持久之突變杭丁頓蛋白清除能力，即將推進樞紐三期試驗。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "Summit Ther. (SMMT) 美股 生技新藥 (`tickers.json`)",
-        "date": "$15.47 ● 觀望消化（10/23 收盤）",
-        "title": "2026/10/25",
-        "detail": "旗下 PD-1/VEGF 雙特異性抗體 Ivonescimab 在 ESMO 2026 共有 10 項摘要亮相，跨肺癌及實體瘤廣泛數據出爐，市場消化頭對頭帕博利珠單抗優勢後之長期滲透率。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "AbbVie (ABBV) 美股 大型藥廠",
-        "date": "$194.20 ▲ +1.15%（10/23 收盤）",
-        "title": "2026/10/23",
-        "detail": "旗下自體免疫旗艦藥 SKYRIZI 獲 FDA 核准克隆氏症成人全皮下注射誘導劑型（SC Induction），擺脫初診 IV 靜脈點滴限制，築高腸道發炎市場護城河。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "Revolution Med. (RVMD) 美股 生技新藥",
-        "date": "$186.70 ▲ 高檔抗跌（10/23 收盤）",
-        "title": "2026/10/23",
-        "detail": "於 ESMO 2026 年會發表三期 RASolute 302 整體存活期（OS）亞組分析，證實 RASONQUE 在轉移性胰臟癌經治患者中療效一致且顯著超越常規化療。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "藥華藥 (6446.TW) 台股 上櫃",
-        "date": "1,175.00 元 ▲ 高檔蓄勢（10/23 收盤）",
-        "title": "2026/10/22",
-        "detail": "在澳洲生技年會與臨床機構 Novotech 簽署 MOU，加速推動新藥 Ropeg 在澳洲真性紅血球增多症（PV）與原發性血小板過多症（ET）雙藥證申請。",
         "url": "",
         "source": "來源"
       }
