@@ -1,5 +1,183 @@
 [
   {
+    "id": "2026-11-24-pm",
+    "date": "2026/11/24",
+    "session": "晚報",
+    "window": "2026/11/24",
+    "headline": "VRTX 強彈 4.8% 卡位 11/30 PDUFA、藥華藥止跌回升至 1,160 元、國發會揭 2029 關鍵藥品國產目標",
+    "topics": [
+      "6446.TW 藥華藥",
+      "VRTX Vertex",
+      "6919.TW 漢康-KY創 (7827.TW) / 康霈*",
+      "4575.T CanBas",
+      "FDA",
+      "TFDA"
+    ],
+    "co": [
+      {
+        "ticker": "6446.TW",
+        "name": "藥華藥",
+        "price": "1,160.00 元",
+        "change": "▲ +3.57%",
+        "date": "2026/11/24 收盤",
+        "summary": "11/24 止跌強彈 +40 元收 1,160 元（開盤 1,195、高點 1,215）；法人單日賣超 1,221 張。｜",
+        "url": "https://www.google.com/url?q=https://www.wantgoo.com/stock/6446/technical-chart&amp;source=gmail&amp;ust=1795600779604000&amp;sa=E",
+        "source": "玩股網",
+        "watchlist": true
+      },
+      {
+        "ticker": "VRTX",
+        "name": "Vertex",
+        "price": "$539.84",
+        "change": "▲ +4.82%",
+        "date": "2026/11/23 收盤",
+        "summary": "11/23 大漲 $24.82 收 $539.84，市場買盤提前卡位 11/30 povetacicept IgAN 藥證審查決策。",
+        "url": "https://www.google.com/url?q=https://kalkinemedia.com/us/stocks/healthcare/is-vertex-pharmaceuticals-nasdaqvrtx-ready-for-its-next-growth-chapter&amp;source=gmail&amp;ust=1795600779604000&amp;sa=E",
+        "source": "Kalkine Media",
+        "watchlist": false
+      },
+      {
+        "ticker": "6919.TW",
+        "name": "漢康-KY創 (7827.TW) / 康霈*",
+        "price": "法人逢低回補",
+        "change": "▲",
+        "date": "2026/11/24",
+        "summary": "11/24 台股生技法人買超前三大：漢康-KY創 +853 張、康霈* +536 張、神隆 () +312 張。",
+        "url": "https://www.google.com/url?q=http://1789.TW&amp;source=gmail&amp;ust=1795600779604000&amp;sa=E",
+        "source": "1789.TW",
+        "watchlist": false
+      },
+      {
+        "ticker": "4575.T",
+        "name": "CanBas",
+        "price": "—",
+        "change": "●",
+        "date": "2026/11/24",
+        "summary": "日本生技廠 CanBas 宣布胰臟癌候選藥 CBP501 三期臨床已取得法國等 5 個歐洲國家啟動核准，另有 3 國審理中。",
+        "url": "https://www.google.com/url?q=https://tokyobrief.com/articles/canbas-pancreatic-cancer-trial-five-european-approvals&amp;source=gmail&amp;ust=1795600779604000&amp;sa=E",
+        "source": "TokyoBrief",
+        "watchlist": false
+      },
+      {
+        "ticker": "VALN",
+        "name": "Valneva",
+        "price": "—",
+        "change": "●",
+        "date": "2026/11/24",
+        "summary": "發布 2026 前九月財報與屈公病疫苗 IXCHIQ 五年持久保護力正面數據，另 Lyme 疫苗 LB6V 預計 2027 年迎監管決策。",
+        "url": "https://www.google.com/url?q=https://www.globenewswire.com/news-release/2026/11/24/3409000/0/en/valneva-reports-nine-month-2026-financial-results-and-provides-corporate-updates.html&amp;source=gmail&amp;ust=1795600779604000&amp;sa=E",
+        "source": "GlobeNewswire",
+        "watchlist": false
+      },
+      {
+        "ticker": "CSL.AX",
+        "name": "CSL Limited",
+        "price": "買回區間 A$192.82–199.89",
+        "change": "●",
+        "date": "2026/11/24 公告",
+        "summary": "申報於 11/23 續買回 52,207 股（金額 AUD $1,037.7 萬），持續執行 11.5 億澳幣庫藏股計畫。",
+        "url": "https://www.google.com/url?q=https://kalkine.com.au/news/announcements/csl-limited-buys-back-52207-shares-on-23-november-2026-under-115-billion-program&amp;source=gmail&amp;ust=1795600779604000&amp;sa=E",
+        "source": "Kalkine Media",
+        "watchlist": false
+      }
+    ],
+    "reg": [
+      {
+        "agency": "FDA",
+        "date": "2026/11/24",
+        "title": "手術機器人上市前審查指引草案 (Docket FDA-2026-N-9505)",
+        "detail": "今日（11/24）為「機器人輔助手術設備（RASD）上市前送件指引草案」公眾意見徵集截止日，涵蓋網路安全、人因工程與遠端遙控評估，後續將於 12/2–3 舉辦公開研討會。｜",
+        "url": "https://www.google.com/url?q=https://www.federalregister.gov/documents/2026/09/25/2026-19704/robotically-assisted-surgical-devices-premarket-submissions-draft-guidance-for-industry-and-food-and&amp;source=gmail&amp;ust=1795600779604000&amp;sa=E",
+        "source": "Federal Register"
+      },
+      {
+        "agency": "FDA",
+        "date": "2026/11/24",
+        "title": "多發性骨髓瘤雙新藥審查",
+        "detail": "FDA 正同步審查兩款鎖定復發／難治性多發性骨髓瘤患者之新療法。",
+        "url": "https://www.google.com/url?q=https://life.tw/article/%25E5%25A4%259A%25E7%2599%25BC%25E6%2580%25A7%25E9%25AA%25A8%25E9%25AB%2593%25E7%2598%25A4%25E8%25BF%258E%25E6%2596%25B0%25E7%2599%2582%25E6%25B3%2595-fda%25E5%25AF%25A9%25E6%259F%25A5%25E5%2585%25A9%25E6%25AC%25BE%25E6%2596%25B0%25E8%2597%25A5%25E9%258E%2596%25E5%25AE%259A%25E5%25BE%25A9%25E7%2599%25BC%25E9%259B%25A3%25E6%25B2%25BB%25E6%2582%25A3%25E8%2580%2585-3232173&amp;source=gmail&amp;ust=1795600779604000&amp;sa=E",
+        "source": "Life 生活網"
+      },
+      {
+        "agency": "TFDA",
+        "date": "2026/11/24",
+        "title": "關鍵藥品國產布局 & 藥醫廣告系統",
+        "detail": "國發會揭露關鍵藥品國產布局，目標 2029 年開發 50 項、10 項國產上市（）；TFDA 同日公告 116 年度藥品及醫材廣告管理系統擴充計畫（）。",
+        "url": "https://www.google.com/url?q=https://news.gbimonthly.com/tw/invest/show.php?num%3D91609%26range%3Dnews&amp;source=gmail&amp;ust=1795600779604000&amp;sa=E",
+        "source": "環球生技月刊"
+      },
+      {
+        "agency": "EMA",
+        "date": "2026/11/24",
+        "title": "無新藥證增量公告",
+        "detail": "近 12 小時歐中日藥監無新增藥證核准（CanBas CBP501 三期獲 5 國國家審查通過）。",
+        "url": "",
+        "source": "來源"
+      }
+    ],
+    "cat": [
+      {
+        "asset": "CBP501（CanBas / 4575.T）",
+        "type": "試驗里程碑",
+        "date": "2026/11/24",
+        "status": "已通過已完成",
+        "outcome": "符合預期",
+        "note": "晚期胰臟癌三期試驗獲法國等 5 個歐洲國家啟動核准。",
+        "url": "https://www.google.com/url?q=https://tokyobrief.com/articles/canbas-pancreatic-cancer-trial-five-european-approvals&amp;source=gmail&amp;ust=1795600779604000&amp;sa=E"
+      },
+      {
+        "asset": "IXCHIQ（Valneva / VALN）",
+        "type": "臨床數據讀出",
+        "date": "2026/11/24",
+        "status": "已通過已完成",
+        "outcome": "優於預期",
+        "note": "單劑屈公病疫苗證實具五年持久抗體免疫保護力。",
+        "url": "https://www.google.com/url?q=https://www.globenewswire.com/news-release/2026/11/24/3409000/0/en/valneva-reports-nine-month-2026-financial-results-and-provides-corporate-updates.html&amp;source=gmail&amp;ust=1795600779604000&amp;sa=E"
+      },
+      {
+        "asset": "三福生醫 (7972.TW)",
+        "type": "商業里程碑",
+        "date": "2026/11/25",
+        "status": "預期發生",
+        "outcome": "預期發生",
+        "note": "明日（11/25）正式掛牌台灣興櫃市場。",
+        "url": "https://www.google.com/url?q=https://udn.com/news/story/7252/9896838&amp;source=gmail&amp;ust=1795600779604000&amp;sa=E"
+      },
+      {
+        "asset": "Povetacicept（Vertex / VRTX）",
+        "type": "PDUFA監管決策",
+        "date": "2026/11/30",
+        "status": "預期發生",
+        "outcome": "預期發生",
+        "note": "倒數 6 天迎來 IgA 腎病加速核准審查決策，帶動股價提前上攻。",
+        "url": "https://www.google.com/url?q=https://kalkinemedia.com/us/stocks/healthcare/is-vertex-pharmaceuticals-nasdaqvrtx-ready-for-its-next-growth-chapter&amp;source=gmail&amp;ust=1795600779604000&amp;sa=E"
+      }
+    ],
+    "deep": [
+      {
+        "cat": "政策變化",
+        "title": "台灣「關鍵藥品國產化」目標 2029 年上市 10 項，FDA 手術機器人指引收件截稿",
+        "body": "國發會今日明確訂出 2029 年完成 50 項關鍵藥品開發與 10 項國產上市目標，強化藥物供應韌性；國際端 FDA 針對手術機器人（RASD）上市前網安與遠端遙控審查指引今日截止收件，預告智慧醫材合規門檻升級（｜）。",
+        "url": "https://www.google.com/url?q=https://news.gbimonthly.com/tw/invest/show.php?num%3D91609%26range%3Dnews&amp;source=gmail&amp;ust=1795600779604000&amp;sa=E",
+        "source": "環球生技月刊"
+      },
+      {
+        "cat": "重大事件",
+        "title": "VRTX 單日大漲近 5% 卡位下週 PDUFA，藥華藥止跌回穩收復 1,160 元",
+        "body": "美股 Vertex 在 11/30 povetacicept 審查前夕強漲 4.82%，展現市場對腎臟病第五大商業支柱的信心；台股藥華藥亦於今日反彈 3.57% 收 1,160 元，顯示短線急殺後買盤逐步承接（｜）。",
+        "url": "https://www.google.com/url?q=https://kalkinemedia.com/us/stocks/healthcare/is-vertex-pharmaceuticals-nasdaqvrtx-ready-for-its-next-growth-chapter&amp;source=gmail&amp;ust=1795600779604000&amp;sa=E",
+        "source": "Kalkine Media"
+      },
+      {
+        "cat": "技術突破",
+        "title": "日本新創胰臟癌三期推進歐洲、單劑疫苗證實五年免疫持久力",
+        "body": "CanBas CBP501 突破歐洲多國審查啟動胰臟癌三期臨床，Valneva IXCHIQ 亦驗證單劑疫苗長達五年的血清保護力，顯示利基型腫瘤與長效傳染病預防正持續擴大全球臨床版圖（｜）。",
+        "url": "https://www.google.com/url?q=https://tokyobrief.com/articles/canbas-pancreatic-cancer-trial-five-european-approvals&amp;source=gmail&amp;ust=1795600779604000&amp;sa=E",
+        "source": "TokyoBrief"
+      }
+    ]
+  },
+  {
     "id": "2026-11-24-am",
     "date": "2026/11/24",
     "session": "早報",
@@ -9817,137 +9995,6 @@
         "type": "SKYRIZI",
         "date": "`PDUFA/監管決策`",
         "status": "2026/10/23",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "Revolution Med. (`RVMD`)",
-        "type": "RASONQUE",
-        "date": "`臨床數據讀出`",
-        "status": "2026/10/23",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "Indivior (`INDV`)",
-        "type": "Q3 財報與指引",
-        "date": "`財報指引`",
-        "status": "2026/10/29",
-        "outcome": "預期發生",
-        "note": "",
-        "url": ""
-      }
-    ],
-    "deep": []
-  },
-  {
-    "id": "2026-10-25-am",
-    "date": "2026/10/25",
-    "session": "早報",
-    "window": "2026/10/25",
-    "headline": "重點個股、五大藥監與催化劑追蹤",
-    "topics": [
-      "INDV Indivior",
-      "6847.TW 普瑞博",
-      "6785.TW 昱展新藥",
-      "AbbVie (ABBV) 美股 大型藥廠",
-      "Alnylam (ALNY) 美股 生技新藥 (tickers.json)",
-      "Revolution Med. (RVMD) 美股 生技新藥"
-    ],
-    "co": [
-      {
-        "ticker": "INDV",
-        "name": "Indivior",
-        "price": "$35.08 ▲ +1.92%（10/23 收盤）",
-        "change": "●",
-        "date": "2026/10/22",
-        "summary": "標普道瓊指數公司發布 Supernus 被收購之指數成分替換公告，併購整合推進；外資維持 45.17 美元 目標價，預計 10/29 盤前發布 Q3 財報。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      },
-      {
-        "ticker": "6847.TW",
-        "name": "普瑞博",
-        "price": "70.00 元 ● 持平（10/23 收盤）",
-        "change": "●",
-        "date": "2026/10/23",
-        "summary": "現金增資特定人繳款於 10/23 截止，增資募資順利收尾，資金將全力挹注抗沾黏雙離子白血球減除過濾膜之歐盟 MDR 取證與海外擴產。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      },
-      {
-        "ticker": "6785.TW",
-        "name": "昱展新藥",
-        "price": "86.20 元 ● 持平（10/23 收盤）",
-        "change": "●",
-        "date": "2026/10/16",
-        "summary": "向美國 FDA 送件之新劑型新藥 ALA-3000（難治型憂鬱症 TRD）臨床二期 IND 審查中，In-Relar 原位凝膠平台海外授權動能穩健。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      }
-    ],
-    "reg": [
-      {
-        "agency": "AbbVie (ABBV) 美股 大型藥廠",
-        "date": "$194.20 ▲ +1.15%（10/23 收盤）",
-        "title": "2026/10/23",
-        "detail": "旗下自體免疫旗艦藥 SKYRIZI 獲 FDA 核准克隆氏症成人全皮下注射誘導劑型（SC Induction），擺脫初診 IV 靜脈點滴限制，築高腸道發炎市場護城河。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "Alnylam (ALNY) 美股 生技新藥 (tickers.json)",
-        "date": "$254.07 ● 穩健盤整（10/23 收盤）",
-        "title": "2026/10/24",
-        "detail": "公布 Brezosiran 臨床 1b 期亮眼正面數據，並定於 10/26 舉辦 RNAi 圓桌會議深度說明亨丁頓舞蹈症（HD）管線里程碑，引發基因沉默領域高度關注。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "Revolution Med. (RVMD) 美股 生技新藥",
-        "date": "$186.70 ▲ 高檔抗跌（10/23 收盤）",
-        "title": "2026/10/23",
-        "detail": "於 ESMO 2026 年會發表三期 RASolute 302 整體存活期（OS）亞組分析，證實 RASONQUE 在轉移性胰臟癌經治患者中療效一致且顯著超越常規化療。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "藥華藥 (6446.TW) 台股 上櫃",
-        "date": "1,175.00 元 ▲ 高檔蓄勢（10/23 收盤）",
-        "title": "2026/10/22",
-        "detail": "在澳洲生技年會與臨床機構 Novotech 簽署 MOU，加速推動新藥 Ropeg 在澳洲真性紅血球增多症（PV）與原發性血小板過多症（ET）雙藥證申請。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "Eli Lilly (LLY) 美股 大型藥廠",
-        "date": "$1,285.70 ▼ -3.33%（10/23 收盤）",
-        "title": "2026/10/23",
-        "detail": "觸及 1,330 美元天價後短線獲利了結整理，市場高度聚焦即將公布之 Q3 財報中關於口服小分子 GLP-1 候選藥 Foundayo 之歐洲上市產能儲備。",
-        "url": "",
-        "source": "來源"
-      }
-    ],
-    "cat": [
-      {
-        "asset": "AbbVie (`ABBV`)",
-        "type": "SKYRIZI",
-        "date": "`PDUFA/監管決策`",
-        "status": "2026/10/23",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "Alnylam (`ALNY`)",
-        "type": "Brezosiran",
-        "date": "`臨床數據讀出`",
-        "status": "2026/10/24",
         "outcome": "預期發生",
         "note": "已通過/已完成",
         "url": ""
