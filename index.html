@@ -12,9 +12,8 @@
   <style>
     body {
       font-family: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #f8fafc;
-      color: #0f172a;
       -webkit-tap-highlight-color: transparent;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -24,65 +23,86 @@
     mark { background-color: #fef08a; color: #0f172a; padding: 0 2px; border-radius: 3px; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
-  <!-- Clean Header (No top-right daily analysis link, no beta/developer tags) -->
-  <header class="bg-slate-900 text-white sticky top-0 z-40 shadow-md">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-900">
+  <!-- Header -->
+  <header id="appHeader" class="bg-gradient-to-r from-slate-900 via-indigo-950 to-sky-900 text-white sticky top-0 z-40 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3 flex-wrap">
       <div class="flex items-center gap-2.5 min-w-0">
-        <div class="w-9 h-9 rounded-lg bg-sky-500/20 border border-sky-400/40 flex items-center justify-center shrink-0">
-          <i data-lucide="activity" class="w-5 h-5 text-sky-400"></i>
+        <div class="w-9 h-9 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
+          <i data-lucide="activity" class="w-5 h-5 text-sky-300"></i>
         </div>
         <div class="min-w-0">
           <h1 class="text-base sm:text-lg font-bold tracking-tight truncate">Healthcare Info Hub</h1>
-          <p class="text-xs text-slate-400 truncate">全球生醫股市、藥證監管與產業深度情報</p>
+          <p class="text-xs text-slate-300 truncate">全球生醫股市、藥證監管與產業深度情報</p>
         </div>
       </div>
 
-      <!-- Global Quick Stats / View Mode Toggle -->
-      <div class="flex items-center bg-slate-800 p-1 rounded-xl border border-slate-700 shrink-0" role="group" aria-label="第一區檢視模式切換">
-        <button id="btnViewTable" type="button" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer bg-sky-500 text-white">
-          <i data-lucide="table-2" class="w-3.5 h-3.5"></i>
-          <span>表格</span>
-        </button>
-        <button id="btnViewCard" type="button" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer text-slate-300 hover:text-white">
-          <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
-          <span>卡片</span>
-        </button>
+      <div class="flex items-center gap-2 shrink-0 flex-wrap">
+        <!-- Color Theme Selector -->
+        <div class="flex items-center gap-1.5 bg-white/10 px-2.5 py-1 rounded-xl border border-white/15">
+          <i data-lucide="palette" class="w-3.5 h-3.5 text-sky-200"></i>
+          <select id="themeSelect" aria-label="配色色調" class="bg-transparent text-xs font-medium text-white focus:outline-none cursor-pointer">
+            <option value="vibrant" class="text-slate-900">活力繽紛</option>
+            <option value="ocean" class="text-slate-900">海洋專業</option>
+            <option value="aurora" class="text-slate-900">極光深邃</option>
+            <option value="warm" class="text-slate-900">暖陽大地</option>
+          </select>
+        </div>
+
+        <!-- View Mode Toggle (Applies to ALL 4 Sections) -->
+        <div class="flex items-center bg-black/25 p-1 rounded-xl border border-white/15" role="group" aria-label="檢視模式切換">
+          <button id="btnViewTable" type="button" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer bg-sky-500 text-white">
+            <i data-lucide="table-2" class="w-3.5 h-3.5"></i>
+            <span>表格</span>
+          </button>
+          <button id="btnViewCard" type="button" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer text-slate-200 hover:text-white">
+            <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+            <span>卡片</span>
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- Top Global Parameter Bar: Period, Visible Sections, Filters -->
-    <div class="bg-slate-800/95 border-t border-slate-700/80">
-      <div class="max-w-6xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2 text-xs">
-        <!-- Period Selector -->
-        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-          <span class="text-slate-400 shrink-0">期間：</span>
-          <button data-days="1" type="button" class="period-btn px-2.5 py-1 rounded-md font-medium cursor-pointer shrink-0 bg-slate-700 text-slate-300 hover:bg-slate-600">1 天</button>
-          <button data-days="3" type="button" class="period-btn px-2.5 py-1 rounded-md font-medium cursor-pointer shrink-0 bg-slate-700 text-slate-300 hover:bg-slate-600">3 天</button>
-          <button data-days="7" type="button" class="period-btn px-2.5 py-1 rounded-md font-medium cursor-pointer shrink-0 bg-sky-500 text-white">7 天</button>
-          <button data-days="30" type="button" class="period-btn px-2.5 py-1 rounded-md font-medium cursor-pointer shrink-0 bg-slate-700 text-slate-300 hover:bg-slate-600">30 天</button>
+    <!-- Top Parameter Bar: Period Presets, Custom Date Range & Visible Sections -->
+    <div id="paramBar" class="bg-black/25 border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-4 py-2 flex flex-col lg:flex-row lg:items-center justify-between gap-2 text-xs">
+        <div class="flex items-center gap-2 flex-wrap">
+          <div class="flex items-center gap-1 overflow-x-auto no-scrollbar">
+            <span class="text-slate-300 shrink-0">期間：</span>
+            <button data-days="1" type="button" class="period-btn px-2 py-1 rounded-md font-medium cursor-pointer shrink-0">1天</button>
+            <button data-days="3" type="button" class="period-btn px-2 py-1 rounded-md font-medium cursor-pointer shrink-0">3天</button>
+            <button data-days="5" type="button" class="period-btn px-2 py-1 rounded-md font-medium cursor-pointer shrink-0">5天</button>
+            <button data-days="7" type="button" class="period-btn px-2 py-1 rounded-md font-medium cursor-pointer shrink-0">7天</button>
+            <button data-days="14" type="button" class="period-btn px-2 py-1 rounded-md font-medium cursor-pointer shrink-0">14天</button>
+            <button data-days="30" type="button" class="period-btn px-2 py-1 rounded-md font-medium cursor-pointer shrink-0">30天</button>
+            <button data-days="90" type="button" class="period-btn px-2 py-1 rounded-md font-medium cursor-pointer shrink-0">90天</button>
+          </div>
+          <div class="flex items-center gap-1.5 bg-white/10 px-2 py-1 rounded-lg border border-white/15">
+            <input id="startDateInput" type="date" aria-label="起始日期" class="bg-transparent text-xs text-white focus:outline-none cursor-pointer [color-scheme:dark]" />
+            <span class="text-slate-300">～</span>
+            <input id="endDateInput" type="date" aria-label="結束日期" class="bg-transparent text-xs text-white focus:outline-none cursor-pointer [color-scheme:dark]" />
+          </div>
         </div>
 
-        <!-- Visible Section Selector -->
-        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-          <span class="text-slate-400 shrink-0">顯示內容：</span>
-          <button data-sec="all" type="button" class="sec-btn px-2.5 py-1 rounded-md font-medium cursor-pointer shrink-0 bg-sky-500 text-white">全部區塊</button>
-          <button data-sec="1" type="button" class="sec-btn px-2.5 py-1 rounded-md font-medium cursor-pointer shrink-0 bg-slate-700 text-slate-300 hover:bg-slate-600">一、早晚報</button>
-          <button data-sec="2" type="button" class="sec-btn px-2.5 py-1 rounded-md font-medium cursor-pointer shrink-0 bg-slate-700 text-slate-300 hover:bg-slate-600">二、深度解析</button>
-          <button data-sec="3" type="button" class="sec-btn px-2.5 py-1 rounded-md font-medium cursor-pointer shrink-0 bg-slate-700 text-slate-300 hover:bg-slate-600">三、各國藥監</button>
-          <button data-sec="4" type="button" class="sec-btn px-2.5 py-1 rounded-md font-medium cursor-pointer shrink-0 bg-slate-700 text-slate-300 hover:bg-slate-600">四、業者與關注股</button>
+        <div class="flex items-center gap-1 overflow-x-auto no-scrollbar">
+          <span class="text-slate-300 shrink-0">顯示內容：</span>
+          <button data-sec="all" type="button" class="sec-btn px-2.5 py-1 rounded-md font-medium cursor-pointer shrink-0">全部區塊</button>
+          <button data-sec="1" type="button" class="sec-btn px-2.5 py-1 rounded-md font-medium cursor-pointer shrink-0">一、早晚報</button>
+          <button data-sec="2" type="button" class="sec-btn px-2.5 py-1 rounded-md font-medium cursor-pointer shrink-0">二、深度解析</button>
+          <button data-sec="3" type="button" class="sec-btn px-2.5 py-1 rounded-md font-medium cursor-pointer shrink-0">三、各國藥監</button>
+          <button data-sec="4" type="button" class="sec-btn px-2.5 py-1 rounded-md font-medium cursor-pointer shrink-0">四、業者與關注股</button>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Global Search, Related Topics & Filters -->
-  <section class="bg-white border-b border-slate-200 shadow-xs">
-    <div class="max-w-6xl mx-auto px-4 py-3 space-y-2.5">
+  <!-- Search & Filters -->
+  <section id="searchSection" class="bg-white border-b border-slate-200 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 py-3 space-y-2.5">
       <div class="flex flex-col sm:flex-row gap-2">
         <div class="relative flex-1">
           <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
-          <input id="searchInput" type="text" autocomplete="off" placeholder="搜尋個股（如 6446.TW、VRTX、SMMT）、藥物或藥監機關..." class="w-full pl-9 pr-9 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500 focus:bg-white transition" />
+          <input id="searchInput" type="text" autocomplete="off" placeholder="搜尋個股（如 6446.TW、VRTX、BBIO）、藥物或藥監機關..." class="w-full pl-9 pr-9 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500 focus:bg-white transition" />
           <button id="btnClearSearch" type="button" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 p-1 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-200 cursor-pointer" title="清除">
             <i data-lucide="x" class="w-3.5 h-3.5"></i>
           </button>
@@ -98,12 +118,12 @@
             <span>僅看關注股</span>
           </button>
           <div id="agencyChips" class="flex items-center gap-1 overflow-x-auto no-scrollbar">
-            <button data-agency="all" type="button" class="agency-chip px-2 py-1.5 rounded-lg text-xs font-medium bg-sky-100 text-sky-800 cursor-pointer shrink-0">全藥監</button>
-            <button data-agency="FDA" type="button" class="agency-chip px-2 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer shrink-0">FDA</button>
-            <button data-agency="EMA" type="button" class="agency-chip px-2 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer shrink-0">EMA</button>
-            <button data-agency="NMPA" type="button" class="agency-chip px-2 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer shrink-0">NMPA</button>
-            <button data-agency="TFDA" type="button" class="agency-chip px-2 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer shrink-0">TFDA</button>
-            <button data-agency="PMDA" type="button" class="agency-chip px-2 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 cursor-pointer shrink-0">PMDA</button>
+            <button data-agency="all" type="button" class="agency-chip px-2 py-1.5 rounded-lg text-xs font-medium cursor-pointer shrink-0">全藥監</button>
+            <button data-agency="FDA" type="button" class="agency-chip px-2 py-1.5 rounded-lg text-xs font-medium cursor-pointer shrink-0">FDA</button>
+            <button data-agency="EMA" type="button" class="agency-chip px-2 py-1.5 rounded-lg text-xs font-medium cursor-pointer shrink-0">EMA</button>
+            <button data-agency="NMPA" type="button" class="agency-chip px-2 py-1.5 rounded-lg text-xs font-medium cursor-pointer shrink-0">NMPA</button>
+            <button data-agency="TFDA" type="button" class="agency-chip px-2 py-1.5 rounded-lg text-xs font-medium cursor-pointer shrink-0">TFDA</button>
+            <button data-agency="PMDA" type="button" class="agency-chip px-2 py-1.5 rounded-lg text-xs font-medium cursor-pointer shrink-0">PMDA</button>
           </div>
         </div>
       </div>
@@ -120,19 +140,19 @@
   </section>
 
   <!-- Main Workspace -->
-  <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-5 space-y-8">
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-5 space-y-6">
     <div id="searchStatusBanner" class="hidden px-4 py-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm flex items-center justify-between gap-2">
       <span id="searchStatusText"></span>
       <button id="btnResetFilters" type="button" class="text-xs font-semibold underline hover:text-amber-700 shrink-0 cursor-pointer">重設條件</button>
     </div>
 
     <!-- SECTION 1: 每日早報／晚報 -->
-    <section id="sec1Container" class="space-y-4 bg-sky-50/45 border border-sky-200/80 rounded-2xl p-4 sm:p-5">
+    <section id="sec1Container" class="space-y-4 rounded-2xl p-4 sm:p-5 border-2 shadow-xs">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
           <div class="flex items-center gap-2 flex-wrap">
-            <h2 class="text-lg sm:text-xl font-bold text-slate-900 border-l-4 border-sky-500 pl-3">一、每日早報／晚報</h2>
-            <span id="editionBadge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-100 text-sky-800">2026/11/23 早報</span>
+            <h2 id="sec1Title" class="text-lg sm:text-xl font-bold pl-3 border-l-4">一、每日早報／晚報</h2>
+            <span id="editionBadge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold"></span>
           </div>
           <p id="editionHeadline" class="text-xs sm:text-sm text-slate-600 mt-1"></p>
         </div>
@@ -140,93 +160,194 @@
           <button id="btnPrevDate" type="button" title="較新期別" class="p-1.5 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 disabled:opacity-35 disabled:cursor-not-allowed text-slate-700 transition cursor-pointer">
             <i data-lucide="chevron-left" class="w-4 h-4"></i>
           </button>
-          <div id="datePills" class="flex items-center gap-1 overflow-x-auto no-scrollbar max-w-[260px] sm:max-w-md"></div>
+          <div id="datePills" class="flex items-center gap-1 overflow-x-auto no-scrollbar max-w-[240px] sm:max-w-md"></div>
           <button id="btnNextDate" type="button" title="較早期別" class="p-1.5 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 disabled:opacity-35 disabled:cursor-not-allowed text-slate-700 transition cursor-pointer">
             <i data-lucide="chevron-right" class="w-4 h-4"></i>
           </button>
         </div>
       </div>
 
-      <!-- Sub-module filter for Section 1 -->
       <div id="moduleTabs" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-        <button data-mod="all" type="button" class="mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 text-white cursor-pointer shrink-0">全部</button>
-        <button data-mod="co" type="button" class="mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 cursor-pointer shrink-0">公司重大事件</button>
-        <button data-mod="reg" type="button" class="mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 cursor-pointer shrink-0">五大藥監</button>
-        <button data-mod="cat" type="button" class="mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 cursor-pointer shrink-0">催化劑追蹤</button>
-        <button data-mod="deep" type="button" class="mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 cursor-pointer shrink-0">深度研報</button>
+        <button data-mod="all" type="button" class="mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0">全部</button>
+        <button data-mod="co" type="button" class="mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0">公司重大事件</button>
+        <button data-mod="reg" type="button" class="mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0">五大藥監</button>
+        <button data-mod="cat" type="button" class="mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0">催化劑追蹤</button>
+        <button data-mod="deep" type="button" class="mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0">深度研報</button>
       </div>
 
       <div id="swipeContainer" class="swipe-transition space-y-4"></div>
     </section>
 
     <!-- SECTION 2: 深度解析：政策、重大事件與技術突破 -->
-    <section id="sec2Container" class="space-y-3 bg-amber-50/40 border border-amber-200/80 rounded-2xl p-4 sm:p-5">
+    <section id="sec2Container" class="space-y-3 rounded-2xl p-4 sm:p-5 border-2 shadow-xs">
       <div class="flex items-center justify-between gap-2 flex-wrap">
-        <h2 class="text-lg sm:text-xl font-bold text-slate-900 border-l-4 border-amber-500 pl-3">二、深度解析：政策、重大事件與技術突破</h2>
-        <div class="flex items-center gap-2">
-          <select id="sec2Sort" class="text-xs border border-slate-300 rounded-lg px-2.5 py-1.5 bg-white text-slate-700 cursor-pointer">
-            <option value="date">依日期排序（新→舊）</option>
-            <option value="cat">依類別分組</option>
-          </select>
-        </div>
+        <h2 id="sec2Title" class="text-lg sm:text-xl font-bold pl-3 border-l-4">二、深度解析：政策、重大事件與技術突破</h2>
+        <select id="sec2Sort" class="text-xs border border-slate-300 rounded-lg px-2.5 py-1.5 bg-white text-slate-700 cursor-pointer">
+          <option value="date">依日期排序（新→舊）</option>
+          <option value="cat">依類別分組</option>
+        </select>
       </div>
-      <div id="sec2Content" class="space-y-2.5"></div>
+      <div id="sec2Content"></div>
     </section>
 
     <!-- SECTION 3: 各國藥監機關動態 -->
-    <section id="sec3Container" class="space-y-3 bg-indigo-50/40 border border-indigo-200/80 rounded-2xl p-4 sm:p-5">
+    <section id="sec3Container" class="space-y-3 rounded-2xl p-4 sm:p-5 border-2 shadow-xs">
       <div class="flex items-center justify-between gap-2 flex-wrap">
-        <h2 class="text-lg sm:text-xl font-bold text-slate-900 border-l-4 border-indigo-500 pl-3">三、各國藥監機關動態</h2>
+        <h2 id="sec3Title" class="text-lg sm:text-xl font-bold pl-3 border-l-4">三、各國藥監機關動態</h2>
         <select id="sec3Sort" class="text-xs border border-slate-300 rounded-lg px-2.5 py-1.5 bg-white text-slate-700 cursor-pointer">
           <option value="agency">依藥監機關分組</option>
           <option value="date">依日期排序（新→舊）</option>
         </select>
       </div>
-      <div id="sec3Content" class="space-y-2.5"></div>
+      <div id="sec3Content"></div>
     </section>
 
     <!-- SECTION 4: 全球主要業者及指定重點關注標的 -->
-    <section id="sec4Container" class="space-y-3 bg-emerald-50/35 border border-emerald-200/80 rounded-2xl p-4 sm:p-5 mb-6">
+    <section id="sec4Container" class="space-y-3 rounded-2xl p-4 sm:p-5 border-2 shadow-xs mb-8">
       <div class="flex items-center justify-between gap-2 flex-wrap">
-        <h2 class="text-lg sm:text-xl font-bold text-slate-900 border-l-4 border-emerald-500 pl-3">四、全球主要業者及指定重點關注標的</h2>
+        <h2 id="sec4Title" class="text-lg sm:text-xl font-bold pl-3 border-l-4">四、全球主要業者及指定重點關注標的</h2>
         <select id="sec4Sort" class="text-xs border border-slate-300 rounded-lg px-2.5 py-1.5 bg-white text-slate-700 cursor-pointer">
           <option value="group">關注標的優先分組</option>
           <option value="change">依漲跌幅排序</option>
         </select>
       </div>
-      <div id="sec4Content" class="space-y-4"></div>
+      <div id="sec4Content"></div>
     </section>
   </main>
 
   <script>
-    const TODAY_REF = new Date('2026-11-23T12:00:00+08:00');
+    const STORAGE_KEY = 'hc_hub_prefs_v3';
+    const TODAY_STR = '2026-11-24';
+
+    const THEMES = {
+      vibrant: {
+        body: 'bg-slate-50 text-slate-900',
+        header: 'bg-gradient-to-r from-slate-900 via-indigo-950 to-sky-900 text-white',
+        sec1: 'bg-gradient-to-br from-sky-50 via-blue-50/70 to-cyan-50/70 border-sky-300',
+        sec1Title: 'text-sky-950 border-sky-500',
+        sec1Badge: 'bg-sky-600 text-white',
+        sec2: 'bg-gradient-to-br from-amber-50 via-orange-50/70 to-rose-50/50 border-amber-300',
+        sec2Title: 'text-amber-950 border-amber-500',
+        sec3: 'bg-gradient-to-br from-violet-50 via-purple-50/70 to-fuchsia-50/50 border-violet-300',
+        sec3Title: 'text-violet-950 border-violet-500',
+        sec4: 'bg-gradient-to-br from-emerald-50 via-teal-50/70 to-cyan-50/50 border-emerald-300',
+        sec4Title: 'text-emerald-950 border-emerald-500'
+      },
+      ocean: {
+        body: 'bg-sky-50/40 text-slate-900',
+        header: 'bg-gradient-to-r from-cyan-950 via-sky-900 to-blue-900 text-white',
+        sec1: 'bg-sky-50/80 border-sky-200',
+        sec1Title: 'text-sky-900 border-sky-600',
+        sec1Badge: 'bg-sky-600 text-white',
+        sec2: 'bg-blue-50/70 border-blue-200',
+        sec2Title: 'text-blue-900 border-blue-600',
+        sec3: 'bg-indigo-50/70 border-indigo-200',
+        sec3Title: 'text-indigo-900 border-indigo-600',
+        sec4: 'bg-teal-50/70 border-teal-200',
+        sec4Title: 'text-teal-900 border-teal-600'
+      },
+      aurora: {
+        body: 'bg-slate-900 text-slate-100',
+        header: 'bg-gradient-to-r from-slate-950 via-purple-950 to-indigo-950 text-white',
+        sec1: 'bg-slate-800/90 border-sky-500/50 text-slate-900',
+        sec1Title: 'text-sky-300 border-sky-400',
+        sec1Badge: 'bg-sky-500 text-white',
+        sec2: 'bg-slate-800/90 border-amber-500/50 text-slate-900',
+        sec2Title: 'text-amber-300 border-amber-400',
+        sec3: 'bg-slate-800/90 border-violet-500/50 text-slate-900',
+        sec3Title: 'text-violet-300 border-violet-400',
+        sec4: 'bg-slate-800/90 border-emerald-500/50 text-slate-900',
+        sec4Title: 'text-emerald-300 border-emerald-400'
+      },
+      warm: {
+        body: 'bg-stone-50 text-stone-900',
+        header: 'bg-gradient-to-r from-stone-900 via-amber-950 to-orange-950 text-white',
+        sec1: 'bg-orange-50/75 border-orange-300',
+        sec1Title: 'text-orange-950 border-orange-500',
+        sec1Badge: 'bg-orange-600 text-white',
+        sec2: 'bg-amber-50/80 border-amber-300',
+        sec2Title: 'text-amber-950 border-amber-600',
+        sec3: 'bg-rose-50/70 border-rose-300',
+        sec3Title: 'text-rose-950 border-rose-500',
+        sec4: 'bg-lime-50/70 border-lime-300',
+        sec4Title: 'text-lime-950 border-lime-600'
+      }
+    };
 
     const REPORTS_DATA = [
+      {
+        id: '2026-11-24-am',
+        date: '2026/11/24',
+        session: '早報',
+        headline: 'FDA 單日四連批（BridgeBio / Roche / AbbVie / Novo）、禮來 7.25 億美元收購 LoQus23、Arcus 終止胰臟癌三期',
+        topics: ['FDA 單日四連批', 'BridgeBio Welgemda', 'Roche Wilserdly', '禮來收購 LoQus23', 'AI 製藥 460 億美元'],
+        co: [
+          { ticker: 'BBIO', name: 'BridgeBio', price: '—', change: '▲', date: '2026/11/23', importance: 5, summary: '罕病新藥 Welgemda (BBP-418) 提前獲 FDA 核准，成為首款治療 LGMD2I/R9 療法。', analysis: '較原定 11/27 PDUFA 提前 4 天獲批，確認 FDA 對明確生化學與功能指標的罕病單臂/三期證據採取積極態度，有望快速放量並帶動公司進入多產品商業化週期。', url: 'https://casrai.org/news/fda-approves-welgemda-first-treatment-limb-girdle-muscular-dystrophy-2i-r9-2026', source: 'CASRAI', watchlist: false },
+          { ticker: 'RHHBY', name: 'Roche', price: '—', change: '●', date: '2026/11/23', importance: 5, summary: '口服 SERD Wilserdly (giredestrant) 再奪 FDA 核准，用於早期 ER+/HER2- 乳癌術後輔助治療。', analysis: '繼 11/16 晚期乳癌獲批後一週內再奪早期輔助治療大市場，成為逾 20 年來首款早期乳癌新內分泌療法，大幅擴大潛在用藥人口與商業峰值。', url: 'https://www.gene.com/media/news-features/fda-approves-the-first-new-endocrine-therapy-for-early-stage-er-positive-her2-negative-breast-cancer-in-over-20-years', source: 'Genentech', watchlist: false },
+          { ticker: 'ABBV', name: 'AbbVie', price: '—', change: '●', date: '2026/11/23', importance: 4, summary: 'RINVOQ 獲 FDA 核准用於 12 歲以上非節段型白斑症（NSV），成為美國首款系統性白斑症療法。', analysis: 'JAK 抑制劑再下一城，鞏固 AbbVie 在自體免疫皮膚科的定價權與長期現金流，為後 Humira 時代提供強勁接棒動能。', url: 'https://news.abbvie.com/2026-11-23-AbbVies-RINVOQ-R-upadacitinib-Approved-as-the-First-Systemic-Therapy-in-the-U-S-to-Treat-Adult-and-Pediatric-Patients-With-Nonsegmental-Vitiligo', source: 'AbbVie IR', watchlist: false },
+          { ticker: 'LLY', name: 'Eli Lilly', price: '—', change: '●', date: '2026/11/23', importance: 4, summary: '宣布以最高 7.25 億美元收購亨丁頓舞蹈症新創 LoQus23。', analysis: '減重藥龍頭持續將充沛自由現金流轉化為神經退化早期與臨床前小分子資產，分散單一代謝產品線長期依賴風險。', url: 'https://endpoints.news/lilly-buys-huntingtons-startup-loqus23-for-up-to-725m/', source: 'Endpoints News', watchlist: false },
+          { ticker: 'NVO', name: 'Novo Nordisk', price: '庫藏股均價 DKK 277.02', change: '●', date: '2026/11/23', importance: 3, summary: 'Sogroya 獲 FDA 擴增兒童透納氏症適應症；本輪庫藏股累計買回 3,008.5 萬股 B 股。', analysis: '強化罕見內分泌生長激素長效產品線護城河，同時透過穩定回購支撐股價下檔。', url: 'https://www.zacks.com/stock/news/3034030/novos-sogroya-gets-fda-label-expansion-for-pediatric-turner-syndrome', source: 'Zacks', watchlist: false },
+          { ticker: 'IVVD', name: 'Invivyd', price: '—', change: '▲', date: '2026/11/23', importance: 4, summary: '單株抗體 VYD2311 於三期 DECLARATION 試驗期中分析達標正面結果。', analysis: '期中分析成功達標將加速推動 BLA 申請，為高風險族群提供非疫苗被動免疫新選擇。', url: 'https://investors.invivyd.com/news-releases/news-release-details/invivyd-announces-positive-declaration-trial-data-monoclonal', source: 'Invivyd IR', watchlist: false },
+          { ticker: 'RCUS', name: 'Arcus Biosciences', price: '—', change: '▼', date: '2026/11/23', importance: 4, summary: '宣布終止 CD73 抑制劑 quemliclustat 治療轉移性胰臟癌之三期 PRISM-1 試驗。', analysis: '腺苷免疫路徑在胰臟癌微環境再度受挫，短線將壓抑市場對 CD73 靶點組合的估值預期。', url: 'https://casrai.org/news/fda-approves-welgemda-first-treatment-limb-girdle-muscular-dystrophy-2i-r9-2026', source: 'CASRAI', watchlist: false },
+          { ticker: '02637.HK', name: '海西新藥', price: '—', change: '●', date: '2026/11/23', importance: 3, summary: '口服眼底創新藥 HX9428 治療糖尿病性黃斑水腫（DME）獲 NMPA CDE 核准展開 II 期臨床。', analysis: '口服劑型相較現有眼內注射 VEGF 抗體具明顯給藥便利優勢，值得追蹤二期療效讀出。', url: 'https://tw.tradingview.com/news/gelonghui:4a4c6c977acdf:0/', source: 'TradingView', watchlist: false }
+        ],
+        reg: [
+          { agency: 'FDA', date: '2026/11/23', importance: 5, title: '單日四連批：Welgemda / Wilserdly / RINVOQ / Sogroya', detail: '一次核准 LGMD2I/R9 首款療法、早期乳癌口服 SERD、白斑症首款系統性療法及兒童透納氏症適應症擴展。', analysis: '儘管 FDA 局長人事懸缺，CDER 實務審評產出仍維持高檔，顯示關鍵突破性與罕病療法未受高層政治變數阻礙。', url: 'https://www.fda.gov/', source: 'FDA' },
+          { agency: 'FDA', date: '2026/11/23', importance: 3, title: 'Copper Cu 64 PSMA I&T 獲快速審查認定', detail: '授予攝護腺癌影像診斷劑 Fast Track 認定。', analysis: '核醫精準診斷持續獲得法規加速通道支持，有助縮短後續 NDA 審查週期。', url: 'https://www.urologytimes.com/view/fda-grants-fast-track-designation-to-copper-cu-64-psma-i-t-for-prostate-cancer-imaging', source: 'Urology Times' },
+          { agency: 'NMPA', date: '2026/11/23', importance: 3, title: 'HX9428 II 期 IND 獲准 & 醫材批件送達', detail: 'CDE 核准海西新藥口服 DME 療法進入 II 期臨床，並發布醫療器械批准證明文件送達資訊。', analysis: '中國眼科口服創新藥開發持續提速，本土審查常態化高效運作。', url: 'https://tw.tradingview.com/news/gelonghui:4a4c6c977acdf:0/', source: 'TradingView' }
+        ],
+        cat: [
+          { asset: 'Welgemda (BBP-418)（BridgeBio）', type: 'PDUFA決策', date: '2026/11/23', importance: 5, outcome: '優於預期', note: '較原定 11/27 期限提前 4 天獲 FDA 核准。', analysis: '提前核准代表審查團隊對生產與臨床數據無重大疑慮，預期商業團隊可提前於 2026 年底啟動鋪貨。', url: 'https://casrai.org/news/fda-approves-welgemda-first-treatment-limb-girdle-muscular-dystrophy-2i-r9-2026', source: 'CASRAI' },
+          { asset: 'Wilserdly (giredestrant)（Roche）', type: 'PDUFA決策', date: '2026/11/23', importance: 5, outcome: '優於預期', note: '火速拿下早期 ER+/HER2- 乳癌術後輔助治療大市場。', analysis: '單週兩張藥證落地，確立口服 SERD 在乳癌全病程的滲透潛力。', url: 'https://www.gene.com/media/news-features/fda-approves-the-first-new-endocrine-therapy-for-early-stage-er-positive-her2-negative-breast-cancer-in-over-20-years', source: 'Genentech' },
+          { asset: 'Quemliclustat (PRISM-1)（Arcus）', type: '臨床數據讀出', date: '2026/11/23', importance: 4, outcome: '低於預期', note: '因療效未達標終止胰臟癌三期試驗。', analysis: '建議投資人將評價重心轉回 Arcus 剩餘腎癌與 HIF-2α 管線。', url: 'https://casrai.org/news/fda-approves-welgemda-first-treatment-limb-girdle-muscular-dystrophy-2i-r9-2026', source: 'CASRAI' }
+        ],
+        deep: [
+          { cat: '政策變化', date: '2026/11/23', importance: 4, title: '美國國會發布美中生技競爭最終報告，授權合規風險升溫', body: '美國眾議院委員會示警中國授權交易熱度與國安審查交織，同時 FDA 單日高效核准四項新藥。', analysis: '跨國授權交易未來將更重視智財切割與臨床數據可稽核性，純美歐本土管線有望享有更高地緣溢價。', url: 'https://endpoints.news/house-committee-issues-final-report-on-us-china-biotech-race/', source: 'Endpoints News' },
+          { cat: '技術突破', date: '2026/11/23', importance: 5, title: 'AI 藥物開發年度授權突破 460 億美元', body: '78% 前二十大藥廠已建立活躍 AI 研發合作，且臨床成功率高於傳統基準。', analysis: 'AI 藥物探索已從概念驗證走向里程碑付費實質收割期，具備乾濕實驗室閉環數據的平台商最受青睞。', url: 'https://emergent.sh/news/ai-drug-developers-hit-46b-deals-trial', source: 'Emergent' }
+        ]
+      },
+      {
+        id: '2026-11-23-pm',
+        date: '2026/11/23',
+        session: '晚報',
+        headline: '諾華 Leqvio 三期心血管結果達標、中國啟動單抗生物藥聯盟集採、綠葉/恆瑞獲 NMPA 核准',
+        topics: ['Leqvio ORION-4', '中國單抗集採', '6446.TW 藥華藥', '三福生醫 7972.TW'],
+        co: [
+          { ticker: '6446.TW', name: '藥華藥', price: '1,080.00 元', change: '▼ -1.82%', date: '2026/11/23', importance: 5, summary: '11/23 開盤 1,100 元、盤中低點 1,065 元、終場收 1,080 元（台灣 50 指數比價日）。', analysis: '短線面臨被動指數調整測試，但基本面受惠美日 PV 營收拉升（Q3 EPS 創高）及巴西 ET 送件，回檔後本益比已大幅收斂。', url: 'https://www.wantgoo.com/stock/6446/technical-chart', source: '玩股網', watchlist: true },
+          { ticker: 'NVS', name: 'Novartis', price: '—', change: '●', date: '2026/11/23', importance: 5, summary: 'siRNA 降脂藥 Leqvio 於三期 ORION-4 達成心血管結局主要終點。', analysis: '成為首款證實降低 ASCVD 心血管事件風險之 siRNA 療法，將大幅強化諾華與醫保給付談判力並打開一線降脂滲透率。', url: 'https://www.novartis.com/news/media-releases/twice-yearly-leqvio-inclisiran-reduced-cardiovascular-event-risk-first-outcomes-study-sirna-therapy-ascvd', source: 'Novartis', watchlist: false },
+          { ticker: '2186.HK / 600276.SH', name: '綠葉製藥 / 恆瑞醫藥', price: '—', change: '●', date: '2026/11/23', importance: 3, summary: '綠葉 1 類新藥若欣林獲 NMPA 核准抗焦慮新適應症；恆瑞雙靶止吐針劑瑞坦寧獲批 MEC 適應症。', analysis: '國產原研精神科與腫瘤支持性療法持續擴大適應症版圖，加速院內放量。', url: 'https://www.mrjjxw.com/articles/2026-11-22/4655194.html', source: '每日經濟新聞', watchlist: false },
+          { ticker: 'CSL.AX', name: 'CSL Limited', price: '均價 A$190.92', change: '●', date: '2026/11/23', importance: 3, summary: '累計已買回 113.6 萬股（達 11.5 億澳幣庫藏股上限約 18.9%）。', analysis: '持續執行穩健資本回饋計畫，有助緩和血漿業務重組後的市場情緒。', url: 'https://kalkine.com.au/stock-analysis/healthcare/how-does-csls-asxcsl-a115-billion-on-market-buy-back-work-and-how-many-shares-has-it-bought', source: 'Kalkine Media', watchlist: false },
+          { ticker: '7972.TW', name: '三福生醫', price: '11/25 登錄興櫃', change: '●', date: '2026/11/23', importance: 3, summary: '舉辦興櫃前法說會，推進自美日引進之三款 First-in-Class 免疫與實體腫瘤新藥。', analysis: '興櫃新兵聚焦跨國授權引進策略，可追蹤後續臨床一期/二期收案進度。', url: 'https://news.gbimonthly.com/tw/invest/show.php?num=91582&range=news', source: '環球生技月刊', watchlist: false }
+        ],
+        reg: [
+          { agency: 'NMPA', date: '2026/11/23', importance: 5, title: '全國單抗聯盟集採啟動 & 若欣林/瑞坦寧獲批', detail: '啟動 7 個單抗品種集採（總規模 340.8 億人民幣），設智財無侵權承諾與量產履歷硬門檻。', analysis: '雖將壓縮成熟生物相似藥毛利，但嚴格門檻有助淘汰低質產能、鞏固龍頭藥企市占。', url: 'https://www.sfccn.com/2026/11-23/0MMDE0MDdfMjMxNDQ0Mg.html', source: '南方財經網' },
+          { agency: 'TFDA', date: '2026/11/23', importance: 3, title: '116 年度精準檢測與藥品供應鏈計畫', detail: '公告精準醫療分子檢測實驗室認證管理與藥品追溯追蹤機制計畫。', analysis: '持續強化台灣 LDTs 精準檢測合規與國內藥品供應韌性。', url: 'https://www.fda.gov.tw/', source: 'TFDA' }
+        ],
+        cat: [
+          { asset: 'Leqvio (ORION-4)（Novartis）', type: '臨床數據讀出', date: '2026/11/23', importance: 5, outcome: '優於預期', note: '首款證實降低 ASCVD 心血管事件風險之 siRNA 療法。', analysis: '完整數據將於 2027 H1 公布，已足以支撐全球心臟科醫師一線處方信心。', url: 'https://www.novartis.com/news/media-releases/twice-yearly-leqvio-inclisiran-reduced-cardiovascular-event-risk-first-outcomes-study-sirna-therapy-ascvd', source: 'Novartis' }
+        ],
+        deep: [
+          { cat: '政策變化', date: '2026/11/23', importance: 4, title: '中國首次啟動全國單抗聯盟集採，量產履歷與智財成硬門檻', body: '涵蓋貝伐珠單抗等 7 大品種，要求無侵權承諾與量產履歷。', analysis: '生物相似藥正式進入規模與合規淘汰賽，創新雙抗與 ADC 則仍享政策保護傘。', url: 'https://www.sfccn.com/2026/11-23/0MMDE0MDdfMjMxNDQ0Mg.html', source: '南方財經網' }
+        ]
+      },
       {
         id: '2026-11-23-am',
         date: '2026/11/23',
         session: '早報',
         headline: '台灣罕藥擬改平行審查制加速給付、Capricor 今召開 CRL 說明會、NTHI 迎 FDA 會議',
-        topics: ['台灣罕藥平行審查', 'CAPR CRL', 'NTHI NEO212', 'Takeda', 'AI 製程開發'],
+        topics: ['台灣罕藥平行審查', 'CAPR CRL', 'NTHI NEO212', 'Takeda'],
         co: [
-          { ticker: 'CAPR', name: 'Capricor Therapeutics', price: '$7.57', change: '▲ +0.50%', date: '2026/11/22', summary: '將於美東 11/23 8:30 AM 召開投資人電話會議，說明 DMD 細胞療法 deramiocel 第二次 CRL 後續補件與法規溝通策略。', url: 'https://www.parentprojectmd.org/fda-issues-complete-response-letter-for-deramiocel/', source: 'PPMD', watchlist: false },
-          { ticker: 'NTHI', name: 'NeOnc Technologies', price: '—', change: '●', date: '2026/11/23', summary: '今日與美國 FDA 舉行口服腦腫瘤候選藥 NEO212 之 End-of-Phase 1 Type B 會議，確認後續臨床試驗設計。', url: 'https://www.stocktitan.net/news/NTHI/ne-onc-technologies-announces-fda-rescheduled-neo212-end-of-phase-1-rodurb907u2f.html', source: 'StockTitan', watchlist: false },
-          { ticker: '4502.T', name: 'Takeda 武田藥品', price: '¥6,869.0', change: '▼ -0.89%', date: '2026/11/18', summary: '同步推進東南亞裕利醫藥通路結盟與日本 SAKIGAKE 先驅審查 ADC 開發，美股 ADS 報 $21.28（-1.69%）。', url: 'https://www.takeda.com/investors/stock-information/', source: 'Takeda IR', watchlist: false },
-          { ticker: 'RARE', name: 'Ultragenyx', price: '市值 $1.68B', change: '●', date: '2026/11/22', summary: '罕病研發公司市值維持 $1.68B 區間整理，持續推進遺傳代謝與基因治療產品線。', url: 'https://www.macrotrends.net/stocks/charts/RARE/ultragenyx-pharmaceutical/market-cap', source: 'Macrotrends', watchlist: false },
-          { ticker: '未上市', name: '睿泉生技 Vernus AI', price: '—', change: '●', date: '2026/11/22', summary: '宣布攜手仁寶參加 12/3–6「2026 台灣醫療科技展」，展示結合 AI、物理模擬與量子退火最佳化之 ReAIX 製程開發平台。', url: 'https://vernus.ai/zh/news/healthcare-expo-2026/', source: 'Vernus AI', watchlist: false }
+          { ticker: 'CAPR', name: 'Capricor Therapeutics', price: '$7.57', change: '▲ +0.50%', date: '2026/11/22', importance: 4, summary: '召開投資人電話會議說明 DMD 細胞療法 deramiocel 第二次 CRL 後續策略。', analysis: '因 FDA 指出 HOPE-3 統計計畫變更與盲法問題，短期補件難度大幅升高，須觀察公司是否提出重做試驗或申訴。', url: 'https://www.parentprojectmd.org/fda-issues-complete-response-letter-for-deramiocel/', source: 'PPMD', watchlist: false },
+          { ticker: 'NTHI', name: 'NeOnc Technologies', price: '—', change: '●', date: '2026/11/23', importance: 3, summary: '與美國 FDA 舉行口服腦腫瘤候選藥 NEO212 之 End-of-Phase 1 Type B 會議。', analysis: 'Type B 會議結果將決定 NEO212 進入二期註冊試驗之設計規模與時程。', url: 'https://www.stocktitan.net/news/NTHI/ne-onc-technologies-announces-fda-rescheduled-neo212-end-of-phase-1-rodurb907u2f.html', source: 'StockTitan', watchlist: false }
         ],
         reg: [
-          { agency: 'TFDA', date: '2026/11/22', title: '台灣罕見疾病藥物「平行審查制」', detail: '衛福部長石崇良表示將整合國健署、食藥署（TFDA）與健保署三道程序改採平行審查，讓罕藥認定與健保給付評估同步進行，新制預計 2027 年第 1 季公布，縮短 25 項待給付罕藥等待時間。', url: 'https://www.merit-times.com.tw/NewsPage.aspx?unid=946995', source: '人間福報' },
-          { agency: 'FDA', date: '2026/11/23', title: 'NEO212 Type B 會議（NeOnc）', detail: '今日召開 End-of-Phase 1 Type B 會議，討論口服 NEO212 進入二期臨床之數據與法規要求。', url: 'https://www.stocktitan.net/news/NTHI/ne-onc-technologies-announces-fda-rescheduled-neo212-end-of-phase-1-rodurb907u2f.html', source: 'StockTitan' }
+          { agency: 'TFDA', date: '2026/11/22', importance: 5, title: '台灣罕見疾病藥物「平行審查制」', detail: '衛福部擬整合國健署、TFDA 與健保署同步審查，預計 2027 Q1 公布新制。', analysis: '可望大幅縮短 25 項待給付罕藥從核准到健保收載的超過一年等待期，直接受惠本土罕病與高價新藥商業化。', url: 'https://www.merit-times.com.tw/NewsPage.aspx?unid=946995', source: '人間福報' }
         ],
         cat: [
-          { asset: 'NEO212（NeOnc / NTHI）', type: '試驗里程碑', date: '2026/11/23', outcome: '預期發生', note: '今日舉行 FDA End-of-Phase 1 Type B 會議，釐清下一階段臨床路徑。', url: 'https://www.stocktitan.net/news/NTHI/ne-onc-technologies-announces-fda-rescheduled-neo212-end-of-phase-1-rodurb907u2f.html', source: 'StockTitan' },
-          { asset: 'Lanifibranor (NATiV3)（Inventiva）', type: '臨床數據讀出', date: '2026 Q4', outcome: '預期發生', note: 'MASH 關鍵三期 NATiV3 試驗預計於本季公布頂線數據，現金流支應至 2027 Q2。', url: 'https://www.perplexity.ai/finance/IVA/earnings', source: 'Perplexity Finance' }
+          { asset: 'NEO212（NeOnc）', type: '試驗里程碑', date: '2026/11/23', importance: 3, outcome: '預期發生', note: '舉行 FDA End-of-Phase 1 Type B 會議。', analysis: '釐清口服穿腦劑型進入二期臨床的法規路徑。', url: 'https://www.stocktitan.net/news/NTHI/ne-onc-technologies-announces-fda-rescheduled-neo212-end-of-phase-1-rodurb907u2f.html', source: 'StockTitan' }
         ],
         deep: [
-          { cat: '政策變化', title: '台灣罕藥採「平行審查」打通最後一哩路，預計 2027 Q1 上路', body: '過去台灣罕藥從疾病認定、藥證審核到健保給付須經三道關卡耗時逾一年；衛福部規劃整合國健署、TFDA 與健保署同步審查，可望大幅縮短 25 項待給付罕藥的上市與收載時程。', url: 'https://www.merit-times.com.tw/NewsPage.aspx?unid=946995', source: '人間福報' },
-          { cat: '重大事件', title: '感恩節短週登場，週初聚焦 Capricor CRL 說明會與台股生技止穩測試', body: '美股本週因感恩節假期交易日縮短，週一盤前先看 Capricor 說明 deramiocel 後續補件計畫；台股開盤則觀察藥華藥能否守住 1,100 元整數關卡。', url: 'https://www.parentprojectmd.org/fda-issues-complete-response-letter-for-deramiocel/', source: 'PPMD' },
-          { cat: '技術突破', title: 'AI 與量子退火最佳化滲透台灣生醫製程開發（CMC）', body: '隨著 2026 台灣醫療科技展臨近，本土 AI 製藥平台（如睿泉生技 ReAIX）正將物理模擬與最佳化演算法導入小分子合成、抗體可開發性預測與製劑穩定性評估。', url: 'https://vernus.ai/zh/news/healthcare-expo-2026/', source: 'Vernus AI' }
+          { cat: '政策變化', date: '2026/11/22', importance: 5, title: '台灣罕藥採「平行審查」打通最後一哩路，預計 2027 Q1 上路', body: '整合三署流程，讓罕藥認定與健保給付評估同步進行。', analysis: '政策紅利有助提升跨國罕病藥廠引進台灣意願，並加快本土新藥現金回收速度。', url: 'https://www.merit-times.com.tw/NewsPage.aspx?unid=946995', source: '人間福報' }
         ]
       },
       {
@@ -234,129 +355,117 @@
         date: '2026/11/22',
         session: '晚報',
         headline: 'FDA 對 Capricor 細胞療法發出第二次 CRL、Savara 證實未獲新 PDUFA 時程、LLY 收盤穩居 $1,352',
-        topics: ['Capricor 第二次 CRL', 'Savara PDUFA 延宕', 'LLY 穩居 $1,352', 'TFDA 韌性整備'],
+        topics: ['Capricor 第二次 CRL', 'Savara PDUFA 延宕', 'LLY 穩居 $1,352'],
         co: [
-          { ticker: 'CAPR', name: 'Capricor Therapeutics', price: '—', change: '▼', date: '2026/11/21', summary: '原定 11/22 PDUFA 之 DMD 細胞療法 deramiocel 遭 FDA CBER 發出第二次完全回覆函（CRL），聚焦過敏反應不平衡（42% vs 15%）與統計分析計畫變更。', url: 'https://www.neurologylive.com/view/fda-issues-second-complete-response-letter-deramiocel-dmd', source: 'NeurologyLive', watchlist: false },
-          { ticker: 'SVRA', name: 'Savara', price: '股價重挫', change: '▼', date: '2026/11/21', summary: '正式公告 FDA 確認無法於 11/22 PDUFA 期限前對 molgramostim BLA 做出決策，且未提供新審查日。', url: 'https://investors.savarapharma.com/news/news-details/2026/Savara-Informed-That-FDA-Will-Not-Take-Action-on-the-Molgramostim-BLA-for-Autoimmune-Pulmonary-Alveolar-Proteinosis-Autoimmune-PAP-by-the-PDUFA-Date/default.aspx', source: 'Savara IR', watchlist: false },
-          { ticker: 'LLY', name: 'Eli Lilly', price: '$1,352.27', change: '▲ +0.08%', date: '2026/11/20', summary: '11/20 終場微漲 $1.15 收 $1,352.27；91.67% 分析師維持買進評等，12 個月共識目標價 $1,468.57。', url: 'https://dhan.co/us-stocks/LLY-eli-lilly-and-co-share-price/', source: 'Dhan', watchlist: false }
+          { ticker: 'SVRA', name: 'Savara', price: '股價重挫', change: '▼', date: '2026/11/21', importance: 4, summary: 'FDA 確認無法於 11/22 PDUFA 期限前對 molgramostim BLA 做出決策且未給新審查日。', analysis: '行政延宕雖非拒絕，但缺乏明確時間表加劇小型生技股折價風險。', url: 'https://investors.savarapharma.com/news/news-details/2026/Savara-Informed-That-FDA-Will-Not-Take-Action-on-the-Molgramostim-BLA-for-Autoimmune-Pulmonary-Alveolar-Proteinosis-Autoimmune-PAP-by-the-PDUFA-Date/default.aspx', source: 'Savara IR', watchlist: false },
+          { ticker: 'LLY', name: 'Eli Lilly', price: '$1,352.27', change: '▲ +0.08%', date: '2026/11/20', importance: 4, summary: '91.67% 分析師維持買進評等，12 個月共識目標價 $1,468.57。', analysis: '代謝與神經雙線布局支撐高估值溢價。', url: 'https://dhan.co/us-stocks/LLY-eli-lilly-and-co-share-price/', source: 'Dhan', watchlist: false }
         ],
         reg: [
-          { agency: 'FDA', date: '2026/11/21', title: 'Deramiocel 第二次完全回覆函（Capricor）', detail: '針對 DMD 細胞療法發出第二次 CRL，要求解決隨機期後分析計畫變更、遺漏數據敏感度及安全性不平衡疑慮。', url: 'https://www.neurologylive.com/view/fda-issues-second-complete-response-letter-deramiocel-dmd', source: 'NeurologyLive' },
-          { agency: 'FDA', date: '2026/11/21', title: 'Molgramostim PDUFA 展延（Savara）', detail: '正式確認錯過 2026/11/22 PDUFA 期限，審查持續進行但未給出新目標日。', url: 'https://investors.savarapharma.com/news/news-details/2026/Savara-Informed-That-FDA-Will-Not-Take-Action-on-the-Molgramostim-BLA-for-Autoimmune-Pulmonary-Alveolar-Proteinosis-Autoimmune-PAP-by-the-PDUFA-Date/default.aspx', source: 'Savara IR' }
+          { agency: 'FDA', date: '2026/11/21', importance: 4, title: 'Deramiocel 第二次 CRL & Molgramostim PDUFA 展延', detail: '同為 11/22 到期之兩項罕病 BLA 雙雙受阻。', analysis: '顯示評估細胞與罕病藥證須同時納入統計完整性與 FDA 審查頻寬變數。', url: 'https://www.neurologylive.com/view/fda-issues-second-complete-response-letter-deramiocel-dmd', source: 'NeurologyLive' }
         ],
         cat: [
-          { asset: 'Deramiocel（Capricor）', type: 'PDUFA決策', date: '2026/11/21', outcome: '低於預期', note: '遭 FDA CBER 發出第二次 CRL，未獲核准。', url: 'https://www.neurologylive.com/view/fda-issues-second-complete-response-letter-deramiocel-dmd', source: 'NeurologyLive' },
-          { asset: 'Molgramostim（Savara）', type: 'PDUFA決策', date: '2026/11/22', outcome: '低於預期', note: 'Savara 證實 FDA 錯過目標期限且未給新日期。', url: 'https://investors.savarapharma.com/news/news-details/2026/Savara-Informed-That-FDA-Will-Not-Take-Action-on-the-Molgramostim-BLA-for-Autoimmune-Pulmonary-Alveolar-Proteinosis-Autoimmune-PAP-by-the-PDUFA-Date/default.aspx', source: 'Savara IR' }
+          { asset: 'Molgramostim（Savara）', type: 'PDUFA決策', date: '2026/11/22', importance: 4, outcome: '低於預期', note: 'FDA 錯過目標期限且未給新日期。', analysis: '須待 FDA 內部審查頻寬釋出後才有望重新排定決策。', url: 'https://investors.savarapharma.com/news/news-details/2026/Savara-Informed-That-FDA-Will-Not-Take-Action-on-the-Molgramostim-BLA-for-Autoimmune-Pulmonary-Alveolar-Proteinosis-Autoimmune-PAP-by-the-PDUFA-Date/default.aspx', source: 'Savara IR' }
         ],
-        deep: [
-          { cat: '政策變化', title: 'FDA 雙重考驗：CBER 統計嚴審與審查行政延宕並存', body: '同為 11/22 到期的兩項罕病 BLA 雙雙受阻，顯示評估美國罕病與細胞療法藥證時，除臨床數據外更須納入統計完整性與審查頻寬折價。', url: 'https://www.neurologylive.com/view/fda-issues-second-complete-response-letter-deramiocel-dmd', source: 'NeurologyLive' }
-        ]
+        deep: []
       },
       {
         id: '2026-11-21-am',
         date: '2026/11/21',
         session: '早報',
         headline: 'Sanofi 傳擬收購 Insmed、Merck TROP2 ADC 達三期 OS 終點、EMA 11 月推薦 7 項新藥',
-        topics: ['Sanofi / Insmed', 'TROP2 ADC', 'EMA CHMP', '6446.TW 藥華藥'],
+        topics: ['Sanofi / Insmed', 'TROP2 ADC', 'EMA CHMP', 'Danaher AI 實驗室'],
         co: [
-          { ticker: '6446.TW', name: '藥華藥', price: '1,105.00 元', change: '▼ -8.30%', date: '2026/11/20', summary: '11/20 盤中觸及跌停 1,085 元後收 1,105.00 元，待下週台股開盤檢驗支撐。', url: 'https://www.cnyes.com/twstock/6446', source: '鉅亨網', watchlist: true },
-          { ticker: 'INSM', name: 'Sanofi / Insmed', price: 'INSM 暴漲約 20%', change: '▲', date: '2026/11/20', summary: '彭博報導法國藥廠 Sanofi 正評估收購美國生技公司 Insmed（INSM），帶動股價飆升約 20%。', url: 'https://moneymorning.com/2026/11/20/insmed-sanofi-takeover-talks-brinsupri-november-2026', source: 'Money Morning', watchlist: false },
-          { ticker: 'MRK', name: 'Merck', price: '—', change: '●', date: '2026/11/20', summary: '宣布 TROP2 ADC sac-TMT 於全球三期 TroFuse-015（三線+胃食道癌）達到總生存期（OS）主要終點。', url: 'https://www.merck.com/news/merck-announces-trofuse-015-trial-evaluating-sacituzumab-tirumotecan-sac-tmt-met-primary-endpoint-of-overall-survival-os-in-third-line-or-later-locally-advanced-unresectable-or-metastatic-gastroes/', source: 'Merck', watchlist: false }
+          { ticker: 'INSM', name: 'Sanofi / Insmed', price: 'INSM 暴漲約 20%', change: '▲', date: '2026/11/20', importance: 5, summary: '彭博報導 Sanofi 評估收購 Insmed，帶動 INSM 股價飆升約 20%。', analysis: '大藥廠面對專利懸崖正加速以併購鎖定具備首創潛力的罕病與呼吸道商業化資產。', url: 'https://moneymorning.com/2026/11/20/insmed-sanofi-takeover-talks-brinsupri-november-2026', source: 'Money Morning', watchlist: false },
+          { ticker: 'MRK', name: 'Merck', price: '—', change: '●', date: '2026/11/20', importance: 5, summary: 'TROP2 ADC sac-TMT 於全球三期 TroFuse-015 達到胃食道癌總生存期（OS）主要終點。', analysis: '成為首款證實改善胃食道癌總生存期的 TROP2 ADC，大幅拉高該靶點在上消化道腫瘤的臨床地位。', url: 'https://www.merck.com/news/merck-announces-trofuse-015-trial-evaluating-sacituzumab-tirumotecan-sac-tmt-met-primary-endpoint-of-overall-survival-os-in-third-line-or-later-locally-advanced-unresectable-or-metastatic-gastroes/', source: 'Merck', watchlist: false },
+          { ticker: 'DHR', name: 'Danaher', price: '$220.36', change: '▼ -3.16%', date: '2026/11/20', importance: 4, summary: '與微軟合作開發具 AI 代理互聯功能之科學儀器與智慧實驗室平台。', analysis: '將 AI 代理導入實驗室工作流，有助中長期提升儀器黏著度與軟體訂閱毛利。', url: 'https://investors.danaher.com/2026-11-20-Danaher-Collaborates-with-Microsoft-to-Make-Scientific-Instruments-Agentically-Connected-and-Laboratories-More-Intelligent', source: 'Danaher IR', watchlist: false }
         ],
         reg: [
-          { agency: 'EMA', date: '2026/11/20', title: '11 月 CHMP 完整決議總覽', detail: '確認推薦 7 項新藥（2026 累計 79 項）與 11 項適應症擴展（含 Gazyvaro 紅斑性狼瘡、Isturisa 兒童庫欣氏症）。', url: 'https://casrai.org/news/ema-chmp-november-2026-seven-medicines-eu-m4all-recommendations', source: 'CASRAI' }
+          { agency: 'EMA', date: '2026/11/20', importance: 4, title: '11 月 CHMP 完整決議總覽', detail: '推薦 7 項新藥（2026 累計 79 項）與 11 項適應症擴展。', analysis: '歐盟審查產出維持高檔，生物相似藥精簡途徑亦已正式落地。', url: 'https://casrai.org/news/ema-chmp-november-2026-seven-medicines-eu-m4all-recommendations', source: 'CASRAI' }
         ],
         cat: [
-          { asset: 'Sac-TMT（Merck）', type: '臨床數據讀出', date: '2026/11/20', outcome: '優於預期', note: 'TroFuse-015 全球三期達成 OS 主要終點，首款 TROP2 ADC 在晚期胃食道癌證實總生存期獲益。', url: 'https://www.merck.com/news/merck-announces-trofuse-015-trial-evaluating-sacituzumab-tirumotecan-sac-tmt-met-primary-endpoint-of-overall-survival-os-in-third-line-or-later-locally-advanced-unresectable-or-metastatic-gastroes/', source: 'Merck' }
+          { asset: 'Sac-TMT（Merck）', type: '臨床數據讀出', date: '2026/11/20', importance: 5, outcome: '優於預期', note: 'TroFuse-015 全球三期達成 OS 主要終點。', analysis: '為 Merck 在後 Keytruda 時代建立關鍵 ADC 營收支柱。', url: 'https://www.merck.com/news/merck-announces-trofuse-015-trial-evaluating-sacituzumab-tirumotecan-sac-tmt-met-primary-endpoint-of-overall-survival-os-in-third-line-or-later-locally-advanced-unresectable-or-metastatic-gastroes/', source: 'Merck' }
         ],
-        deep: [
-          { cat: '重大事件', title: 'Sanofi 擬購 Insmed 引爆年底生技併購想像', body: '大藥廠面對專利懸崖正加速以併購鎖定具備首創商業潛力的罕病與呼吸道資產。', url: 'https://moneymorning.com/2026/11/20/insmed-sanofi-takeover-talks-brinsupri-november-2026', source: 'Money Morning' }
-        ]
+        deep: []
       }
     ];
 
-    // Section 2: 深度解析（政策變化 / 重大事件 / 技術突破）— Cleanly formatted, no stray characters
     const DEEP_ANALYSES = [
-      {
-        id: 'd1', date: '2026/11/22', cat: '政策變化', title: '台灣罕藥將改採「平行審查制」，整合三署縮短健保收載時程',
-        fact: '衛福部長石崇良於 2026/11/22 表示，將整合國健署、食藥署（TFDA）與健保署三道程序改採平行審查，預計 2027 Q1 公布新制。',
-        background: '截至今年 10 月仍有 25 種罕藥、涉及 5,405 名患者等待健保給付，現行序列審查耗時常超過 1 年。',
-        impact: '罕藥認定與健保給付評估同步進行，可加速國內外罕見疾病新藥在台灣商業化落地。',
-        forecast: '2027 上半年起罕病新藥在台取證至納入健保之週期有望縮短 30%–50%。',
-        companies: ['藥華藥 (6446.TW)', '安基生技 (7754.TW)'],
-        url: 'https://www.merit-times.com.tw/NewsPage.aspx?unid=946995', source: '人間福報'
-      },
-      {
-        id: 'd2', date: '2026/11/21', cat: '政策變化', title: 'FDA 局長提名破局且審查頻寬吃緊，罕病與細胞療法面臨雙重考驗',
-        fact: '白宮撤回 Heidi Overton 的 FDA 局長提名，代理局長擬年底離任；同週 FDA 對 Capricor 發出第二次 CRL，並錯過 Savara 的 11/22 PDUFA 期限。',
-        background: 'CBER 對隨機對照期後變更統計計畫與過敏反應不平衡採取嚴格把關，同時機構人力吃緊影響審查如期結案。',
-        impact: '短期生技股對年底密集 PDUFA 決策將出現較高事件波動折價。',
-        forecast: '具備完整總生存期（OS）與預先定義統計終點之申請案將維持較高核准確定性。',
-        companies: ['Capricor (CAPR)', 'Savara (SVRA)', 'Vertex (VRTX)'],
-        url: 'https://www.neurologylive.com/view/fda-issues-second-complete-response-letter-deramiocel-dmd', source: 'NeurologyLive'
-      },
-      {
-        id: 'd3', date: '2026/11/20', cat: '重大事件', title: 'Sanofi 傳擬收購 Insmed、輝瑞 26 億美元押注中國體內 CAR-T',
-        fact: '彭博報導 Sanofi 正評估收購 Insmed（激勵股價大漲約 20%）；輝瑞則與中國星奕昂生技簽署 3.3 億美元首付款（總額 26 億美元）之體內 CAR-T 授權協議。',
-        background: '跨國大藥廠為填補 2027–2030 年專利懸崖，積極透過併購與授權鎖定具首創潛力的呼吸道、罕病與下一代細胞療法。',
-        impact: '中小型具臨床驗證或已獲批核心資產的生技公司估值溢價再度升溫。',
-        forecast: '年底至 2027 Q1 仍將有更多跨國藥廠針對自體免疫與腫瘤細胞療法發動授權併購。',
-        companies: ['Sanofi (SNY)', 'Insmed (INSM)', 'Pfizer (PFE)'],
-        url: 'https://moneymorning.com/2026/11/20/insmed-sanofi-takeover-talks-brinsupri-november-2026', source: 'Money Morning'
-      },
-      {
-        id: 'd4', date: '2026/11/20', cat: '技術突破', title: 'Merck TROP2 ADC 達胃食道癌三期 OS 終點、Danaher 聯手微軟打造 AI 實驗室',
-        fact: 'Merck 宣布 TROP2 ADC sac-TMT 在全球三期 TroFuse-015 達成 OS 主要終點；Danaher 同日宣布與微軟開發具 AI 代理互聯能力之科學儀器平台。',
-        background: '過去 TROP2 ADC 在上消化道腫瘤領域多僅見無惡化生存期改善，本次為首款證實總生存期（OS）獲益的試驗。',
-        impact: '驗證 TROP2 ADC 跨癌種商業空間，並推動 CRO／生命科學工具朝向代理型 AI 自動化升級。',
-        forecast: '2027 年「雙抗／ADC 聯合療法」與「AI 實驗室自動化」將成生醫資本支出兩大主軸。',
-        companies: ['Merck (MRK)', 'Danaher (DHR)'],
-        url: 'https://investors.danaher.com/2026-11-20-Danaher-Collaborates-with-Microsoft-to-Make-Scientific-Instruments-Agentically-Connected-and-Laboratories-More-Intelligent', source: 'Danaher IR'
-      }
+      { id: 'd1', date: '2026/11/23', cat: '技術突破', title: 'AI 藥物開發年度授權突破 460 億美元，78% 大藥廠已投入', fact: '最新產業分析指出 2026 年 AI 製藥授權總額已達 460 億美元，78% 前二十大藥廠建立合作夥伴關係。', background: '過去 AI 探索常遭質疑缺乏臨床驗證，今年多項 AI 設計候選藥臨床成功率超越傳統基準。', impact: 'AI 研發已從概念期跨入大藥廠常態性資本配置。', forecast: '2027 年具備濕實驗室閉環驗證的 AI 平台商將主導早期授權議價權。', companies: ['Danaher (DHR)', 'Merck (MRK)'], url: 'https://emergent.sh/news/ai-drug-developers-hit-46b-deals-trial', source: 'Emergent' },
+      { id: 'd2', date: '2026/11/23', cat: '政策變化', title: '中國首次啟動全國單抗聯盟集採，智財與量產履歷成硬門檻', fact: '涵蓋貝伐珠單抗等 7 大單抗品種（總規模 340.8 億人民幣），11/24–27 開放資訊申報。', background: '這是中國首度將單株抗體生物藥大規模納入全國聯盟集採。', impact: '成熟生物相似藥價格承壓，但「無侵權承諾」與「量產履歷」將淘汰中小低質產能。', forecast: '具備全球合規產能與創新雙抗/ADC 管線的龍頭藥企市占將進一步集中。', companies: ['恆瑞醫藥', '亞盛醫藥 (6855.HK)'], url: 'https://www.sfccn.com/2026/11-23/0MMDE0MDdfMjMxNDQ0Mg.html', source: '南方財經網' },
+      { id: 'd3', date: '2026/11/22', cat: '政策變化', title: '台灣罕藥將改採「平行審查制」，整合三署縮短健保收載時程', fact: '衛福部預計 2027 Q1 公布新制，讓罕藥認定與健保給付評估同步進行。', background: '截至今年 10 月仍有 25 種罕藥、涉及 5,405 名患者等待健保給付，現行序列審查耗時逾一年。', impact: '大幅壓縮台灣罕病新藥上市至健保給付的空窗期。', forecast: '2027 上半年起罕病新藥在台取證至納入健保週期有望縮短 30%–50%。', companies: ['藥華藥 (6446.TW)'], url: 'https://www.merit-times.com.tw/NewsPage.aspx?unid=946995', source: '人間福報' },
+      { id: 'd4', date: '2026/11/20', cat: '重大事件', title: 'Sanofi 傳擬收購 Insmed、禮來 7.25 億美元買 LoQus23 引爆併購潮', fact: '彭博報導 Sanofi 評估收購 Insmed；禮來則以最高 7.25 億美元收購亨丁頓舞蹈症新創 LoQus23。', background: '跨國大藥廠為填補 2027–2030 年專利懸崖，積極以併購鎖定首創潛力資產。', impact: '中小型具臨床驗證或剛獲批核心資產的生技股估值溢價升溫。', forecast: '年底至 2027 Q1 自體免疫、神經退化與罕病併購案仍將維持高頻。', companies: ['Sanofi (SNY)', 'Eli Lilly (LLY)'], url: 'https://endpoints.news/lilly-buys-huntingtons-startup-loqus23-for-up-to-725m/', source: 'Endpoints News' }
     ];
 
-    // Section 3: 各國藥監機關動態
     const REG_UPDATES = [
-      { id: 'r1', agency: 'FDA', date: '2026/11/23', title: 'NeOnc NEO212 End-of-Phase 1 Type B 會議', detail: '今日召開會議確認口服腦腫瘤藥物 NEO212 二期臨床設計。', url: 'https://www.stocktitan.net/news/NTHI/ne-onc-technologies-announces-fda-rescheduled-neo212-end-of-phase-1-rodurb907u2f.html', source: 'StockTitan' },
-      { id: 'r2', agency: 'FDA', date: '2026/11/21', title: 'Capricor Deramiocel 第二次完全回覆函（CRL）', detail: 'CBER 要求補充統計敏感度與過敏反應不平衡說明，未於本次核准 DMD 適應症。', url: 'https://www.neurologylive.com/view/fda-issues-second-complete-response-letter-deramiocel-dmd', source: 'NeurologyLive' },
-      { id: 'r3', agency: 'FDA', date: '2026/11/19', title: '核准 Regeneron 一年四針 gMG 新藥 Livsayis', detail: '透過優先審查憑證核准每季注射一次療法，正面競爭每週自注競品。', url: 'https://mlq.ai/news/fda-approves-regenerons-livsayis-a-four-times-a-year-injection-for-generalized-myasthenia-gravis/', source: 'MLQ.ai' },
-      { id: 'r4', agency: 'TFDA', date: '2026/11/22', title: '衛福部擬推罕藥「平行審查制」', detail: '整合國健署、TFDA 與健保署同步審查，預計 2027 Q1 公布新制。', url: 'https://www.merit-times.com.tw/NewsPage.aspx?unid=946995', source: '人間福報' },
-      { id: 'r5', agency: 'EMA', date: '2026/11/20', title: '11 月 CHMP 推薦 7 項新藥與 11 項適應症擴展', detail: '2026 年累計推薦新藥達 79 項，含 Gazyvaro 紅斑性狼瘡與 Biocon Pertuzumab 生物相似藥。', url: 'https://casrai.org/news/ema-chmp-november-2026-seven-medicines-eu-m4all-recommendations', source: 'CASRAI' },
-      { id: 'r6', agency: 'NMPA', date: '2026/11/19', title: '思路迪 Envafolimab（恩維達）獲轉常規核准', detail: '正式轉為常規核准，解除附條件上市之關鍵監管風險。', url: 'https://www.minichart.com.sg/2026/11/19/3d-medicines-envafolimab-wins-nmpa-regular-approval-removing-key-regulatory-risk/', source: 'Minichart' },
-      { id: 'r7', agency: 'PMDA', date: '2026/11/19', title: '發布 DNA 定序儀伴隨式診斷（CDx）一致性評估指引', detail: '提出 NGS 伴隨式診斷開發早期考量重點，標準化精準腫瘤檢測。', url: 'https://www.pmda.go.jp/english/', source: 'PMDA' }
+      { id: 'r1', agency: 'FDA', date: '2026/11/23', title: '單日四連批：Welgemda / Wilserdly / RINVOQ / Sogroya', detail: '一次核准 LGMD2I/R9 首款療法 Welgemda、早期乳癌口服 SERD Wilserdly、白斑症首款系統性療法 RINVOQ 及兒童透納氏症 Sogroya。', analysis: '單日連批多項首創與大適應症藥證，展現 CDER 年底審評效率依然強勁。', url: 'https://www.fda.gov/', source: 'FDA' },
+      { id: 'r2', agency: 'FDA', date: '2026/11/23', title: 'Copper Cu 64 PSMA I&T 獲快速審查認定', detail: '授予攝護腺癌精準影像診斷劑 Fast Track 認定。', analysis: '加速器核醫診斷劑上市進程，有利前列腺癌精準分期普及。', url: 'https://www.urologytimes.com/view/fda-grants-fast-track-designation-to-copper-cu-64-psma-i-t-for-prostate-cancer-imaging', source: 'Urology Times' },
+      { id: 'r3', agency: 'NMPA', date: '2026/11/23', title: '全國單抗集採啟動 & 海西新藥 HX9428 II 期 IND 獲准', detail: '啟動 7 大單抗品種聯盟集採，並核准口服眼底 DME 新藥 HX9428 展開 II 期臨床。', analysis: '成熟生物藥降價放量與創新口服劑型加速開發並行。', url: 'https://www.sfccn.com/2026/11-23/0MMDE0MDdfMjMxNDQ0Mg.html', source: '南方財經網' },
+      { id: 'r4', agency: 'TFDA', date: '2026/11/22', title: '衛福部擬推罕藥「平行審查制」', detail: '整合國健署、TFDA 與健保署同步審查，預計 2027 Q1 公布新制。', analysis: '直接改善罕病新藥在台商業化回收速度。', url: 'https://www.merit-times.com.tw/NewsPage.aspx?unid=946995', source: '人間福報' },
+      { id: 'r5', agency: 'EMA', date: '2026/11/20', title: '11 月 CHMP 推薦 7 項新藥與 11 項適應症擴展', detail: '2026 年累計推薦新藥達 79 項，含 Biocon Pertuzumab 生物相似藥。', analysis: '精簡生物相似藥審查途徑正式開花結果。', url: 'https://casrai.org/news/ema-chmp-november-2026-seven-medicines-eu-m4all-recommendations', source: 'CASRAI' },
+      { id: 'r6', agency: 'PMDA', date: '2026/11/19', title: '發布 DNA 定序儀伴隨式診斷（CDx）一致性評估指引', detail: '提出 NGS 伴隨式診斷開發早期考量重點，標準化精準腫瘤檢測。', analysis: '降低日本精準醫療伴隨診斷開發法規不確定性。', url: 'https://www.pmda.go.jp/english/', source: 'PMDA' }
     ];
 
-    // Section 4: 全球主要業者及指定重點關注標的
     const COMPANIES = [
-      { ticker: '6446.TW', name: '藥華藥', market: '台股', price: '1,105.00 元', change: -8.30, changeText: '▼ -8.30%', date: '2026/11/20', watchlist: true, events: ['BESREMi 向巴西 ANVISA 申請新增適應症', '前三季 EPS 18.43 元創高，回檔後本益比收斂'], yahoo: 'https://finance.yahoo.com/quote/6446.TW/', google: 'https://www.google.com/finance/quote/6446:TPE' },
-      { ticker: '6785.TW', name: '昱展新藥', market: '台股', price: '66.30 元', change: -7.92, changeText: '▼ -7.92%', date: '2026/11/19', watchlist: true, events: ['本週持穩無重大新增事件，隨台股生技族群回檔整理'], yahoo: 'https://finance.yahoo.com/quote/6785.TWO/', google: 'https://www.google.com/finance/quote/6785:TWO' },
-      { ticker: '6847.TW', name: '普瑞博', market: '台股', price: '67.40 元', change: -3.30, changeText: '▼ -3.30%', date: '2026/11/17', watchlist: true, events: ['11/11 完成新台幣 2.25 億元現增，推進 Inflow 採血過濾系統 FDA 突破性醫材申請'], yahoo: 'https://finance.yahoo.com/quote/6847.TWO/', google: 'https://www.google.com/finance/quote/6847:TWO' },
-      { ticker: 'BLSM', name: 'BlossomHill Therapeutics', market: '美股', price: '$15.13', change: 10.84, changeText: '▲ +10.84%', date: '2026/11/18', watchlist: true, events: ['Q3 帳上現金 2.249 億美元支應至 2028 Q2，BH-30643 SOLARA-2 預計 2027 Q1 給藥'], yahoo: 'https://finance.yahoo.com/quote/BLSM/', google: 'https://www.google.com/finance/quote/BLSM:NASDAQ' },
-      { ticker: 'INDV', name: 'Indivior / Supernus (SUPN)', market: '美股', price: '$34.88', change: 0, changeText: '●', date: '2026/11/17', watchlist: true, events: ['合併後整合進展平穩，本週無重大新增事件'], yahoo: 'https://finance.yahoo.com/quote/SUPN/', google: 'https://www.google.com/finance/quote/SUPN:NASDAQ' },
-      { ticker: 'LLY', name: 'Eli Lilly', market: '美股', price: '$1,352.27', change: 0.08, changeText: '▲ +0.08%', date: '2026/11/20', watchlist: false, events: ['口服 GLP-1 FOUNDAYO 登陸澳洲市場，傳擬溢價收購 Rhythm (RYTM)'], yahoo: 'https://finance.yahoo.com/quote/LLY/', google: 'https://www.google.com/finance/quote/LLY:NYSE' },
-      { ticker: 'VRTX', name: 'Vertex Pharmaceuticals', market: '美股', price: '$520.66', change: -1.08, changeText: '▼ -1.08%', date: '2026/11/20', watchlist: false, events: ['倒數迎接 11/30 povetacicept IgAN 藥證審查決策'], yahoo: 'https://finance.yahoo.com/quote/VRTX/', google: 'https://www.google.com/finance/quote/VRTX:NASDAQ' },
-      { ticker: 'REGN', name: 'Regeneron', market: '美股', price: '$920.69', change: 0, changeText: '●', date: '2026/11/20', watchlist: false, events: ['FDA 核准一年四針 gMG 新藥 Livsayis，預告 12 月 ASH 發表 Ordspono 數據'], yahoo: 'https://finance.yahoo.com/quote/REGN/', google: 'https://www.google.com/finance/quote/REGN:NASDAQ' },
-      { ticker: 'DHR', name: 'Danaher', market: '美股', price: '$220.36', change: -3.16, changeText: '▼ -3.16%', date: '2026/11/20', watchlist: false, events: ['與微軟合作打造具 AI 代理互聯能力之智慧實驗室平台'], yahoo: 'https://finance.yahoo.com/quote/DHR/', google: 'https://www.google.com/finance/quote/DHR:NYSE' },
-      { ticker: 'CYTK', name: 'Cytokinetics', market: '美股', price: '$50.76', change: -1.36, changeText: '▼ -1.36%', date: '2026/11/20', watchlist: false, events: ['MYQORZO 商業化動能升溫，蓄勢迎接 2027 年 nHCM 適應症擴張'], yahoo: 'https://finance.yahoo.com/quote/CYTK/', google: 'https://www.google.com/finance/quote/CYTK:NASDAQ' },
-      { ticker: 'VKTX', name: 'Viking Therapeutics', market: '美股', price: '$24.77', change: -4.14, changeText: '▼ -4.14%', date: '2026/11/20', watchlist: false, events: ['4 項 VK2735 減重三期試驗同步推進，出席 Jefferies 全球醫療會議'], yahoo: 'https://finance.yahoo.com/quote/VKTX/', google: 'https://www.google.com/finance/quote/VKTX:NASDAQ' }
+      { ticker: '6446.TW', name: '藥華藥', market: '台股', price: '1,080.00 元', change: -1.82, changeText: '▼ -1.82%', date: '2026/11/23', watchlist: true, events: ['11/23 台灣 50 指數比價日收 1,080 元', 'BESREMi 向巴西 ANVISA 申請新增適應症'], analysis: '前三季 EPS 18.43 元創高，短線指數調整測試支撐後具基本面保護。', yahoo: 'https://finance.yahoo.com/quote/6446.TW/', google: 'https://www.google.com/finance/quote/6446:TPE' },
+      { ticker: 'BBIO', name: 'BridgeBio', market: '美股', price: '—', change: 5.0, changeText: '▲', date: '2026/11/23', watchlist: false, events: ['Welgemda 提前於 11/23 獲 FDA 核准治療 LGMD2I/R9'], analysis: '提前 4 天獲批消除審查不確定性，成為罕病神經肌肉領域新亮點。', yahoo: 'https://finance.yahoo.com/quote/BBIO/', google: 'https://www.google.com/finance/quote/BBIO:NASDAQ' },
+      { ticker: 'RHHBY', name: 'Roche', market: '歐美', price: '—', change: 0, changeText: '●', date: '2026/11/23', watchlist: false, events: ['Wilserdly (giredestrant) 獲 FDA 核准早期 ER+/HER2- 乳癌輔助治療'], analysis: '單週連奪晚期與早期兩張藥證，奠定口服 SERD 市場領先地位。', yahoo: 'https://finance.yahoo.com/quote/RHHBY/', google: 'https://www.google.com/finance/quote/RHHBY:OTCMKTS' },
+      { ticker: 'LLY', name: 'Eli Lilly', market: '美股', price: '$1,352.27', change: 0.08, changeText: '▲ +0.08%', date: '2026/11/20', watchlist: false, events: ['11/23 以最高 7.25 億美元收購亨丁頓舞蹈症新創 LoQus23', '口服 GLP-1 FOUNDAYO 登陸澳洲'], analysis: '持續將減重藥現金流再投資於神經退化與中樞神經前沿管線。', yahoo: 'https://finance.yahoo.com/quote/LLY/', google: 'https://www.google.com/finance/quote/LLY:NYSE' },
+      { ticker: 'VRTX', name: 'Vertex', market: '美股', price: '$520.66', change: -1.08, changeText: '▼ -1.08%', date: '2026/11/20', watchlist: false, events: ['市值 $130.58B，倒數迎接 11/30 povetacicept IgAN 藥證決策'], analysis: '若 11/30 順利獲批，腎臟病將正式成為公司第五大商業支柱。', yahoo: 'https://finance.yahoo.com/quote/VRTX/', google: 'https://www.google.com/finance/quote/VRTX:NASDAQ' },
+      { ticker: 'REGN', name: 'Regeneron', market: '美股', price: '$920.69', change: 0, changeText: '●', date: '2026/11/20', watchlist: false, events: ['FDA 核准一年四針 gMG 新藥 Livsayis，12 月 ASH 發表 Ordspono 數據'], analysis: '超長效給藥頻率形成顯著臨床便利性壁壘。', yahoo: 'https://finance.yahoo.com/quote/REGN/', google: 'https://www.google.com/finance/quote/REGN:NASDAQ' },
+      { ticker: 'DHR', name: 'Danaher', market: '美股', price: '$220.36', change: -3.16, changeText: '▼ -3.16%', date: '2026/11/20', watchlist: false, events: ['與微軟合作開發 AI 代理互聯科學儀器與智慧實驗室平台'], analysis: '短線隨工具板塊回檔，中長期受惠 AI 自動化實驗室升級週期。', yahoo: 'https://finance.yahoo.com/quote/DHR/', google: 'https://www.google.com/finance/quote/DHR:NYSE' }
     ];
 
-    const state = {
+    function calcStartDate(endStr, days) {
+      const end = new Date(endStr + 'T00:00:00');
+      end.setDate(end.getDate() - Math.max(0, days - 1));
+      return end.toISOString().slice(0, 10);
+    }
+
+    function loadPrefs() {
+      const defaults = {
+        theme: 'vibrant',
+        viewMode: window.innerWidth < 640 ? 'card' : 'table',
+        periodDays: 7,
+        startDate: calcStartDate(TODAY_STR, 7),
+        endDate: TODAY_STR,
+        visibleSection: 'all',
+        crossDateSearch: true,
+        watchlistOnly: false,
+        activeModule: 'all',
+        activeAgency: 'all',
+        sec2Sort: 'date',
+        sec3Sort: 'agency',
+        sec4Sort: 'group'
+      };
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return defaults;
+        return Object.assign(defaults, JSON.parse(raw));
+      } catch (_) {
+        return defaults;
+      }
+    }
+
+    function savePrefs() {
+      try {
+        const toSave = {
+          theme: state.theme, viewMode: state.viewMode, periodDays: state.periodDays,
+          startDate: state.startDate, endDate: state.endDate, visibleSection: state.visibleSection,
+          crossDateSearch: state.crossDateSearch, watchlistOnly: state.watchlistOnly,
+          activeModule: state.activeModule, activeAgency: state.activeAgency,
+          sec2Sort: state.sec2Sort, sec3Sort: state.sec3Sort, sec4Sort: state.sec4Sort
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
+      } catch (_) {}
+    }
+
+    const prefs = loadPrefs();
+    const state = Object.assign({}, prefs, {
       reports: REPORTS_DATA,
       currentIndex: 0,
-      periodDays: 7,
-      visibleSection: 'all',
-      viewMode: window.innerWidth < 640 ? 'card' : 'table',
       searchQuery: '',
-      crossDateSearch: true,
-      watchlistOnly: false,
-      activeModule: 'all',
-      activeAgency: 'all',
-      sec2Sort: 'date',
-      sec3Sort: 'agency',
-      sec4Sort: 'group',
       expandedIds: {}
-    };
+    });
 
     const $ = (id) => document.getElementById(id);
 
@@ -371,18 +480,33 @@
       return safe.replace(new RegExp(`(${escapedQ})`, 'gi'), '<mark>$1</mark>');
     }
 
-    function withinDays(dateStr, days) {
-      const clean = String(dateStr || '').replace(/[^0-9/]/g, '').slice(0, 10);
-      if (!/^\d{4}\/\d{2}\/\d{2}$/.test(clean)) return true;
-      const d = new Date(clean.replace(/\//g, '-') + 'T00:00:00+08:00');
-      const diff = (TODAY_REF - d) / (1000 * 60 * 60 * 24);
-      return diff <= days + 0.5;
+    function normDate(str) {
+      const m = String(str || '').match(/(\d{4})[\/-](\d{2})[\/-](\d{2})/);
+      return m ? `${m[1]}-${m[2]}-${m[3]}` : null;
+    }
+
+    function isInDateRange(dateStr) {
+      const d = normDate(dateStr);
+      if (!d) return true;
+      return d >= state.startDate && d <= state.endDate;
+    }
+
+    function hasRealUpdate(text) {
+      const t = String(text || '');
+      return !(t.includes('持穩無重大新增') || t.includes('無新增藥證') || t.includes('無新藥證增量'));
     }
 
     function changeColor(chg) {
       if (String(chg).includes('▲')) return 'text-rose-600 font-semibold';
       if (String(chg).includes('▼')) return 'text-emerald-600 font-semibold';
       return 'text-slate-500';
+    }
+
+    function outcomeBadge(outcome) {
+      if (outcome.includes('優於預期')) return 'bg-emerald-100 text-emerald-800 border-emerald-200';
+      if (outcome.includes('低於預期')) return 'bg-rose-100 text-rose-800 border-rose-200';
+      if (outcome.includes('符合預期')) return 'bg-sky-100 text-sky-800 border-sky-200';
+      return 'bg-amber-100 text-amber-800 border-amber-200';
     }
 
     function agencyBadgeClass(agency) {
@@ -403,39 +527,46 @@
       return 'bg-slate-800 text-white';
     }
 
-    function outcomeBadge(outcome) {
-      if (outcome.includes('優於預期')) return 'bg-emerald-50 text-emerald-700 border-emerald-200';
-      if (outcome.includes('低於預期')) return 'bg-rose-50 text-rose-700 border-rose-200';
-      if (outcome.includes('符合預期')) return 'bg-sky-50 text-sky-700 border-sky-200';
-      return 'bg-amber-50 text-amber-700 border-amber-200';
+    function applyTheme() {
+      const t = THEMES[state.theme] || THEMES.vibrant;
+      document.body.className = `min-h-screen flex flex-col ${t.body}`;
+      $('appHeader').className = `${t.header} sticky top-0 z-40 shadow-md`;
+      $('sec1Container').className = `space-y-4 rounded-2xl p-4 sm:p-5 border-2 shadow-xs ${t.sec1}`;
+      $('sec1Title').className = `text-lg sm:text-xl font-bold pl-3 border-l-4 ${t.sec1Title}`;
+      $('editionBadge').className = `px-2.5 py-0.5 rounded-full text-xs font-semibold ${t.sec1Badge}`;
+      $('sec2Container').className = `space-y-3 rounded-2xl p-4 sm:p-5 border-2 shadow-xs ${t.sec2}`;
+      $('sec2Title').className = `text-lg sm:text-xl font-bold pl-3 border-l-4 ${t.sec2Title}`;
+      $('sec3Container').className = `space-y-3 rounded-2xl p-4 sm:p-5 border-2 shadow-xs ${t.sec3}`;
+      $('sec3Title').className = `text-lg sm:text-xl font-bold pl-3 border-l-4 ${t.sec3Title}`;
+      $('sec4Container').className = `space-y-3 rounded-2xl p-4 sm:p-5 border-2 shadow-xs mb-8 ${t.sec4}`;
+      $('sec4Title').className = `text-lg sm:text-xl font-bold pl-3 border-l-4 ${t.sec4Title}`;
+      $('themeSelect').value = state.theme;
+    }
+
+    // Card Grid Helper: Horizontal multi-column cards on tablet/desktop
+    function renderCardGrid(cardsHtml) {
+      return `<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">${cardsHtml}</div>`;
     }
 
     function renderExpandableCard(key, headerHtml, bodyHtml, extraClass) {
       const isOpen = Boolean(state.expandedIds[key]);
       return `
-        <div class="border border-slate-200 rounded-xl overflow-hidden transition hover:border-slate-300 ${extraClass || 'bg-white'}">
-          <button type="button" data-toggle="${escapeHtml(key)}" class="expand-btn w-full text-left px-3.5 py-3 flex items-center justify-between gap-3 cursor-pointer">
+        <div class="border border-slate-200 rounded-xl overflow-hidden transition hover:border-slate-300 shadow-2xs flex flex-col justify-between ${extraClass || 'bg-white'}">
+          <button type="button" data-toggle="${escapeHtml(key)}" class="expand-btn w-full text-left p-3.5 flex items-start justify-between gap-2.5 cursor-pointer">
             <div class="flex-1 min-w-0">${headerHtml}</div>
-            <i data-lucide="${isOpen ? 'chevron-up' : 'chevron-down'}" class="w-4 h-4 text-slate-400 shrink-0"></i>
+            <i data-lucide="${isOpen ? 'chevron-up' : 'chevron-down'}" class="w-4 h-4 text-slate-400 shrink-0 mt-0.5"></i>
           </button>
-          <div class="${isOpen ? 'block' : 'hidden'} px-3.5 pb-3.5 pt-2 border-t border-slate-100 bg-slate-50/70 text-xs sm:text-sm text-slate-700 leading-relaxed">
+          <div class="${isOpen ? 'block' : 'hidden'} px-3.5 pb-3.5 pt-2.5 border-t border-slate-100 bg-slate-50/80 text-xs sm:text-sm text-slate-700 leading-relaxed space-y-2">
             ${bodyHtml}
           </div>
         </div>
       `;
     }
 
-    function renderTableBlock(title, dotColor, headers, rowsHtml) {
-      const accentMap = {
-        'bg-sky-500': 'border-l-4 border-l-sky-500 bg-sky-50/80',
-        'bg-indigo-500': 'border-l-4 border-l-indigo-500 bg-indigo-50/80',
-        'bg-emerald-500': 'border-l-4 border-l-emerald-500 bg-emerald-50/80',
-        'bg-amber-500': 'border-l-4 border-l-amber-500 bg-amber-50/80'
-      };
-      const hdrCls = accentMap[dotColor] || 'bg-slate-50';
+    function renderTableBlock(title, dotColor, accentCls, headers, rowsHtml) {
       return `
         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-          <div class="px-4 py-2.5 border-b border-slate-200 ${hdrCls}">
+          <div class="px-4 py-2.5 border-b border-slate-200 ${accentCls}">
             <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full ${dotColor}"></span>
               ${title}
@@ -455,13 +586,63 @@
       `;
     }
 
+    function getMultiDayAggregatedReport() {
+      const matching = state.reports.filter(r => isInDateRange(r.date));
+      const sourceList = matching.length ? matching : [state.reports[state.currentIndex]];
+      const isMulti = state.periodDays !== 1 && sourceList.length > 1;
+
+      if (!isMulti) {
+        const single = state.reports[state.currentIndex];
+        return { isMulti: false, count: 1, rep: single };
+      }
+
+      const dedupSort = (arr, keyFn) => {
+        const seen = new Map();
+        arr.forEach(item => {
+          const k = keyFn(item).toLowerCase();
+          if (!seen.has(k)) seen.set(k, item);
+        });
+        return Array.from(seen.values()).sort((a, b) => {
+          const impDiff = (b.importance || 3) - (a.importance || 3);
+          if (impDiff !== 0) return impDiff;
+          return String(b.date || '').localeCompare(String(a.date || ''));
+        });
+      };
+
+      const coAll = [], regAll = [], catAll = [], deepAll = [], topicsSet = new Set();
+      sourceList.forEach(r => {
+        r.co.filter(i => hasRealUpdate(i.summary)).forEach(i => coAll.push(i));
+        r.reg.filter(i => hasRealUpdate(i.detail)).forEach(i => regAll.push(i));
+        r.cat.forEach(i => catAll.push(i));
+        r.deep.forEach(i => deepAll.push(i));
+        (r.topics || []).forEach(t => topicsSet.add(t));
+      });
+
+      return {
+        isMulti: true,
+        count: sourceList.length,
+        rep: {
+          id: 'multi',
+          date: `${state.startDate.replace(/-/g, '/')} – ${state.endDate.replace(/-/g, '/')}`,
+          session: `精選彙整 (${sourceList.length} 期)`,
+          headline: `已自動彙整區間內 ${sourceList.length} 期早晚報，去除重複並依重要性與時間排序`,
+          topics: Array.from(topicsSet).slice(0, 7),
+          co: dedupSort(coAll, i => i.ticker || i.name),
+          reg: dedupSort(regAll, i => `${i.agency}-${i.title}`),
+          cat: dedupSort(catAll, i => i.asset),
+          deep: dedupSort(deepAll, i => i.title)
+        }
+      };
+    }
+
     function renderSection1() {
-      const rep = state.reports[state.currentIndex];
-      $('editionBadge').textContent = `${rep.date} ${rep.session}`;
+      const agg = getMultiDayAggregatedReport();
+      const rep = agg.rep;
+      $('editionBadge').textContent = agg.isMulti ? `${rep.session}` : `${rep.date} ${rep.session}`;
       $('editionHeadline').textContent = rep.headline;
 
       $('datePills').innerHTML = state.reports.map((r, idx) => {
-        const active = idx === state.currentIndex;
+        const active = !agg.isMulti && idx === state.currentIndex;
         return `<button data-idx="${idx}" type="button" class="date-pill px-2.5 py-1 rounded-lg text-xs font-medium whitespace-nowrap cursor-pointer ${active ? 'bg-sky-600 text-white' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100'}">${r.date} ${r.session}</button>`;
       }).join('');
       $('btnPrevDate').disabled = state.currentIndex <= 0;
@@ -469,175 +650,211 @@
 
       const q = state.searchQuery.trim().toLowerCase();
       const match = (s) => !q || String(s).toLowerCase().includes(q);
-      const filterRep = (r) => ({
-        co: r.co.filter(i => (!state.watchlistOnly || i.watchlist) && match(`${i.ticker} ${i.name} ${i.summary} ${i.source}`)),
-        reg: r.reg.filter(i => (state.activeAgency === 'all' || i.agency === state.activeAgency) && match(`${i.agency} ${i.title} ${i.detail} ${i.source}`)),
-        cat: r.cat.filter(i => match(`${i.asset} ${i.type} ${i.outcome} ${i.note}`)),
-        deep: r.deep.filter(i => match(`${i.cat} ${i.title} ${i.body} ${i.source}`))
-      });
+      const co = rep.co.filter(i => hasRealUpdate(i.summary) && (!state.watchlistOnly || i.watchlist) && match(`${i.ticker} ${i.name} ${i.summary} ${i.analysis || ''} ${i.source}`));
+      const reg = rep.reg.filter(i => hasRealUpdate(i.detail) && (state.activeAgency === 'all' || i.agency === state.activeAgency) && match(`${i.agency} ${i.title} ${i.detail} ${i.analysis || ''} ${i.source}`));
+      const cat = rep.cat.filter(i => match(`${i.asset} ${i.type} ${i.outcome} ${i.note} ${i.analysis || ''}`));
+      const deep = rep.deep.filter(i => match(`${i.cat} ${i.title} ${i.body} ${i.analysis || ''} ${i.source}`));
 
-      const renderBlocks = (r, f, showTag) => {
-        const showCo = (state.activeModule === 'all' || state.activeModule === 'co') && f.co.length > 0;
-        const showReg = (state.activeModule === 'all' || state.activeModule === 'reg') && f.reg.length > 0;
-        const showCat = (state.activeModule === 'all' || state.activeModule === 'cat') && f.cat.length > 0;
-        const showDeep = (state.activeModule === 'all' || state.activeModule === 'deep') && f.deep.length > 0;
-        if (!showCo && !showReg && !showCat && !showDeep) return '';
+      const showCo = (state.activeModule === 'all' || state.activeModule === 'co') && co.length > 0;
+      const showReg = (state.activeModule === 'all' || state.activeModule === 'reg') && reg.length > 0;
+      const showCat = (state.activeModule === 'all' || state.activeModule === 'cat') && cat.length > 0;
+      const showDeep = (state.activeModule === 'all' || state.activeModule === 'deep') && deep.length > 0;
 
-        let out = showTag ? `<div class="text-xs font-bold text-slate-700 pt-1">${r.date} ${r.session}｜${escapeHtml(r.headline)}</div>` : '';
-        if (state.viewMode === 'table') {
-          if (showCo) {
-            out += renderTableBlock('公司重大事件', 'bg-sky-500', ['標的', '股價與漲跌', '日期', '重點摘要'], f.co.map((item, idx) => {
-              const key = `${r.id}-co-${idx}`, isOpen = Boolean(state.expandedIds[key]), isLong = item.summary.length > 42;
-              return `<tr class="hover:bg-slate-50/80">
-                <td class="py-2.5 px-3 align-top whitespace-nowrap font-bold text-slate-900">${item.watchlist ? '<span class="text-amber-500 mr-0.5">★</span>' : ''}${highlightText(item.name, q)} <span class="text-xs font-normal text-slate-500">${highlightText(item.ticker, q)}</span></td>
-                <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="font-medium">${escapeHtml(item.price)}</span> <span class="text-xs ${changeColor(item.change)}">${escapeHtml(item.change)}</span></td>
-                <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(item.date)}</td>
-                <td class="py-2.5 px-3 align-top text-slate-700 min-w-[240px]">${highlightText(isLong && !isOpen ? item.summary.slice(0, 42) + '…' : item.summary, q)} ${isLong ? `<button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-sky-600 hover:underline cursor-pointer">${isOpen ? '收合' : '展開'}</button>` : ''} <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(item.source)}]</a></td>
-              </tr>`;
-            }).join(''));
-          }
-          if (showReg) {
-            out += renderTableBlock('五大藥監機關動態', 'bg-indigo-500', ['藥監', '日期', '藥品 / 法規案', '最新決議'], f.reg.map((item, idx) => {
-              const key = `${r.id}-reg-${idx}`, isOpen = Boolean(state.expandedIds[key]), isLong = item.detail.length > 45;
-              return `<tr class="hover:bg-slate-50/80">
-                <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-bold ${agencyBadgeClass(item.agency)}">${escapeHtml(item.agency)}</span></td>
-                <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(item.date)}</td>
-                <td class="py-2.5 px-3 align-top font-semibold text-slate-900 whitespace-nowrap">${highlightText(item.title, q)}</td>
-                <td class="py-2.5 px-3 align-top text-slate-700 min-w-[240px]">${highlightText(isLong && !isOpen ? item.detail.slice(0, 45) + '…' : item.detail, q)} ${isLong ? `<button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-sky-600 hover:underline cursor-pointer">${isOpen ? '收合' : '展開'}</button>` : ''} <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(item.source)}]</a></td>
-              </tr>`;
-            }).join(''));
-          }
-          if (showCat) {
-            out += renderTableBlock('催化劑追蹤', 'bg-emerald-500', ['資產 / 標的', '類型', '日期', '評估', '說明'], f.cat.map((item, idx) => {
-              const key = `${r.id}-cat-${idx}`, isOpen = Boolean(state.expandedIds[key]), isLong = item.note.length > 40;
-              return `<tr class="hover:bg-slate-50/80">
-                <td class="py-2.5 px-3 align-top font-bold text-slate-900 whitespace-nowrap">${highlightText(item.asset, q)}</td>
-                <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-600">${escapeHtml(item.type)}</td>
-                <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(item.date)}</td>
-                <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold border ${outcomeBadge(item.outcome)}">${escapeHtml(item.outcome)}</span></td>
-                <td class="py-2.5 px-3 align-top text-slate-700 min-w-[220px]">${highlightText(isLong && !isOpen ? item.note.slice(0, 40) + '…' : item.note, q)} ${isLong ? `<button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-sky-600 hover:underline cursor-pointer">${isOpen ? '收合' : '展開'}</button>` : ''} <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(item.source)}]</a></td>
-              </tr>`;
-            }).join(''));
-          }
-          if (showDeep) {
-            out += renderTableBlock('深度研報與趨勢', 'bg-amber-500', ['類別', '主題', '重點解析'], f.deep.map((item, idx) => {
-              const key = `${r.id}-deep-${idx}`, isOpen = Boolean(state.expandedIds[key]), isLong = item.body.length > 45;
-              return `<tr class="hover:bg-slate-50/80">
-                <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-semibold ${deepCatClass(item.cat)}">${escapeHtml(item.cat)}</span></td>
-                <td class="py-2.5 px-3 align-top font-bold text-slate-900 min-w-[180px]">${highlightText(item.title, q)}</td>
-                <td class="py-2.5 px-3 align-top text-slate-700 min-w-[240px]">${highlightText(isLong && !isOpen ? item.body.slice(0, 45) + '…' : item.body, q)} ${isLong ? `<button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-sky-600 hover:underline cursor-pointer">${isOpen ? '收合' : '展開'}</button>` : ''} <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(item.source)}]</a></td>
-              </tr>`;
-            }).join(''));
-          }
-        } else {
-          if (showCo) out += `<div class="space-y-2">${f.co.map((item, idx) => renderExpandableCard(`${r.id}-c-co-${idx}`, `<div class="flex items-center justify-between gap-2 flex-wrap"><span class="font-bold text-slate-900 text-sm">${item.watchlist ? '<span class="text-amber-500 mr-1">★</span>' : ''}${highlightText(item.name, q)} <span class="text-xs font-normal text-slate-500">${highlightText(item.ticker, q)}</span></span><span class="text-xs"><span class="font-semibold">${escapeHtml(item.price)}</span> <span class="${changeColor(item.change)}">${escapeHtml(item.change)}</span> <span class="text-slate-400">${escapeHtml(item.date)}</span></span></div>`, `<p>${highlightText(item.summary, q)}</p><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-xs font-semibold text-sky-600 hover:underline">查看來源（${escapeHtml(item.source)}）→</a>`)).join('')}</div>`;
-          if (showReg) out += `<div class="space-y-2">${f.reg.map((item, idx) => renderExpandableCard(`${r.id}-c-reg-${idx}`, `<div class="flex items-center justify-between gap-2"><div class="flex items-center gap-2 min-w-0"><span class="px-2 py-0.5 rounded text-xs font-bold ${agencyBadgeClass(item.agency)} shrink-0">${escapeHtml(item.agency)}</span><span class="font-bold text-slate-900 text-sm truncate">${highlightText(item.title, q)}</span></div><span class="text-xs text-slate-400 shrink-0">${escapeHtml(item.date)}</span></div>`, `<p>${highlightText(item.detail, q)}</p><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-xs font-semibold text-sky-600 hover:underline">查看來源（${escapeHtml(item.source)}）→</a>`)).join('')}</div>`;
-          if (showCat) out += `<div class="space-y-2">${f.cat.map((item, idx) => renderExpandableCard(`${r.id}-c-cat-${idx}`, `<div class="flex items-center justify-between gap-2 flex-wrap"><span class="font-bold text-slate-900 text-sm">${highlightText(item.asset, q)} · <span class="text-xs font-normal text-slate-500">${escapeHtml(item.type)}</span></span><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold border ${outcomeBadge(item.outcome)}">${escapeHtml(item.outcome)}</span></div>`, `<p>${highlightText(item.note, q)}</p><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-xs font-semibold text-sky-600 hover:underline">查看來源（${escapeHtml(item.source)}）→</a>`)).join('')}</div>`;
-          if (showDeep) out += `<div class="space-y-2">${f.deep.map((item, idx) => renderExpandableCard(`${r.id}-c-deep-${idx}`, `<div class="flex items-center gap-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold ${deepCatClass(item.cat)} shrink-0">${escapeHtml(item.cat)}</span><span class="font-bold text-slate-900 text-sm truncate">${highlightText(item.title, q)}</span></div>`, `<p>${highlightText(item.body, q)}</p><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-xs font-semibold text-sky-600 hover:underline">閱讀來源（${escapeHtml(item.source)}）→</a>`)).join('')}</div>`;
+      let out = '';
+      if (state.viewMode === 'table') {
+        if (showCo) {
+          out += renderTableBlock('公司重大事件', 'bg-sky-500', 'border-l-4 border-l-sky-500 bg-sky-50/80', ['標的', '股價與漲跌', '日期', '摘要與短評'], co.map((item, idx) => {
+            const key = `s1-co-${idx}`, isOpen = Boolean(state.expandedIds[key]);
+            return `<tr class="hover:bg-slate-50/80">
+              <td class="py-2.5 px-3 align-top whitespace-nowrap font-bold text-slate-900">${item.watchlist ? '<span class="text-amber-500 mr-0.5">★</span>' : ''}${highlightText(item.name, q)} <span class="text-xs font-normal text-slate-500">${highlightText(item.ticker, q)}</span></td>
+              <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="font-medium">${escapeHtml(item.price)}</span> <span class="text-xs ${changeColor(item.change)}">${escapeHtml(item.change)}</span></td>
+              <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(item.date)}</td>
+              <td class="py-2.5 px-3 align-top text-slate-700 min-w-[260px]">
+                <div>${highlightText(item.summary, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-sky-600 hover:underline cursor-pointer">${isOpen ? '收合短評' : '展開短評'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(item.source)}]</a></div>
+                ${isOpen && item.analysis ? `<div class="mt-2 p-2.5 rounded-lg bg-sky-50/70 border border-sky-200/80 text-xs text-slate-700"><span class="font-bold text-sky-900">短評與意涵：</span>${highlightText(item.analysis, q)}</div>` : ''}
+              </td>
+            </tr>`;
+          }).join(''));
         }
-        return out;
-      };
-
-      if (q && state.crossDateSearch) {
-        let html = '';
-        state.reports.forEach(r => { html += renderBlocks(r, filterRep(r), true); });
-        $('swipeContainer').innerHTML = html || `<div class="bg-white rounded-xl border border-slate-200 p-6 text-center text-sm text-slate-500">無符合「${escapeHtml(q)}」的跨期日報內容。</div>`;
+        if (showReg) {
+          out += renderTableBlock('五大藥監機關動態', 'bg-indigo-500', 'border-l-4 border-l-indigo-500 bg-indigo-50/80', ['藥監', '日期', '藥品 / 法規案', '決議與短評'], reg.map((item, idx) => {
+            const key = `s1-reg-${idx}`, isOpen = Boolean(state.expandedIds[key]);
+            return `<tr class="hover:bg-slate-50/80">
+              <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-bold ${agencyBadgeClass(item.agency)}">${escapeHtml(item.agency)}</span></td>
+              <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(item.date)}</td>
+              <td class="py-2.5 px-3 align-top font-semibold text-slate-900 whitespace-nowrap">${highlightText(item.title, q)}</td>
+              <td class="py-2.5 px-3 align-top text-slate-700 min-w-[260px]">
+                <div>${highlightText(item.detail, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-indigo-600 hover:underline cursor-pointer">${isOpen ? '收合短評' : '展開短評'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(item.source)}]</a></div>
+                ${isOpen && item.analysis ? `<div class="mt-2 p-2.5 rounded-lg bg-indigo-50/70 border border-indigo-200/80 text-xs text-slate-700"><span class="font-bold text-indigo-900">法規解讀：</span>${highlightText(item.analysis, q)}</div>` : ''}
+              </td>
+            </tr>`;
+          }).join(''));
+        }
+        if (showCat) {
+          out += renderTableBlock('催化劑追蹤', 'bg-emerald-500', 'border-l-4 border-l-emerald-500 bg-emerald-50/80', ['資產 / 標的', '類型', '日期', '評估', '說明與短評'], cat.map((item, idx) => {
+            const key = `s1-cat-${idx}`, isOpen = Boolean(state.expandedIds[key]);
+            return `<tr class="hover:bg-slate-50/80">
+              <td class="py-2.5 px-3 align-top font-bold text-slate-900 whitespace-nowrap">${highlightText(item.asset, q)}</td>
+              <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-600">${escapeHtml(item.type)}</td>
+              <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(item.date)}</td>
+              <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold border ${outcomeBadge(item.outcome)}">${escapeHtml(item.outcome)}</span></td>
+              <td class="py-2.5 px-3 align-top text-slate-700 min-w-[240px]">
+                <div>${highlightText(item.note, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-emerald-600 hover:underline cursor-pointer">${isOpen ? '收合短評' : '展開短評'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(item.source)}]</a></div>
+                ${isOpen && item.analysis ? `<div class="mt-2 p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200/80 text-xs text-slate-700"><span class="font-bold text-emerald-900">投資意涵：</span>${highlightText(item.analysis, q)}</div>` : ''}
+              </td>
+            </tr>`;
+          }).join(''));
+        }
+        if (showDeep) {
+          out += renderTableBlock('深度研報與趨勢', 'bg-amber-500', 'border-l-4 border-l-amber-500 bg-amber-50/80', ['類別', '主題', '解析與預測'], deep.map((item, idx) => {
+            const key = `s1-deep-${idx}`, isOpen = Boolean(state.expandedIds[key]);
+            return `<tr class="hover:bg-slate-50/80">
+              <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-semibold ${deepCatClass(item.cat)}">${escapeHtml(item.cat)}</span></td>
+              <td class="py-2.5 px-3 align-top font-bold text-slate-900 min-w-[180px]">${highlightText(item.title, q)}</td>
+              <td class="py-2.5 px-3 align-top text-slate-700 min-w-[260px]">
+                <div>${highlightText(item.body, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-amber-700 hover:underline cursor-pointer">${isOpen ? '收合短評' : '展開短評'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(item.source)}]</a></div>
+                ${isOpen && item.analysis ? `<div class="mt-2 p-2.5 rounded-lg bg-amber-50/70 border border-amber-200/80 text-xs text-slate-700"><span class="font-bold text-amber-900">深度短評：</span>${highlightText(item.analysis, q)}</div>` : ''}
+              </td>
+            </tr>`;
+          }).join(''));
+        }
       } else {
-        $('swipeContainer').innerHTML = renderBlocks(rep, filterRep(rep), false) || `<div class="bg-white rounded-xl border border-slate-200 p-6 text-center text-sm text-slate-500">本期無符合篩選條件的項目。</div>`;
+        // Card Mode: Multi-column horizontal grid across all sub-modules
+        if (showCo) {
+          out += `<div class="space-y-2"><h3 class="text-sm font-bold text-sky-900 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span>公司重大事件（${co.length}）</h3>${renderCardGrid(co.map((item, idx) => renderExpandableCard(`s1-c-co-${idx}`, `<div class="space-y-1"><div class="flex items-center justify-between gap-2"><span class="font-bold text-slate-900 text-sm truncate">${item.watchlist ? '<span class="text-amber-500 mr-1">★</span>' : ''}${highlightText(item.name, q)}</span><span class="text-xs font-mono text-slate-500 shrink-0">${highlightText(item.ticker, q)}</span></div><div class="flex items-center gap-2 text-xs"><span class="font-semibold text-slate-800">${escapeHtml(item.price)}</span><span class="${changeColor(item.change)}">${escapeHtml(item.change)}</span><span class="text-slate-400">${escapeHtml(item.date)}</span></div><div class="text-xs text-slate-600 line-clamp-2">${highlightText(item.summary, q)}</div></div>`, `<div class="font-semibold text-slate-900">事件詳情：</div><p>${highlightText(item.summary, q)}</p>${item.analysis ? `<div class="p-2 rounded-lg bg-sky-50 border border-sky-200 text-xs"><span class="font-bold text-sky-900">短評與意涵：</span>${highlightText(item.analysis, q)}</div>` : ''}<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block text-xs font-semibold text-sky-600 hover:underline">查看來源（${escapeHtml(item.source)}）→</a>`, 'bg-white border-t-4 border-t-sky-500')).join(''))}</div>`;
+        }
+        if (showReg) {
+          out += `<div class="space-y-2"><h3 class="text-sm font-bold text-indigo-900 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>五大藥監機關（${reg.length}）</h3>${renderCardGrid(reg.map((item, idx) => renderExpandableCard(`s1-c-reg-${idx}`, `<div class="space-y-1"><div class="flex items-center justify-between gap-2"><span class="px-2 py-0.5 rounded text-xs font-bold ${agencyBadgeClass(item.agency)}">${escapeHtml(item.agency)}</span><span class="text-xs text-slate-400">${escapeHtml(item.date)}</span></div><div class="font-bold text-slate-900 text-sm line-clamp-2">${highlightText(item.title, q)}</div></div>`, `<p>${highlightText(item.detail, q)}</p>${item.analysis ? `<div class="p-2 rounded-lg bg-indigo-50 border border-indigo-200 text-xs"><span class="font-bold text-indigo-900">法規解讀：</span>${highlightText(item.analysis, q)}</div>` : ''}<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block text-xs font-semibold text-sky-600 hover:underline">查看來源（${escapeHtml(item.source)}）→</a>`, 'bg-white border-t-4 border-t-indigo-500')).join(''))}</div>`;
+        }
+        if (showCat) {
+          out += `<div class="space-y-2"><h3 class="text-sm font-bold text-emerald-900 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>催化劑追蹤（${cat.length}）</h3>${renderCardGrid(cat.map((item, idx) => renderExpandableCard(`s1-c-cat-${idx}`, `<div class="space-y-1"><div class="flex items-center justify-between gap-2"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold border ${outcomeBadge(item.outcome)}">${escapeHtml(item.outcome)}</span><span class="text-xs text-slate-400">${escapeHtml(item.date)}</span></div><div class="font-bold text-slate-900 text-sm">${highlightText(item.asset, q)}</div><div class="text-xs text-slate-500">${escapeHtml(item.type)}</div></div>`, `<p>${highlightText(item.note, q)}</p>${item.analysis ? `<div class="p-2 rounded-lg bg-emerald-50 border border-emerald-200 text-xs"><span class="font-bold text-emerald-900">投資意涵：</span>${highlightText(item.analysis, q)}</div>` : ''}<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block text-xs font-semibold text-sky-600 hover:underline">查看來源（${escapeHtml(item.source)}）→</a>`, 'bg-white border-t-4 border-t-emerald-500')).join(''))}</div>`;
+        }
+        if (showDeep) {
+          out += `<div class="space-y-2"><h3 class="text-sm font-bold text-amber-900 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>深度研報與趨勢（${deep.length}）</h3>${renderCardGrid(deep.map((item, idx) => renderExpandableCard(`s1-c-deep-${idx}`, `<div class="space-y-1"><span class="inline-block px-2 py-0.5 rounded text-[11px] font-bold ${deepCatClass(item.cat)}">${escapeHtml(item.cat)}</span><div class="font-bold text-slate-900 text-sm line-clamp-2">${highlightText(item.title, q)}</div></div>`, `<p>${highlightText(item.body, q)}</p>${item.analysis ? `<div class="p-2 rounded-lg bg-amber-50 border border-amber-200 text-xs"><span class="font-bold text-amber-900">深度短評：</span>${highlightText(item.analysis, q)}</div>` : ''}<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block text-xs font-semibold text-sky-600 hover:underline">閱讀來源（${escapeHtml(item.source)}）→</a>`, 'bg-white border-t-4 border-t-amber-500')).join(''))}</div>`;
+        }
       }
+
+      $('swipeContainer').innerHTML = out || `<div class="bg-white rounded-xl border border-slate-200 p-6 text-center text-sm text-slate-500">此日期區間或篩選條件下無新增動態。</div>`;
     }
 
     function renderSection2() {
       const q = state.searchQuery.trim().toLowerCase();
-      let list = DEEP_ANALYSES.filter(d => withinDays(d.date, state.periodDays) && (!q || `${d.cat} ${d.title} ${d.fact} ${d.background} ${d.impact} ${d.companies.join(' ')}`.toLowerCase().includes(q)));
+      let list = DEEP_ANALYSES.filter(d => isInDateRange(d.date) && (!q || `${d.cat} ${d.title} ${d.fact} ${d.background} ${d.impact} ${d.companies.join(' ')}`.toLowerCase().includes(q)));
       if (state.sec2Sort === 'cat') list.sort((a, b) => a.cat.localeCompare(b.cat));
       else list.sort((a, b) => b.date.localeCompare(a.date));
 
-      $('sec2Content').innerHTML = list.length ? list.map(d => renderExpandableCard(
-        `sec2-${d.id}`,
-        `<div class="flex items-center justify-between gap-2 flex-wrap">
-          <div class="flex items-center gap-2 min-w-0">
-            <span class="px-2 py-0.5 rounded text-[11px] font-bold ${deepCatClass(d.cat)} shrink-0">${escapeHtml(d.cat)}</span>
-            <span class="font-bold text-slate-900 text-sm truncate">${highlightText(d.title, q)}</span>
-          </div>
-          <span class="text-xs text-slate-400 shrink-0">${escapeHtml(d.date)}</span>
-        </div>`,
-        `<div class="space-y-2">
-          <div><span class="font-semibold text-slate-900">事實：</span>${highlightText(d.fact, q)}</div>
-          <div><span class="font-semibold text-slate-900">背景：</span>${highlightText(d.background, q)}</div>
-          <div><span class="font-semibold text-slate-900">影響：</span>${highlightText(d.impact, q)}</div>
-          <div><span class="font-semibold text-slate-900">趨勢預測：</span>${highlightText(d.forecast, q)}</div>
-          <div class="pt-1 flex items-center justify-between flex-wrap gap-2">
-            <span class="text-xs text-slate-500">相關業者：${d.companies.map(c => `<span class="inline-block px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-700 mr-1">${escapeHtml(c)}</span>`).join('')}</span>
-            <a href="${escapeHtml(d.url)}" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-sky-600 hover:underline">查看來源（${escapeHtml(d.source)}）→</a>
-          </div>
-        </div>`
-      )).join('') : `<div class="bg-white rounded-xl border border-slate-200 p-6 text-center text-sm text-slate-500">此時間區間或搜尋條件下無深度解析項目。</div>`;
+      if (!list.length) {
+        $('sec2Content').innerHTML = `<div class="bg-white rounded-xl border border-slate-200 p-6 text-center text-sm text-slate-500">此區間無新增深度解析。</div>`;
+        return;
+      }
+
+      if (state.viewMode === 'table') {
+        $('sec2Content').innerHTML = renderTableBlock('深度解析彙整', 'bg-amber-500', 'bg-amber-50/80', ['類別', '日期', '主題', '核心解析'], list.map(d => {
+          const key = `s2-t-${d.id}`, isOpen = Boolean(state.expandedIds[key]);
+          return `<tr class="hover:bg-slate-50/80">
+            <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-bold ${deepCatClass(d.cat)}">${escapeHtml(d.cat)}</span></td>
+            <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(d.date)}</td>
+            <td class="py-2.5 px-3 align-top font-bold text-slate-900 min-w-[200px]">${highlightText(d.title, q)}</td>
+            <td class="py-2.5 px-3 align-top text-slate-700 min-w-[260px]">
+              <div>${highlightText(d.fact, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-amber-700 hover:underline cursor-pointer">${isOpen ? '收合深度' : '展開深度'}</button> <a href="${escapeHtml(d.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(d.source)}]</a></div>
+              ${isOpen ? `<div class="mt-2 p-2.5 rounded-lg bg-amber-50/80 border border-amber-200 text-xs space-y-1"><div><b>背景：</b>${highlightText(d.background, q)}</div><div><b>影響：</b>${highlightText(d.impact, q)}</div><div><b>趨勢預測：</b>${highlightText(d.forecast, q)}</div></div>` : ''}
+            </td>
+          </tr>`;
+        }).join(''));
+      } else {
+        $('sec2Content').innerHTML = renderCardGrid(list.map(d => renderExpandableCard(
+          `sec2-${d.id}`,
+          `<div class="space-y-1"><div class="flex items-center justify-between gap-2"><span class="px-2 py-0.5 rounded text-[11px] font-bold ${deepCatClass(d.cat)}">${escapeHtml(d.cat)}</span><span class="text-xs text-slate-400">${escapeHtml(d.date)}</span></div><div class="font-bold text-slate-900 text-sm line-clamp-2">${highlightText(d.title, q)}</div></div>`,
+          `<div><b>事實：</b>${highlightText(d.fact, q)}</div><div><b>背景：</b>${highlightText(d.background, q)}</div><div><b>影響：</b>${highlightText(d.impact, q)}</div><div class="p-2 rounded-lg bg-amber-50 border border-amber-200 text-xs"><b>趨勢預測：</b>${highlightText(d.forecast, q)}</div><a href="${escapeHtml(d.url)}" target="_blank" rel="noopener noreferrer" class="inline-block text-xs font-semibold text-sky-600 hover:underline">查看來源（${escapeHtml(d.source)}）→</a>`,
+          'bg-white border-t-4 border-t-amber-500'
+        )).join(''));
+      }
     }
 
     function renderSection3() {
       const q = state.searchQuery.trim().toLowerCase();
-      let list = REG_UPDATES.filter(r => withinDays(r.date, state.periodDays) && (state.activeAgency === 'all' || r.agency === state.activeAgency) && (!q || `${r.agency} ${r.title} ${r.detail} ${r.source}`.toLowerCase().includes(q)));
+      let list = REG_UPDATES.filter(r => isInDateRange(r.date) && (state.activeAgency === 'all' || r.agency === state.activeAgency) && (!q || `${r.agency} ${r.title} ${r.detail} ${r.analysis || ''} ${r.source}`.toLowerCase().includes(q)));
       if (state.sec3Sort === 'agency') list.sort((a, b) => a.agency.localeCompare(b.agency));
       else list.sort((a, b) => b.date.localeCompare(a.date));
 
-      $('sec3Content').innerHTML = list.length ? list.map(r => renderExpandableCard(
-        `sec3-${r.id}`,
-        `<div class="flex items-center justify-between gap-2 flex-wrap">
-          <div class="flex items-center gap-2 min-w-0">
-            <span class="px-2 py-0.5 rounded text-xs font-bold ${agencyBadgeClass(r.agency)} shrink-0">${escapeHtml(r.agency)}</span>
-            <span class="font-bold text-slate-900 text-sm truncate">${highlightText(r.title, q)}</span>
-          </div>
-          <span class="text-xs text-slate-400 shrink-0">${escapeHtml(r.date)}</span>
-        </div>`,
-        `<p>${highlightText(r.detail, q)}</p><a href="${escapeHtml(r.url)}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-xs font-semibold text-sky-600 hover:underline">查看來源（${escapeHtml(r.source)}）→</a>`
-      )).join('') : `<div class="bg-white rounded-xl border border-slate-200 p-6 text-center text-sm text-slate-500">此區間無符合條件的藥監動態。</div>`;
+      if (!list.length) {
+        $('sec3Content').innerHTML = `<div class="bg-white rounded-xl border border-slate-200 p-6 text-center text-sm text-slate-500">此區間無新增藥監動態。</div>`;
+        return;
+      }
+
+      if (state.viewMode === 'table') {
+        $('sec3Content').innerHTML = renderTableBlock('五大藥監進度一覽', 'bg-violet-500', 'bg-violet-50/80', ['藥監', '日期', '項目', '決議與短評'], list.map(r => {
+          const key = `s3-t-${r.id}`, isOpen = Boolean(state.expandedIds[key]);
+          return `<tr class="hover:bg-slate-50/80">
+            <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded text-xs font-bold ${agencyBadgeClass(r.agency)}">${escapeHtml(r.agency)}</span></td>
+            <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(r.date)}</td>
+            <td class="py-2.5 px-3 align-top font-bold text-slate-900 whitespace-nowrap">${highlightText(r.title, q)}</td>
+            <td class="py-2.5 px-3 align-top text-slate-700 min-w-[260px]">
+              <div>${highlightText(r.detail, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-violet-700 hover:underline cursor-pointer">${isOpen ? '收合解讀' : '展開解讀'}</button> <a href="${escapeHtml(r.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 hover:underline">[${escapeHtml(r.source)}]</a></div>
+              ${isOpen && r.analysis ? `<div class="mt-2 p-2.5 rounded-lg bg-violet-50/80 border border-violet-200 text-xs"><b>監管解讀：</b>${highlightText(r.analysis, q)}</div>` : ''}
+            </td>
+          </tr>`;
+        }).join(''));
+      } else {
+        $('sec3Content').innerHTML = renderCardGrid(list.map(r => renderExpandableCard(
+          `sec3-${r.id}`,
+          `<div class="space-y-1"><div class="flex items-center justify-between gap-2"><span class="px-2 py-0.5 rounded text-xs font-bold ${agencyBadgeClass(r.agency)}">${escapeHtml(r.agency)}</span><span class="text-xs text-slate-400">${escapeHtml(r.date)}</span></div><div class="font-bold text-slate-900 text-sm line-clamp-2">${highlightText(r.title, q)}</div></div>`,
+          `<p>${highlightText(r.detail, q)}</p>${r.analysis ? `<div class="p-2 rounded-lg bg-violet-50 border border-violet-200 text-xs"><b>監管解讀：</b>${highlightText(r.analysis, q)}</div>` : ''}<a href="${escapeHtml(r.url)}" target="_blank" rel="noopener noreferrer" class="inline-block text-xs font-semibold text-sky-600 hover:underline">查看來源（${escapeHtml(r.source)}）→</a>`,
+          'bg-white border-t-4 border-t-violet-500'
+        )).join(''));
+      }
     }
 
     function renderSection4() {
       const q = state.searchQuery.trim().toLowerCase();
-      let list = COMPANIES.filter(c => (!state.watchlistOnly || c.watchlist) && (!q || `${c.ticker} ${c.name} ${c.market} ${c.events.join(' ')}`.toLowerCase().includes(q)));
+      let list = COMPANIES.filter(c => (!state.watchlistOnly || c.watchlist) && (!q || `${c.ticker} ${c.name} ${c.market} ${c.events.join(' ')} ${c.analysis || ''}`.toLowerCase().includes(q)));
       if (state.sec4Sort === 'change') list.sort((a, b) => b.change - a.change);
+      else list.sort((a, b) => Number(b.watchlist) - Number(a.watchlist));
 
-      const renderGroup = (title, items, isWatch) => items.length ? `
-        <div class="space-y-2">
-          <h3 class="text-xs font-bold uppercase tracking-wider ${isWatch ? 'text-amber-700' : 'text-slate-500'}">${title}（${items.length}）</h3>
-          <div class="space-y-2">
-            ${items.map(c => renderExpandableCard(
-              `sec4-${c.ticker}`,
-              `<div class="flex items-center justify-between gap-2 flex-wrap">
-                <div class="flex items-center gap-2">
-                  <span class="font-bold text-slate-900 text-sm">${c.watchlist ? '<span class="text-amber-500 mr-1">★</span>' : ''}${highlightText(c.name, q)}</span>
-                  <span class="text-xs font-mono text-slate-500">${highlightText(c.ticker, q)}</span>
-                  <span class="px-1.5 py-0.5 rounded text-[10px] bg-slate-100 text-slate-600">${escapeHtml(c.market)}</span>
-                </div>
-                <div class="flex items-center gap-2 text-xs">
-                  <span class="font-semibold text-slate-900">${escapeHtml(c.price)}</span>
-                  <span class="${changeColor(c.changeText)}">${escapeHtml(c.changeText)}</span>
-                  <span class="text-slate-400">${escapeHtml(c.date)}</span>
-                </div>
-              </div>`,
-              `<ul class="list-disc pl-5 space-y-1">${c.events.map(ev => `<li>${highlightText(ev, q)}</li>`).join('')}</ul>
-               <div class="mt-2.5 flex items-center gap-3 text-xs">
-                 <a href="${escapeHtml(c.yahoo)}" target="_blank" rel="noopener noreferrer" class="font-semibold text-sky-600 hover:underline">Yahoo Finance ↗</a>
-                 <a href="${escapeHtml(c.google)}" target="_blank" rel="noopener noreferrer" class="font-semibold text-sky-600 hover:underline">Google Finance ↗</a>
-               </div>`,
-              isWatch ? 'bg-amber-50/40 border-amber-200' : 'bg-white'
-            )).join('')}
-          </div>
-        </div>` : '';
+      if (!list.length) {
+        $('sec4Content').innerHTML = `<div class="bg-white rounded-xl border border-slate-200 p-6 text-center text-sm text-slate-500">無符合條件的業者。</div>`;
+        return;
+      }
 
-      if (state.sec4Sort === 'group') {
-        const watch = list.filter(c => c.watchlist), others = list.filter(c => !c.watchlist);
-        $('sec4Content').innerHTML = (renderGroup('★ 指定重點關注標的', watch, true) + renderGroup('全球主要生醫業者', others, false)) || `<div class="bg-white rounded-xl border border-slate-200 p-6 text-center text-sm text-slate-500">無符合條件的業者。</div>`;
+      if (state.viewMode === 'table') {
+        $('sec4Content').innerHTML = renderTableBlock('主要業者與重點關注標的', 'bg-emerald-500', 'bg-emerald-50/80', ['公司 / 代號', '市場', '最新股價', '日期', '最新動態與評價短評'], list.map(c => {
+          const key = `s4-t-${c.ticker}`, isOpen = Boolean(state.expandedIds[key]);
+          return `<tr class="hover:bg-slate-50/80 ${c.watchlist ? 'bg-amber-50/35' : ''}">
+            <td class="py-2.5 px-3 align-top whitespace-nowrap font-bold text-slate-900">${c.watchlist ? '<span class="text-amber-500 mr-1">★</span>' : ''}${highlightText(c.name, q)} <span class="text-xs font-mono text-slate-500">${highlightText(c.ticker, q)}</span></td>
+            <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-1.5 py-0.5 rounded text-[11px] bg-slate-100 text-slate-600">${escapeHtml(c.market)}</span></td>
+            <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="font-medium">${escapeHtml(c.price)}</span> <span class="text-xs ${changeColor(c.changeText)}">${escapeHtml(c.changeText)}</span></td>
+            <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(c.date)}</td>
+            <td class="py-2.5 px-3 align-top text-slate-700 min-w-[260px]">
+              <div>${highlightText(c.events[0], q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-emerald-700 hover:underline cursor-pointer">${isOpen ? '收合' : '展開短評'}</button></div>
+              ${isOpen ? `<div class="mt-2 p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200 text-xs space-y-1.5"><ul class="list-disc pl-4">${c.events.map(ev => `<li>${highlightText(ev, q)}</li>`).join('')}</ul><div><b>評價短評：</b>${highlightText(c.analysis || '', q)}</div><div class="flex gap-3 pt-1"><a href="${escapeHtml(c.yahoo)}" target="_blank" rel="noopener noreferrer" class="text-sky-600 font-semibold hover:underline">Yahoo Finance ↗</a><a href="${escapeHtml(c.google)}" target="_blank" rel="noopener noreferrer" class="text-sky-600 font-semibold hover:underline">Google Finance ↗</a></div></div>` : ''}
+            </td>
+          </tr>`;
+        }).join(''));
       } else {
-        $('sec4Content').innerHTML = renderGroup('依漲跌幅排序', list, false) || `<div class="bg-white rounded-xl border border-slate-200 p-6 text-center text-sm text-slate-500">無符合條件的業者。</div>`;
+        $('sec4Content').innerHTML = renderCardGrid(list.map(c => renderExpandableCard(
+          `sec4-${c.ticker}`,
+          `<div class="space-y-1">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-bold text-slate-900 text-sm truncate">${c.watchlist ? '<span class="text-amber-500 mr-1">★</span>' : ''}${highlightText(c.name, q)}</span>
+              <span class="px-1.5 py-0.5 rounded text-[10px] bg-slate-100 text-slate-600 shrink-0">${escapeHtml(c.market)}</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 text-xs">
+              <span class="font-mono text-slate-500">${highlightText(c.ticker, q)}</span>
+              <span><span class="font-semibold text-slate-800">${escapeHtml(c.price)}</span> <span class="${changeColor(c.changeText)}">${escapeHtml(c.changeText)}</span></span>
+            </div>
+            <div class="text-xs text-slate-600 line-clamp-2">${highlightText(c.events[0], q)}</div>
+          </div>`,
+          `<ul class="list-disc pl-4 space-y-1">${c.events.map(ev => `<li>${highlightText(ev, q)}</li>`).join('')}</ul>
+           ${c.analysis ? `<div class="p-2 rounded-lg bg-emerald-50 border border-emerald-200 text-xs"><b>評價短評：</b>${highlightText(c.analysis, q)}</div>` : ''}
+           <div class="flex gap-3 text-xs pt-1"><a href="${escapeHtml(c.yahoo)}" target="_blank" rel="noopener noreferrer" class="font-semibold text-sky-600 hover:underline">Yahoo Finance ↗</a><a href="${escapeHtml(c.google)}" target="_blank" rel="noopener noreferrer" class="font-semibold text-sky-600 hover:underline">Google Finance ↗</a></div>`,
+          c.watchlist ? 'bg-amber-50/60 border-t-4 border-t-amber-500' : 'bg-white border-t-4 border-t-emerald-500'
+        )).join(''));
       }
     }
 
     function renderRelatedTopics() {
-      const rep = state.reports[state.currentIndex];
-      $('relatedTopicsBar').innerHTML = rep.topics.map(t => {
+      const agg = getMultiDayAggregatedReport();
+      $('relatedTopicsBar').innerHTML = (agg.rep.topics || []).map(t => {
         const active = state.searchQuery.trim().toLowerCase() === t.toLowerCase();
         return `<button data-topic="${escapeHtml(t)}" type="button" class="topic-chip px-2.5 py-1 rounded-full text-xs font-medium border transition cursor-pointer ${active ? 'bg-sky-600 text-white border-sky-600' : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-sky-50'}">${escapeHtml(t)}</button>`;
       }).join('');
@@ -657,20 +874,52 @@
       box.classList.remove('hidden');
     }
 
-    function render() {
+    function syncControlHighlights() {
       const isTable = state.viewMode === 'table';
-      $('btnViewTable').className = `inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${isTable ? 'bg-sky-500 text-white' : 'text-slate-300 hover:text-white'}`;
-      $('btnViewCard').className = `inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${!isTable ? 'bg-sky-500 text-white' : 'text-slate-300 hover:text-white'}`;
+      $('btnViewTable').className = `inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer ${isTable ? 'bg-sky-500 text-white' : 'text-slate-200 hover:text-white'}`;
+      $('btnViewCard').className = `inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer ${!isTable ? 'bg-sky-500 text-white' : 'text-slate-200 hover:text-white'}`;
+
+      document.querySelectorAll('.period-btn').forEach(b => {
+        const a = Number(b.dataset.days) === state.periodDays;
+        b.className = `period-btn px-2 py-1 rounded-md font-medium cursor-pointer shrink-0 ${a ? 'bg-sky-500 text-white' : 'bg-white/10 text-slate-200 hover:bg-white/20'}`;
+      });
+      $('startDateInput').value = state.startDate;
+      $('endDateInput').value = state.endDate;
+
+      document.querySelectorAll('.sec-btn').forEach(b => {
+        const a = b.dataset.sec === state.visibleSection;
+        b.className = `sec-btn px-2.5 py-1 rounded-md font-medium cursor-pointer shrink-0 ${a ? 'bg-sky-500 text-white' : 'bg-white/10 text-slate-200 hover:bg-white/20'}`;
+      });
+
+      document.querySelectorAll('.mod-tab').forEach(b => {
+        const a = b.dataset.mod === state.activeModule;
+        b.className = `mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0 ${a ? 'bg-slate-900 text-white' : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'}`;
+      });
+
+      document.querySelectorAll('.agency-chip').forEach(b => {
+        const a = b.dataset.agency === state.activeAgency;
+        b.className = `agency-chip px-2 py-1.5 rounded-lg text-xs font-medium cursor-pointer shrink-0 ${a ? 'bg-sky-100 text-sky-800' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`;
+      });
+
+      $('btnWatchlistOnly').classList.toggle('bg-amber-50', state.watchlistOnly);
+      $('btnWatchlistOnly').classList.toggle('border-amber-300', state.watchlistOnly);
+      $('sec2Sort').value = state.sec2Sort;
+      $('sec3Sort').value = state.sec3Sort;
+      $('sec4Sort').value = state.sec4Sort;
+    }
+
+    function render() {
+      applyTheme();
+      syncControlHighlights();
 
       ['1', '2', '3', '4'].forEach(s => {
-        const show = state.visibleSection === 'all' || state.visibleSection === s;
-        $(`sec${s}Container`).classList.toggle('hidden', !show);
+        $(`sec${s}Container`).classList.toggle('hidden', !(state.visibleSection === 'all' || state.visibleSection === s));
       });
 
       const hasFilter = Boolean(state.searchQuery.trim() || state.watchlistOnly || state.activeAgency !== 'all');
       $('searchStatusBanner').classList.toggle('hidden', !hasFilter);
       if (hasFilter) {
-        $('searchStatusText').textContent = `目前篩選｜期間：近 ${state.periodDays} 天${state.searchQuery.trim() ? `｜關鍵字：${state.searchQuery.trim()}` : ''}${state.watchlistOnly ? '｜僅看關注股' : ''}${state.activeAgency !== 'all' ? `｜藥監：${state.activeAgency}` : ''}`;
+        $('searchStatusText').textContent = `篩選中｜區間：${state.startDate} ～ ${state.endDate}${state.searchQuery.trim() ? `｜關鍵字：${state.searchQuery.trim()}` : ''}${state.watchlistOnly ? '｜僅看關注股' : ''}${state.activeAgency !== 'all' ? `｜藥監：${state.activeAgency}` : ''}`;
       }
 
       renderRelatedTopics();
@@ -678,17 +927,23 @@
       renderSection2();
       renderSection3();
       renderSection4();
+      savePrefs();
       if (window.lucide) lucide.createIcons();
     }
 
     function switchEdition(newIdx, dir) {
-      if (newIdx < 0 || newIdx >= state.reports.length || newIdx === state.currentIndex) return;
+      if (newIdx < 0 || newIdx >= state.reports.length) return;
+      state.periodDays = 1;
+      const d = normDate(state.reports[newIdx].date) || TODAY_STR;
+      state.startDate = d;
+      state.endDate = d;
       const el = $('swipeContainer');
       el.classList.add(dir === 'left' ? 'swipe-left' : 'swipe-right');
       setTimeout(() => { state.currentIndex = newIdx; render(); el.classList.remove('swipe-left', 'swipe-right'); }, 130);
     }
 
-    // Listeners
+    // Event Listeners
+    $('themeSelect').addEventListener('change', (e) => { state.theme = e.target.value; render(); });
     $('btnViewTable').addEventListener('click', () => { state.viewMode = 'table'; render(); });
     $('btnViewCard').addEventListener('click', () => { state.viewMode = 'card'; render(); });
     $('btnPrevDate').addEventListener('click', () => switchEdition(state.currentIndex - 1, 'right'));
@@ -697,23 +952,30 @@
     document.querySelectorAll('.period-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         state.periodDays = Number(btn.dataset.days);
-        document.querySelectorAll('.period-btn').forEach(b => {
-          const a = Number(b.dataset.days) === state.periodDays;
-          b.className = `period-btn px-2.5 py-1 rounded-md font-medium cursor-pointer shrink-0 ${a ? 'bg-sky-500 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}`;
-        });
+        state.endDate = TODAY_STR;
+        state.startDate = calcStartDate(TODAY_STR, state.periodDays);
         render();
       });
     });
 
+    $('startDateInput').addEventListener('change', (e) => {
+      if (!e.target.value) return;
+      state.periodDays = 0;
+      state.startDate = e.target.value;
+      if (state.startDate > state.endDate) state.endDate = state.startDate;
+      render();
+    });
+
+    $('endDateInput').addEventListener('change', (e) => {
+      if (!e.target.value) return;
+      state.periodDays = 0;
+      state.endDate = e.target.value;
+      if (state.endDate < state.startDate) state.startDate = state.endDate;
+      render();
+    });
+
     document.querySelectorAll('.sec-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.visibleSection = btn.dataset.sec;
-        document.querySelectorAll('.sec-btn').forEach(b => {
-          const a = b.dataset.sec === state.visibleSection;
-          b.className = `sec-btn px-2.5 py-1 rounded-md font-medium cursor-pointer shrink-0 ${a ? 'bg-sky-500 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}`;
-        });
-        render();
-      });
+      btn.addEventListener('click', () => { state.visibleSection = btn.dataset.sec; render(); });
     });
 
     $('datePills').addEventListener('click', (e) => {
@@ -769,26 +1031,15 @@
     $('btnSearchScope').addEventListener('click', () => {
       state.crossDateSearch = !state.crossDateSearch;
       $('searchScopeLabel').textContent = state.crossDateSearch ? '跨期搜尋' : '單期搜尋';
-      $('btnSearchScope').classList.toggle('bg-sky-50', state.crossDateSearch);
-      $('btnSearchScope').classList.toggle('border-sky-300', state.crossDateSearch);
       render();
     });
 
-    $('btnWatchlistOnly').addEventListener('click', () => {
-      state.watchlistOnly = !state.watchlistOnly;
-      $('btnWatchlistOnly').classList.toggle('bg-amber-50', state.watchlistOnly);
-      $('btnWatchlistOnly').classList.toggle('border-amber-300', state.watchlistOnly);
-      render();
-    });
+    $('btnWatchlistOnly').addEventListener('click', () => { state.watchlistOnly = !state.watchlistOnly; render(); });
 
     $('moduleTabs').addEventListener('click', (e) => {
       const btn = e.target.closest('.mod-tab');
       if (!btn) return;
       state.activeModule = btn.dataset.mod;
-      document.querySelectorAll('.mod-tab').forEach(b => {
-        const a = b.dataset.mod === state.activeModule;
-        b.className = `mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0 ${a ? 'bg-slate-900 text-white' : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'}`;
-      });
       render();
     });
 
@@ -796,22 +1047,18 @@
       const btn = e.target.closest('.agency-chip');
       if (!btn) return;
       state.activeAgency = btn.dataset.agency;
-      document.querySelectorAll('.agency-chip').forEach(b => {
-        const a = b.dataset.agency === state.activeAgency;
-        b.className = `agency-chip px-2 py-1.5 rounded-lg text-xs font-medium cursor-pointer shrink-0 ${a ? 'bg-sky-100 text-sky-800' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`;
-      });
       render();
     });
 
     $('btnResetFilters').addEventListener('click', () => {
       $('searchInput').value = ''; state.searchQuery = ''; state.watchlistOnly = false; state.activeAgency = 'all';
-      $('btnClearSearch').classList.add('hidden'); $('btnWatchlistOnly').classList.remove('bg-amber-50', 'border-amber-300');
+      $('btnClearSearch').classList.add('hidden');
       render();
     });
 
-    $('sec2Sort').addEventListener('change', (e) => { state.sec2Sort = e.target.value; renderSection2(); if (window.lucide) lucide.createIcons(); });
-    $('sec3Sort').addEventListener('change', (e) => { state.sec3Sort = e.target.value; renderSection3(); if (window.lucide) lucide.createIcons(); });
-    $('sec4Sort').addEventListener('change', (e) => { state.sec4Sort = e.target.value; renderSection4(); if (window.lucide) lucide.createIcons(); });
+    $('sec2Sort').addEventListener('change', (e) => { state.sec2Sort = e.target.value; savePrefs(); renderSection2(); if (window.lucide) lucide.createIcons(); });
+    $('sec3Sort').addEventListener('change', (e) => { state.sec3Sort = e.target.value; savePrefs(); renderSection3(); if (window.lucide) lucide.createIcons(); });
+    $('sec4Sort').addEventListener('change', (e) => { state.sec4Sort = e.target.value; savePrefs(); renderSection4(); if (window.lucide) lucide.createIcons(); });
 
     let sx = 0, sy = 0;
     $('swipeContainer').addEventListener('touchstart', (e) => { sx = e.changedTouches[0].screenX; sy = e.changedTouches[0].screenY; }, { passive: true });
@@ -826,7 +1073,6 @@
       if (e.key === 'ArrowRight') switchEdition(state.currentIndex + 1, 'left');
     });
 
-
     async function tryLoadRemoteJson() {
       if (location.protocol === 'http:' || location.protocol === 'https:') {
         try {
@@ -836,15 +1082,12 @@
             if (Array.isArray(remote) && remote.length > 0) {
               const mergedMap = new Map();
               REPORTS_DATA.forEach(r => mergedMap.set(r.id, r));
-              remote.forEach(r => {
-                if (r && r.id && Array.isArray(r.co)) mergedMap.set(r.id, r);
-              });
+              remote.forEach(r => { if (r && r.id && Array.isArray(r.co)) mergedMap.set(r.id, r); });
               state.reports = Array.from(mergedMap.values()).sort((a, b) => String(b.id).localeCompare(String(a.id)));
-              state.currentIndex = 0;
               render();
             }
           }
-        } catch (_) { /* Fallback to embedded data */ }
+        } catch (_) {}
       }
     }
 
