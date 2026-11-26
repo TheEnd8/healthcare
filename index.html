@@ -157,7 +157,7 @@
     const keyword = document.getElementById('mh-search-input').value.trim().toLowerCase();
     document.getElementById('mh-meta').textContent = `期別：${item.title} ｜ 同步時間：${item.updatedAt}`;
 
-    const rawHtml = marked.parse(item.markdown || '');
+    const rawHtml = item.html ? item.html : marked.parse(item.markdown || '');
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = rawHtml;
 
