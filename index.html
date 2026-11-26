@@ -22,70 +22,64 @@
     .swipe-left { transform: translateX(-16px); opacity: 0.55; }
     .swipe-right { transform: translateX(16px); opacity: 0.55; }
     mark { background-color: #fef08a; color: #0f172a; padding: 0 2px; border-radius: 3px; }
-
-    /* 跨產業表格與卡片自適應樣式 */
-    #mh-render-area h2 { font-size: 18px; color: #0f4c81; border-left: 4px solid #0284c7; padding-left: 10px; margin: 28px 0 12px; font-weight: 700; }
-    .mh-table-wrap { overflow-x: auto; background: #fff; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 24px; }
-    .mh-table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.65; }
-    .mh-table th { background: #0f4c81; color: #ffffff; font-weight: 700; padding: 12px 14px; text-align: left; border-bottom: 2px solid #0f4c81; white-space: nowrap; }
-    .mh-table td { padding: 12px 14px; border-bottom: 1px solid #e2e8f0; vertical-align: top; color: #1e293b; }
-    .mh-table tr:nth-child(even) { background: #f8fafc; }
-    .mh-table tr:hover { background: #f1f5f9; }
-    .mh-table td:nth-child(1) { width: 16%; font-weight: 700; color: #0f172a; }
-    .mh-table td:nth-child(2) { width: 32%; }
-    .mh-table td:nth-child(3) { width: 24%; }
-    .mh-table td:nth-child(4) { width: 13%; font-weight: 600; color: #0369a1; }
-    .mh-table td:nth-child(5) { width: 15%; }
-    .mh-table a { color: #0284c7; text-decoration: none; font-weight: 600; }
-    .mh-table a:hover { text-decoration: underline; }
-
-    /* 卡片檢視模式 */
-    .mh-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; margin-bottom: 24px; }
-    .mh-card-item { background: #fff; border: 1px solid #e2e8f0; border-top: 4px solid #0284c7; border-radius: 10px; padding: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); display: flex; flex-direction: column; gap: 10px; }
-    .mh-card-title { font-size: 16px; font-weight: 700; color: #0f172a; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; }
-    .mh-card-label { font-size: 11px; font-weight: 700; color: #0284c7; text-transform: uppercase; margin-bottom: 2px; letter-spacing: 0.4px; }
-    .mh-card-text { font-size: 14px; line-height: 1.6; color: #334155; }
-    .mh-card-links a { display: inline-block; margin-top: 4px; color: #0284c7; font-size: 13px; text-decoration: none; font-weight: 600; }
-    .mh-card-links a:hover { text-decoration: underline; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900">
   <!-- === 雙頻道頂部切換導覽列 === -->
-  <div id="hub-channel-bar" style="background:#0f172a; color:#f8fafc; padding:10px 20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; border-bottom:1px solid #1e293b; position:sticky; top:0; z-index:9999;">
-    <div style="display:flex; align-items:center; gap:8px;">
-      <button id="btn-ch-biotech" onclick="switchHubChannel('biotech')" style="background:#0284c7; color:#fff; border:none; padding:7px 14px; border-radius:6px; font-weight:600; cursor:pointer; font-size:14px;">
+  <div id="hub-channel-bar" class="bg-slate-950 text-slate-100 px-4 py-2.5 flex items-center justify-between flex-wrap gap-2.5 border-b border-slate-800 sticky top-0 z-50">
+    <div class="flex items-center gap-2">
+      <button id="btn-ch-biotech" type="button" onclick="switchHubChannel('biotech')" class="bg-sky-600 text-white border border-sky-500 px-3.5 py-1.5 rounded-lg font-semibold cursor-pointer text-xs sm:text-sm transition">
         🧬 全球生醫投資情報
       </button>
-      <button id="btn-ch-market" onclick="switchHubChannel('market')" style="background:#1e293b; color:#cbd5e1; border:1px solid #334155; padding:7px 14px; border-radius:6px; font-weight:600; cursor:pointer; font-size:14px;">
+      <button id="btn-ch-market" type="button" onclick="switchHubChannel('market')" class="bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 px-3.5 py-1.5 rounded-lg font-semibold cursor-pointer text-xs sm:text-sm transition">
         📊 跨產業與券商研報
       </button>
     </div>
-    <div style="font-size:12px; color:#94a3b8;">
+    <div class="text-xs text-slate-400">
       早報 07:30 / 08:00・晚報 16:30 / 20:00 自動更新
     </div>
   </div>
 
-  <!-- === 跨產業與券商研報專區容器（預設隱藏，切換頻道時顯示） === -->
-  <div id="market-hub-container" style="display:none; max-width:1280px; width:100%; margin:20px auto; padding:0 16px; font-family:-apple-system,BlinkMacSystemFont,'Noto Sans TC',sans-serif;">
-    <div style="background:#ffffff; border-radius:12px; padding:20px; box-shadow:0 2px 10px rgba(0,0,0,0.06); border:1px solid #e2e8f0; margin-bottom:20px;">
-      <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;">
+  <!-- === 跨產業與券商研報專區容器（比照 Healthcare Info Hub 鮮明色塊與色調系統） === -->
+  <div id="market-hub-container" class="hidden max-w-7xl w-full mx-auto px-4 py-5 space-y-6">
+    <!-- 頂部控制列 -->
+    <div id="mhHeaderBox" class="rounded-2xl p-4 sm:p-5 bg-gradient-to-r from-slate-900 via-indigo-950 to-sky-900 text-white shadow-md">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
         <div>
-          <h2 style="margin:0; font-size:20px; font-weight:700; color:#0f172a;">📊 跨產業財經與券商研究報告摘要</h2>
-          <p id="mh-meta" style="margin:4px 0 0; font-size:13px; color:#64748b;">載入中...</p>
+          <h2 class="text-lg sm:text-xl font-bold tracking-tight flex items-center gap-2">
+            📊 跨產業財經與券商研究報告摘要
+          </h2>
+          <p id="mh-meta" class="text-xs sm:text-sm text-sky-200 mt-1">載入最新情報中...</p>
         </div>
-        <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
-          <select id="mh-edition-select" style="padding:8px 12px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; background:#f8fafc; color:#0f172a;"></select>
-          <input id="mh-search-input" type="text" placeholder="🔍 搜尋個股代號、產業或關鍵字..." style="padding:8px 12px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; min-width:230px;" />
-          <button id="mh-view-toggle" onclick="toggleMarketView()" style="padding:8px 12px; border-radius:8px; border:1px solid #cbd5e1; background:#fff; cursor:pointer; font-size:13px; font-weight:600; color:#334155;">
-            切換卡片/表格
-          </button>
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- 色調切換（與生醫頻道同步 4 種色調） -->
+          <div class="flex items-center gap-1.5 bg-white/10 px-2.5 py-1.5 rounded-xl border border-white/15">
+            <span class="text-xs text-sky-200">色調</span>
+            <select id="mh-theme-select" onchange="setMarketTheme(this.value)" class="bg-transparent text-xs font-semibold text-white focus:outline-none cursor-pointer">
+              <option value="vibrant" class="text-slate-900">活力繽紛</option>
+              <option value="ocean" class="text-slate-900">海洋專業</option>
+              <option value="aurora" class="text-slate-900">極光深邃</option>
+              <option value="warm" class="text-slate-900">暖陽大地</option>
+            </select>
+          </div>
+          <!-- 期別選擇 -->
+          <select id="mh-edition-select" class="px-3 py-1.5 rounded-xl bg-white text-slate-900 text-xs sm:text-sm font-medium border border-white/20 cursor-pointer"></select>
+          <!-- 關鍵字搜尋 -->
+          <input id="mh-search-input" type="text" placeholder="🔍 搜尋個股、產業或關鍵字..." class="px-3 py-1.5 rounded-xl bg-white/95 text-slate-900 text-xs sm:text-sm min-w-[200px] focus:outline-none focus:ring-2 focus:ring-sky-400" />
+          <!-- 表格／卡片切換 -->
+          <div class="flex items-center bg-black/25 p-1 rounded-xl border border-white/15">
+            <button id="mh-btn-table" type="button" onclick="setMarketViewMode(false)" class="px-2.5 py-1 rounded-lg text-xs font-semibold cursor-pointer bg-sky-500 text-white">表格</button>
+            <button id="mh-btn-card" type="button" onclick="setMarketViewMode(true)" class="px-2.5 py-1 rounded-lg text-xs font-semibold cursor-pointer text-slate-200 hover:text-white">卡片</button>
+          </div>
         </div>
       </div>
     </div>
-    <div id="mh-render-area"></div>
+
+    <!-- 產業色塊渲染區 -->
+    <div id="mh-render-area" class="space-y-6"></div>
   </div>
 
-  <!-- Header -->
+  <!-- Header (生醫頻道) -->
   <header id="appHeader" class="bg-gradient-to-r from-slate-900 via-indigo-950 to-sky-900 text-white sticky top-[49px] z-40 shadow-md">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3 flex-wrap">
       <div class="flex items-center gap-2.5 min-w-0">
@@ -278,12 +272,76 @@
 
   <script>
     /* ============================================================================
-     * 跨產業與券商研報頻道邏輯（支援自動將純文字網址轉為可點擊連結、HTML/Markdown 雙解析）
+     * 跨產業與券商研報頻道邏輯（鮮明產業色塊 + 4 色調同步 + 100% 可點深層連結）
      * ============================================================================ */
     let mhBriefs = [];
     let mhCurrentIdx = 0;
     let mhCardMode = window.innerWidth < 768;
     let mhLoaded = false;
+    let mhTheme = 'vibrant';
+
+    const MH_THEME_PALETTES = {
+      vibrant: {
+        body: 'bg-slate-50 text-slate-900',
+        header: 'bg-gradient-to-r from-slate-900 via-indigo-950 to-sky-900 text-white',
+        blocks: [
+          { wrap: 'bg-gradient-to-br from-sky-50 via-blue-50/70 to-cyan-50/70 border-sky-300', title: 'text-sky-950 border-sky-500', th: 'bg-sky-700 text-white', cardTop: 'border-t-sky-500', badge: 'bg-sky-100 text-sky-800 border-sky-200', btn: 'bg-sky-50 text-sky-700 border-sky-200 hover:bg-sky-600 hover:text-white' },
+          { wrap: 'bg-gradient-to-br from-indigo-50 via-violet-50/70 to-purple-50/60 border-indigo-300', title: 'text-indigo-950 border-indigo-500', th: 'bg-indigo-700 text-white', cardTop: 'border-t-indigo-500', badge: 'bg-indigo-100 text-indigo-800 border-indigo-200', btn: 'bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-600 hover:text-white' },
+          { wrap: 'bg-gradient-to-br from-emerald-50 via-teal-50/70 to-cyan-50/60 border-emerald-300', title: 'text-emerald-950 border-emerald-500', th: 'bg-emerald-700 text-white', cardTop: 'border-t-emerald-500', badge: 'bg-emerald-100 text-emerald-800 border-emerald-200', btn: 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-600 hover:text-white' },
+          { wrap: 'bg-gradient-to-br from-amber-50 via-orange-50/70 to-rose-50/50 border-amber-300', title: 'text-amber-950 border-amber-500', th: 'bg-amber-700 text-white', cardTop: 'border-t-amber-500', badge: 'bg-amber-100 text-amber-800 border-amber-200', btn: 'bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-600 hover:text-white' }
+        ]
+      },
+      ocean: {
+        body: 'bg-sky-50/40 text-slate-900',
+        header: 'bg-gradient-to-r from-cyan-950 via-sky-900 to-blue-900 text-white',
+        blocks: [
+          { wrap: 'bg-sky-50/85 border-sky-300', title: 'text-sky-950 border-sky-600', th: 'bg-sky-800 text-white', cardTop: 'border-t-sky-600', badge: 'bg-sky-100 text-sky-900 border-sky-200', btn: 'bg-sky-50 text-sky-800 border-sky-200 hover:bg-sky-700 hover:text-white' },
+          { wrap: 'bg-blue-50/80 border-blue-300', title: 'text-blue-950 border-blue-600', th: 'bg-blue-800 text-white', cardTop: 'border-t-blue-600', badge: 'bg-blue-100 text-blue-900 border-blue-200', btn: 'bg-blue-50 text-blue-800 border-blue-200 hover:bg-blue-700 hover:text-white' },
+          { wrap: 'bg-teal-50/80 border-teal-300', title: 'text-teal-950 border-teal-600', th: 'bg-teal-800 text-white', cardTop: 'border-t-teal-600', badge: 'bg-teal-100 text-teal-900 border-teal-200', btn: 'bg-teal-50 text-teal-800 border-teal-200 hover:bg-teal-700 hover:text-white' },
+          { wrap: 'bg-cyan-50/80 border-cyan-300', title: 'text-cyan-950 border-cyan-600', th: 'bg-cyan-800 text-white', cardTop: 'border-t-cyan-600', badge: 'bg-cyan-100 text-cyan-900 border-cyan-200', btn: 'bg-cyan-50 text-cyan-800 border-cyan-200 hover:bg-cyan-700 hover:text-white' }
+        ]
+      },
+      aurora: {
+        body: 'bg-slate-900 text-slate-100',
+        header: 'bg-gradient-to-r from-slate-950 via-purple-950 to-indigo-950 text-white',
+        blocks: [
+          { wrap: 'bg-slate-800/95 border-sky-500/60', title: 'text-sky-300 border-sky-400', th: 'bg-sky-900 text-sky-100', cardTop: 'border-t-sky-400', badge: 'bg-sky-100 text-sky-900 border-sky-200', btn: 'bg-sky-50 text-sky-800 border-sky-200 hover:bg-sky-600 hover:text-white' },
+          { wrap: 'bg-slate-800/95 border-violet-500/60', title: 'text-violet-300 border-violet-400', th: 'bg-violet-900 text-violet-100', cardTop: 'border-t-violet-400', badge: 'bg-violet-100 text-violet-900 border-violet-200', btn: 'bg-violet-50 text-violet-800 border-violet-200 hover:bg-violet-600 hover:text-white' },
+          { wrap: 'bg-slate-800/95 border-emerald-500/60', title: 'text-emerald-300 border-emerald-400', th: 'bg-emerald-900 text-emerald-100', cardTop: 'border-t-emerald-400', badge: 'bg-emerald-100 text-emerald-900 border-emerald-200', btn: 'bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-emerald-600 hover:text-white' },
+          { wrap: 'bg-slate-800/95 border-amber-500/60', title: 'text-amber-300 border-amber-400', th: 'bg-amber-900 text-amber-100', cardTop: 'border-t-amber-400', badge: 'bg-amber-100 text-amber-900 border-amber-200', btn: 'bg-amber-50 text-amber-900 border-amber-200 hover:bg-amber-600 hover:text-white' }
+        ]
+      },
+      warm: {
+        body: 'bg-stone-50 text-stone-900',
+        header: 'bg-gradient-to-r from-stone-900 via-amber-950 to-orange-950 text-white',
+        blocks: [
+          { wrap: 'bg-orange-50/80 border-orange-300', title: 'text-orange-950 border-orange-500', th: 'bg-orange-700 text-white', cardTop: 'border-t-orange-500', badge: 'bg-orange-100 text-orange-900 border-orange-200', btn: 'bg-orange-50 text-orange-800 border-orange-200 hover:bg-orange-600 hover:text-white' },
+          { wrap: 'bg-amber-50/85 border-amber-300', title: 'text-amber-950 border-amber-600', th: 'bg-amber-700 text-white', cardTop: 'border-t-amber-600', badge: 'bg-amber-100 text-amber-900 border-amber-200', btn: 'bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-600 hover:text-white' },
+          { wrap: 'bg-lime-50/80 border-lime-300', title: 'text-lime-950 border-lime-600', th: 'bg-lime-700 text-white', cardTop: 'border-t-lime-600', badge: 'bg-lime-100 text-lime-900 border-lime-200', btn: 'bg-lime-50 text-lime-800 border-lime-200 hover:bg-lime-600 hover:text-white' },
+          { wrap: 'bg-rose-50/80 border-rose-300', title: 'text-rose-950 border-rose-500', th: 'bg-rose-700 text-white', cardTop: 'border-t-rose-500', badge: 'bg-rose-100 text-rose-900 border-rose-200', btn: 'bg-rose-50 text-rose-800 border-rose-200 hover:bg-rose-600 hover:text-white' }
+        ]
+      }
+    };
+
+    function setMarketTheme(theme) {
+      mhTheme = theme;
+      if (typeof state !== 'undefined') {
+        state.theme = theme;
+        applyTheme();
+        savePrefs();
+      } else {
+        const p = MH_THEME_PALETTES[theme] || MH_THEME_PALETTES.vibrant;
+        document.body.className = `min-h-screen flex flex-col ${p.body}`;
+      }
+      renderMarketBrief();
+    }
+
+    function setMarketViewMode(isCard) {
+      mhCardMode = isCard;
+      document.getElementById('mh-btn-table').className = `px-2.5 py-1 rounded-lg text-xs font-semibold cursor-pointer ${!isCard ? 'bg-sky-500 text-white' : 'text-slate-200 hover:text-white'}`;
+      document.getElementById('mh-btn-card').className = `px-2.5 py-1 rounded-lg text-xs font-semibold cursor-pointer ${isCard ? 'bg-sky-500 text-white' : 'text-slate-200 hover:text-white'}`;
+      renderMarketBrief();
+    }
 
     function getBiotechElements() {
       return [
@@ -301,51 +359,78 @@
 
       if (channel === 'market') {
         bioEls.forEach(el => { el.style.display = 'none'; });
+        marketEl.classList.remove('hidden');
         marketEl.style.display = 'block';
-        btnMkt.style.background = '#0284c7';
-        btnMkt.style.color = '#fff';
-        btnBio.style.background = '#1e293b';
-        btnBio.style.color = '#cbd5e1';
+        btnMkt.className = 'bg-sky-600 text-white border border-sky-500 px-3.5 py-1.5 rounded-lg font-semibold cursor-pointer text-xs sm:text-sm transition';
+        btnBio.className = 'bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 px-3.5 py-1.5 rounded-lg font-semibold cursor-pointer text-xs sm:text-sm transition';
+        mhTheme = (typeof state !== 'undefined' && state.theme) ? state.theme : mhTheme;
+        document.getElementById('mh-theme-select').value = mhTheme;
         if (!mhLoaded) loadMarketHubData();
+        else renderMarketBrief();
       } else {
         marketEl.style.display = 'none';
         bioEls.forEach(el => { el.style.display = ''; });
-        btnBio.style.background = '#0284c7';
-        btnBio.style.color = '#fff';
-        btnMkt.style.background = '#1e293b';
-        btnMkt.style.color = '#cbd5e1';
+        btnBio.className = 'bg-sky-600 text-white border border-sky-500 px-3.5 py-1.5 rounded-lg font-semibold cursor-pointer text-xs sm:text-sm transition';
+        btnMkt.className = 'bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 px-3.5 py-1.5 rounded-lg font-semibold cursor-pointer text-xs sm:text-sm transition';
       }
     }
 
-    // 自動將純文字中的 https://... 網址轉換為可點擊的 <a> 超連結
-    function linkifyHtml(htmlStr) {
-      const container = document.createElement('div');
-      container.innerHTML = htmlStr;
-      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
-      const textNodes = [];
-      let node;
-      while ((node = walker.nextNode())) {
-        if (
-          node.parentElement &&
-          node.parentElement.tagName !== 'A' &&
-          node.parentElement.tagName !== 'SCRIPT' &&
-          node.parentElement.tagName !== 'STYLE'
-        ) {
-          textNodes.push(node);
-        }
-      }
-      const urlRegex = /(https?:\/\/[^\s<>"'）)]+)/g;
-      textNodes.forEach(textNode => {
-        if (urlRegex.test(textNode.nodeValue)) {
-          const span = document.createElement('span');
-          span.innerHTML = textNode.nodeValue.replace(urlRegex, (url) => {
-            const label = url.includes('drive.google.com') ? '↗ 開啟報告 PDF' : '↗ 開啟來源連結';
-            return `<a href="${url}" target="_blank" rel="noopener noreferrer" style="display:inline-block; color:#0284c7; font-weight:600; margin:2px 6px 2px 0;">${label}</a>`;
-          });
-          textNode.parentNode.replaceChild(span, textNode);
+    // 自動將純文字網址轉換為可點擊的深層連結按鈕（相容 Apps Script 同步的 HTML / Markdown 信件）
+    function extractLinksFromCell(cellEl) {
+      const links = [];
+      const seen = new Set();
+      cellEl.querySelectorAll('a').forEach(a => {
+        const href = a.getAttribute('href') || '';
+        if (href.startsWith('http') && !seen.has(href)) {
+          seen.add(href);
+          links.push({ label: a.textContent.replace(/^↗\s*/, '').trim() || (href.includes('drive.google.com') ? '開啟報告 PDF' : '開啟新聞連結'), url: href });
         }
       });
-      return container.innerHTML;
+      if (!links.length) {
+        const urlRegex = /(https?:\/\/[^\s<>"'）)]+)/g;
+        const text = cellEl.textContent || '';
+        let match;
+        while ((match = urlRegex.exec(text)) !== null) {
+          const url = match[1];
+          if (!seen.has(url)) {
+            seen.add(url);
+            links.push({ label: url.includes('drive.google.com') ? '開啟報告 PDF' : '開啟新聞連結', url });
+          }
+        }
+      }
+      return links;
+    }
+
+    // 將 HTML 或 Markdown 內容正規化為 sections 陣列，確保統一套用鮮明色塊與連結按鈕
+    function normalizeBriefToSections(item) {
+      if (Array.isArray(item.sections) && item.sections.length > 0) return item.sections;
+      const rawHtml = item.html ? item.html : marked.parse(item.markdown || '');
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = rawHtml;
+      const sections = [];
+      let currentCat = '跨產業財經與研究報告摘要';
+
+      Array.from(tempDiv.querySelectorAll('h2, h3, table')).forEach(el => {
+        if (el.tagName === 'H2' || el.tagName === 'H3') {
+          currentCat = el.textContent.trim();
+        } else if (el.tagName === 'TABLE') {
+          const items = [];
+          el.querySelectorAll('tbody tr').forEach(tr => {
+            const tds = tr.querySelectorAll('td');
+            if (tds.length >= 5) {
+              items.push({
+                title: tds[0].textContent.trim(),
+                summary: tds[1].textContent.trim(),
+                trend: tds[2].textContent.trim(),
+                tickers: tds[3].textContent.trim(),
+                links: extractLinksFromCell(tds[4])
+              });
+            }
+          });
+          if (items.length) sections.push({ category: currentCat, items });
+        }
+      });
+      return sections;
     }
 
     async function loadMarketHubData() {
@@ -360,85 +445,101 @@
         mhBriefs.forEach((b, i) => {
           const opt = document.createElement('option');
           opt.value = i;
-          opt.textContent = `${b.date} ${b.period}（${b.title.replace(/【Market Hub】\s*/, '')}）`;
+          opt.textContent = `${b.date} ${b.period}（${(b.title || '').replace(/【Market Hub】\s*/, '')}）`;
           select.appendChild(opt);
         });
 
-        select.addEventListener('change', (e) => {
-          mhCurrentIdx = parseInt(e.target.value, 10);
-          renderMarketBrief();
-        });
+        select.addEventListener('change', (e) => { mhCurrentIdx = parseInt(e.target.value, 10); renderMarketBrief(); });
         document.getElementById('mh-search-input').addEventListener('input', () => renderMarketBrief());
-        renderMarketBrief();
+        document.getElementById('mh-theme-select').value = mhTheme;
+        setMarketViewMode(mhCardMode);
       } catch (err) {
         document.getElementById('mh-render-area').innerHTML =
-          '<div style="background:#fff;padding:24px;border-radius:10px;border:1px solid #e2e8f0;color:#475569;">目前尚無跨產業資料，請先執行一次 Apps Script <code>syncMarketHubToGitHub</code> 或等待下一期 07:30 / 16:30 排程自動推播。</div>';
+          '<div class="bg-white p-6 rounded-2xl border border-slate-200 text-slate-600 text-sm">目前尚無跨產業資料，請確認 <code>market_briefs.json</code> 已上傳至儲存庫根目錄。</div>';
       }
     }
 
-    function toggleMarketView() {
-      mhCardMode = !mhCardMode;
-      renderMarketBrief();
+    function renderMarketLinks(links, btnCls) {
+      if (!Array.isArray(links) || !links.length) return '<span class="text-xs text-slate-400">待補附連結</span>';
+      return `<div class="flex flex-col gap-1.5">${links.map(l =>
+        `<a href="${escapeHtml(l.url)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border text-xs font-semibold transition w-fit ${btnCls}">↗ ${escapeHtml(l.label)}</a>`
+      ).join('')}</div>`;
     }
 
     function renderMarketBrief() {
       if (!mhBriefs.length) return;
       const item = mhBriefs[mhCurrentIdx];
       const keyword = document.getElementById('mh-search-input').value.trim().toLowerCase();
+      const palette = MH_THEME_PALETTES[mhTheme] || MH_THEME_PALETTES.vibrant;
+
+      document.getElementById('mhHeaderBox').className = `rounded-2xl p-4 sm:p-5 shadow-md ${palette.header}`;
       document.getElementById('mh-meta').textContent = `期別：${item.title} ｜ 同步時間：${item.updatedAt}`;
 
-      // 支援 HTML 或 Markdown 來源，並自動補全超連結
-      const baseHtml = item.html ? item.html : marked.parse(item.markdown || '');
-      const linkedHtml = linkifyHtml(baseHtml);
-
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = linkedHtml;
-
-      // 確保所有現有 <a> 標籤皆開新視窗
-      tempDiv.querySelectorAll('a').forEach(a => {
-        a.setAttribute('target', '_blank');
-        a.setAttribute('rel', 'noopener noreferrer');
-      });
-
-      // 過濾符合搜尋關鍵字的表格列，並支援卡片轉換
-      tempDiv.querySelectorAll('table').forEach(table => {
-        const rows = Array.from(table.querySelectorAll('tbody tr'));
-        const matchedRows = rows.filter(tr => !keyword || tr.textContent.toLowerCase().includes(keyword));
-
-        if (mhCardMode) {
-          const grid = document.createElement('div');
-          grid.className = 'mh-cards-grid';
-          matchedRows.forEach(tr => {
-            const cells = tr.querySelectorAll('td');
-            if (cells.length >= 5) {
-              const card = document.createElement('div');
-              card.className = 'mh-card-item';
-              card.innerHTML = `
-                <div class="mh-card-title">${cells[0].innerHTML}</div>
-                <div><div class="mh-card-label">1. 內容摘要及前因後果</div><div class="mh-card-text">${cells[1].innerHTML}</div></div>
-                <div><div class="mh-card-label">2. 未來趨勢或影響分析</div><div class="mh-card-text">${cells[2].innerHTML}</div></div>
-                <div><div class="mh-card-label">3. 相關個股或主題</div><div class="mh-card-text" style="color:#0369a1;font-weight:600;">${cells[3].innerHTML}</div></div>
-                <div class="mh-card-links"><div class="mh-card-label">4. 新聞或報告連結</div>${cells[4].innerHTML}</div>
-              `;
-              grid.appendChild(card);
-            }
-          });
-          table.replaceWith(grid);
-        } else {
-          table.className = 'mh-table';
-          rows.forEach(tr => {
-            if (!matchedRows.includes(tr)) tr.remove();
-          });
-          const wrap = document.createElement('div');
-          wrap.className = 'mh-table-wrap';
-          table.parentNode.insertBefore(wrap, table);
-          wrap.appendChild(table);
-        }
-      });
-
+      const sections = normalizeBriefToSections(item);
       const renderArea = document.getElementById('mh-render-area');
       renderArea.innerHTML = '';
-      renderArea.appendChild(tempDiv);
+
+      if (!sections.length) {
+        renderArea.innerHTML = '<div class="bg-white p-6 rounded-2xl border border-slate-200 text-slate-600 text-sm">本期尚無可解析的表格資料。</div>';
+        return;
+      }
+
+      sections.forEach((sec, sIdx) => {
+        const style = palette.blocks[sIdx % palette.blocks.length];
+        const matchedRows = (sec.items || []).filter(r =>
+          !keyword || `${r.title} ${r.summary} ${r.trend} ${r.tickers}`.toLowerCase().includes(keyword)
+        );
+        if (!matchedRows.length) return;
+
+        const secEl = document.createElement('section');
+        secEl.className = `space-y-3 rounded-2xl p-4 sm:p-5 border-2 shadow-xs ${style.wrap}`;
+
+        let inner = `<h3 class="text-base sm:text-lg font-bold pl-3 border-l-4 ${style.title}">${escapeHtml(sec.category)}</h3>`;
+
+        if (mhCardMode) {
+          inner += `<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5">` + matchedRows.map(r => `
+            <div class="bg-white rounded-xl border border-slate-200 border-t-4 ${style.cardTop} p-4 shadow-2xs flex flex-col gap-2.5">
+              <div class="font-bold text-slate-900 text-sm sm:text-base border-b border-slate-100 pb-2">${highlightText(r.title, keyword)}</div>
+              <div><div class="text-[11px] font-bold text-slate-400 uppercase mb-0.5">1. 內容摘要及前因後果</div><div class="text-xs sm:text-sm text-slate-700 leading-relaxed">${highlightText(r.summary, keyword)}</div></div>
+              <div><div class="text-[11px] font-bold text-slate-400 uppercase mb-0.5">2. 未來趨勢或影響分析</div><div class="text-xs sm:text-sm text-slate-700 leading-relaxed">${highlightText(r.trend, keyword)}</div></div>
+              <div><span class="inline-block px-2 py-0.5 rounded-md border text-xs font-semibold ${style.badge}">${highlightText(r.tickers, keyword)}</span></div>
+              <div class="pt-1 border-t border-slate-100">${renderMarketLinks(r.links, style.btn)}</div>
+            </div>
+          `).join('') + `</div>`;
+        } else {
+          inner += `
+            <div class="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                  <thead>
+                    <tr class="${style.th}">
+                      <th class="py-2.5 px-3 font-bold w-[17%]">主題 / 報告名稱</th>
+                      <th class="py-2.5 px-3 font-bold w-[31%]">1. 內容摘要及前因後果</th>
+                      <th class="py-2.5 px-3 font-bold w-[23%]">2. 未來趨勢或影響分析</th>
+                      <th class="py-2.5 px-3 font-bold w-[13%]">3. 相關個股或主題</th>
+                      <th class="py-2.5 px-3 font-bold w-[16%]">4. 新聞或報告連結</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100">
+                    ${matchedRows.map((r, i) => `
+                      <tr class="${i % 2 === 1 ? 'bg-slate-50/70' : 'bg-white'} hover:bg-slate-100/70">
+                        <td class="py-3 px-3 align-top font-bold text-slate-900">${highlightText(r.title, keyword)}</td>
+                        <td class="py-3 px-3 align-top text-slate-700 leading-relaxed">${highlightText(r.summary, keyword)}</td>
+                        <td class="py-3 px-3 align-top text-slate-700 leading-relaxed">${highlightText(r.trend, keyword)}</td>
+                        <td class="py-3 px-3 align-top"><span class="inline-block px-2 py-0.5 rounded-md border text-xs font-semibold ${style.badge}">${highlightText(r.tickers, keyword)}</span></td>
+                        <td class="py-3 px-3 align-top">${renderMarketLinks(r.links, style.btn)}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          `;
+        }
+
+        secEl.innerHTML = inner;
+        renderArea.appendChild(secEl);
+      });
     }
 
     /* ============================================================================
@@ -694,6 +795,7 @@
       searchQuery: '',
       expandedIds: {}
     });
+    mhTheme = state.theme;
 
     const $ = (id) => document.getElementById(id);
 
@@ -703,7 +805,7 @@
 
     function highlightText(text, query) {
       const safe = escapeHtml(text);
-      if (!query.trim()) return safe;
+      if (!query || !query.trim()) return safe;
       const escapedQ = query.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       return safe.replace(new RegExp(`(${escapedQ})`, 'gi'), '<mark>$1</mark>');
     }
@@ -769,6 +871,8 @@
       $('sec4Container').className = `space-y-3 rounded-2xl p-4 sm:p-5 border-2 shadow-xs mb-8 ${t.sec4}`;
       $('sec4Title').className = `text-lg sm:text-xl font-bold pl-3 border-l-4 ${t.sec4Title}`;
       $('themeSelect').value = state.theme;
+      if ($('mh-theme-select')) $('mh-theme-select').value = state.theme;
+      mhTheme = state.theme;
     }
 
     function renderCardGrid(cardsHtml) {
