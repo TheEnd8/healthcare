@@ -25,6 +25,183 @@
   </style>
 </head>
 <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900">
+  <!-- === 雙頻道頂部切換導覽列 === -->
+<div id="hub-channel-bar" style="background:#0f172a; color:#f8fafc; padding:10px 20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; border-bottom:1px solid #1e293b; position:sticky; top:0; z-index:9999;">
+  <div style="display:flex; align-items:center; gap:8px;">
+    <button id="btn-ch-biotech" onclick="switchHubChannel('biotech')" style="background:#0284c7; color:#fff; border:none; padding:7px 14px; border-radius:6px; font-weight:600; cursor:pointer; font-size:14px;">
+      🧬 全球生醫投資情報
+    </button>
+    <button id="btn-ch-market" onclick="switchHubChannel('market')" style="background:#1e293b; color:#cbd5e1; border:1px solid #334155; padding:7px 14px; border-radius:6px; font-weight:600; cursor:pointer; font-size:14px;">
+      📊 跨產業與券商研報
+    </button>
+  </div>
+  <div style="font-size:12px; color:#94a3b8;">
+    早報 07:30 / 08:00・晚報 16:30 / 20:00 自動更新
+  </div>
+</div>
+
+<!-- === 跨產業與券商研報專區容器（預設隱藏，切換頻道時顯示） === -->
+<div id="market-hub-container" style="display:none; max-width:1280px; margin:20px auto; padding:0 16px; font-family:-apple-system,BlinkMacSystemFont,'Noto Sans TC',sans-serif;">
+  <div style="background:#ffffff; border-radius:12px; padding:20px; box-shadow:0 2px 10px rgba(0,0,0,0.06); border:1px solid #e2e8f0; margin-bottom:20px;">
+    <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;">
+      <div>
+        <h2 style="margin:0; font-size:20px; color:#0f172a;">📊 跨產業財經與券商研究報告摘要</h2>
+        <p id="mh-meta" style="margin:4px 0 0; font-size:13px; color:#64748b;">載入中...</p>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
+        <select id="mh-edition-select" style="padding:8px 12px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; background:#f8fafc; color:#0f172a;"></select>
+        <input id="mh-search-input" type="text" placeholder="🔍 搜尋個股代號、產業或關鍵字..." style="padding:8px 12px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; min-width:230px;" />
+        <button id="mh-view-toggle" onclick="toggleMarketView()" style="padding:8px 12px; border-radius:8px; border:1px solid #cbd5e1; background:#fff; cursor:pointer; font-size:13px; font-weight:600; color:#334155;">
+          切換卡片/表格
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="mh-render-area"></div>
+</div>
+
+<style>
+  /* 跨產業表格與卡片自適應樣式 */
+  #mh-render-area h2 { font-size: 18px; color: #0f4c81; border-left: 4px solid #0284c7; padding-left: 10px; margin: 28px 0 12px; }
+  .mh-table-wrap { overflow-x: auto; background: #fff; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 24px; }
+  .mh-table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.65; }
+  .mh-table th { background: #f1f5f9; color: #0f172a; font-weight: 700; padding: 12px 14px; text-align: left; border-bottom: 2px solid #cbd5e1; white-space: nowrap; }
+  .mh-table td { padding: 12px 14px; border-bottom: 1px solid #e2e8f0; vertical-align: top; color: #1e293b; }
+  .mh-table tr:hover { background: #f8fafc; }
+  .mh-table td:nth-child(1) { width: 16%; font-weight: 700; color: #0f172a; }
+  .mh-table td:nth-child(2) { width: 32%; }
+  .mh-table td:nth-child(3) { width: 24%; }
+  .mh-table td:nth-child(4) { width: 13%; font-weight: 500; color: #0369a1; }
+  .mh-table td:nth-child(5) { width: 15%; }
+  .mh-table a { color: #0284c7; text-decoration: none; font-weight: 500; }
+  .mh-table a:hover { text-decoration: underline; }
+
+  /* 卡片檢視模式 */
+  .mh-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .mh-card-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); display: flex; flex-direction: column; gap: 10px; }
+  .mh-card-title { font-size: 16px; font-weight: 700; color: #0f172a; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; }
+  .mh-card-label { font-size: 12px; font-weight: 700; color: #0284c7; text-transform: uppercase; margin-bottom: 2px; }
+  .mh-card-text { font-size: 14px; line-height: 1.6; color: #334155; }
+  .mh-card-links a { display: inline-block; margin-top: 4px; color: #0284c7; font-size: 13px; text-decoration: none; }
+</style>
+
+<script>
+  let mhBriefs = [];
+  let mhCurrentIdx = 0;
+  let mhCardMode = window.innerWidth < 768; // 手機預設卡片，桌面預設表格
+  let mhLoaded = false;
+
+  // 將原本 index.html 的其餘頂層區塊視為生醫頻道內容
+  function getBiotechElements() {
+    return Array.from(document.body.children).filter(el =>
+      el.id !== 'hub-channel-bar' &&
+      el.id !== 'market-hub-container' &&
+      el.tagName !== 'SCRIPT' &&
+      el.tagName !== 'STYLE'
+    );
+  }
+
+  function switchHubChannel(channel) {
+    const bioEls = getBiotechElements();
+    const marketEl = document.getElementById('market-hub-container');
+    const btnBio = document.getElementById('btn-ch-biotech');
+    const btnMkt = document.getElementById('btn-ch-market');
+
+    if (channel === 'market') {
+      bioEls.forEach(el => { el.dataset.prevDisplay = el.style.display; el.style.display = 'none'; });
+      marketEl.style.display = 'block';
+      btnMkt.style.background = '#0284c7'; btnMkt.style.color = '#fff';
+      btnBio.style.background = '#1e293b'; btnBio.style.color = '#cbd5e1';
+      if (!mhLoaded) loadMarketHubData();
+    } else {
+      marketEl.style.display = 'none';
+      bioEls.forEach(el => { el.style.display = el.dataset.prevDisplay || ''; });
+      btnBio.style.background = '#0284c7'; btnBio.style.color = '#fff';
+      btnMkt.style.background = '#1e293b'; btnMkt.style.color = '#cbd5e1';
+    }
+  }
+
+  async function loadMarketHubData() {
+    try {
+      const res = await fetch('./market_briefs.json?t=' + Date.now());
+      if (!res.ok) throw new Error('尚未建立 market_briefs.json');
+      mhBriefs = await res.json();
+      mhLoaded = true;
+
+      const select = document.getElementById('mh-edition-select');
+      select.innerHTML = '';
+      mhBriefs.forEach((b, i) => {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = `${b.date} ${b.period}（${b.title.replace(/【Market Hub】\s*/, '')}）`;
+        select.appendChild(opt);
+      });
+
+      select.addEventListener('change', (e) => { mhCurrentIdx = parseInt(e.target.value, 10); renderMarketBrief(); });
+      document.getElementById('mh-search-input').addEventListener('input', () => renderMarketBrief());
+      renderMarketBrief();
+    } catch (err) {
+      document.getElementById('mh-render-area').innerHTML =
+        '<div style="background:#fff;padding:24px;border-radius:10px;border:1px solid #e2e8f0;color:#475569;">目前尚無跨產業資料，請先執行一次 Apps Script <code>syncMarketHubToGitHub</code> 或等待下一期 07:30 / 16:30 排程自動推播。</div>';
+    }
+  }
+
+  function toggleMarketView() {
+    mhCardMode = !mhCardMode;
+    renderMarketBrief();
+  }
+
+  function renderMarketBrief() {
+    if (!mhBriefs.length) return;
+    const item = mhBriefs[mhCurrentIdx];
+    const keyword = document.getElementById('mh-search-input').value.trim().toLowerCase();
+    document.getElementById('mh-meta').textContent = `期別：${item.title} ｜ 同步時間：${item.updatedAt}`;
+
+    const rawHtml = marked.parse(item.markdown || '');
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = rawHtml;
+
+    // 過濾符合搜尋關鍵字的表格列，並支援卡片轉換
+    tempDiv.querySelectorAll('table').forEach(table => {
+      const rows = Array.from(table.querySelectorAll('tbody tr'));
+      const matchedRows = rows.filter(tr => !keyword || tr.textContent.toLowerCase().includes(keyword));
+
+      if (mhCardMode) {
+        const grid = document.createElement('div');
+        grid.className = 'mh-cards-grid';
+        matchedRows.forEach(tr => {
+          const cells = tr.querySelectorAll('td');
+          if (cells.length >= 5) {
+            const card = document.createElement('div');
+            card.className = 'mh-card-item';
+            card.innerHTML = `
+              <div class="mh-card-title">${cells[0].innerHTML}</div>
+              <div><div class="mh-card-label">1. 內容摘要及前因後果</div><div class="mh-card-text">${cells[1].innerHTML}</div></div>
+              <div><div class="mh-card-label">2. 未來趨勢或影響分析</div><div class="mh-card-text">${cells[2].innerHTML}</div></div>
+              <div><div class="mh-card-label">3. 相關個股或主題</div><div class="mh-card-text" style="color:#0369a1;font-weight:600;">${cells[3].innerHTML}</div></div>
+              <div class="mh-card-links"><div class="mh-card-label">4. 新聞或報告連結</div>${cells[4].innerHTML}</div>
+            `;
+            grid.appendChild(card);
+          }
+        });
+        table.replaceWith(grid);
+      } else {
+        table.className = 'mh-table';
+        rows.forEach(tr => {
+          if (!matchedRows.includes(tr)) tr.remove();
+        });
+        const wrap = document.createElement('div');
+        wrap.className = 'mh-table-wrap';
+        table.parentNode.insertBefore(wrap, table);
+        wrap.appendChild(table);
+      }
+    });
+
+    const renderArea = document.getElementById('mh-render-area');
+    renderArea.innerHTML = '';
+    renderArea.appendChild(tempDiv);
+  }
+</script>
   <!-- Header -->
   <header id="appHeader" class="bg-gradient-to-r from-slate-900 via-indigo-950 to-sky-900 text-white sticky top-0 z-40 shadow-md">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3 flex-wrap">
