@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Healthcare Info Hub × 全球生醫情報工作台</title>
+  <title>Healthcare Info Hub × 全球生醫與跨產業情報工作台</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -22,188 +22,71 @@
     .swipe-left { transform: translateX(-16px); opacity: 0.55; }
     .swipe-right { transform: translateX(16px); opacity: 0.55; }
     mark { background-color: #fef08a; color: #0f172a; padding: 0 2px; border-radius: 3px; }
+
+    /* 跨產業表格與卡片自適應樣式 */
+    #mh-render-area h2 { font-size: 18px; color: #0f4c81; border-left: 4px solid #0284c7; padding-left: 10px; margin: 28px 0 12px; font-weight: 700; }
+    .mh-table-wrap { overflow-x: auto; background: #fff; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 24px; }
+    .mh-table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.65; }
+    .mh-table th { background: #0f4c81; color: #ffffff; font-weight: 700; padding: 12px 14px; text-align: left; border-bottom: 2px solid #0f4c81; white-space: nowrap; }
+    .mh-table td { padding: 12px 14px; border-bottom: 1px solid #e2e8f0; vertical-align: top; color: #1e293b; }
+    .mh-table tr:nth-child(even) { background: #f8fafc; }
+    .mh-table tr:hover { background: #f1f5f9; }
+    .mh-table td:nth-child(1) { width: 16%; font-weight: 700; color: #0f172a; }
+    .mh-table td:nth-child(2) { width: 32%; }
+    .mh-table td:nth-child(3) { width: 24%; }
+    .mh-table td:nth-child(4) { width: 13%; font-weight: 600; color: #0369a1; }
+    .mh-table td:nth-child(5) { width: 15%; }
+    .mh-table a { color: #0284c7; text-decoration: none; font-weight: 600; }
+    .mh-table a:hover { text-decoration: underline; }
+
+    /* 卡片檢視模式 */
+    .mh-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .mh-card-item { background: #fff; border: 1px solid #e2e8f0; border-top: 4px solid #0284c7; border-radius: 10px; padding: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); display: flex; flex-direction: column; gap: 10px; }
+    .mh-card-title { font-size: 16px; font-weight: 700; color: #0f172a; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; }
+    .mh-card-label { font-size: 11px; font-weight: 700; color: #0284c7; text-transform: uppercase; margin-bottom: 2px; letter-spacing: 0.4px; }
+    .mh-card-text { font-size: 14px; line-height: 1.6; color: #334155; }
+    .mh-card-links a { display: inline-block; margin-top: 4px; color: #0284c7; font-size: 13px; text-decoration: none; font-weight: 600; }
+    .mh-card-links a:hover { text-decoration: underline; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900">
   <!-- === 雙頻道頂部切換導覽列 === -->
-<div id="hub-channel-bar" style="background:#0f172a; color:#f8fafc; padding:10px 20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; border-bottom:1px solid #1e293b; position:sticky; top:0; z-index:9999;">
-  <div style="display:flex; align-items:center; gap:8px;">
-    <button id="btn-ch-biotech" onclick="switchHubChannel('biotech')" style="background:#0284c7; color:#fff; border:none; padding:7px 14px; border-radius:6px; font-weight:600; cursor:pointer; font-size:14px;">
-      🧬 全球生醫投資情報
-    </button>
-    <button id="btn-ch-market" onclick="switchHubChannel('market')" style="background:#1e293b; color:#cbd5e1; border:1px solid #334155; padding:7px 14px; border-radius:6px; font-weight:600; cursor:pointer; font-size:14px;">
-      📊 跨產業與券商研報
-    </button>
-  </div>
-  <div style="font-size:12px; color:#94a3b8;">
-    早報 07:30 / 08:00・晚報 16:30 / 20:00 自動更新
-  </div>
-</div>
-
-<!-- === 跨產業與券商研報專區容器（預設隱藏，切換頻道時顯示） === -->
-<div id="market-hub-container" style="display:none; max-width:1280px; margin:20px auto; padding:0 16px; font-family:-apple-system,BlinkMacSystemFont,'Noto Sans TC',sans-serif;">
-  <div style="background:#ffffff; border-radius:12px; padding:20px; box-shadow:0 2px 10px rgba(0,0,0,0.06); border:1px solid #e2e8f0; margin-bottom:20px;">
-    <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;">
-      <div>
-        <h2 style="margin:0; font-size:20px; color:#0f172a;">📊 跨產業財經與券商研究報告摘要</h2>
-        <p id="mh-meta" style="margin:4px 0 0; font-size:13px; color:#64748b;">載入中...</p>
-      </div>
-      <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
-        <select id="mh-edition-select" style="padding:8px 12px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; background:#f8fafc; color:#0f172a;"></select>
-        <input id="mh-search-input" type="text" placeholder="🔍 搜尋個股代號、產業或關鍵字..." style="padding:8px 12px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; min-width:230px;" />
-        <button id="mh-view-toggle" onclick="toggleMarketView()" style="padding:8px 12px; border-radius:8px; border:1px solid #cbd5e1; background:#fff; cursor:pointer; font-size:13px; font-weight:600; color:#334155;">
-          切換卡片/表格
-        </button>
-      </div>
+  <div id="hub-channel-bar" style="background:#0f172a; color:#f8fafc; padding:10px 20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; border-bottom:1px solid #1e293b; position:sticky; top:0; z-index:9999;">
+    <div style="display:flex; align-items:center; gap:8px;">
+      <button id="btn-ch-biotech" onclick="switchHubChannel('biotech')" style="background:#0284c7; color:#fff; border:none; padding:7px 14px; border-radius:6px; font-weight:600; cursor:pointer; font-size:14px;">
+        🧬 全球生醫投資情報
+      </button>
+      <button id="btn-ch-market" onclick="switchHubChannel('market')" style="background:#1e293b; color:#cbd5e1; border:1px solid #334155; padding:7px 14px; border-radius:6px; font-weight:600; cursor:pointer; font-size:14px;">
+        📊 跨產業與券商研報
+      </button>
+    </div>
+    <div style="font-size:12px; color:#94a3b8;">
+      早報 07:30 / 08:00・晚報 16:30 / 20:00 自動更新
     </div>
   </div>
-  <div id="mh-render-area"></div>
-</div>
 
-<style>
-  /* 跨產業表格與卡片自適應樣式 */
-  #mh-render-area h2 { font-size: 18px; color: #0f4c81; border-left: 4px solid #0284c7; padding-left: 10px; margin: 28px 0 12px; }
-  .mh-table-wrap { overflow-x: auto; background: #fff; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 24px; }
-  .mh-table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.65; }
-  .mh-table th { background: #f1f5f9; color: #0f172a; font-weight: 700; padding: 12px 14px; text-align: left; border-bottom: 2px solid #cbd5e1; white-space: nowrap; }
-  .mh-table td { padding: 12px 14px; border-bottom: 1px solid #e2e8f0; vertical-align: top; color: #1e293b; }
-  .mh-table tr:hover { background: #f8fafc; }
-  .mh-table td:nth-child(1) { width: 16%; font-weight: 700; color: #0f172a; }
-  .mh-table td:nth-child(2) { width: 32%; }
-  .mh-table td:nth-child(3) { width: 24%; }
-  .mh-table td:nth-child(4) { width: 13%; font-weight: 500; color: #0369a1; }
-  .mh-table td:nth-child(5) { width: 15%; }
-  .mh-table a { color: #0284c7; text-decoration: none; font-weight: 500; }
-  .mh-table a:hover { text-decoration: underline; }
+  <!-- === 跨產業與券商研報專區容器（預設隱藏，切換頻道時顯示） === -->
+  <div id="market-hub-container" style="display:none; max-width:1280px; width:100%; margin:20px auto; padding:0 16px; font-family:-apple-system,BlinkMacSystemFont,'Noto Sans TC',sans-serif;">
+    <div style="background:#ffffff; border-radius:12px; padding:20px; box-shadow:0 2px 10px rgba(0,0,0,0.06); border:1px solid #e2e8f0; margin-bottom:20px;">
+      <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;">
+        <div>
+          <h2 style="margin:0; font-size:20px; font-weight:700; color:#0f172a;">📊 跨產業財經與券商研究報告摘要</h2>
+          <p id="mh-meta" style="margin:4px 0 0; font-size:13px; color:#64748b;">載入中...</p>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
+          <select id="mh-edition-select" style="padding:8px 12px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; background:#f8fafc; color:#0f172a;"></select>
+          <input id="mh-search-input" type="text" placeholder="🔍 搜尋個股代號、產業或關鍵字..." style="padding:8px 12px; border-radius:8px; border:1px solid #cbd5e1; font-size:14px; min-width:230px;" />
+          <button id="mh-view-toggle" onclick="toggleMarketView()" style="padding:8px 12px; border-radius:8px; border:1px solid #cbd5e1; background:#fff; cursor:pointer; font-size:13px; font-weight:600; color:#334155;">
+            切換卡片/表格
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="mh-render-area"></div>
+  </div>
 
-  /* 卡片檢視模式 */
-  .mh-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; margin-bottom: 24px; }
-  .mh-card-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); display: flex; flex-direction: column; gap: 10px; }
-  .mh-card-title { font-size: 16px; font-weight: 700; color: #0f172a; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; }
-  .mh-card-label { font-size: 12px; font-weight: 700; color: #0284c7; text-transform: uppercase; margin-bottom: 2px; }
-  .mh-card-text { font-size: 14px; line-height: 1.6; color: #334155; }
-  .mh-card-links a { display: inline-block; margin-top: 4px; color: #0284c7; font-size: 13px; text-decoration: none; }
-</style>
-
-<script>
-  let mhBriefs = [];
-  let mhCurrentIdx = 0;
-  let mhCardMode = window.innerWidth < 768; // 手機預設卡片，桌面預設表格
-  let mhLoaded = false;
-
-  // 將原本 index.html 的其餘頂層區塊視為生醫頻道內容
-  function getBiotechElements() {
-    return Array.from(document.body.children).filter(el =>
-      el.id !== 'hub-channel-bar' &&
-      el.id !== 'market-hub-container' &&
-      el.tagName !== 'SCRIPT' &&
-      el.tagName !== 'STYLE'
-    );
-  }
-
-  function switchHubChannel(channel) {
-    const bioEls = getBiotechElements();
-    const marketEl = document.getElementById('market-hub-container');
-    const btnBio = document.getElementById('btn-ch-biotech');
-    const btnMkt = document.getElementById('btn-ch-market');
-
-    if (channel === 'market') {
-      bioEls.forEach(el => { el.dataset.prevDisplay = el.style.display; el.style.display = 'none'; });
-      marketEl.style.display = 'block';
-      btnMkt.style.background = '#0284c7'; btnMkt.style.color = '#fff';
-      btnBio.style.background = '#1e293b'; btnBio.style.color = '#cbd5e1';
-      if (!mhLoaded) loadMarketHubData();
-    } else {
-      marketEl.style.display = 'none';
-      bioEls.forEach(el => { el.style.display = el.dataset.prevDisplay || ''; });
-      btnBio.style.background = '#0284c7'; btnBio.style.color = '#fff';
-      btnMkt.style.background = '#1e293b'; btnMkt.style.color = '#cbd5e1';
-    }
-  }
-
-  async function loadMarketHubData() {
-    try {
-      const res = await fetch('./market_briefs.json?t=' + Date.now());
-      if (!res.ok) throw new Error('尚未建立 market_briefs.json');
-      mhBriefs = await res.json();
-      mhLoaded = true;
-
-      const select = document.getElementById('mh-edition-select');
-      select.innerHTML = '';
-      mhBriefs.forEach((b, i) => {
-        const opt = document.createElement('option');
-        opt.value = i;
-        opt.textContent = `${b.date} ${b.period}（${b.title.replace(/【Market Hub】\s*/, '')}）`;
-        select.appendChild(opt);
-      });
-
-      select.addEventListener('change', (e) => { mhCurrentIdx = parseInt(e.target.value, 10); renderMarketBrief(); });
-      document.getElementById('mh-search-input').addEventListener('input', () => renderMarketBrief());
-      renderMarketBrief();
-    } catch (err) {
-      document.getElementById('mh-render-area').innerHTML =
-        '<div style="background:#fff;padding:24px;border-radius:10px;border:1px solid #e2e8f0;color:#475569;">目前尚無跨產業資料，請先執行一次 Apps Script <code>syncMarketHubToGitHub</code> 或等待下一期 07:30 / 16:30 排程自動推播。</div>';
-    }
-  }
-
-  function toggleMarketView() {
-    mhCardMode = !mhCardMode;
-    renderMarketBrief();
-  }
-
-  function renderMarketBrief() {
-    if (!mhBriefs.length) return;
-    const item = mhBriefs[mhCurrentIdx];
-    const keyword = document.getElementById('mh-search-input').value.trim().toLowerCase();
-    document.getElementById('mh-meta').textContent = `期別：${item.title} ｜ 同步時間：${item.updatedAt}`;
-
-    const rawHtml = item.html ? item.html : marked.parse(item.markdown || '');
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = rawHtml;
-
-    // 過濾符合搜尋關鍵字的表格列，並支援卡片轉換
-    tempDiv.querySelectorAll('table').forEach(table => {
-      const rows = Array.from(table.querySelectorAll('tbody tr'));
-      const matchedRows = rows.filter(tr => !keyword || tr.textContent.toLowerCase().includes(keyword));
-
-      if (mhCardMode) {
-        const grid = document.createElement('div');
-        grid.className = 'mh-cards-grid';
-        matchedRows.forEach(tr => {
-          const cells = tr.querySelectorAll('td');
-          if (cells.length >= 5) {
-            const card = document.createElement('div');
-            card.className = 'mh-card-item';
-            card.innerHTML = `
-              <div class="mh-card-title">${cells[0].innerHTML}</div>
-              <div><div class="mh-card-label">1. 內容摘要及前因後果</div><div class="mh-card-text">${cells[1].innerHTML}</div></div>
-              <div><div class="mh-card-label">2. 未來趨勢或影響分析</div><div class="mh-card-text">${cells[2].innerHTML}</div></div>
-              <div><div class="mh-card-label">3. 相關個股或主題</div><div class="mh-card-text" style="color:#0369a1;font-weight:600;">${cells[3].innerHTML}</div></div>
-              <div class="mh-card-links"><div class="mh-card-label">4. 新聞或報告連結</div>${cells[4].innerHTML}</div>
-            `;
-            grid.appendChild(card);
-          }
-        });
-        table.replaceWith(grid);
-      } else {
-        table.className = 'mh-table';
-        rows.forEach(tr => {
-          if (!matchedRows.includes(tr)) tr.remove();
-        });
-        const wrap = document.createElement('div');
-        wrap.className = 'mh-table-wrap';
-        table.parentNode.insertBefore(wrap, table);
-        wrap.appendChild(table);
-      }
-    });
-
-    const renderArea = document.getElementById('mh-render-area');
-    renderArea.innerHTML = '';
-    renderArea.appendChild(tempDiv);
-  }
-</script>
   <!-- Header -->
-  <header id="appHeader" class="bg-gradient-to-r from-slate-900 via-indigo-950 to-sky-900 text-white sticky top-0 z-40 shadow-md">
+  <header id="appHeader" class="bg-gradient-to-r from-slate-900 via-indigo-950 to-sky-900 text-white sticky top-[49px] z-40 shadow-md">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3 flex-wrap">
       <div class="flex items-center gap-2.5 min-w-0">
         <div class="w-9 h-9 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
@@ -318,7 +201,7 @@
   </section>
 
   <!-- Main Workspace -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-5 space-y-6">
+  <main id="biotechMain" class="flex-1 max-w-7xl w-full mx-auto px-4 py-5 space-y-6">
     <div id="searchStatusBanner" class="hidden px-4 py-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm flex items-center justify-between gap-2">
       <span id="searchStatusText"></span>
       <button id="btnResetFilters" type="button" class="text-xs font-semibold underline hover:text-amber-700 shrink-0 cursor-pointer">重設條件</button>
@@ -394,6 +277,173 @@
   </main>
 
   <script>
+    /* ============================================================================
+     * 跨產業與券商研報頻道邏輯（支援自動將純文字網址轉為可點擊連結、HTML/Markdown 雙解析）
+     * ============================================================================ */
+    let mhBriefs = [];
+    let mhCurrentIdx = 0;
+    let mhCardMode = window.innerWidth < 768;
+    let mhLoaded = false;
+
+    function getBiotechElements() {
+      return [
+        document.getElementById('appHeader'),
+        document.getElementById('searchSection'),
+        document.getElementById('biotechMain')
+      ].filter(Boolean);
+    }
+
+    function switchHubChannel(channel) {
+      const bioEls = getBiotechElements();
+      const marketEl = document.getElementById('market-hub-container');
+      const btnBio = document.getElementById('btn-ch-biotech');
+      const btnMkt = document.getElementById('btn-ch-market');
+
+      if (channel === 'market') {
+        bioEls.forEach(el => { el.style.display = 'none'; });
+        marketEl.style.display = 'block';
+        btnMkt.style.background = '#0284c7';
+        btnMkt.style.color = '#fff';
+        btnBio.style.background = '#1e293b';
+        btnBio.style.color = '#cbd5e1';
+        if (!mhLoaded) loadMarketHubData();
+      } else {
+        marketEl.style.display = 'none';
+        bioEls.forEach(el => { el.style.display = ''; });
+        btnBio.style.background = '#0284c7';
+        btnBio.style.color = '#fff';
+        btnMkt.style.background = '#1e293b';
+        btnMkt.style.color = '#cbd5e1';
+      }
+    }
+
+    // 自動將純文字中的 https://... 網址轉換為可點擊的 <a> 超連結
+    function linkifyHtml(htmlStr) {
+      const container = document.createElement('div');
+      container.innerHTML = htmlStr;
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+      const textNodes = [];
+      let node;
+      while ((node = walker.nextNode())) {
+        if (
+          node.parentElement &&
+          node.parentElement.tagName !== 'A' &&
+          node.parentElement.tagName !== 'SCRIPT' &&
+          node.parentElement.tagName !== 'STYLE'
+        ) {
+          textNodes.push(node);
+        }
+      }
+      const urlRegex = /(https?:\/\/[^\s<>"'）)]+)/g;
+      textNodes.forEach(textNode => {
+        if (urlRegex.test(textNode.nodeValue)) {
+          const span = document.createElement('span');
+          span.innerHTML = textNode.nodeValue.replace(urlRegex, (url) => {
+            const label = url.includes('drive.google.com') ? '↗ 開啟報告 PDF' : '↗ 開啟來源連結';
+            return `<a href="${url}" target="_blank" rel="noopener noreferrer" style="display:inline-block; color:#0284c7; font-weight:600; margin:2px 6px 2px 0;">${label}</a>`;
+          });
+          textNode.parentNode.replaceChild(span, textNode);
+        }
+      });
+      return container.innerHTML;
+    }
+
+    async function loadMarketHubData() {
+      try {
+        const res = await fetch('./market_briefs.json?t=' + Date.now());
+        if (!res.ok) throw new Error('尚未建立 market_briefs.json');
+        mhBriefs = await res.json();
+        mhLoaded = true;
+
+        const select = document.getElementById('mh-edition-select');
+        select.innerHTML = '';
+        mhBriefs.forEach((b, i) => {
+          const opt = document.createElement('option');
+          opt.value = i;
+          opt.textContent = `${b.date} ${b.period}（${b.title.replace(/【Market Hub】\s*/, '')}）`;
+          select.appendChild(opt);
+        });
+
+        select.addEventListener('change', (e) => {
+          mhCurrentIdx = parseInt(e.target.value, 10);
+          renderMarketBrief();
+        });
+        document.getElementById('mh-search-input').addEventListener('input', () => renderMarketBrief());
+        renderMarketBrief();
+      } catch (err) {
+        document.getElementById('mh-render-area').innerHTML =
+          '<div style="background:#fff;padding:24px;border-radius:10px;border:1px solid #e2e8f0;color:#475569;">目前尚無跨產業資料，請先執行一次 Apps Script <code>syncMarketHubToGitHub</code> 或等待下一期 07:30 / 16:30 排程自動推播。</div>';
+      }
+    }
+
+    function toggleMarketView() {
+      mhCardMode = !mhCardMode;
+      renderMarketBrief();
+    }
+
+    function renderMarketBrief() {
+      if (!mhBriefs.length) return;
+      const item = mhBriefs[mhCurrentIdx];
+      const keyword = document.getElementById('mh-search-input').value.trim().toLowerCase();
+      document.getElementById('mh-meta').textContent = `期別：${item.title} ｜ 同步時間：${item.updatedAt}`;
+
+      // 支援 HTML 或 Markdown 來源，並自動補全超連結
+      const baseHtml = item.html ? item.html : marked.parse(item.markdown || '');
+      const linkedHtml = linkifyHtml(baseHtml);
+
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = linkedHtml;
+
+      // 確保所有現有 <a> 標籤皆開新視窗
+      tempDiv.querySelectorAll('a').forEach(a => {
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener noreferrer');
+      });
+
+      // 過濾符合搜尋關鍵字的表格列，並支援卡片轉換
+      tempDiv.querySelectorAll('table').forEach(table => {
+        const rows = Array.from(table.querySelectorAll('tbody tr'));
+        const matchedRows = rows.filter(tr => !keyword || tr.textContent.toLowerCase().includes(keyword));
+
+        if (mhCardMode) {
+          const grid = document.createElement('div');
+          grid.className = 'mh-cards-grid';
+          matchedRows.forEach(tr => {
+            const cells = tr.querySelectorAll('td');
+            if (cells.length >= 5) {
+              const card = document.createElement('div');
+              card.className = 'mh-card-item';
+              card.innerHTML = `
+                <div class="mh-card-title">${cells[0].innerHTML}</div>
+                <div><div class="mh-card-label">1. 內容摘要及前因後果</div><div class="mh-card-text">${cells[1].innerHTML}</div></div>
+                <div><div class="mh-card-label">2. 未來趨勢或影響分析</div><div class="mh-card-text">${cells[2].innerHTML}</div></div>
+                <div><div class="mh-card-label">3. 相關個股或主題</div><div class="mh-card-text" style="color:#0369a1;font-weight:600;">${cells[3].innerHTML}</div></div>
+                <div class="mh-card-links"><div class="mh-card-label">4. 新聞或報告連結</div>${cells[4].innerHTML}</div>
+              `;
+              grid.appendChild(card);
+            }
+          });
+          table.replaceWith(grid);
+        } else {
+          table.className = 'mh-table';
+          rows.forEach(tr => {
+            if (!matchedRows.includes(tr)) tr.remove();
+          });
+          const wrap = document.createElement('div');
+          wrap.className = 'mh-table-wrap';
+          table.parentNode.insertBefore(wrap, table);
+          wrap.appendChild(table);
+        }
+      });
+
+      const renderArea = document.getElementById('mh-render-area');
+      renderArea.innerHTML = '';
+      renderArea.appendChild(tempDiv);
+    }
+
+    /* ============================================================================
+     * 全球生醫投資情報頻道邏輯（完整保留原有功能）
+     * ============================================================================ */
     const STORAGE_KEY = 'hc_hub_prefs_v3';
     const TODAY_STR = '2026-11-24';
 
@@ -708,7 +758,7 @@
     function applyTheme() {
       const t = THEMES[state.theme] || THEMES.vibrant;
       document.body.className = `min-h-screen flex flex-col ${t.body}`;
-      $('appHeader').className = `${t.header} sticky top-0 z-40 shadow-md`;
+      $('appHeader').className = `${t.header} sticky top-[49px] z-40 shadow-md`;
       $('sec1Container').className = `space-y-4 rounded-2xl p-4 sm:p-5 border-2 shadow-xs ${t.sec1}`;
       $('sec1Title').className = `text-lg sm:text-xl font-bold pl-3 border-l-4 ${t.sec1Title}`;
       $('editionBadge').className = `px-2.5 py-0.5 rounded-full text-xs font-semibold ${t.sec1Badge}`;
@@ -721,7 +771,6 @@
       $('themeSelect').value = state.theme;
     }
 
-    // Card Grid Helper: Horizontal multi-column cards on tablet/desktop
     function renderCardGrid(cardsHtml) {
       return `<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">${cardsHtml}</div>`;
     }
@@ -897,7 +946,6 @@
           }).join(''));
         }
       } else {
-        // Card Mode: Multi-column horizontal grid across all sub-modules
         if (showCo) {
           out += `<div class="space-y-2"><h3 class="text-sm font-bold text-sky-900 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span>公司重大事件（${co.length}）</h3>${renderCardGrid(co.map((item, idx) => renderExpandableCard(`s1-c-co-${idx}`, `<div class="space-y-1"><div class="flex items-center justify-between gap-2"><span class="font-bold text-slate-900 text-sm truncate">${item.watchlist ? '<span class="text-amber-500 mr-1">★</span>' : ''}${highlightText(item.name, q)}</span><span class="text-xs font-mono text-slate-500 shrink-0">${highlightText(item.ticker, q)}</span></div><div class="flex items-center gap-2 text-xs"><span class="font-semibold text-slate-800">${escapeHtml(item.price)}</span><span class="${changeColor(item.change)}">${escapeHtml(item.change)}</span><span class="text-slate-400">${escapeHtml(item.date)}</span></div><div class="text-xs text-slate-600 line-clamp-2">${highlightText(item.summary, q)}</div></div>`, `<div class="font-semibold text-slate-900">事件詳情：</div><p>${highlightText(item.summary, q)}</p>${item.analysis ? `<div class="p-2 rounded-lg bg-sky-50 border border-sky-200 text-xs"><span class="font-bold text-sky-900">短評與意涵：</span>${highlightText(item.analysis, q)}</div>` : ''}<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block text-xs font-semibold text-sky-600 hover:underline">查看來源（${escapeHtml(item.source)}）→</a>`, 'bg-white border-t-4 border-t-sky-500')).join(''))}</div>`;
         }
@@ -1120,7 +1168,6 @@
       setTimeout(() => { state.currentIndex = newIdx; render(); el.classList.remove('swipe-left', 'swipe-right'); }, 130);
     }
 
-    // Event Listeners
     $('themeSelect').addEventListener('change', (e) => { state.theme = e.target.value; render(); });
     $('btnViewTable').addEventListener('click', () => { state.viewMode = 'table'; render(); });
     $('btnViewCard').addEventListener('click', () => { state.viewMode = 'card'; render(); });
