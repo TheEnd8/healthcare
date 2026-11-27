@@ -34,7 +34,7 @@
           <i data-lucide="globe" class="w-5 h-5 text-sky-300"></i>
         </div>
         <div class="min-w-0">
-          <div class="flex items-center gap-2"><h1 class="text-base sm:text-lg font-extrabold tracking-tight truncate">Global &amp; Healthcare Info Hub</h1><span class="px-1.5 py-0.5 rounded bg-sky-500/30 border border-sky-400/40 text-[10px] font-bold text-sky-200 shrink-0">v5.0</span></div>
+          <div class="flex items-center gap-2"><h1 class="text-base sm:text-lg font-extrabold tracking-tight truncate">Global &amp; Healthcare Info Hub</h1><span class="px-1.5 py-0.5 rounded bg-sky-500/30 border border-sky-400/40 text-[10px] font-bold text-sky-200 shrink-0">v5.1</span></div>
           <p class="text-xs text-slate-300 truncate">全產業研報 × 全球生醫情報｜每日 07:30・16:30 同步</p>
         </div>
       </div>
@@ -222,12 +222,17 @@
     <!-- ===================================================================== -->
     <section id="secMarketContainer" class="rounded-2xl border-2 shadow-sm overflow-hidden transition">
       <div id="secMarketBanner" class="px-5 py-4 flex items-center justify-between gap-3 flex-wrap cursor-pointer select-none" onclick="toggleSectionCollapse('market')">
-        <div class="flex items-center gap-3 min-w-0">
+        <div class="flex items-center gap-3 min-w-0 flex-1 flex-wrap">
           <div class="w-10 h-10 rounded-xl bg-white/15 border border-white/25 flex items-center justify-center shrink-0 text-xl">📊</div>
           <div class="min-w-0">
             <div class="flex items-center gap-2.5 flex-wrap">
               <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight text-white">一、全產業財經與券商研究報告</h2>
               <span id="mhCountBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-white/20 text-white"></span>
+              <!-- 大標題後方：國家別與主題快速篩選 -->
+              <div class="inline-flex items-center gap-1.5 flex-wrap" onclick="event.stopPropagation()">
+                <select id="mhBannerCountry" aria-label="全產業國家篩選" class="px-2.5 py-1 rounded-lg bg-white/15 hover:bg-white/25 border border-white/25 text-xs font-semibold text-white focus:outline-none cursor-pointer"></select>
+                <select id="mhBannerDomain" aria-label="全產業主題篩選" class="px-2.5 py-1 rounded-lg bg-white/15 hover:bg-white/25 border border-white/25 text-xs font-semibold text-white focus:outline-none cursor-pointer"></select>
+              </div>
             </div>
             <p id="mhSummaryLine" class="text-xs sm:text-sm text-indigo-100 mt-0.5 truncate"></p>
           </div>
@@ -249,12 +254,25 @@
     <!-- ===================================================================== -->
     <section id="secBiotechContainer" class="rounded-2xl border-2 shadow-sm overflow-hidden transition mb-8">
       <div id="secBiotechBanner" class="px-5 py-4 flex items-center justify-between gap-3 flex-wrap cursor-pointer select-none" onclick="toggleSectionCollapse('biotech')">
-        <div class="flex items-center gap-3 min-w-0">
+        <div class="flex items-center gap-3 min-w-0 flex-1 flex-wrap">
           <div class="w-10 h-10 rounded-xl bg-white/15 border border-white/25 flex items-center justify-center shrink-0 text-xl">🧬</div>
           <div class="min-w-0">
             <div class="flex items-center gap-2.5 flex-wrap">
               <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight text-white">二、全球生醫投資情報</h2>
               <span id="bioCountBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-white/20 text-white"></span>
+              <!-- 大標題後方：國家別、藥監別、主題快速篩選 -->
+              <div class="inline-flex items-center gap-1.5 flex-wrap" onclick="event.stopPropagation()">
+                <select id="bioBannerCountry" aria-label="生醫國家篩選" class="px-2.5 py-1 rounded-lg bg-white/15 hover:bg-white/25 border border-white/25 text-xs font-semibold text-white focus:outline-none cursor-pointer"></select>
+                <select id="bioBannerAgency" aria-label="生醫藥監篩選" class="px-2.5 py-1 rounded-lg bg-white/15 hover:bg-white/25 border border-white/25 text-xs font-semibold text-white focus:outline-none cursor-pointer">
+                  <option value="all" class="text-slate-900">🏛️ 全部藥監</option>
+                  <option value="FDA" class="text-slate-900">🇺🇸 FDA</option>
+                  <option value="EMA" class="text-slate-900">🇪🇺 EMA</option>
+                  <option value="NMPA" class="text-slate-900">🇨🇳 NMPA</option>
+                  <option value="TFDA" class="text-slate-900">🇹🇼 TFDA</option>
+                  <option value="PMDA" class="text-slate-900">🇯🇵 PMDA</option>
+                </select>
+                <select id="bioBannerDomain" aria-label="生醫主題篩選" class="px-2.5 py-1 rounded-lg bg-white/15 hover:bg-white/25 border border-white/25 text-xs font-semibold text-white focus:outline-none cursor-pointer"></select>
+              </div>
             </div>
             <p id="bioSummaryLine" class="text-xs sm:text-sm text-emerald-100 mt-0.5 truncate"></p>
           </div>
@@ -268,7 +286,7 @@
       <div id="secBiotechBody" class="p-4 sm:p-5 space-y-4">
         <div id="moduleTabs" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
           <button data-mod="all" type="button" class="mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0">全部生醫模組</button>
-          <button data-mod="co" type="button" class="mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0">公司事件與業者報價</button>
+          <button data-mod="co" type="button" class="mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0">公司重大事件</button>
           <button data-mod="reg" type="button" class="mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0">五大藥監動態</button>
           <button data-mod="cat" type="button" class="mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0">催化劑追蹤</button>
           <button data-mod="deep" type="button" class="mod-tab px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer shrink-0">深度解析（政策／事件／技術）</button>
@@ -1034,7 +1052,7 @@
     }
 
     /* ============================================================================
-     * 大項一渲染：全產業與券商研究報告（支援國家／領域／日期分組與細部排序）
+     * 大項一渲染：全產業與券商研究報告（同類歸組、無每列重複標籤、寬敞摘要與趨勢欄位）
      * ============================================================================ */
     function renderMarketSection(selectedKeys) {
       $('secMarketContainer').classList.toggle('hidden', !state.showMarket);
@@ -1096,35 +1114,29 @@
       groups.forEach(([groupTitle, items], sIdx) => {
         const st = SUBBLOCK_STYLES[sIdx % SUBBLOCK_STYLES.length];
         if (state.viewMode === 'table') {
-          out += renderTableBlock(`${groupTitle}（${items.length}）`, st.dot, st.accent, ['期別／國家', '主題 / 報告名稱', '1. 內容摘要及前因後果', '2. 未來趨勢或影響分析', '3. 領域與相關個股', '4. 新聞或報告連結'], items.map((r, i) => `
-            <tr class="${r._isWL ? 'bg-amber-50/50' : (i % 2 === 1 ? 'bg-slate-50/70' : 'bg-white')} hover:bg-slate-100/60">
-              <td class="py-3 px-2.5 align-top whitespace-nowrap space-y-1">
-                <div class="text-xs font-semibold text-slate-500">${escapeHtml(r._edLabel)}</div>
-                <div>${renderCountryBadge(r._country)}</div>
+          // 壓縮前欄與連結欄，將約 68% 空間保留給摘要與趨勢分析；不重複印國家/領域標籤
+          out += renderTableBlock(`${groupTitle}（${items.length}）`, st.dot, st.accent, ['主題 / 個股', '1. 內容摘要及前因後果', '2. 未來趨勢或影響分析', '連結'], items.map((r, i) => `
+            <tr class="${r._isWL ? 'bg-amber-50/50' : (i % 2 === 1 ? 'bg-slate-50/60' : 'bg-white')} hover:bg-slate-100/60">
+              <td class="py-2.5 px-3 align-top w-[19%] space-y-1">
+                <div class="text-[11px] font-medium text-slate-400">${escapeHtml(r._edLabel)}</div>
+                <div class="font-bold text-slate-900 leading-snug">${r._isWL ? '<span class="text-amber-500 mr-1">★</span>' : ''}${highlightText(r.title, q)}</div>
+                <div class="text-[11px] font-semibold text-sky-700">${highlightText(r.tickers, q)}</div>
               </td>
-              <td class="py-3 px-3 align-top font-bold text-slate-900 w-[16%]">${r._isWL ? '<span class="text-amber-500 mr-1">★</span>' : ''}${highlightText(r.title, q)}</td>
-              <td class="py-3 px-3 align-top text-slate-700 leading-relaxed w-[28%]">${highlightText(r.summary, q)}</td>
-              <td class="py-3 px-3 align-top text-slate-700 leading-relaxed w-[21%]">${highlightText(r.trend, q)}</td>
-              <td class="py-3 px-3 align-top w-[14%] space-y-1">
-                <div><span class="inline-block px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 text-[11px] font-semibold">${escapeHtml(r._domain)}</span></div>
-                <div><span class="inline-block px-2 py-0.5 rounded-md border text-xs font-semibold ${st.badge}">${highlightText(r.tickers, q)}</span></div>
-              </td>
-              <td class="py-3 px-3 align-top w-[15%]">${renderDeepLinks(r.links, st.btn)}</td>
+              <td class="py-2.5 px-3 align-top text-slate-700 leading-relaxed w-[38%]">${highlightText(r.summary, q)}</td>
+              <td class="py-2.5 px-3 align-top text-slate-700 leading-relaxed w-[29%]">${highlightText(r.trend, q)}</td>
+              <td class="py-2.5 px-2.5 align-top w-[14%]">${renderDeepLinks(r.links, st.btn)}</td>
             </tr>
           `).join(''));
         } else {
           out += `<div class="space-y-2"><h3 class="text-sm font-bold text-slate-800 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full ${st.dot}"></span>${escapeHtml(groupTitle)}（${items.length}）</h3>${renderCardGrid(items.map((r, idx) => renderExpandableCard(
             `s0-c-${sIdx}-${idx}`,
             `<div class="space-y-1.5">
-              <div class="flex items-center justify-between gap-1.5 flex-wrap text-[11px]">
-                <div class="flex items-center gap-1">
-                  ${renderCountryBadge(r._country)}
-                  <span class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-semibold">${escapeHtml(r._domain)}</span>
-                </div>
+              <div class="flex items-center justify-between gap-2 text-[11px]">
                 <span class="font-semibold text-indigo-600">${escapeHtml(r._edLabel)}</span>
+                ${r._isWL ? '<span class="text-amber-500 font-bold">★ 關注股</span>' : ''}
               </div>
-              <div class="font-bold text-slate-900 text-sm leading-snug">${r._isWL ? '<span class="text-amber-500 mr-1">★</span>' : ''}${highlightText(r.title, q)}</div>
-              <div><span class="inline-block px-2 py-0.5 rounded-md border text-[11px] font-semibold ${st.badge}">${highlightText(r.tickers, q)}</span></div>
+              <div class="font-bold text-slate-900 text-sm leading-snug">${highlightText(r.title, q)}</div>
+              <div class="text-[11px] font-semibold text-sky-700">${highlightText(r.tickers, q)}</div>
               <div class="text-xs text-slate-600 line-clamp-2">${highlightText(r.summary, q)}</div>
             </div>`,
             `<div><b>1. 內容摘要及前因後果：</b>${highlightText(r.summary, q)}</div>
@@ -1136,13 +1148,50 @@
       });
 
       $('mhCountBadge').textContent = `已彙整 ${selectedBriefs.length} 期・共 ${filtered.length} 則`;
-      $('mhSummaryLine').textContent = `區間：${state.startDate} ～ ${state.endDate}｜分組：${$('groupBySelect').selectedOptions[0].textContent}｜排列：${$('globalSortSelect').selectedOptions[0].textContent}`;
+      $('mhSummaryLine').textContent = `區間：${state.startDate} ～ ${state.endDate}｜同類已自動歸組`;
       $('secMarketContent').innerHTML = out || `<div class="bg-white rounded-xl border border-slate-200 p-6 text-center text-sm text-slate-500">目前篩選條件下無符合的全產業新聞或研究報告。</div>`;
     }
 
     /* ============================================================================
-     * 大項二渲染：全球生醫投資情報（支援國家／領域／日期分組與細部排序）
+     * 大項二渲染：全球生醫投資情報
+     * - 「公司重大事件」依國家歸組（無每列國家/領域欄），壓縮前欄將最大空間留給「摘要、短評與來源」
+     * - 「五大藥監」依藥監別歸組（無每列藥監/國家欄）
+     * - 「催化劑追蹤」依主題領域歸組（無每列國家/領域欄）
+     * - 「深度解析」依主題類別歸組（無每列類別/國家欄）
      * ============================================================================ */
+    function groupBiotechList(items, defaultMode) {
+      const mode = state.groupBy === 'default' ? defaultMode : state.groupBy;
+      const map = new Map();
+      const getKey = (it) => {
+        if (mode === 'flat') return '全部項目';
+        if (mode === 'country') {
+          const c = COUNTRY_MAP[it._country] || COUNTRY_MAP.GL;
+          return `${c.flag} ${c.label}`;
+        }
+        if (mode === 'agency') return it.agency || '其他藥監';
+        if (mode === 'cat') return it.cat || '綜合趨勢';
+        if (mode === 'date') return `📅 ${it._date || '未標日期'}`;
+        if (mode === 'domain') return `🏷️ ${it._domain || '其他領域'}`;
+        return '全部項目';
+      };
+      items.forEach(it => {
+        const k = getKey(it);
+        if (!map.has(k)) map.set(k, []);
+        map.get(k).push(it);
+      });
+      const entries = Array.from(map.entries());
+      if (mode === 'country') {
+        entries.sort((a, b) => {
+          const oa = COUNTRY_META.find(c => a[0].includes(c.label))?.order ?? 99;
+          const ob = COUNTRY_META.find(c => b[0].includes(c.label))?.order ?? 99;
+          return oa - ob;
+        });
+      } else if (mode === 'date') {
+        entries.sort((a, b) => b[0].localeCompare(a[0]));
+      }
+      return entries;
+    }
+
     function renderBiotechSection(selectedKeys) {
       $('secBiotechContainer').classList.toggle('hidden', !state.showBiotech);
       $('secBiotechBody').classList.toggle('hidden', state.collapseBiotech);
@@ -1229,103 +1278,139 @@
 
       const totalItems = (showCo ? co.length : 0) + (showReg ? reg.length : 0) + (showCat ? cat.length : 0) + (showDeep ? deep.length : 0);
       $('bioCountBadge').textContent = `已彙整 ${selectedReps.length} 期・共 ${totalItems} 則`;
-      $('bioSummaryLine').textContent = `整合公司事件、五大藥監、催化劑與深度解析｜分組：${$('groupBySelect').selectedOptions[0].textContent}`;
+      $('bioSummaryLine').textContent = `公司重大事件（依國家歸組）・藥監（依機關歸組）・催化劑與深度解析（依主題歸組）`;
 
       let out = '';
       if (state.viewMode === 'table') {
         if (showCo) {
-          const coGroups = groupItemsByMode(co, () => '公司重大事件與業者報價');
+          // 依國家歸組（單一表格內使用精簡群組分隔列），前兩欄極致壓縮，約 80% 空間留給「摘要、短評與來源」
+          const coGroups = groupBiotechList(co, 'country');
+          let rowsHtml = '';
           coGroups.forEach(([gTitle, gList], gIdx) => {
-            const label = state.groupBy === 'default' ? `${gTitle}（${gList.length}）` : `公司事件｜${gTitle}（${gList.length}）`;
-            out += renderTableBlock(label, 'bg-sky-500', 'border-l-4 border-l-sky-500 bg-sky-50/85', ['關注', '國家／領域', '標的 / 代號', '股價與漲跌', '日期', '摘要、短評與來源'], gList.map((item, idx) => {
+            if (state.groupBy !== 'flat') {
+              rowsHtml += `<tr class="bg-sky-50/75 border-y border-sky-200/80"><td colspan="3" class="py-1.5 px-3 text-xs font-extrabold text-sky-900">${escapeHtml(gTitle)}（${gList.length}）</td></tr>`;
+            }
+            rowsHtml += gList.map((item, idx) => {
               const key = `bio-co-${gIdx}-${idx}`, isOpen = Boolean(state.expandedIds[key]);
+              const shortDate = (normDate(item.date) || item.date || '').replace(/^\d{4}-/, '').replace('-', '/');
+              const hasPrice = item.price && item.price !== '—';
               return `<tr class="${item._isWL ? 'bg-amber-50/50' : 'bg-white'} hover:bg-slate-50/80">
-                <td class="py-2.5 px-2 align-top text-center">
+                <td class="py-2.5 px-2 align-top text-center w-8">
                   <button type="button" data-wl-toggle="${escapeHtml(item.ticker || item.name)}" title="加入或移除關注股" class="wl-star-btn text-base leading-none cursor-pointer ${item._isWL ? 'text-amber-500' : 'text-slate-300 hover:text-amber-400'}">${item._isWL ? '★' : '☆'}</button>
                 </td>
-                <td class="py-2.5 px-2.5 align-top whitespace-nowrap space-y-1">
-                  <div>${renderCountryBadge(item._country)}</div>
-                  <div><span class="inline-block px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 text-[11px] font-semibold">${escapeHtml(item._domain)}</span></div>
+                <td class="py-2.5 px-2.5 align-top whitespace-nowrap w-[1%] max-w-[190px]">
+                  <div class="font-bold text-slate-900 text-xs sm:text-sm">${highlightText(item.name, q)} <span class="text-[11px] font-mono font-normal text-slate-500">${highlightText(item.ticker, q)}</span></div>
+                  <div class="text-[11px] mt-0.5 flex items-center gap-1.5 text-slate-500">
+                    ${hasPrice ? `<span class="font-semibold text-slate-700">${escapeHtml(item.price)}</span>` : ''}
+                    <span class="${changeColor(item.change)}">${escapeHtml(item.change)}</span>
+                    <span class="text-slate-400">${escapeHtml(shortDate)}</span>
+                  </div>
                 </td>
-                <td class="py-2.5 px-3 align-top whitespace-nowrap font-bold text-slate-900">${highlightText(item.name, q)} <span class="text-xs font-mono font-normal text-slate-500">${highlightText(item.ticker, q)}</span></td>
-                <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="font-medium">${escapeHtml(item.price)}</span> <span class="text-xs ${changeColor(item.change)}">${escapeHtml(item.change)}</span></td>
-                <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(item.date)}</td>
-                <td class="py-2.5 px-3 align-top text-slate-700 min-w-0">
-                  <div>${highlightText(item.summary, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-sky-600 hover:underline cursor-pointer">${isOpen ? '收合短評' : '展開短評'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 font-semibold hover:underline">↗ ${escapeHtml(item.source)}</a></div>
+                <td class="py-2.5 px-3 align-top text-slate-700 leading-relaxed w-full">
+                  <div>${highlightText(item.summary, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-sky-600 hover:underline cursor-pointer">${isOpen ? '收合短評' : '展開短評'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 font-semibold hover:underline whitespace-nowrap">↗ ${escapeHtml(item.source)}</a></div>
                   ${isOpen ? `<div class="mt-2 p-2.5 rounded-lg bg-sky-50/80 border border-sky-200 text-xs text-slate-700"><b>短評與意涵：</b>${highlightText(item.analysis || item.summary, q)}</div>` : ''}
                 </td>
               </tr>`;
-            }).join(''));
+            }).join('');
           });
+          out += renderTableBlock(`公司重大事件（${co.length}）`, 'bg-sky-500', 'border-l-4 border-l-sky-500 bg-sky-50/85', ['★', '標的／報價', '摘要、短評與來源'], rowsHtml);
         }
+
         if (showReg) {
-          out += renderTableBlock(`五大藥監機關動態（${reg.length}）`, 'bg-violet-500', 'border-l-4 border-l-violet-500 bg-violet-50/85', ['藥監／國家', '日期', '藥品 / 法規案', '決議與短評'], reg.map((item, idx) => {
-            const key = `bio-reg-${idx}`, isOpen = Boolean(state.expandedIds[key]);
-            return `<tr class="hover:bg-slate-50/80">
-              <td class="py-2.5 px-3 align-top whitespace-nowrap space-y-1">
-                <div><span class="px-2 py-0.5 rounded text-xs font-bold ${agencyBadgeClass(item.agency)}">${escapeHtml(item.agency)}</span></div>
-                <div>${renderCountryBadge(item._country)}</div>
-              </td>
-              <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(item.date)}</td>
-              <td class="py-2.5 px-3 align-top font-semibold text-slate-900">${highlightText(item.title, q)}</td>
-              <td class="py-2.5 px-3 align-top text-slate-700 min-w-0">
-                <div>${highlightText(item.detail, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-violet-700 hover:underline cursor-pointer">${isOpen ? '收合解讀' : '展開解讀'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 font-semibold hover:underline">↗ ${escapeHtml(item.source)}</a></div>
-                ${isOpen ? `<div class="mt-2 p-2.5 rounded-lg bg-violet-50/80 border border-violet-200 text-xs text-slate-700"><b>監管解讀：</b>${highlightText(item.analysis || item.detail, q)}</div>` : ''}
-              </td>
-            </tr>`;
-          }).join(''));
+          // 依藥監別歸組，壓縮前欄將空間保留給「決議、解讀與來源」
+          const regGroups = groupBiotechList(reg, 'agency');
+          let rowsHtml = '';
+          regGroups.forEach(([gTitle, gList], gIdx) => {
+            if (state.groupBy !== 'flat') {
+              const badgeHtml = ['FDA','EMA','NMPA','TFDA','PMDA'].includes(gTitle)
+                ? `<span class="px-2 py-0.5 rounded text-xs font-bold mr-1.5 ${agencyBadgeClass(gTitle)}">${escapeHtml(gTitle)}</span>`
+                : `<span class="font-extrabold text-violet-900 mr-1">${escapeHtml(gTitle)}</span>`;
+              rowsHtml += `<tr class="bg-violet-50/70 border-y border-violet-200/80"><td colspan="2" class="py-1.5 px-3 text-xs text-violet-900">${badgeHtml}<span class="font-bold">（${gList.length}）</span></td></tr>`;
+            }
+            rowsHtml += gList.map((item, idx) => {
+              const key = `bio-reg-${gIdx}-${idx}`, isOpen = Boolean(state.expandedIds[key]);
+              const shortDate = (normDate(item.date) || item.date || '').replace(/^\d{4}-/, '').replace('-', '/');
+              return `<tr class="hover:bg-slate-50/80">
+                <td class="py-2.5 px-3 align-top w-[24%]">
+                  <div class="text-[11px] text-slate-400 font-medium">${escapeHtml(shortDate)}</div>
+                  <div class="font-bold text-slate-900 leading-snug">${highlightText(item.title, q)}</div>
+                </td>
+                <td class="py-2.5 px-3 align-top text-slate-700 leading-relaxed w-[76%]">
+                  <div>${highlightText(item.detail, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-violet-700 hover:underline cursor-pointer">${isOpen ? '收合解讀' : '展開解讀'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 font-semibold hover:underline whitespace-nowrap">↗ ${escapeHtml(item.source)}</a></div>
+                  ${isOpen ? `<div class="mt-2 p-2.5 rounded-lg bg-violet-50/80 border border-violet-200 text-xs text-slate-700"><b>監管解讀：</b>${highlightText(item.analysis || item.detail, q)}</div>` : ''}
+                </td>
+              </tr>`;
+            }).join('');
+          });
+          out += renderTableBlock(`五大藥監機關動態（${reg.length}）`, 'bg-violet-500', 'border-l-4 border-l-violet-500 bg-violet-50/85', ['日期／藥品與法規案', '決議、解讀與來源'], rowsHtml);
         }
+
         if (showCat) {
-          out += renderTableBlock(`催化劑追蹤（${cat.length}）`, 'bg-emerald-500', 'border-l-4 border-l-emerald-500 bg-emerald-50/85', ['國家／領域', '資產 / 標的', '類型', '日期', '評估', '說明與短評'], cat.map((item, idx) => {
-            const key = `bio-cat-${idx}`, isOpen = Boolean(state.expandedIds[key]);
-            return `<tr class="hover:bg-slate-50/80">
-              <td class="py-2.5 px-2.5 align-top whitespace-nowrap space-y-1">
-                <div>${renderCountryBadge(item._country)}</div>
-                <div><span class="inline-block px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 text-[11px] font-semibold">${escapeHtml(item._domain)}</span></div>
-              </td>
-              <td class="py-2.5 px-3 align-top font-bold text-slate-900 whitespace-nowrap">${highlightText(item.asset, q)}</td>
-              <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-600">${escapeHtml(item.type)}</td>
-              <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(item.date)}</td>
-              <td class="py-2.5 px-3 align-top whitespace-nowrap"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold border ${outcomeBadge(item.outcome)}">${escapeHtml(item.outcome)}</span></td>
-              <td class="py-2.5 px-3 align-top text-slate-700 min-w-0">
-                <div>${highlightText(item.note, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-emerald-700 hover:underline cursor-pointer">${isOpen ? '收合短評' : '展開短評'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 font-semibold hover:underline">↗ ${escapeHtml(item.source)}</a></div>
-                ${isOpen ? `<div class="mt-2 p-2.5 rounded-lg bg-emerald-50/80 border border-emerald-200 text-xs text-slate-700"><b>投資意涵：</b>${highlightText(item.analysis || item.note, q)}</div>` : ''}
-              </td>
-            </tr>`;
-          }).join(''));
+          // 依主題領域歸組，壓縮前欄將空間保留給「說明、投資意涵與來源」
+          const catGroups = groupBiotechList(cat, 'domain');
+          let rowsHtml = '';
+          catGroups.forEach(([gTitle, gList], gIdx) => {
+            if (state.groupBy !== 'flat') {
+              rowsHtml += `<tr class="bg-emerald-50/75 border-y border-emerald-200/80"><td colspan="2" class="py-1.5 px-3 text-xs font-extrabold text-emerald-900">${escapeHtml(gTitle)}（${gList.length}）</td></tr>`;
+            }
+            rowsHtml += gList.map((item, idx) => {
+              const key = `bio-cat-${gIdx}-${idx}`, isOpen = Boolean(state.expandedIds[key]);
+              const shortDate = (normDate(item.date) || item.date || '').replace(/^\d{4}-/, '').replace('-', '/');
+              return `<tr class="hover:bg-slate-50/80">
+                <td class="py-2.5 px-3 align-top w-[24%] space-y-1">
+                  <div class="font-bold text-slate-900 leading-snug">${highlightText(item.asset, q)}</div>
+                  <div class="flex items-center gap-1.5 flex-wrap text-[11px]">
+                    <span class="px-1.5 py-0.5 rounded-full font-semibold border ${outcomeBadge(item.outcome)}">${escapeHtml(item.outcome)}</span>
+                    <span class="text-slate-500">${escapeHtml(item.type)}</span>
+                    <span class="text-slate-400">${escapeHtml(shortDate)}</span>
+                  </div>
+                </td>
+                <td class="py-2.5 px-3 align-top text-slate-700 leading-relaxed w-[76%]">
+                  <div>${highlightText(item.note, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-emerald-700 hover:underline cursor-pointer">${isOpen ? '收合短評' : '展開短評'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 font-semibold hover:underline whitespace-nowrap">↗ ${escapeHtml(item.source)}</a></div>
+                  ${isOpen ? `<div class="mt-2 p-2.5 rounded-lg bg-emerald-50/80 border border-emerald-200 text-xs text-slate-700"><b>投資意涵：</b>${highlightText(item.analysis || item.note, q)}</div>` : ''}
+                </td>
+              </tr>`;
+            }).join('');
+          });
+          out += renderTableBlock(`催化劑追蹤（${cat.length}）`, 'bg-emerald-500', 'border-l-4 border-l-emerald-500 bg-emerald-50/85', ['資產／狀態與日期', '說明、投資意涵與來源'], rowsHtml);
         }
+
         if (showDeep) {
-          out += renderTableBlock(`深度解析：政策、重大事件與技術突破（${deep.length}）`, 'bg-amber-500', 'border-l-4 border-l-amber-500 bg-amber-50/85', ['類別／國家', '日期', '主題', '解析與趨勢預測'], deep.map((item, idx) => {
-            const key = `bio-deep-${idx}`, isOpen = Boolean(state.expandedIds[key]);
-            return `<tr class="hover:bg-slate-50/80">
-              <td class="py-2.5 px-3 align-top whitespace-nowrap space-y-1">
-                <div><span class="px-2 py-0.5 rounded text-xs font-semibold ${deepCatClass(item.cat)}">${escapeHtml(item.cat)}</span></div>
-                <div>${renderCountryBadge(item._country)}</div>
-              </td>
-              <td class="py-2.5 px-3 align-top whitespace-nowrap text-xs text-slate-500">${escapeHtml(item.date)}</td>
-              <td class="py-2.5 px-3 align-top font-bold text-slate-900 min-w-0">${highlightText(item.title, q)}</td>
-              <td class="py-2.5 px-3 align-top text-slate-700 min-w-0">
-                <div>${highlightText(item.body, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-amber-700 hover:underline cursor-pointer">${isOpen ? '收合預測' : '展開預測'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 font-semibold hover:underline">↗ ${escapeHtml(item.source)}</a></div>
-                ${isOpen ? `<div class="mt-2 p-2.5 rounded-lg bg-amber-50/80 border border-amber-200 text-xs text-slate-700"><b>深度短評與預測：</b>${highlightText(item.analysis || item.body, q)}</div>` : ''}
-              </td>
-            </tr>`;
-          }).join(''));
+          // 依主題類別（技術突破／政策變化／重大事件）歸組
+          const deepGroups = groupBiotechList(deep, 'cat');
+          let rowsHtml = '';
+          deepGroups.forEach(([gTitle, gList], gIdx) => {
+            if (state.groupBy !== 'flat') {
+              rowsHtml += `<tr class="bg-amber-50/75 border-y border-amber-200/80"><td colspan="2" class="py-1.5 px-3 text-xs text-amber-950"><span class="px-2 py-0.5 rounded text-[11px] font-bold mr-1.5 ${deepCatClass(gTitle)}">${escapeHtml(gTitle)}</span><span class="font-bold">（${gList.length}）</span></td></tr>`;
+            }
+            rowsHtml += gList.map((item, idx) => {
+              const key = `bio-deep-${gIdx}-${idx}`, isOpen = Boolean(state.expandedIds[key]);
+              const shortDate = (normDate(item.date) || item.date || '').replace(/^\d{4}-/, '').replace('-', '/');
+              return `<tr class="hover:bg-slate-50/80">
+                <td class="py-2.5 px-3 align-top w-[26%]">
+                  <div class="text-[11px] text-slate-400 font-medium">${escapeHtml(shortDate)}</div>
+                  <div class="font-bold text-slate-900 leading-snug">${highlightText(item.title, q)}</div>
+                </td>
+                <td class="py-2.5 px-3 align-top text-slate-700 leading-relaxed w-[74%]">
+                  <div>${highlightText(item.body, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-amber-700 hover:underline cursor-pointer">${isOpen ? '收合預測' : '展開預測'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 font-semibold hover:underline whitespace-nowrap">↗ ${escapeHtml(item.source)}</a></div>
+                  ${isOpen ? `<div class="mt-2 p-2.5 rounded-lg bg-amber-50/80 border border-amber-200 text-xs text-slate-700"><b>深度短評與預測：</b>${highlightText(item.analysis || item.body, q)}</div>` : ''}
+                </td>
+              </tr>`;
+            }).join('');
+          });
+          out += renderTableBlock(`深度解析：政策、重大事件與技術突破（${deep.length}）`, 'bg-amber-500', 'border-l-4 border-l-amber-500 bg-amber-50/85', ['日期／主題', '解析、趨勢預測與來源'], rowsHtml);
         }
       } else {
+        // 卡片模式：同樣依類別歸組，不於每張卡片重複印國家／藥監／主題標籤
         if (showCo) {
-          const coGroups = groupItemsByMode(co, () => '公司重大事件與業者報價');
+          const coGroups = groupBiotechList(co, 'country');
           coGroups.forEach(([gTitle, gList], gIdx) => {
-            const label = state.groupBy === 'default' ? `${gTitle}（${gList.length}）` : `公司事件｜${gTitle}（${gList.length}）`;
-            out += `<div class="space-y-2"><h3 class="text-sm font-bold text-sky-900 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span>${escapeHtml(label)}</h3>${renderCardGrid(gList.map((item, idx) => renderExpandableCard(
+            out += `<div class="space-y-2"><h3 class="text-sm font-bold text-sky-900 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span>公司重大事件｜${escapeHtml(gTitle)}（${gList.length}）</h3>${renderCardGrid(gList.map((item, idx) => renderExpandableCard(
               `bio-c-co-${gIdx}-${idx}`,
-              `<div class="space-y-1.5">
-                <div class="flex items-center justify-between gap-1.5 flex-wrap">
-                  <div class="flex items-center gap-1">${renderCountryBadge(item._country)}<span class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 text-[11px] font-semibold">${escapeHtml(item._domain)}</span></div>
-                  <span class="text-xs text-slate-400">${escapeHtml(item.date)}</span>
-                </div>
+              `<div class="space-y-1">
                 <div class="flex items-center justify-between gap-2">
-                  <span class="font-bold text-slate-900 text-sm truncate">${item._isWL ? '<span class="text-amber-500 mr-1">★</span>' : ''}${highlightText(item.name, q)}</span>
-                  <span class="text-xs font-mono text-slate-500 shrink-0">${highlightText(item.ticker, q)}</span>
+                  <span class="font-bold text-slate-900 text-sm truncate">${item._isWL ? '<span class="text-amber-500 mr-1">★</span>' : ''}${highlightText(item.name, q)} <span class="text-xs font-mono font-normal text-slate-500">${highlightText(item.ticker, q)}</span></span>
+                  <span class="text-xs text-slate-400 shrink-0">${escapeHtml(item.date)}</span>
                 </div>
                 <div class="flex items-center gap-2 text-xs"><span class="font-semibold text-slate-800">${escapeHtml(item.price)}</span><span class="${changeColor(item.change)}">${escapeHtml(item.change)}</span></div>
                 <div class="text-xs text-slate-600 line-clamp-2">${highlightText(item.summary, q)}</div>
@@ -1341,13 +1426,22 @@
           });
         }
         if (showReg) {
-          out += `<div class="space-y-2"><h3 class="text-sm font-bold text-violet-900 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-violet-500"></span>五大藥監機關（${reg.length}）</h3>${renderCardGrid(reg.map((item, idx) => renderExpandableCard(`bio-c-reg-${idx}`, `<div class="space-y-1"><div class="flex items-center justify-between gap-2"><div class="flex items-center gap-1"><span class="px-2 py-0.5 rounded text-xs font-bold ${agencyBadgeClass(item.agency)}">${escapeHtml(item.agency)}</span>${renderCountryBadge(item._country)}</div><span class="text-xs text-slate-400">${escapeHtml(item.date)}</span></div><div class="font-bold text-slate-900 text-sm line-clamp-2">${highlightText(item.title, q)}</div></div>`, `<p>${highlightText(item.detail, q)}</p>${item.analysis ? `<div class="p-2 rounded-lg bg-violet-50 border border-violet-200 text-xs"><b>監管解讀：</b>${highlightText(item.analysis, q)}</div>` : ''}<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block text-xs font-semibold text-sky-600 hover:underline">↗ 查看來源（${escapeHtml(item.source)}）</a>`, 'bg-white border-t-4 border-t-violet-500')).join(''))}</div>`;
+          const regGroups = groupBiotechList(reg, 'agency');
+          regGroups.forEach(([gTitle, gList], gIdx) => {
+            out += `<div class="space-y-2"><h3 class="text-sm font-bold text-violet-900 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-violet-500"></span>藥監動態｜${escapeHtml(gTitle)}（${gList.length}）</h3>${renderCardGrid(gList.map((item, idx) => renderExpandableCard(`bio-c-reg-${gIdx}-${idx}`, `<div class="space-y-1"><div class="text-xs text-slate-400">${escapeHtml(item.date)}</div><div class="font-bold text-slate-900 text-sm line-clamp-2">${highlightText(item.title, q)}</div></div>`, `<p>${highlightText(item.detail, q)}</p>${item.analysis ? `<div class="p-2 rounded-lg bg-violet-50 border border-violet-200 text-xs"><b>監管解讀：</b>${highlightText(item.analysis, q)}</div>` : ''}<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block text-xs font-semibold text-sky-600 hover:underline">↗ 查看來源（${escapeHtml(item.source)}）</a>`, 'bg-white border-t-4 border-t-violet-500')).join(''))}</div>`;
+          });
         }
         if (showCat) {
-          out += `<div class="space-y-2"><h3 class="text-sm font-bold text-emerald-900 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>催化劑追蹤（${cat.length}）</h3>${renderCardGrid(cat.map((item, idx) => renderExpandableCard(`bio-c-cat-${idx}`, `<div class="space-y-1"><div class="flex items-center justify-between gap-2"><div class="flex items-center gap-1"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold border ${outcomeBadge(item.outcome)}">${escapeHtml(item.outcome)}</span>${renderCountryBadge(item._country)}</div><span class="text-xs text-slate-400">${escapeHtml(item.date)}</span></div><div class="font-bold text-slate-900 text-sm">${highlightText(item.asset, q)}</div></div>`, `<p>${highlightText(item.note, q)}</p>${item.analysis ? `<div class="p-2 rounded-lg bg-emerald-50 border border-emerald-200 text-xs"><b>投資意涵：</b>${highlightText(item.analysis, q)}</div>` : ''}<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block text-xs font-semibold text-sky-600 hover:underline">↗ 查看來源（${escapeHtml(item.source)}）</a>`, 'bg-white border-t-4 border-t-emerald-500')).join(''))}</div>`;
+          const catGroups = groupBiotechList(cat, 'domain');
+          catGroups.forEach(([gTitle, gList], gIdx) => {
+            out += `<div class="space-y-2"><h3 class="text-sm font-bold text-emerald-900 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>催化劑追蹤｜${escapeHtml(gTitle)}（${gList.length}）</h3>${renderCardGrid(gList.map((item, idx) => renderExpandableCard(`bio-c-cat-${gIdx}-${idx}`, `<div class="space-y-1"><div class="flex items-center justify-between gap-2"><span class="px-2 py-0.5 rounded-full text-[11px] font-semibold border ${outcomeBadge(item.outcome)}">${escapeHtml(item.outcome)}</span><span class="text-xs text-slate-400">${escapeHtml(item.date)}</span></div><div class="font-bold text-slate-900 text-sm">${highlightText(item.asset, q)}</div></div>`, `<p>${highlightText(item.note, q)}</p>${item.analysis ? `<div class="p-2 rounded-lg bg-emerald-50 border border-emerald-200 text-xs"><b>投資意涵：</b>${highlightText(item.analysis, q)}</div>` : ''}<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block text-xs font-semibold text-sky-600 hover:underline">↗ 查看來源（${escapeHtml(item.source)}）</a>`, 'bg-white border-t-4 border-t-emerald-500')).join(''))}</div>`;
+          });
         }
         if (showDeep) {
-          out += `<div class="space-y-2"><h3 class="text-sm font-bold text-amber-900 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>深度解析（${deep.length}）</h3>${renderCardGrid(deep.map((item, idx) => renderExpandableCard(`bio-c-deep-${idx}`, `<div class="space-y-1"><div class="flex items-center justify-between gap-2"><div class="flex items-center gap-1"><span class="inline-block px-2 py-0.5 rounded text-[11px] font-bold ${deepCatClass(item.cat)}">${escapeHtml(item.cat)}</span>${renderCountryBadge(item._country)}</div><span class="text-xs text-slate-400">${escapeHtml(item.date)}</span></div><div class="font-bold text-slate-900 text-sm line-clamp-2">${highlightText(item.title, q)}</div></div>`, `<p>${highlightText(item.body, q)}</p>${item.analysis ? `<div class="p-2 rounded-lg bg-amber-50 border border-amber-200 text-xs"><b>深度預測：</b>${highlightText(item.analysis, q)}</div>` : ''}<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block text-xs font-semibold text-sky-600 hover:underline">↗ 查看來源（${escapeHtml(item.source)}）</a>`, 'bg-white border-t-4 border-t-amber-500')).join(''))}</div>`;
+          const deepGroups = groupBiotechList(deep, 'cat');
+          deepGroups.forEach(([gTitle, gList], gIdx) => {
+            out += `<div class="space-y-2"><h3 class="text-sm font-bold text-amber-900 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>深度解析｜${escapeHtml(gTitle)}（${gList.length}）</h3>${renderCardGrid(gList.map((item, idx) => renderExpandableCard(`bio-c-deep-${gIdx}-${idx}`, `<div class="space-y-1"><div class="text-xs text-slate-400">${escapeHtml(item.date)}</div><div class="font-bold text-slate-900 text-sm line-clamp-2">${highlightText(item.title, q)}</div></div>`, `<p>${highlightText(item.body, q)}</p>${item.analysis ? `<div class="p-2 rounded-lg bg-amber-50 border border-amber-200 text-xs"><b>深度預測：</b>${highlightText(item.analysis, q)}</div>` : ''}<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="inline-block text-xs font-semibold text-sky-600 hover:underline">↗ 查看來源（${escapeHtml(item.source)}）</a>`, 'bg-white border-t-4 border-t-amber-500')).join(''))}</div>`;
+          });
         }
       }
 
@@ -1375,6 +1469,16 @@
       const sel = $('domainFilterSelect');
       if (state.domainFilter !== 'all' && !domains.includes(state.domainFilter)) state.domainFilter = 'all';
       sel.innerHTML = `<option value="all">全部領域 (${domains.length})</option>` + domains.map(d => `<option value="${escapeHtml(d)}" ${state.domainFilter === d ? 'selected' : ''}>${escapeHtml(d)}</option>`).join('');
+
+      // 同步更新兩個大標題後方的 inline 國家別／藥監別／主題下拉選單
+      const countryOptsHtml = COUNTRY_META.map(c => `<option value="${c.id}" class="text-slate-900" ${state.countryFilter === c.id ? 'selected' : ''}>${c.flag} ${c.label}</option>`).join('');
+      const domainOptsHtml = `<option value="all" class="text-slate-900">🏷️ 全部主題</option>` + domains.map(d => `<option value="${escapeHtml(d)}" class="text-slate-900" ${state.domainFilter === d ? 'selected' : ''}>${escapeHtml(d)}</option>`).join('');
+
+      if ($('mhBannerCountry')) $('mhBannerCountry').innerHTML = countryOptsHtml;
+      if ($('mhBannerDomain')) $('mhBannerDomain').innerHTML = domainOptsHtml;
+      if ($('bioBannerCountry')) $('bioBannerCountry').innerHTML = countryOptsHtml;
+      if ($('bioBannerDomain')) $('bioBannerDomain').innerHTML = domainOptsHtml;
+      if ($('bioBannerAgency')) $('bioBannerAgency').value = state.activeAgency;
     }
 
     function renderRelatedTopics() {
@@ -1516,6 +1620,11 @@
     $('groupBySelect').addEventListener('change', (e) => { state.groupBy = e.target.value; render(); });
     $('globalSortSelect').addEventListener('change', (e) => { state.globalSort = e.target.value; render(); });
     $('domainFilterSelect').addEventListener('change', (e) => { state.domainFilter = e.target.value; render(); });
+    $('mhBannerCountry').addEventListener('change', (e) => { state.countryFilter = e.target.value; render(); });
+    $('mhBannerDomain').addEventListener('change', (e) => { state.domainFilter = e.target.value; render(); });
+    $('bioBannerCountry').addEventListener('change', (e) => { state.countryFilter = e.target.value; render(); });
+    $('bioBannerAgency').addEventListener('change', (e) => { state.activeAgency = e.target.value; render(); });
+    $('bioBannerDomain').addEventListener('change', (e) => { state.domainFilter = e.target.value; render(); });
 
     $('countryChips').addEventListener('click', (e) => {
       const btn = e.target.closest('.country-chip');
