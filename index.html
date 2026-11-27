@@ -22,6 +22,19 @@
     .swipe-transition { transition: transform 0.22s ease-out, opacity 0.22s ease-out; }
     .swipe-left { transform: translateX(-18px); opacity: 0.5; }
     .swipe-right { transform: translateX(18px); opacity: 0.5; }
+    /* 強制所有表格欄位自動換行，徹底杜絕文字溢出或與鄰欄重疊 */
+    .hub-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    .hub-table th,
+    .hub-table td {
+      white-space: normal !important;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      vertical-align: top;
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col bg-slate-50 text-slate-900">
@@ -34,7 +47,7 @@
           <i data-lucide="globe" class="w-5 h-5 text-sky-300"></i>
         </div>
         <div class="min-w-0">
-          <div class="flex items-center gap-2"><h1 class="text-base sm:text-lg font-extrabold tracking-tight truncate">Global &amp; Healthcare Info Hub</h1><span class="px-1.5 py-0.5 rounded bg-sky-500/30 border border-sky-400/40 text-[10px] font-bold text-sky-200 shrink-0">v5.2</span></div>
+          <div class="flex items-center gap-2"><h1 class="text-base sm:text-lg font-extrabold tracking-tight truncate">Global &amp; Healthcare Info Hub</h1><span class="px-1.5 py-0.5 rounded bg-sky-500/30 border border-sky-400/40 text-[10px] font-bold text-sky-200 shrink-0">v5.3</span></div>
           <p class="text-xs text-slate-300 truncate">全產業研報 × 全球生醫情報｜每日 07:30・16:30 同步</p>
         </div>
       </div>
@@ -886,9 +899,6 @@
       const colgroupHtml = hasWidths
         ? `<colgroup>${colWidths.map(w => `<col style="width:${w}">`).join('')}</colgroup>`
         : '';
-      const tableCls = hasWidths
-        ? 'w-full min-w-[780px] lg:min-w-0 lg:table-fixed text-left border-collapse text-xs sm:text-sm'
-        : 'w-full text-left border-collapse text-xs sm:text-sm';
       return `
         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
           <div class="px-4 py-2.5 border-b border-slate-200 ${accentCls}">
@@ -898,11 +908,11 @@
             </h3>
           </div>
           <div class="overflow-x-auto">
-            <table class="${tableCls}">
+            <table class="hub-table min-w-[760px] lg:min-w-0 text-left text-xs sm:text-sm">
               ${colgroupHtml}
               <thead>
-                <tr class="bg-slate-50/70 text-slate-500 border-b border-slate-200">
-                  ${headers.map((h, i) => `<th class="py-2 ${i === 0 && hasWidths && colWidths[0] === '5%' ? 'px-1.5 text-center' : 'px-2.5'} font-semibold whitespace-nowrap">${h}</th>`).join('')}
+                <tr class="bg-slate-50/80 text-slate-600 border-b border-slate-200">
+                  ${headers.map((h, i) => `<th class="py-2.5 ${i === 0 && hasWidths && colWidths[0] === '5%' ? 'px-1.5 text-center' : 'px-2.5'} font-semibold leading-snug">${h}</th>`).join('')}
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100">${rowsHtml}</tbody>
@@ -1122,19 +1132,26 @@
       groups.forEach(([groupTitle, items], sIdx) => {
         const st = SUBBLOCK_STYLES[sIdx % SUBBLOCK_STYLES.length];
         if (state.viewMode === 'table') {
-          // 壓縮前欄與連結欄，將約 68% 空間保留給摘要與趨勢分析；不重複印國家/領域標籤
-          out += renderTableBlock(`${groupTitle}（${items.length}）`, st.dot, st.accent, ['主題 / 個股', '1. 內容摘要及前因後果', '2. 未來趨勢或影響分析', '連結'], items.map((r, i) => `
+          // 彈性配置各欄寬度並全面自動換行，兼顧前欄辨識度與摘要 3-4 行閱讀體驗
+          out += renderTableBlock(
+            `${groupTitle}（${items.length}）`,
+            st.dot,
+            st.accent,
+            ['主題 / 個股', '1. 內容摘要及前因後果', '2. 未來趨勢或影響分析', '連結'],
+            items.map((r, i) => `
             <tr class="${r._isWL ? 'bg-amber-50/50' : (i % 2 === 1 ? 'bg-slate-50/60' : 'bg-white')} hover:bg-slate-100/60">
-              <td class="py-2.5 px-3 align-top w-[19%] space-y-1">
+              <td class="py-2.5 px-2.5 space-y-1">
                 <div class="text-[11px] font-medium text-slate-400">${escapeHtml(r._edLabel)}</div>
                 <div class="font-bold text-slate-900 leading-snug">${r._isWL ? '<span class="text-amber-500 mr-1">★</span>' : ''}${highlightText(r.title, q)}</div>
-                <div class="text-[11px] font-semibold text-sky-700">${highlightText(r.tickers, q)}</div>
+                <div class="text-[11px] font-semibold text-sky-700 leading-snug">${highlightText(r.tickers, q)}</div>
               </td>
-              <td class="py-2.5 px-3 align-top text-slate-700 leading-relaxed w-[38%]">${highlightText(r.summary, q)}</td>
-              <td class="py-2.5 px-3 align-top text-slate-700 leading-relaxed w-[29%]">${highlightText(r.trend, q)}</td>
-              <td class="py-2.5 px-2.5 align-top w-[14%]">${renderDeepLinks(r.links, st.btn)}</td>
+              <td class="py-2.5 px-2.5 text-slate-700 leading-relaxed">${highlightText(r.summary, q)}</td>
+              <td class="py-2.5 px-2.5 text-slate-700 leading-relaxed">${highlightText(r.trend, q)}</td>
+              <td class="py-2.5 px-2.5">${renderDeepLinks(r.links, st.btn)}</td>
             </tr>
-          `).join(''));
+          `).join(''),
+            ['21%', '36%', '28%', '15%']
+          );
         } else {
           out += `<div class="space-y-2"><h3 class="text-sm font-bold text-slate-800 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full ${st.dot}"></span>${escapeHtml(groupTitle)}（${items.length}）</h3>${renderCardGrid(items.map((r, idx) => renderExpandableCard(
             `s0-c-${sIdx}-${idx}`,
@@ -1291,7 +1308,7 @@
       let out = '';
       if (state.viewMode === 'table') {
         if (showCo) {
-          // 壓縮前 5 欄（關注 5% / 國家領域 12% / 標的代號 13% / 股價漲跌 11% / 日期 8%），保留 51% 寬度予「摘要、短評與來源」
+          // 全面自動換行＋彈性欄寬配置（關注 5% / 國家領域 13% / 標的代號 16% / 股價漲跌 14% / 日期 9% / 摘要 43%），避免重疊並維持 3-4 行閱讀體驗
           const coGroups = groupBiotechList(co, 'country');
           let rowsHtml = '';
           coGroups.forEach(([gTitle, gList], gIdx) => {
@@ -1303,24 +1320,24 @@
               const shortDate = (normDate(item.date) || item.date || '').replace(/^\d{4}-/, '').replace('-', '/');
               const cMeta = COUNTRY_MAP[item._country] || COUNTRY_MAP.GL;
               return `<tr class="${item._isWL ? 'bg-amber-50/50' : 'bg-white'} hover:bg-slate-50/80">
-                <td class="py-2 px-1.5 align-top text-center">
+                <td class="py-2.5 px-1.5 text-center">
                   <button type="button" data-wl-toggle="${escapeHtml(item.ticker || item.name)}" title="加入或移除關注股" class="wl-star-btn text-base leading-none cursor-pointer ${item._isWL ? 'text-amber-500' : 'text-slate-300 hover:text-amber-400'}">${item._isWL ? '★' : '☆'}</button>
                 </td>
-                <td class="py-2 px-2 align-top text-[11px] leading-tight space-y-0.5 break-words">
+                <td class="py-2.5 px-2.5 text-xs leading-snug space-y-0.5">
                   <div class="font-semibold text-slate-700">${cMeta.flag} ${escapeHtml(cMeta.label)}</div>
-                  <div class="text-slate-500">${escapeHtml(item._domain)}</div>
+                  <div class="text-[11px] text-slate-500">${escapeHtml(item._domain)}</div>
                 </td>
-                <td class="py-2 px-2 align-top leading-tight break-words">
-                  <div class="font-bold text-slate-900 text-xs">${highlightText(item.name, q)}</div>
+                <td class="py-2.5 px-2.5 leading-snug space-y-0.5">
+                  <div class="font-bold text-slate-900 text-xs sm:text-sm">${highlightText(item.name, q)}</div>
                   <div class="text-[11px] font-mono text-slate-500">${highlightText(item.ticker, q)}</div>
                 </td>
-                <td class="py-2 px-2 align-top text-xs leading-tight break-words">
+                <td class="py-2.5 px-2.5 text-xs leading-snug space-y-0.5">
                   <div class="font-medium text-slate-800">${escapeHtml(item.price)}</div>
                   <div class="text-[11px] ${changeColor(item.change)}">${escapeHtml(item.change)}</div>
                 </td>
-                <td class="py-2 px-2 align-top whitespace-nowrap text-[11px] text-slate-500">${escapeHtml(shortDate)}</td>
-                <td class="py-2 px-3 align-top text-slate-700 leading-relaxed break-words">
-                  <div>${highlightText(item.summary, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-sky-600 hover:underline cursor-pointer">${isOpen ? '收合短評' : '展開短評'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 font-semibold hover:underline whitespace-nowrap">↗ ${escapeHtml(item.source)}</a></div>
+                <td class="py-2.5 px-2 text-xs text-slate-500 leading-snug">${escapeHtml(shortDate)}</td>
+                <td class="py-2.5 px-3 text-slate-700 leading-relaxed">
+                  <div>${highlightText(item.summary, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-sky-600 hover:underline cursor-pointer">${isOpen ? '收合短評' : '展開短評'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 font-semibold hover:underline">↗ ${escapeHtml(item.source)}</a></div>
                   ${isOpen ? `<div class="mt-2 p-2.5 rounded-lg bg-sky-50/80 border border-sky-200 text-xs text-slate-700"><b>短評與意涵：</b>${highlightText(item.analysis || item.summary, q)}</div>` : ''}
                 </td>
               </tr>`;
@@ -1332,7 +1349,7 @@
             'border-l-4 border-l-sky-500 bg-sky-50/85',
             ['關注', '國家／領域', '標的 / 代號', '股價與漲跌', '日期', '摘要、短評與來源'],
             rowsHtml,
-            ['5%', '12%', '13%', '11%', '8%', '51%']
+            ['5%', '13%', '16%', '14%', '9%', '43%']
           );
         }
 
@@ -1362,7 +1379,7 @@
               </tr>`;
             }).join('');
           });
-          out += renderTableBlock(`五大藥監機關動態（${reg.length}）`, 'bg-violet-500', 'border-l-4 border-l-violet-500 bg-violet-50/85', ['日期／藥品與法規案', '決議、解讀與來源'], rowsHtml);
+          out += renderTableBlock(`五大藥監機關動態（${reg.length}）`, 'bg-violet-500', 'border-l-4 border-l-violet-500 bg-violet-50/85', ['日期／藥品與法規案', '決議、解讀與來源'], rowsHtml, ['30%', '70%']);
         }
 
         if (showCat) {
@@ -1392,7 +1409,7 @@
               </tr>`;
             }).join('');
           });
-          out += renderTableBlock(`催化劑追蹤（${cat.length}）`, 'bg-emerald-500', 'border-l-4 border-l-emerald-500 bg-emerald-50/85', ['資產／狀態與日期', '說明、投資意涵與來源'], rowsHtml);
+          out += renderTableBlock(`催化劑追蹤（${cat.length}）`, 'bg-emerald-500', 'border-l-4 border-l-emerald-500 bg-emerald-50/85', ['資產／狀態與日期', '說明、投資意涵與來源'], rowsHtml, ['30%', '70%']);
         }
 
         if (showDeep) {
@@ -1418,7 +1435,7 @@
               </tr>`;
             }).join('');
           });
-          out += renderTableBlock(`深度解析：政策、重大事件與技術突破（${deep.length}）`, 'bg-amber-500', 'border-l-4 border-l-amber-500 bg-amber-50/85', ['日期／主題', '解析、趨勢預測與來源'], rowsHtml);
+          out += renderTableBlock(`深度解析：政策、重大事件與技術突破（${deep.length}）`, 'bg-amber-500', 'border-l-4 border-l-amber-500 bg-amber-50/85', ['日期／主題', '解析、趨勢預測與來源'], rowsHtml, ['32%', '68%']);
         }
       } else {
         // 卡片模式：同樣依類別歸組，不於每張卡片重複印國家／藥監／主題標籤
