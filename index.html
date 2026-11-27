@@ -47,7 +47,7 @@
           <i data-lucide="globe" class="w-5 h-5 text-sky-300"></i>
         </div>
         <div class="min-w-0">
-          <div class="flex items-center gap-2"><h1 class="text-base sm:text-lg font-extrabold tracking-tight truncate">Global &amp; Healthcare Info Hub</h1><span class="px-1.5 py-0.5 rounded bg-sky-500/30 border border-sky-400/40 text-[10px] font-bold text-sky-200 shrink-0">v5.4</span></div>
+          <div class="flex items-center gap-2"><h1 class="text-base sm:text-lg font-extrabold tracking-tight truncate">Global &amp; Healthcare Info Hub</h1><span class="px-1.5 py-0.5 rounded bg-sky-500/30 border border-sky-400/40 text-[10px] font-bold text-sky-200 shrink-0">v5.5</span></div>
           <p class="text-xs text-slate-300 truncate">全產業研報 × 全球生醫情報｜每日 07:30・16:30 同步</p>
         </div>
       </div>
@@ -802,6 +802,50 @@
       return true;
     }
 
+    // 智慧解析深度解析欄位：同時支援結構化 JSON 欄位，或從純文字 body 中自動拆解五大要素
+    function parseDeepFields(item) {
+      let summary = item.summary || '';
+      let background = item.background || '';
+      let impact = item.impact || '';
+      let forecast = item.forecast || '';
+      let companies = Array.isArray(item.companies)
+        ? item.companies.slice()
+        : (item.companies ? String(item.companies).split(/[,，、;；]+/).map(s => s.trim()).filter(Boolean) : []);
+
+      const raw = String(item.body || '').trim();
+      if (raw && (!background && !impact && !forecast)) {
+        const extract = (labelRegex) => {
+          const re = new RegExp('(?:' + labelRegex + ')[：:]\\s*([\\s\\S]*?)(?=(?:簡要說明|事實摘要|來龍去脈|背景原由|背景|影響分析|產業影響|影響|未來預測|趨勢預測|展望|相關公司|相關標的)[：:]|$)', 'i');
+          const m = raw.match(re);
+          return m ? m[1].trim() : '';
+        };
+        const exSum = extract('簡要說明|事實摘要');
+        const exBg  = extract('來龍去脈|背景原由|背景');
+        const exImp = extract('影響分析|產業影響|影響');
+        const exFc  = extract('未來預測|趨勢預測|展望');
+        const exCo  = extract('相關公司|相關標的');
+
+        if (exSum || exBg || exImp || exFc) {
+          if (!summary) summary = exSum || raw;
+          if (!background) background = exBg;
+          if (!impact) impact = exImp;
+          if (!forecast) forecast = exFc;
+          if (!companies.length && exCo) {
+            companies = exCo.split(/[,，、;；]+/).map(s => s.trim()).filter(Boolean);
+          }
+        } else if (!summary) {
+          summary = raw;
+        }
+      } else if (!summary) {
+        summary = raw;
+      }
+
+      if (!forecast && hasDistinctAnalysis(summary, item.analysis)) {
+        forecast = item.analysis;
+      }
+      return { summary, background, impact, forecast, companies };
+    }
+
     function escapeHtml(str) {
       return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
@@ -1459,11 +1503,12 @@
             }
             rowsHtml += gList.map((item, idx) => {
               const shortDate = (normDate(item.date) || item.date || '').replace(/^\d{4}-/, '').replace('-', '/');
-              const brief = item.summary || item.body || '';
-              const bg = item.background || '';
-              const imp = item.impact || '';
-              const fc = item.forecast || (hasDistinctAnalysis(brief, item.analysis) ? item.analysis : '');
-              const comps = Array.isArray(item.companies) ? item.companies : (item.companies ? [item.companies] : []);
+              const dp = parseDeepFields(item);
+              const brief = dp.summary;
+              const bg = dp.background;
+              const imp = dp.impact;
+              const fc = dp.forecast;
+              const comps = dp.companies;
               return `<tr class="hover:bg-slate-50/80">
                 <td class="py-2.5 px-3 space-y-1.5">
                   <div class="text-[11px] text-slate-400 font-medium">${escapeHtml(shortDate)}</div>
@@ -1523,11 +1568,12 @@
           const deepGroups = groupBiotechList(deep, 'cat');
           deepGroups.forEach(([gTitle, gList], gIdx) => {
             out += `<div class="space-y-2"><h3 class="text-sm font-bold text-amber-900 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>深度解析｜${escapeHtml(gTitle)}（${gList.length}）</h3>${renderCardGrid(gList.map((item, idx) => {
-              const brief = item.summary || item.body || '';
-              const bg = item.background || '';
-              const imp = item.impact || '';
-              const fc = item.forecast || (hasDistinctAnalysis(brief, item.analysis) ? item.analysis : '');
-              const comps = Array.isArray(item.companies) ? item.companies : (item.companies ? [item.companies] : []);
+              const dp = parseDeepFields(item);
+              const brief = dp.summary;
+              const bg = dp.background;
+              const imp = dp.impact;
+              const fc = dp.forecast;
+              const comps = dp.companies;
               return renderExpandableCard(
                 `bio-c-deep-${gIdx}-${idx}`,
                 `<div class="space-y-1.5"><div class="text-xs text-slate-400">${escapeHtml(item.date)}</div><div class="font-bold text-slate-900 text-sm line-clamp-2">${highlightText(item.title, q)}</div>${comps.length ? `<div class="flex flex-wrap gap-1">${comps.map(c => `<span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-950 text-[10px] font-semibold">${highlightText(c, q)}</span>`).join('')}</div>` : ''}</div>`,
@@ -1868,7 +1914,27 @@
           if (Array.isArray(remoteB) && remoteB.length > 0) {
             const mapB = new Map();
             DEFAULT_BIOTECH_REPORTS.forEach(r => mapB.set(r.id, r));
-            remoteB.forEach(r => { if (r && r.id && Array.isArray(r.co)) mapB.set(r.id, r); });
+            remoteB.forEach(r => {
+              if (!r || !r.id || !Array.isArray(r.co)) return;
+              const def = mapB.get(r.id);
+              if (def && Array.isArray(def.deep) && def.deep.length) {
+                const mergedDeep = (Array.isArray(r.deep) && r.deep.length)
+                  ? r.deep.map(rd => {
+                      const matchDef = def.deep.find(dd => dd.title === rd.title);
+                      return matchDef ? Object.assign({}, matchDef, rd, {
+                        summary: rd.summary || matchDef.summary,
+                        background: rd.background || matchDef.background,
+                        impact: rd.impact || matchDef.impact,
+                        forecast: rd.forecast || matchDef.forecast,
+                        companies: (rd.companies && rd.companies.length) ? rd.companies : matchDef.companies
+                      }) : rd;
+                    })
+                  : def.deep;
+                mapB.set(r.id, Object.assign({}, r, { deep: mergedDeep }));
+              } else {
+                mapB.set(r.id, r);
+              }
+            });
             state.biotechReports = Array.from(mapB.values()).sort((a, b) => String(b.id).localeCompare(String(a.id)));
           }
         }
