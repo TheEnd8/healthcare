@@ -1,10 +1,327 @@
 [
   {
+    "id": "2026-11-27_AM",
+    "date": "2026-11-27",
+    "period": "早報",
+    "title": "【Info Hub】2026/11/27 早報",
+    "updatedAt": "2026-11-27 07:30",
+    "sections": [
+      {
+        "category": "總體經濟與美台股市場動態",
+        "items": [
+          {
+            "title": "美國產能過剩 301 關稅提案評析：主要盟國維持 15%，中國恢復課徵 10%",
+            "summary": "台新投顧評析 USTR 依 301 條款重建遭最高法院判無效之對等關稅，性質屬「恢復」而非「升級」。日、韓、歐、瑞及台灣主要稅率維持 15%（含 MFN 且不重複疊加），預計 2027/1/25 公聽會後於 2–3 月實施；惟中國電腦、手機、半導體及醫藥品項恢復課徵 10%。行政院副院長鄭麗君表示有把握台灣最終維持 15% 不疊加，但工具機、自行車等傳產對日韓關稅紅利恐歸零。",
+            "trend": "基準情境下美國整體有效關稅稅率僅上升約 1.5 個百分點，對美股獲利衝擊有限（標普 EPS 估減 0.3%–0.6%）；後續風險集中於越南、印度、新加坡協定簽署進度，以及 2027/1/10 美中貿易休戰屆期談判。",
+            "tickers": "美國 301 關稅、台灣工具機與自行車傳產、中國電子與醫藥出口鏈",
+            "links": [
+              {
+                "label": "台新投顧報告 PDF：美國 301 關稅評析",
+                "url": "https://drive.google.com/file/d/1melLvuobjDrus-aSt3Kd_Vzvo4CziJTx/view?usp=drivesdk"
+              },
+              {
+                "label": "經濟日報：301 有但書 政院說不擔心",
+                "url": "https://money.udn.com/money/story/7307/9904601"
+              },
+              {
+                "label": "經濟日報：工具機自行車接單面臨考驗",
+                "url": "https://money.udn.com/money/story/5612/9904652"
+              },
+              {
+                "label": "WSJ：對華新關稅或破壞美中休戰",
+                "url": "https://cn.wsj.com/articles/WP-WSJT-0004096956"
+              }
+            ]
+          },
+          {
+            "title": "歐洲央行新總裁出爐與英國央行示警 AI 融資風險",
+            "summary": "歐洲各國領袖選定西班牙籍的戴柯斯出任下一任歐洲央行總裁，以因應法國債務、成長乏力與股市震盪。英國央行則示警，AI 投資熱潮雖支撐全球經濟，但龐大融資規模正使全球金融體系更容易遭到反噬。",
+            "trend": "歐元區貨幣政策將更側重債務穩定與金融風險控管；全球資金對高槓桿 AI 資本支出項目的風險定價將趨於嚴格。",
+            "tickers": "歐洲央行 (ECB)、AI 融資與全球金融體系",
+            "links": [
+              {
+                "label": "WSJ：歐洲選定戴柯斯任新央行總裁",
+                "url": "https://cn.wsj.com/articles/WP-WSJT-0004097780"
+              },
+              {
+                "label": "WSJ：英國央行示警 AI 融資風險",
+                "url": "https://cn.wsj.com/articles/WP-WSJT-0004097767"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category": "科技硬體、AI 伺服器與半導體供應鏈",
+        "items": [
+          {
+            "title": "輝達傳要求暫停出貨東南亞四國，且遭標普列入負面信用觀察",
+            "summary": "外媒報導輝達已要求戴爾、美超微等合作夥伴暫停出貨 AI 伺服器至馬來西亞、新加坡、泰國及印尼四國，以因應美國擴大管制中國取得 AI 算力新令，牽動緯創、仁寶、華泰、尼得科超眾、麗台等台鏈。同時標普全球評級因治理疑慮、接班規劃不足及中國出口管制風險，將輝達列入「負面觀察名單」，未來 90 天內面臨最多降評一級風險。",
+            "trend": "短線壓抑東南亞算力中心建置與輝達概念股評價，但標普強調輝達核心技術與財務實力未變；長期須觀察董事會獨立性改善及美國出口管制細節。",
+            "tickers": "輝達 (NVDA)、戴爾 (DELL)、美超微 (SMCI)、緯創 (3231)、仁寶 (2324)",
+            "links": [
+              {
+                "label": "經濟日報：輝達傳停止出貨東南亞四國",
+                "url": "https://money.udn.com/money/story/5599/9904637"
+              },
+              {
+                "label": "WSJ：輝達要求夥伴暫停向東南亞發貨",
+                "url": "https://cn.wsj.com/articles/WP-WSJT-0004096819"
+              },
+              {
+                "label": "財報狗：輝達恐遭標普下調信評",
+                "url": "https://statementdog.com/news/18159"
+              }
+            ]
+          },
+          {
+            "title": "SpaceX 獲 FCC 授權部署百萬顆「Starmind」太空 AI 算力衛星",
+            "summary": "美國 FCC 宣布授權 SpaceX 部署由 100 萬顆衛星組成的星系，組建名為「Starmind」的太空 AI 算力星座與資料中心。摩根士丹利最新報告亦指出，台光電（2383.TW）為 Starmind M8 CCL 及 Kessel AI 機櫃 M10 CCL 主要或獨家供應商，預計 2Q27 起開始出貨，並給予目標價 8,800 元。",
+            "trend": "太空資料中心與次世代 AI 機櫃規格升級（M9/M10 與載板 CCL）將帶動高階銅箔基板毛利率維持 40% 以上，HVLP 高階銅箔與薄型 E 玻纖布 2027 年仍將供不應求。",
+            "tickers": "SpaceX、鴻海 (2317)、台光電 (2383 TT)、低軌衛星與高階 CCL",
+            "links": [
+              {
+                "label": "經濟日報：SpaceX 組建 Starmind 算力星座",
+                "url": "https://money.udn.com/money/story/5612/9904617"
+              },
+              {
+                "label": "Morgan Stanley 報告 PDF：台光電 (2383.TW)",
+                "url": "https://drive.google.com/file/d/1YrFtHAhgwoAtgnzEKPogNrsyjY_j9g3Y/view?usp=drivesdk"
+              },
+              {
+                "label": "Morgan Stanley 報告 PDF：大中華科技硬體峰會回饋",
+                "url": "https://drive.google.com/file/d/12wkJyGrPvsKCgPT2kPKjluKhrdhzOdc2/view?usp=drivesdk"
+              }
+            ]
+          },
+          {
+            "title": "信驊 (5274.TWO) 與穎崴 (6515)：AI 伺服器 BMC 漲價與測試介面產能滿載",
+            "summary": "花旗報告指出信驊（5274）受惠 GPU/ASIC/交換器與散熱系統全面導入 BMC，需求大於供給且未見砍單，已於 12/1 調漲價格約 10%，AST2700 明年出貨拚逾千萬顆（ASP 較前代高 50%），目標價 20,700 元。穎崴（6515）前三季 EPS 66.85 元創高、AI/HPC 占比逾七成，新仁武廠明年 Q1 起開出，探針月產能年底拚增至 2,400 萬支（年增 167%）。",
+            "trend": "即使個別 GPU 平台出現節奏調整，客製化 ASIC、網路交換器與超大封裝（150×150 以上、Pin Count 破 2 萬）液冷測試需求仍支撐 2027 年高成長。",
+            "tickers": "信驊 (5274.TWO)、穎崴 (6515)、旺矽 (6223)、AI 伺服器 BMC 與測試介面",
+            "links": [
+              {
+                "label": "Citi 報告 PDF：信驊 (5274.TWO)",
+                "url": "https://drive.google.com/file/d/1DTxo7Jb5b6_Ynx12D20oh4_C2T3K3sAC/view?usp=drivesdk"
+              },
+              {
+                "label": "財報狗：穎崴探針月產量拚 2400 萬支",
+                "url": "https://statementdog.com/news/18162"
+              }
+            ]
+          },
+          {
+            "title": "數聯資安 (7974 TT)：興櫃前法說重點摘要",
+            "summary": "遠傳電信子公司，預計 2026/12/01 登錄興櫃，已累積逾 400 家政府及企業客戶。2026 年截至 11/23 台灣上市櫃揭露 139 件資安事件（較 2025 年暴增近 88%），AI 加速漏洞利用大幅推升企業 SOC 委外監控與事件應變需求。",
+            "trend": "工研院預估台灣資安產值將於 2026/2027 年突破 1,000/1,120 億元（CAGR 10%）。數聯資安具逾 450 張專業證照與自建平台優勢，年底專案驗收使 Q4 營收占比達 30%。",
+            "tickers": "數聯資安 (7974 TT)、遠傳電信、AI 資安與 SOC 監控",
+            "links": [
+              {
+                "label": "凱基法說報告 PDF：數聯資安 (7974.TW)",
+                "url": "https://drive.google.com/open?id=1mcDlULn_BBnIy9EZ9YtLUycLZL1kTVkY"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category": "生技醫療與智慧醫療動態",
+        "items": [
+          {
+            "title": "思捷優達-KY (7829) 攜挪威啟動巴金森氏症三期平台試驗；藥華藥 (6446) ET 進入放量",
+            "summary": "思捷優達-KY 宣布與挪威豪克蘭大學醫院簽約，旗下新藥 YA-101 直接納入 800 人規模的 HYDRA 巴金森氏症三期平台試驗（預計 2027 Q3 啟動）。藥華藥前三季 EPS 18.43 元，ET 新適應症已取台、日、美、中藥證並自 11 月起放量，26 日股價強漲 9.3% 收 1,175 元。",
+            "trend": "巴金森氏症七大市場 2033 年規模估達 72 億美元且尚無疾病修飾療法，YA-101 藉平台試驗大幅降低研發門檻；藥華藥明年獲利受惠雙適應症放量具上修空間。",
+            "tickers": "思捷優達-KY (7829)、藥華藥 (6446)",
+            "links": [
+              {
+                "label": "聯合新聞網：思捷優達攜挪威啟動三期",
+                "url": "https://udn.com/news/story/7241/9905019"
+              },
+              {
+                "label": "工商時報：藥華藥新藥銷售助營運",
+                "url": "https://www.ctee.com.tw/news/20261127700274-430204"
+              }
+            ]
+          },
+          {
+            "title": "美時 (1795) 簽口服 Semaglutide 美韓獨家授權；鴻海 (2317) 攜北榮落地 AI 化療系統",
+            "summary": "美時與西班牙 Galenicum 簽署口服 Semaglutide 學名藥於美、韓獨家及亞洲八國商業化協議，搶攻年銷逾 40 億美元的口服 GLP-1 減重藥市場。此外，鴻海攜手北榮發布 AI 化療自動化智慧場域，結合輝達技術、川崎重工與湯山製作所實現實體 AI 醫療落地；薛定諤亦以 2,400 萬美元攜手 Enpicom 加速 AI 生物製劑開發。",
+            "trend": "口服 GLP-1 困難學名藥成為台廠切入高毛利國際市場的新引擎；大型科技廠與醫院深度結盟加速實體 AI 機器人導入高風險臨床流程。",
+            "tickers": "美時 (1795)、鴻海 (2317)、薛定諤 (SDGR)、口服 GLP-1 與智慧醫療",
+            "links": [
+              {
+                "label": "MoneyDJ：美時簽口服 GLP-1 美韓協議",
+                "url": "https://www.moneydj.com/kmdj/news/newsviewer.aspx?a=72882af7-480f-435b-9ce7-54f6e4c22543"
+              },
+              {
+                "label": "聯合新聞網：鴻海 AI 技術導入北榮醫療",
+                "url": "https://udn.com/news/story/7240/9904673"
+              },
+              {
+                "label": "環球生技：薛定諤 2400 萬美元攜手 Enpicom",
+                "url": "https://news.gbimonthly.com/tw/article/show.php?num=91681"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category": "金融、能源與電動車基礎設施",
+        "items": [
+          {
+            "title": "華南金 (2880 TT) 法說重點：AI 放款強勁、明年現金股利估優於去年",
+            "summary": "凱基法說摘要指出，華南金前 10 月稅後淨利 284.6 億元（年增 26.9%、EPS 2.02 元），3Q26 華南銀總放款年增 14.2%，受惠 AI 與科技業融資需求帶動大型企金放款年增 40%、外幣放款年增 32.9%。管理層預期 2027 年淨利息收入年增 6–10%，配發率維持 7 成並以現金為主。",
+            "trend": "目前股價淨值比 2.4 倍高於同業 1.8 倍，預估現金殖利率 3.7% 亦低於銀行金控同業 4.8%，須留意中小企業逾放變化與評價位階。",
+            "tickers": "華南金 (2880 TT)、台灣金融與 AI 企金放款",
+            "links": [
+              {
+                "label": "凱基法說報告 PDF：華南金 (2880.TW)",
+                "url": "https://drive.google.com/file/d/1PQIeTlRmHN5aFmblgRvt4Z-XuTcVOdhX/view?usp=drivesdk"
+              }
+            ]
+          },
+          {
+            "title": "華城電能 (EVALUE) 2027 年再擴 8 座 640kW 極速充電站，拚三年轉盈、2028 興櫃",
+            "summary": "華城（1519）旗下華城電能目前全台市占約 20%（869 站、3,256 支充電槍），2027 年將新增 8 座 640kW 液冷極速充電站、全台拚破千站，跨品牌漫遊聯盟合作業者由 13 家增至 20 家，並規劃 2028 年登錄興櫃。",
+            "trend": "台灣電動車保有量預計明年初突破 20 萬輛，充電營運商正從純建置轉向跨品牌漫遊與社區能源管理（EMS）生態圈競爭，規模突破 40 萬輛時有望迎來獲利拐點。",
+            "tickers": "華城 (1519)、信邦 (3023)、健和興 (3003)、電動車充電樁",
+            "links": [
+              {
+                "label": "財報狗：華城電能 2027 年擴建極速充電站",
+                "url": "https://statementdog.com/news/18158"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "2026-11-26_AM",
     "date": "2026-11-26",
     "period": "早報",
-    "title": "【Market Hub】2026/11/26 早報",
-    "updatedAt": "2026-11-26 21:01",
-    "html": "<html><body><div dir=\"auto\">【Market Hub】2026/11/26 早報（完整外部新聞與報告網址版）<br/><br/>一、 總體經濟與美台股市場動態<br/><br/>1. 美擬課「產能過剩」關稅，301 調查結果最快本週宣布<br/>- 內容摘要及前因後果：川普政府認為中國、台灣等 16 國扶持本國產業造成的產能過剩損害美國企業，擬透過 301 調查加徵關稅；台灣正力拚最終稅率壓低至 15%。同時中國商務部公告延長對美鎵、鍺、銻及石墨等關鍵材料出口禁令暫停期。<br/>- 未來趨勢或影響分析：關稅不確定性再起使美股半導體與亞太出口鏈承壓，若最終稅率高於 15% 將影響台廠對美出口報價與毛利結構，企業須加速非中、非台產能配置。<br/>- 相關個股或主題：台灣出口製造業、半導體與關鍵材料供應鏈<br/>- 新聞或報告連結：<br/>  經濟日報：https://www.google.com/url?q=https://money.udn.com/money/story/7307/9899819&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/>  WSJ 中文網：https://www.google.com/url?q=https://cn.wsj.com/&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/><br/>2. AI 評價疑慮與 Anthropic 破發引爆費半重挫<br/>- 內容摘要及前因後果：黃仁勳回任輝達執行長一度激勵週一美股大漲及週二台股創紀錄狂飆 3,310 點站回 4 萬點；惟週二 Anthropic（ANT）跌破 83 美元 IPO 發行價，疊加記憶體報價修正與關稅變數，引發費半指數單日重挫近 8%、美光暴跌逾 10%。台經院亦提醒供應鏈面臨訂單轉化為現金流的驗收考驗。<br/>- 未來趨勢或影響分析：市場對 AI 交易從「全面追價」轉為「嚴格檢視資本支出回報」，高估值半導體短線波動劇烈；資金轉向高品質價值股、大型龍頭與中短天期投資級債。<br/>- 相關個股或主題：輝達（NVDA）、Anthropic（ANT）、美光（MU）、台積電（2330）<br/>- 新聞或報告連結：<br/>  經濟日報：https://www.google.com/url?q=https://money.udn.com/money/story/5599/9899803&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/>  台經院洞察觀點：https://www.google.com/url?q=https://vos.tier.org.tw/Viewpoint03More.aspx?DGUID%3D604ffe17-dcac-4aea-923d-f750e597a803&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/><br/>3. AI 算力走向企業應用端，資安產業迎新一輪成長週期<br/>- 內容摘要及前因後果：隨著 2027 年企業端正式大規模導入 AI 應用與代理（AI Agent），資料外洩與自動化攻擊風險急升，資安支出從傳統 IT 預算轉為企業剛性必要成本。<br/>- 未來趨勢或影響分析：2027 年市場主軸將由純基礎算力擴散至企業軟體與資安防護，具備 AI 自動化防禦能力的資安龍頭具長線估值重估空間。<br/>- 相關個股或主題：企業資安軟體、AI Agent 應用生態系<br/>- 新聞或報告連結：<br/>  MimiVsJames 深度分析：https://www.google.com/url?q=https://mimivsjames2.substack.com/p/2027ai-922&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/><br/>二、 科技硬體、AI 伺服器與衛星產業<br/><br/>1. Dell (DELL US)：AI 伺服器上修動能延續<br/>- 內容摘要及前因後果：Dell FY3Q27 營收年增 103% 至 549 億美元，受惠 AI 伺服器營收大增 291% 至 220 億美元及費用率降至 7%，EPS 達 9.45 美元（優於共識 42%）。因 xAI 與 Neo-clouds 需求強勁，上調 FY27 AI 營收展望至 780 億美元（年增 216%），2026 年 GB 機櫃拉貨指引上修至 1.8–1.9 萬櫃。<br/>- 未來趨勢或影響分析：依 Dell 向供應鏈下單季增約 20% 評估，FY4Q27 實際 AI 營收可望達 260 億美元，凱基上修 FY27/FY28 EPS 至 30.87/37.28 美元，維持「增加持股」（目標價 597 美元）。<br/>- 相關個股或主題：Dell（DELL US）、xAI 算力中心、GB 系列伺服器鏈<br/>- 新聞或報告連結：<br/>  凱基投顧研究平台：https://www.google.com/url?q=https://investment.kgisia.com.tw/Portal/index/Index/Zh/M&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/><br/>2. 美國衛星產業與 SpaceX (SPCX US)：火箭成本優勢與 AI 算力雙引擎<br/>- 內容摘要及前因後果：全球在軌衛星達 1.7 萬顆（SpaceX 佔 70%）。隨 Starship 推進回收復用測試，每公斤發射成本將降至 258 美元（較 Falcon 9 降 82%）。此外，SpaceX 與 Anthropic、Google 等簽訂 AI 算力租賃合約，4Q26 相關營收將季增 171% 至 114 億美元。<br/>- 未來趨勢或影響分析：1H27 觀察火箭測試進度，2H27 Starship 商用化並部署 V3 衛星後，傳輸成本將大降 90%，帶動用戶數朝 3–4 億人滲透。凱基首選 SpaceX（目標價 227 美元），台股首選 V3 衛星 PCB 供應商華通。<br/>- 相關個股或主題：SpaceX（SPCX US）、華通（2313 TT）、台光電（2383 TT）、台燿（6274 TT）<br/>- 新聞或報告連結：<br/>  衛星產業報告 PDF：https://www.google.com/url?q=https://drive.google.com/file/d/1GkT6Guvd01He2oseejAVLPoJCvbXba4y/view?usp%3Ddrivesdk&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/>  SpaceX 報告 PDF：https://www.google.com/url?q=https://drive.google.com/file/d/1lxfFUC-UN5zD801eYNoPk6wE6ghcfg-t/view?usp%3Ddrivesdk&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/><br/>3. 嘉澤 (3533 TT)：伺服器平台升級與液冷快接頭（QD）放量<br/>- 內容摘要及前因後果：4Q26 伺服器出貨朝 2Q26 水準回升，預估單季營收季增 4%。水冷快接頭（QD）供不應求，營收占比由 1H26 不足 1% 升至 4Q26 至少 3%，越南廠已通過客戶認證加入擴產。<br/>- 未來趨勢或影響分析：隨 AMD Venice 與 Intel Oak Stream 新平台於 2027 年放量（Socket ASP 增逾 15%），以及 QD 營收占比目標突破 10%，凱基預估 2027 年 EPS 年增 56% 至 115.77 元，維持「增加持股」（目標價 2,370 元）。<br/>- 相關個股或主題：嘉澤（3533 TT）、伺服器 CPU 插槽、水冷快接頭（QD）<br/>- 新聞或報告連結：<br/>  嘉澤報告 PDF：https://www.google.com/url?q=https://drive.google.com/file/d/1EsY1q_8_FAC_97vlOy8Skcw3ZA-H9_ny/view?usp%3Ddrivesdk&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/><br/>三、 生技醫療產業與藥監審批動態<br/><br/>1. 台灣生醫重納國家戰略產業，目標 2030 年產值破兆<br/>- 內容摘要及前因後果：行政院與國發會規劃將生技醫藥重新納入「13 項國家戰略產業」，目標 2029 年開發 50 項關鍵藥品、2030 年營業額破兆元；國發基金並匡列 100 億元額度且投資歐美創投 AdBio Partners（設台北辦公室），要求資金挹注台灣早期新藥團隊。<br/>- 未來趨勢或影響分析：政策資金與國際創投落地將改善早期生技新創募資環境，配合再生醫療雙法上路，具備完整二期數據的細胞療法可望透過「五年期臨時藥證」加速商業化。<br/>- 相關個股或主題：台灣生技醫療產業、再生醫療與新藥研發族群<br/>- 新聞或報告連結：<br/>  聯合新聞網：https://www.google.com/url?q=https://udn.com/news/story/7241/9899767&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/>  自由財經：https://www.google.com/url?q=https://ec.ltn.com.tw/article/breakingnews/5652051&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/><br/>2. 全球製藥併購金額超車去年，FDA 密集放行差異化新藥<br/>- 內容摘要及前因後果：因應 2028 年多項重磅藥專利懸崖，今年前三季全球生醫併購達 1,389 億美元（已超過去年全年），Eli Lilly 亦以 7.25 億美元收購亨廷頓舞蹈症藥商 LoQus23。FDA 近期核准 Cogent（COGT）GIST 療法、AbbVie（ABBV）首款白斑症口服藥、BridgeBio（BBIO）肌萎症首款藥物及 Roche 乳癌輔助口服 SERD；但 Capricor（CAPR）細胞療法遭二度 CRL 退件。<br/>- 未來趨勢或影響分析：國際大藥廠積極透過併購與授權填補管線缺口，具備明確硬終點或突破性口服小分子技術的標的最受青睞；藥監審查對早期細胞療法數據一致性趨嚴。<br/>- 相關個股或主題：Eli Lilly（LLY）、Cogent（COGT）、AbbVie（ABBV）、BridgeBio（BBIO）、Roche（RHHBY）<br/>- 新聞或報告連結：<br/>  中央社：https://www.google.com/url?q=https://www.cna.com.tw/news/afe/202611240258.aspx&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/>  FDA（COGT）：https://www.google.com/url?q=https://www.fda.gov/drugs/cancer-approvals/fda-approves-bezuclastinib-combination-sunitinib-advanced-gastrointestinal-stromal-tumors&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/>  FDA（BBIO）：https://www.google.com/url?q=https://www.fda.gov/news-events/press-announcements/fda-approves-first-treatment-limb-girdle-muscular-dystrophy-type-2ir9&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/><br/>3. 國內生技與智慧醫療進展：路迦、台睿、訊聯基因、華碩<br/>- 內容摘要及前因後果：路迦生醫（6814）肝癌細胞療法 LuLym-T 二期期中分析達標（24 月 RFS 74%），明年 Q2 擬申請臨時藥證；台睿（6580）肝癌新藥二期估明年中完成收案；訊聯基因（4160）獲生成式 AI 金質獎並推企業年約制；華碩（2357）發表醫用超音波 AI Agent 平台（12/22 上線）。<br/>- 未來趨勢或影響分析：台灣生醫產業呈現「細胞治療取證推進」與「AI 醫療軟體商業化落地」雙主軸，SaaS 年約制與院內軟硬整合將提升醫療科技廠經常性營收比重。<br/>- 相關個股或主題：路迦生醫（6814）、台睿（6580）、訊聯基因（4160）、華碩（2357）<br/>- 新聞或報告連結：<br/>  自由財經（路迦）：https://www.google.com/url?q=https://ec.ltn.com.tw/article/breakingnews/5653174&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/>  自由財經（台睿）：https://www.google.com/url?q=https://ec.ltn.com.tw/article/breakingnews/5652025&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/>  聯合新聞網（訊聯）：https://www.google.com/url?q=https://udn.com/news/story/7240/9898494&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/>  iThome（華碩）：https://www.google.com/url?q=https://www.ithome.com.tw/pr/180774&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/><br/>四、 消費、零售與傳統產業動態<br/><br/>1. 王品 (2727 TT)：漲價與展店效益發酵，營益率回升在望<br/>- 內容摘要及前因後果：受原物料、薪資及電費上漲影響，3Q26 EPS 4.46 元略低於預期；公司 9–11 月陸續調漲台灣售價 4.0%–5.35% 且來客數穩健，年底台灣店數達 384 家（年增 7%），中國市場則轉以維持獲利為首要目標。<br/>- 未來趨勢或影響分析：漲價效益與展店將帶動營益率自 4Q26 起重返年增，預估 2026–28 年獲利年複合成長 11%，現金殖利率達 8% 具防禦性，凱基維持「增加持股」（目標價 285 元）。<br/>- 相關個股或主題：王品（2727 TT）、連鎖餐飲內需消費<br/>- 新聞或報告連結：<br/>  王品報告 PDF：https://www.google.com/url?q=https://drive.google.com/file/d/16uMhB0zn_6GmpRN4OajRYanE3wnmdcg1/view?usp%3Ddrivesdk&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/><br/>2. 中傑-KY (6965 TT)：關稅與品牌調整壓力下，加速非中產能布局<br/>- 內容摘要及前因後果：全球製鞋景氣平淡，品牌要求工廠分攤關稅（主力客戶 New Balance 銷量恐觸頂），公司審慎看待 2027 年營收，但透過篩選高毛利訂單並擴增非中國產能（新客戶 Asics 包下印度部分產能、Columbia 簽訂印尼新廠三年包廠合約），目標 2027 年非中國產能占比逾五成。<br/>- 未來趨勢或影響分析：運動鞋品牌版圖洗牌（傳統大廠受 On、Hoka 侵蝕），代工廠短期面臨關稅與轉型費用逆風，凱基維持「持有」（目標價 57.7 元），期待 2028 年迎接復甦。<br/>- 相關個股或主題：中傑-KY（6965 TT）、Asics、New Balance、Columbia<br/>- 新聞或報告連結：<br/>  中傑-KY 報告 PDF：https://www.google.com/url?q=https://drive.google.com/file/d/1PNoU7oDluJfnrhXR3I7pQxigqOdTV6H3/view?usp%3Ddrivesdk&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E<br/><br/>3. 高端體驗消費潮：精品資金流向頂級飯店<br/>- 內容摘要及前因後果：過去數年逾六千萬名消費者退出精品市場，消費力轉向「頂級住宿體驗」，推升全球豪華飯店平均房價雙位數成長；台北信義區因頂級客房稀缺吸引國際品牌進駐並拉高房價天花板。<br/>- 未來趨勢或影響分析：具備核心地段資產與輕資產管理服務轉型的本土飯店龍頭，將受惠於房價結構性上移帶來的獲利升級。<br/>- 相關個股或主題：晶華（2707 TT）、雲品（2748 TT）、萬豪國際（MAR US）<br/>- 新聞或報告連結：<br/>  富果研究：https://www.google.com/url?q=https://www.fugle.tw/&amp;source=gmail&amp;ust=1795784468994000&amp;sa=E</div></body></html>"
+    "title": "【Info Hub】2026/11/26 早報",
+    "updatedAt": "2026-11-26 07:30",
+    "sections": [
+      {
+        "category": "總體經濟與美台股市場動態",
+        "items": [
+          {
+            "title": "美擬課「產能過剩」關稅，301 調查結果最快本週宣布",
+            "summary": "川普政府認為中國、台灣等 16 國扶持本國產業造成的產能過剩損害美國企業，擬透過 301 調查加徵關稅；台灣正力拚最終稅率壓低至 15%。同時中國商務部公告延長對美鎵、鍺、銻及石墨等關鍵材料出口禁令暫停期。",
+            "trend": "關稅不確定性再起使美股半導體與亞太出口鏈承壓，若最終稅率高於 15% 將影響台廠對美出口報價與毛利結構，企業須加速非中、非台產能配置。",
+            "tickers": "台灣出口製造業、半導體與關鍵材料供應鏈",
+            "links": [
+              {
+                "label": "經濟日報：美擬課產能過剩稅",
+                "url": "https://money.udn.com/money/story/7307/9899819"
+              },
+              {
+                "label": "WSJ：美國擬對中台等國加徵關稅",
+                "url": "https://cn.wsj.com/articles/WP-WSJT-0004093095"
+              },
+              {
+                "label": "WSJ：中國延長關鍵材料禁令暫停期",
+                "url": "https://cn.wsj.com/articles/WP-WSJT-0004090807"
+              }
+            ]
+          },
+          {
+            "title": "AI 評價疑慮與 Anthropic 破發引爆費半重挫",
+            "summary": "黃仁勳回任輝達執行長一度激勵週一美股大漲及週二台股創紀錄狂飆 3,310 點站回 4 萬點；惟週二 Anthropic（ANT）跌破 83 美元 IPO 發行價，疊加記憶體報價修正與關稅變數，引發費半指數單日重挫近 8%、美光暴跌逾 10%。台經院亦提醒供應鏈面臨訂單轉化為現金流的驗收考驗。",
+            "trend": "市場對 AI 交易從「全面追價」轉為「嚴格檢視資本支出回報」，高估值半導體短線波動劇烈；資金轉向高品質價值股、大型龍頭與中短天期投資級債。",
+            "tickers": "輝達 (NVDA)、Anthropic (ANT)、美光 (MU)、台積電 (2330)",
+            "links": [
+              {
+                "label": "經濟日報：黃仁勳回鍋三大考驗",
+                "url": "https://money.udn.com/money/story/5599/9899803"
+              },
+              {
+                "label": "WSJ：Anthropic 跌破 83 美元發行價",
+                "url": "https://cn.wsj.com/articles/WP-WSJT-0004092927"
+              },
+              {
+                "label": "台經院：黃仁勳回歸與 AI 風險",
+                "url": "https://vos.tier.org.tw/Viewpoint03More.aspx?DGUID=604ffe17-dcac-4aea-923d-f750e597a803"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category": "科技硬體、AI 伺服器與衛星產業",
+        "items": [
+          {
+            "title": "美國衛星產業與 SpaceX (SPCX US)：火箭成本優勢與 AI 算力雙引擎",
+            "summary": "全球在軌衛星達 1.7 萬顆（SpaceX 佔 70%）。隨 Starship 推進回收復用測試，每公斤發射成本將降至 258 美元（較 Falcon 9 降 82%）。此外，SpaceX 與 Anthropic、Google 等簽訂 AI 算力租賃合約，4Q26 相關營收將季增 171% 至 114 億美元。",
+            "trend": "1H27 觀察火箭測試進度，2H27 Starship 商用化並部署 V3 衛星後，傳輸成本將大降 90%，帶動用戶數朝 3–4 億人滲透。凱基首選 SpaceX（目標價 227 美元），台股首選 V3 衛星 PCB 供應商華通。",
+            "tickers": "SpaceX (SPCX US)、華通 (2313 TT)、台光電 (2383 TT)、台燿 (6274 TT)",
+            "links": [
+              {
+                "label": "衛星產業報告 PDF",
+                "url": "https://drive.google.com/file/d/1GkT6Guvd01He2oseejAVLPoJCvbXba4y/view?usp=drivesdk"
+              },
+              {
+                "label": "SpaceX 個股報告 PDF",
+                "url": "https://drive.google.com/file/d/1lxfFUC-UN5zD801eYNoPk6wE6ghcfg-t/view?usp=drivesdk"
+              }
+            ]
+          },
+          {
+            "title": "嘉澤 (3533 TT)：伺服器平台升級與液冷快接頭（QD）放量",
+            "summary": "4Q26 伺服器出貨朝 2Q26 水準回升，預估單季營收季增 4%。水冷快接頭（QD）供不應求，營收占比由 1H26 不足 1% 升至 4Q26 至少 3%，越南廠已通過客戶認證加入擴產。",
+            "trend": "隨 AMD Venice 與 Intel Oak Stream 新平台於 2027 年放量（Socket ASP 增逾 15%），以及 QD 營收占比目標突破 10%，凱基預估 2027 年 EPS 年增 56% 至 115.77 元，維持「增加持股」（目標價 2,370 元）。",
+            "tickers": "嘉澤 (3533 TT)、伺服器 CPU 插槽、水冷快接頭 (QD)",
+            "links": [
+              {
+                "label": "嘉澤法說報告 PDF",
+                "url": "https://drive.google.com/file/d/1EsY1q_8_FAC_97vlOy8Skcw3ZA-H9_ny/view?usp=drivesdk"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category": "消費、零售與傳統產業動態",
+        "items": [
+          {
+            "title": "王品 (2727 TT)：漲價與展店效益發酵，營益率回升在望",
+            "summary": "受原物料、薪資及電費上漲影響，3Q26 EPS 4.46 元略低於預期；公司 9–11 月陸續調漲台灣售價 4.0%–5.35% 且來客數穩健，年底台灣店數達 384 家（年增 7%），中國市場則轉以維持獲利為首要目標。",
+            "trend": "漲價效益與展店將帶動營益率自 4Q26 起重返年增，預估 2026–28 年獲利年複合成長 11%，現金殖利率達 8% 具防禦性，凱基維持「增加持股」（目標價 285 元）。",
+            "tickers": "王品 (2727 TT)、連鎖餐飲內需消費",
+            "links": [
+              {
+                "label": "王品個股報告 PDF",
+                "url": "https://drive.google.com/file/d/16uMhB0zn_6GmpRN4OajRYanE3wnmdcg1/view?usp=drivesdk"
+              }
+            ]
+          },
+          {
+            "title": "中傑-KY (6965 TT)：關稅與品牌調整壓力下，加速非中產能布局",
+            "summary": "全球製鞋景氣平淡，品牌要求工廠分攤關稅（主力客戶 New Balance 銷量恐觸頂），公司審慎看待 2027 年營收，但透過篩選高毛利訂單並擴增非中國產能（新客戶 Asics 包下印度部分產能、Columbia 簽訂印尼新廠三年包廠合約），目標 2027 年非中國產能占比逾五成。",
+            "trend": "運動鞋品牌版圖洗牌（傳統大廠受 On、Hoka 侵蝕），代工廠短期面臨關稅與轉型費用逆風，凱基維持「持有」（目標價 57.7 元），期待 2028 年迎接復甦。",
+            "tickers": "中傑-KY (6965 TT)、Asics、New Balance、Columbia",
+            "links": [
+              {
+                "label": "中傑-KY 法說報告 PDF",
+                "url": "https://drive.google.com/file/d/1PNoU7oDluJfnrhXR3I7pQxigqOdTV6H3/view?usp=drivesdk"
+              }
+            ]
+          },
+          {
+            "title": "高端體驗消費潮：精品資金流向頂級飯店",
+            "summary": "過去數年逾六千萬名消費者退出精品市場，消費力轉向「頂級住宿體驗」，推升全球豪華飯店平均房價雙位數成長；台北信義區因頂級客房稀缺吸引國際品牌進駐並拉高房價天花板。",
+            "trend": "具備核心地段資產與輕資產管理服務轉型的本土飯店龍頭，將受惠於房價結構性上移帶來的獲利升級。",
+            "tickers": "晶華 (2707 TT)、雲品 (2748 TT)、萬豪國際 (MAR US)",
+            "links": [
+              {
+                "label": "富果研究：頂級飯店業投資機會",
+                "url": "https://blog.fugle.tw/post/luxury-hotel-industry-analysis"
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]
