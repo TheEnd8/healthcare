@@ -34,7 +34,7 @@
           <i data-lucide="globe" class="w-5 h-5 text-sky-300"></i>
         </div>
         <div class="min-w-0">
-          <div class="flex items-center gap-2"><h1 class="text-base sm:text-lg font-extrabold tracking-tight truncate">Global &amp; Healthcare Info Hub</h1><span class="px-1.5 py-0.5 rounded bg-sky-500/30 border border-sky-400/40 text-[10px] font-bold text-sky-200 shrink-0">v5.1</span></div>
+          <div class="flex items-center gap-2"><h1 class="text-base sm:text-lg font-extrabold tracking-tight truncate">Global &amp; Healthcare Info Hub</h1><span class="px-1.5 py-0.5 rounded bg-sky-500/30 border border-sky-400/40 text-[10px] font-bold text-sky-200 shrink-0">v5.2</span></div>
           <p class="text-xs text-slate-300 truncate">全產業研報 × 全球生醫情報｜每日 07:30・16:30 同步</p>
         </div>
       </div>
@@ -881,7 +881,14 @@
       `;
     }
 
-    function renderTableBlock(title, dotColor, accentCls, headers, rowsHtml) {
+    function renderTableBlock(title, dotColor, accentCls, headers, rowsHtml, colWidths) {
+      const hasWidths = Array.isArray(colWidths) && colWidths.length === headers.length;
+      const colgroupHtml = hasWidths
+        ? `<colgroup>${colWidths.map(w => `<col style="width:${w}">`).join('')}</colgroup>`
+        : '';
+      const tableCls = hasWidths
+        ? 'w-full min-w-[780px] lg:min-w-0 lg:table-fixed text-left border-collapse text-xs sm:text-sm'
+        : 'w-full text-left border-collapse text-xs sm:text-sm';
       return `
         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
           <div class="px-4 py-2.5 border-b border-slate-200 ${accentCls}">
@@ -891,10 +898,11 @@
             </h3>
           </div>
           <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+            <table class="${tableCls}">
+              ${colgroupHtml}
               <thead>
                 <tr class="bg-slate-50/70 text-slate-500 border-b border-slate-200">
-                  ${headers.map(h => `<th class="py-2 px-3 font-semibold whitespace-nowrap">${h}</th>`).join('')}
+                  ${headers.map((h, i) => `<th class="py-2 ${i === 0 && hasWidths && colWidths[0] === '5%' ? 'px-1.5 text-center' : 'px-2.5'} font-semibold whitespace-nowrap">${h}</th>`).join('')}
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100">${rowsHtml}</tbody>
@@ -1283,37 +1291,49 @@
       let out = '';
       if (state.viewMode === 'table') {
         if (showCo) {
-          // 依國家歸組（單一表格內使用精簡群組分隔列），前兩欄極致壓縮，約 80% 空間留給「摘要、短評與來源」
+          // 壓縮前 5 欄（關注 5% / 國家領域 12% / 標的代號 13% / 股價漲跌 11% / 日期 8%），保留 51% 寬度予「摘要、短評與來源」
           const coGroups = groupBiotechList(co, 'country');
           let rowsHtml = '';
           coGroups.forEach(([gTitle, gList], gIdx) => {
             if (state.groupBy !== 'flat') {
-              rowsHtml += `<tr class="bg-sky-50/75 border-y border-sky-200/80"><td colspan="3" class="py-1.5 px-3 text-xs font-extrabold text-sky-900">${escapeHtml(gTitle)}（${gList.length}）</td></tr>`;
+              rowsHtml += `<tr class="bg-sky-50/75 border-y border-sky-200/80"><td colspan="6" class="py-1.5 px-3 text-xs font-extrabold text-sky-900">${escapeHtml(gTitle)}（${gList.length}）</td></tr>`;
             }
             rowsHtml += gList.map((item, idx) => {
               const key = `bio-co-${gIdx}-${idx}`, isOpen = Boolean(state.expandedIds[key]);
               const shortDate = (normDate(item.date) || item.date || '').replace(/^\d{4}-/, '').replace('-', '/');
-              const hasPrice = item.price && item.price !== '—';
+              const cMeta = COUNTRY_MAP[item._country] || COUNTRY_MAP.GL;
               return `<tr class="${item._isWL ? 'bg-amber-50/50' : 'bg-white'} hover:bg-slate-50/80">
-                <td class="py-2.5 px-2 align-top text-center w-8">
+                <td class="py-2 px-1.5 align-top text-center">
                   <button type="button" data-wl-toggle="${escapeHtml(item.ticker || item.name)}" title="加入或移除關注股" class="wl-star-btn text-base leading-none cursor-pointer ${item._isWL ? 'text-amber-500' : 'text-slate-300 hover:text-amber-400'}">${item._isWL ? '★' : '☆'}</button>
                 </td>
-                <td class="py-2.5 px-2.5 align-top whitespace-nowrap w-[1%] max-w-[190px]">
-                  <div class="font-bold text-slate-900 text-xs sm:text-sm">${highlightText(item.name, q)} <span class="text-[11px] font-mono font-normal text-slate-500">${highlightText(item.ticker, q)}</span></div>
-                  <div class="text-[11px] mt-0.5 flex items-center gap-1.5 text-slate-500">
-                    ${hasPrice ? `<span class="font-semibold text-slate-700">${escapeHtml(item.price)}</span>` : ''}
-                    <span class="${changeColor(item.change)}">${escapeHtml(item.change)}</span>
-                    <span class="text-slate-400">${escapeHtml(shortDate)}</span>
-                  </div>
+                <td class="py-2 px-2 align-top text-[11px] leading-tight space-y-0.5 break-words">
+                  <div class="font-semibold text-slate-700">${cMeta.flag} ${escapeHtml(cMeta.label)}</div>
+                  <div class="text-slate-500">${escapeHtml(item._domain)}</div>
                 </td>
-                <td class="py-2.5 px-3 align-top text-slate-700 leading-relaxed w-full">
+                <td class="py-2 px-2 align-top leading-tight break-words">
+                  <div class="font-bold text-slate-900 text-xs">${highlightText(item.name, q)}</div>
+                  <div class="text-[11px] font-mono text-slate-500">${highlightText(item.ticker, q)}</div>
+                </td>
+                <td class="py-2 px-2 align-top text-xs leading-tight break-words">
+                  <div class="font-medium text-slate-800">${escapeHtml(item.price)}</div>
+                  <div class="text-[11px] ${changeColor(item.change)}">${escapeHtml(item.change)}</div>
+                </td>
+                <td class="py-2 px-2 align-top whitespace-nowrap text-[11px] text-slate-500">${escapeHtml(shortDate)}</td>
+                <td class="py-2 px-3 align-top text-slate-700 leading-relaxed break-words">
                   <div>${highlightText(item.summary, q)} <button type="button" data-toggle="${key}" class="expand-btn ml-1 text-xs font-semibold text-sky-600 hover:underline cursor-pointer">${isOpen ? '收合短評' : '展開短評'}</button> <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ml-1 text-xs text-sky-600 font-semibold hover:underline whitespace-nowrap">↗ ${escapeHtml(item.source)}</a></div>
                   ${isOpen ? `<div class="mt-2 p-2.5 rounded-lg bg-sky-50/80 border border-sky-200 text-xs text-slate-700"><b>短評與意涵：</b>${highlightText(item.analysis || item.summary, q)}</div>` : ''}
                 </td>
               </tr>`;
             }).join('');
           });
-          out += renderTableBlock(`公司重大事件（${co.length}）`, 'bg-sky-500', 'border-l-4 border-l-sky-500 bg-sky-50/85', ['★', '標的／報價', '摘要、短評與來源'], rowsHtml);
+          out += renderTableBlock(
+            `公司重大事件（${co.length}）`,
+            'bg-sky-500',
+            'border-l-4 border-l-sky-500 bg-sky-50/85',
+            ['關注', '國家／領域', '標的 / 代號', '股價與漲跌', '日期', '摘要、短評與來源'],
+            rowsHtml,
+            ['5%', '12%', '13%', '11%', '8%', '51%']
+          );
         }
 
         if (showReg) {
