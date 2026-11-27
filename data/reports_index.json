@@ -1,5 +1,692 @@
 [
   {
+    "id": "2026-11-27-am",
+    "date": "2026/11/27",
+    "session": "早報",
+    "headline": "NMPA 單日連批 4 款創新藥（含 GSK 慢性 B 肝功能性治癒新藥）、英國 MHRA 安全警訊、今日（11/27）FDA 雙重 PDUFA 決策日（註：昨",
+    "topics": [
+      "GSK GSK",
+      "BAYRY Bayer",
+      "AMGN 小野藥品 / BMS / Amgen 4528.T / BMY /",
+      "FARN Faron Pharma",
+      "NMPA",
+      "UK MHRA",
+      "FDA"
+    ],
+    "co": [
+      {
+        "ticker": "GSK",
+        "name": "GSK",
+        "price": "$50.76 ▲ +1.36% (11/25 美收盤；11/26 美股休市)",
+        "change": "▲",
+        "date": "2026/11/26",
+        "summary": "宣布旗下反義寡核苷酸（ASO）新藥 Hibsago（bepirovirsen） 獲中國 NMPA 核准上市，成為全球首款針對慢性 B 型肝炎（CHB）之功能性治癒突破性療法，搶攻中國約 7,500 萬名患者市場。",
+        "url": "https://www.google.com/url?q=https://kalkinemedia.com/uk/news/announcements/gsk-secures-china-nmpa-approval-for-hibsago-bepirovirsen-a-breakthrough-functional-cure-for-chronic-hepatitis-b&amp;source=gmail&amp;ust=1795821481818000&amp;sa=E",
+        "source": "[KalkineMedia]",
+        "watchlist": false
+      },
+      {
+        "ticker": "BAYRY",
+        "name": "Bayer",
+        "price": "$14.08 ▼ -2.15% (11/25 美 ADR 收盤)",
+        "change": "▼",
+        "date": "2026/11/26",
+        "summary": "繼前一日 32.5 億美元授權引進翰森雙抗 ADC 後，再宣布投資最高 5.49 億美元 擴建中國藥品製造基地。",
+        "url": "https://www.google.com/url?q=https://www.morningstar.com/news/dow-jones/202611262410/bayer-to-invest-up-to-549-million-in-china-drug-manufacturing-site&amp;source=gmail&amp;ust=1795821481818000&amp;sa=E",
+        "source": "[Morningstar]",
+        "watchlist": false
+      },
+      {
+        "ticker": "AMGN",
+        "name": "小野藥品 / BMS / Amgen 4528.T / BMY /",
+        "price": "BMY $61.56 ▼ -0.74% AMGN $469.24 ▼ -0.99% (11/25 美收盤)",
+        "change": "▼",
+        "date": "2026/11/25",
+        "summary": "小野藥品與合作夥伴百時美施貴寶（BMS）宣布與安進（Amgen）就抗 PD-1 抗體 Opdivo (nivolumab) 之美國專利侵權訴訟達成和解。",
+        "url": "https://www.google.com/url?q=https://pj.jiho.jp/&amp;source=gmail&amp;ust=1795821481818000&amp;sa=E",
+        "source": "[PHARMA JAPAN]",
+        "watchlist": false
+      },
+      {
+        "ticker": "FARN",
+        "name": "Faron Pharma",
+        "price": "— (11/26 官方公告)",
+        "change": "●",
+        "date": "2026/11/26",
+        "summary": "宣布抗 Clever-1 單抗 bexmarilimab 用於初治高風險骨髓增生異常症候群（HR-MDS）之 Phase 2b BEXERA 試驗完成首位患者給藥。",
+        "url": "https://www.google.com/url?q=https://www.tradingview.com/news/modular_finance:cd43b5dcfbb15:0-faron-announces-first-patient-dosed-in-phase-2b-bexmarilimab-in-treatment-na-ve-hr-mds/&amp;source=gmail&amp;ust=1795821481818000&amp;sa=E",
+        "source": "[TradingView]",
+        "watchlist": false
+      },
+      {
+        "ticker": "4105.TW",
+        "name": "路迦生醫 / 仲恩生醫 / 東洋 6814.TWO / 7729.TWO /",
+        "price": "路迦 NT$26.50 ▲ +31.84% 仲恩 NT$231.00 ▲ +18.16% (11/26 臺股收盤)",
+        "change": "▲",
+        "date": "2026/11/26",
+        "summary": "受再生醫療期中數據與雙法題材發酵，細胞治療族群全面噴出；台灣東洋（4105）亦揭示 Cubiyo、Tedizo 抗生素與 Lipo-AB 海外出貨及疫苗接棒，2027 年營運看俏。",
+        "url": "https://www.google.com/url?q=https://www.genetinfo.com/investment/featured/item/99589.html&amp;source=gmail&amp;ust=1795821481818000&amp;sa=E",
+        "source": "[Genet 觀點]",
+        "watchlist": false
+      }
+    ],
+    "reg": [
+      {
+        "agency": "NMPA",
+        "date": "2026/11/26",
+        "title": "GSK：貝普若韋生鈉注射液（Hibsago） 上海盟科：乙磷康替唑胺鈉（優喜泰） 另兩款：利奈昔巴特片、氘瑪巴洛沙韋片",
+        "detail": "貝普若韋生鈉獲批慢性 B 肝功能性治癒（聯用核苷酸類似物）；盟科藥業 1 類新藥優喜泰獲批治療複雜性皮膚及軟組織感染；利奈昔巴特片與氘瑪巴洛沙韋片同日獲 NMPA 核准上市。",
+        "url": "https://www.google.com/url?q=https://www.nmpa.gov.cn/zhuanti/cxylqx/index.html?type%3Dpc%26m%3D&amp;source=gmail&amp;ust=1795821481818000&amp;sa=E",
+        "source": "[NMPA 官網]"
+      },
+      {
+        "agency": "UK MHRA",
+        "date": "2026/11/26",
+        "title": "Duvyzat (givinostat) DMD 口服 HDAC 抑制劑",
+        "detail": "因英國以外國際上市後出現死亡個案通報，MHRA 發布 11 月安全警訊，規定處方前與治療期間須執行 12 導程心電圖、24 小時 Holter 與定期血清電解質監測，並禁用於高心律不整風險族群。",
+        "url": "https://www.google.com/url?q=https://casrai.org/news/mhra-november-2026-safety-roundup-givinostat-duvyzat-drug-device-alerts&amp;source=gmail&amp;ust=1795821481818000&amp;sa=E",
+        "source": "[CASRAI / MHRA]"
+      },
+      {
+        "agency": "FDA",
+        "date": "2026/11/27 (今日 PDUFA)",
+        "title": "Nuvalent (NUVL) Neladalkib (NVL-655)",
+        "detail": "治療曾接受 TKI 之 ALK 陽性晚期 NSCLC；ALKOVE-1 試驗整體 ORR 31%（lorlatinib 初治達 46%、G1202R 突變達 68%–83%）。",
+        "url": "https://www.google.com/url?q=https://www.onclive.com/view/fda-grants-priority-review-to-neladalkib-for-tki-pretreated-alk-nsclc&amp;source=gmail&amp;ust=1795821481818000&amp;sa=E",
+        "source": "[OncLive]"
+      },
+      {
+        "agency": "FDA",
+        "date": "2026/11/27 (今日 PDUFA)",
+        "title": "Zydus Therapeutics Saroglitazar",
+        "detail": "治療原發性膽汁性膽管炎（PBC）；Phase 3 EPICS-III 試驗生化反應率達 56.7%（安慰劑 9.8%，p&lt;0.001），ALP 顯著下降 33.5%。",
+        "url": "https://www.google.com/url?q=https://www.prnewswire.com/news-releases/zydus-therapeutics-new-drug-application-nda-for-saroglitazar-to-treat-primary-biliary-cholangitis-pbc-granted-priority-review-by-the-us-fda-302784488.html&amp;source=gmail&amp;ust=1795821481818000&amp;sa=E",
+        "source": "[PR Newswire]"
+      }
+    ],
+    "cat": [
+      {
+        "asset": "GSK Hibsago (bepirovirsen)",
+        "type": "商業里程碑",
+        "date": "2026/11/26",
+        "outcome": "優於預期",
+        "note": "率先取得中國 NMPA 慢性 B 肝功能性治癒藥證，建立龐大亞太市場先發優勢。",
+        "url": "https://www.google.com/url?q=https://kalkinemedia.com/uk/news/announcements/gsk-secures-china-nmpa-approval-for-hibsago-bepirovirsen-a-breakthrough-functional-cure-for-chronic-hepatitis-b&amp;source=gmail&amp;ust=1795821481818000&amp;sa=E",
+        "source": "[KalkineMedia]"
+      },
+      {
+        "asset": "上海盟科藥業 優喜泰（乙磷康替唑胺鈉）",
+        "type": "商業里程碑",
+        "date": "2026/11/26",
+        "outcome": "符合預期",
+        "note": "1 類創新抗菌靜脈注射劑獲 NMPA 核准上市，擴展抗耐藥菌產品線。",
+        "url": "https://www.google.com/url?q=https://www.nmpa.gov.cn/zhuanti/cxylqx/cxypxx/20261126172300168.html&amp;source=gmail&amp;ust=1795821481818000&amp;sa=E",
+        "source": "[NMPA]"
+      },
+      {
+        "asset": "Nuvalent (NUVL) Neladalkib",
+        "type": "PDUFA 監管決策",
+        "date": "2026/11/27 (今日)",
+        "outcome": "待驗證",
+        "note": "優先審查目標決策日，若獲批將成為 ALK+ NSCLC 重要次世代精準標靶藥。",
+        "url": "https://www.google.com/url?q=https://www.onclive.com/view/fda-grants-priority-review-to-neladalkib-for-tki-pretreated-alk-nsclc&amp;source=gmail&amp;ust=1795821481818000&amp;sa=E",
+        "source": "[OncLive]"
+      },
+      {
+        "asset": "Zydus Therapeutics Saroglitazar",
+        "type": "PDUFA 監管決策",
+        "date": "2026/11/27 (今日)",
+        "outcome": "待驗證",
+        "note": "PBC 口服新藥優先審查 PDUFA 日，若核准預計 2027 年 3 月在美上市。",
+        "url": "https://www.google.com/url?q=https://www.prnewswire.com/news-releases/zydus-therapeutics-new-drug-application-nda-for-saroglitazar-to-treat-primary-biliary-cholangitis-pbc-granted-priority-review-by-the-us-fda-302784488.html&amp;source=gmail&amp;ust=1795821481818000&amp;sa=E",
+        "source": "[PR Newswire]"
+      }
+    ],
+    "deep": []
+  },
+  {
+    "id": "2026-11-26-pm",
+    "date": "2026/11/26",
+    "session": "晚報",
+    "headline": "亞太／臺股本日（2026/11/26）收盤強勢反彈、中國醫保雙目錄與 CAR-T 納入、百濟神州／諾華合作擴張與歐日藥監最新動態（註：今日美股感恩節休市，資料區",
+    "topics": [
+      "6446.TW 藥華藥",
+      "6472.TW 視陽／保瑞／生醫族群 6782.TW /",
+      "NVS 百濟神州 / 諾華 ONC / 06160.HK /",
+      "4563.T AnGes",
+      "中國醫保／NMPA 關聯",
+      "FDA",
+      "EMA / 歐盟 GMP"
+    ],
+    "co": [
+      {
+        "ticker": "6446.TW",
+        "name": "藥華藥",
+        "price": "NT$1,175.00 ▲ +9.30% (11/26 臺股收盤)",
+        "change": "▲",
+        "date": "2026/11/26",
+        "summary": "昨回測後今日盤中強攻漲停 1,180 元，終場大漲 100 元收 1,175 元；法人看好 Ropeg 在 PV 與 ET 雙引擎帶動下（前 3 季 EPS 18.43 元、10 月營收創高），帶動生醫指數大漲逾 4.5%。",
+        "url": "https://www.google.com/url?q=https://www.wantgoo.com/stock/6446/technical-chart&amp;source=gmail&amp;ust=1795773126919000&amp;sa=E",
+        "source": "[玩股網]",
+        "watchlist": true
+      },
+      {
+        "ticker": "6472.TW",
+        "name": "視陽／保瑞／生醫族群 6782.TW /",
+        "price": "視陽 ▲ +7%+ 保瑞 ▲ +3.5~4.7% (11/26 盤中/收盤族群)",
+        "change": "▲",
+        "date": "2026/11/26",
+        "summary": "隱形眼鏡大廠視陽（6782）受惠 Q3 及前 3 季 EPS 創歷史新高、日本矽水膠彩拋動能強勁，盤中狂飆逾 7%；心誠鎂（6934）、雃博（4106）及保瑞（6472）同步走高 3.5%–4.7%。",
+        "url": "https://www.google.com/url?q=https://www.yuanta.com.tw/eYuanta/Securities/News/GetAPItem?Type%3DStockTodayNews%26id%3D202611260133848&amp;source=gmail&amp;ust=1795773126919000&amp;sa=E",
+        "source": "[元大證券]",
+        "watchlist": false
+      },
+      {
+        "ticker": "NVS",
+        "name": "百濟神州 / 諾華 ONC / 06160.HK /",
+        "price": "ONC $414.79 ▼ -0.20% NVS $155.29 ▲ +0.58% (11/25 美收盤；11/26 港股 ▲+2%+)",
+        "change": "▲",
+        "date": "2026/11/26",
+        "summary": "宣布拓展與諾華（Novartis）在中國的腫瘤商業化合作，諾華將 BRAF/MEK 雙標靶藥物 Tafinlar®（泰菲樂）與 Mekinist®（邁吉寧）之中國商業化權益移交予百濟神州。",
+        "url": "https://www.google.com/url?q=https://www.moomoo.com/hans/news/post/1005834411&amp;source=gmail&amp;ust=1795773126919000&amp;sa=E",
+        "source": "[Moomoo]",
+        "watchlist": false
+      },
+      {
+        "ticker": "4563.T",
+        "name": "AnGes",
+        "price": "¥24.00 ● 0.00% (11/24 參考價)",
+        "change": "●",
+        "date": "2026/11/25–26",
+        "summary": "宣布 FDA 已接受其 HGF 基因療法治療周邊動脈疾病慢性威脅肢體缺血（CLTI）之滾動式 BLA 遞交計畫，首批申請資料預計 2026 年 12 月送件。",
+        "url": "https://www.google.com/url?q=https://tokyobrief.com/articles/anges-fda-rolling-submission-hgf-gene-therapy-december&amp;source=gmail&amp;ust=1795773126919000&amp;sa=E",
+        "source": "[TokyoBrief]",
+        "watchlist": false
+      },
+      {
+        "ticker": "PANACEABIO.NS",
+        "name": "Panacea Biotec",
+        "price": "— (11/26 交易所公告)",
+        "change": "●",
+        "date": "2026/11/26",
+        "summary": "獲歐盟主管機關撤回 Baddi 廠區之不合規報告，EU GMP 認證恢復 3 年效期，將重啟德國與歐盟市場藥品供應。",
+        "url": "https://www.google.com/url?q=https://nsearchives.nseindia.com/corporate/PANACEABIO_26112026130307_IntimationforwithdrawalofnoncompliancereportbyNCPHP.pdf&amp;source=gmail&amp;ust=1795773126919000&amp;sa=E",
+        "source": "[NSE 公告]",
+        "watchlist": false
+      },
+      {
+        "ticker": "6929.TWO",
+        "name": "佑全",
+        "price": "— (11/26 線上法說會)",
+        "change": "●",
+        "date": "2026/11/26",
+        "summary": "台灣連鎖藥局與健康通路代表佑全（6929）今日受元大證券邀請召開線上法人說明會，說明營運現況與門市通路擴張方向。",
+        "url": "https://www.google.com/url?q=https://www.genetinfo.com/investment/company-news/item/99568.html&amp;source=gmail&amp;ust=1795773126919000&amp;sa=E",
+        "source": "[Genet 觀點]",
+        "watchlist": false
+      }
+    ],
+    "reg": [
+      {
+        "agency": "中國醫保／NMPA 關聯",
+        "date": "2026/11/26",
+        "title": "2026 版國家醫保目錄 & 商保創新藥目錄",
+        "detail": "基本醫保新增 107 種藥品、包含 51 個 1 類創新藥，並首度將 CAR-T 療法納入基本醫保；商業保險創新藥目錄同步擴容至 28 種並建立雙向銜接機制。",
+        "url": "https://www.google.com/url?q=https://www.jiemian.com/article/15376335.html&amp;source=gmail&amp;ust=1795773126919000&amp;sa=E",
+        "source": "[界面新聞]"
+      },
+      {
+        "agency": "FDA",
+        "date": "2026/11/25–26",
+        "title": "AnGes (4563.T) HGF 基因療法",
+        "detail": "FDA 同意其慢性威脅肢體缺血（CLTI）基因療法採滾動式 BLA 遞交，2026 年 12 月啟動首批資料送件。",
+        "url": "https://www.google.com/url?q=https://tokyobrief.com/articles/anges-fda-rolling-submission-hgf-gene-therapy-december&amp;source=gmail&amp;ust=1795773126919000&amp;sa=E",
+        "source": "[TokyoBrief]"
+      },
+      {
+        "agency": "EMA / 歐盟 GMP",
+        "date": "2026/11/26",
+        "title": "Panacea Biotec Baddi 製造廠",
+        "detail": "撤回先前之 EU GMP 不合規報告，認證恢復 3 年效期，重啟德國與歐盟市場供應。",
+        "url": "https://www.google.com/url?q=https://nsearchives.nseindia.com/corporate/PANACEABIO_26112026130307_IntimationforwithdrawalofnoncompliancereportbyNCPHP.pdf&amp;source=gmail&amp;ust=1795773126919000&amp;sa=E",
+        "source": "[NSE 公告]"
+      },
+      {
+        "agency": "歐盟／EU MDR",
+        "date": "2026/11/26",
+        "title": "EU Biotech Act I & EU MDR 臨床證據規範",
+        "detail": "歐洲生技與醫材界聚焦 EU Biotech Act I 加速審批機制與 EU MDR 歐洲臨床研究准入規範。",
+        "url": "https://www.google.com/url?q=https://vanberings.com/EN/preview/News/2026/EU-Biotech-Act-I-fast-tracking-approvals-and-strengthening-ReD-safeguards-in-European-life-sciences&amp;source=gmail&amp;ust=1795773126919000&amp;sa=E",
+        "source": "[Vanberings]"
+      }
+    ],
+    "cat": [
+      {
+        "asset": "百濟神州 (ONC) Tafinlar® + Mekinist®",
+        "type": "商業里程碑",
+        "date": "2026/11/26",
+        "outcome": "優於預期",
+        "note": "接手諾華兩大 BRAF/MEK 標靶藥中國商業化權益，強化實體瘤商業團隊規模效益。",
+        "url": "https://www.google.com/url?q=https://flcube.com/novartis-transfers-china-rights-of-tafinlar-and-mekinist-to-beone-medicines-four-year-commercialization-deal-reshapes-braf-mek-franchise-in-mainland-china/&amp;source=gmail&amp;ust=1795773126919000&amp;sa=E",
+        "source": "[FLCube]"
+      },
+      {
+        "asset": "AnGes (4563.T) HGF 基因療法",
+        "type": "PDUFA 監管決策",
+        "date": "2026/12",
+        "outcome": "符合預期",
+        "note": "已獲 FDA 同意滾動式 BLA 計畫，12 月遞交首批文件。",
+        "url": "https://www.google.com/url?q=https://tokyobrief.com/articles/anges-fda-rolling-submission-hgf-gene-therapy-december&amp;source=gmail&amp;ust=1795773126919000&amp;sa=E",
+        "source": "[TokyoBrief]"
+      },
+      {
+        "asset": "視陽 (6782.TW) 矽水膠彩拋／日本市場",
+        "type": "財報指引",
+        "date": "2026 Q4–2027 Q1",
+        "outcome": "優於預期",
+        "note": "法人預估全年挑戰賺進兩個股本，明年營收成長上看三成，日本市場為 Q1 主力動能。",
+        "url": "https://www.google.com/url?q=https://www.yuanta.com.tw/eYuanta/Securities/News/GetAPItem?Type%3DStockTodayNews%26id%3D202611260133848&amp;source=gmail&amp;ust=1795773126919000&amp;sa=E",
+        "source": "[元大證券]"
+      }
+    ],
+    "deep": []
+  },
+  {
+    "id": "2026-11-26-am",
+    "date": "2026/11/26",
+    "session": "早報",
+    "headline": "美股隔夜收盤（2026/11/25）、重磅跨國併購與授權、歐美藥監法規變革與最新催化劑追蹤（資料區間：2026/11/23 – 2026/11/26）",
+    "topics": [
+      "VRTX Vertex",
+      "INSM Sanofi / Insmed SNY /",
+      "3692.HK Bayer / 翰森製藥 BAYRY /",
+      "CMPS Compass Pathways",
+      "EU／歐洲議會",
+      "FDA",
+      "FDA (醫材)"
+    ],
+    "co": [
+      {
+        "ticker": "VRTX",
+        "name": "Vertex",
+        "price": "$564.12 ▲ +0.04% (11/25 收盤；盤後 $521.35 ▼ -7.58%)",
+        "change": "▲",
+        "date": "2026/11/25",
+        "summary": "公告 FDA 將 IgA 腎病變（IgAN）BLA 藥物 povetacicept 的 PDUFA 決策日由 11/30 展延至多三個月至 2027/02/28，因審查末期補件被認定為重大修訂。",
+        "url": "https://www.google.com/url?q=https://news.vrtx.com/news-releases/news-release-details/vertex-announces-extension-pdufa-target-action-date-three-months&amp;source=gmail&amp;ust=1795737503670000&amp;sa=E",
+        "source": "[Vertex 官網]",
+        "watchlist": false
+      },
+      {
+        "ticker": "INSM",
+        "name": "Sanofi / Insmed SNY /",
+        "price": "SNY $54.39 ▲ +4.80% INSM $170.31 ▲ +0.09% (11/25 美股收盤)",
+        "change": "▲",
+        "date": "2026/11/24–25",
+        "summary": "Sanofi 宣布以每股 $175 全現金（總值約 410 億美元、溢價 46%）收購 Insmed，創 2026 年最大製藥併購，取得商轉呼吸藥物 Brinsupri、Arikayce 與三期新藥 TPIP，預計 2027 H1 交割。",
+        "url": "https://www.google.com/url?q=https://www.sanofi.com/en/media-room/press-releases/2026/2026-11-24-06-30-00-3409002&amp;source=gmail&amp;ust=1795737503670000&amp;sa=E",
+        "source": "[Sanofi 官網]",
+        "watchlist": false
+      },
+      {
+        "ticker": "3692.HK",
+        "name": "Bayer / 翰森製藥 BAYRY /",
+        "price": "BAYRY $14.08 ▼ -2.15% (11/25 美股 ADR 收盤)",
+        "change": "▼",
+        "date": "2026/11/25",
+        "summary": "Bayer 宣布支付 1.5 億美元預付款及最高 31 億美元里程碑金（總額 32.5 億美元），引進翰森製藥一期 EGFR/c-MET 雙特異性 ADC HS-20122 大中華區以外全球權益。",
+        "url": "https://www.google.com/url?q=https://www.fiercebiotech.com/biotech/bayer-becomes-latest-big-pharma-head-hansoh-33b-deal-phase-1-adc&amp;source=gmail&amp;ust=1795737503670000&amp;sa=E",
+        "source": "[FierceBiotech]",
+        "watchlist": false
+      },
+      {
+        "ticker": "CMPS",
+        "name": "Compass Pathways",
+        "price": "$8.92 ▼ -0.56% (11/25 美股收盤)",
+        "change": "▼",
+        "date": "2026/11/25",
+        "summary": "正式向 FDA 遞交裸蓋菇素（psilocybin）精神科療法新藥上市申請（NDA），推動迷幻藥治療難治型憂鬱症邁向商業化審查。",
+        "url": "https://www.google.com/url?q=https://www.healthcare-brew.com/stories/compass-filed-psilocybin-drug-fda-approval&amp;source=gmail&amp;ust=1795737503670000&amp;sa=E",
+        "source": "[Healthcare Brew]",
+        "watchlist": false
+      },
+      {
+        "ticker": "6472.TW",
+        "name": "保瑞藥業",
+        "price": "NT$270.50 (11/25 臺股收盤)",
+        "change": "●",
+        "date": "2026/11/25",
+        "summary": "CDMO 全球據點永續治理獲肯定，榮獲 TCSA 台灣企業永續獎報告書金級與 MSCI ESG 評級 A 級。",
+        "url": "https://www.google.com/url?q=https://www.genetinfo.com/investment/featured/item/99564.html&amp;source=gmail&amp;ust=1795737503670000&amp;sa=E",
+        "source": "[Genet 觀點]",
+        "watchlist": false
+      },
+      {
+        "ticker": "4502.T",
+        "name": "武田藥品 Takeda TAK /",
+        "price": "$23.01 ▲ +1.81% (11/25 美股 ADR 收盤)",
+        "change": "▲",
+        "date": "2026/11/25",
+        "summary": "血漿衍生療法（PDT）部門宣布深化智慧製造與全球血漿採集數據化轉型，強化供應鏈韌性並推進居家給藥裝置創新。",
+        "url": "https://www.google.com/url?q=https://geneonline.news/%25E6%25AD%25A6%25E7%2594%25B0%25E8%2597%25A5%25E5%2593%2581%25E5%25BC%25B7%25E5%258C%2596%25E8%25A1%2580%25E6%25BC%25BF%25E7%2599%2582%25E6%25B3%2595%25E4%25BE%259B%25E6%2587%2589%25E9%258F%2588%25E8%2588%2587%25E6%258A%2580%25E8%25A1%2593%25E5%2589%25B5%25E6%2596%25B0%25E4%25BB%25A5%25E6%258F%2590%25E5%258D%2587%25E5%2585%25A8/&amp;source=gmail&amp;ust=1795737503670000&amp;sa=E",
+        "source": "[GeneOnline]",
+        "watchlist": false
+      },
+      {
+        "ticker": "2026/11/25",
+        "name": "2026/11/25",
+        "price": "美／歐",
+        "change": "●",
+        "date": "核心追蹤標的行情 減重／新藥／CDMO",
+        "summary": "11/25 美股收盤：VKTX $31.38 (▲+6.45%)｜NVO $40.97 (▲+1.64%)｜CYTK $60.58 (▲+1.14%)｜SMMT $10.59 (▲+0.86%)｜ALNY $164.73 (▲+0.07%)｜MDGL $429.75 (▼-0.01%)｜REGN $981.87 (▼-0.53%)｜DHR $227.35 (▼-0.76%)｜MRK $140.29 (▼-0.90%)｜JNJ $273.94 (▼-0.91%)｜LLY $1,392.22 (▼-1.29%)｜TMO $685.52 (▼-1.45%)",
+        "url": "",
+        "source": "來源",
+        "watchlist": false
+      }
+    ],
+    "reg": [
+      {
+        "agency": "EU／歐洲議會",
+        "date": "2026/11/25",
+        "title": "歐盟藥品改革包裹 & 關鍵藥品法案",
+        "detail": "20 年來首次大修歐盟藥品法規：新藥最高享 11 年法規保護（8 年數據保護 + 1 年市場保護 + 條件延長），開放優先抗微生物藥可轉讓獨占權憑證，並強化歐盟本土製造獎勵與防缺藥義務。",
+        "url": "https://www.google.com/url?q=https://www.pharmaceuticalcommerce.com/view/pharma-pulse-eu-adopts-pharma-reform-cms-sets-2028-negotiated-prices&amp;source=gmail&amp;ust=1795737503670000&amp;sa=E",
+        "source": "[Pharmaceutical Commerce]"
+      },
+      {
+        "agency": "FDA",
+        "date": "2026/11/25",
+        "title": "Vertex (VRTX) Povetacicept (IgAN)",
+        "detail": "因審查週期尾聲補件被歸類為重大修訂（major amendment），目標決議日由 2026/11/30 展延至不晚於 2027/02/28。",
+        "url": "https://www.google.com/url?q=https://news.vrtx.com/news-releases/news-release-details/vertex-announces-extension-pdufa-target-action-date-three-months&amp;source=gmail&amp;ust=1795737503670000&amp;sa=E",
+        "source": "[Vertex 官網]"
+      },
+      {
+        "agency": "FDA (醫材)",
+        "date": "2026/11/25",
+        "title": "3D 乳房攝影五年乳癌風險預測 AI 軟體",
+        "detail": "FDA 核准首款直接從常規 3D 數位乳房斷層攝影（DBT）影像預測女性未來五年乳癌風險之 AI 軟體，無須額外掃描或輻射暴露。",
+        "url": "https://www.google.com/url?q=https://emergent.sh/news/fda-clears-ai-software-five-year-breast&amp;source=gmail&amp;ust=1795737503670000&amp;sa=E",
+        "source": "[Emergent]"
+      },
+      {
+        "agency": "FDA",
+        "date": "2026/11/25",
+        "title": "Compass Pathways (CMPS) Psilocybin 精神科療法",
+        "detail": "完成裸蓋菇素用於難治型憂鬱症之 NDA 遞件，待 FDA 正式受理審查。",
+        "url": "https://www.google.com/url?q=https://www.healthcare-brew.com/stories/compass-filed-psilocybin-drug-fda-approval&amp;source=gmail&amp;ust=1795737503670000&amp;sa=E",
+        "source": "[Healthcare Brew]"
+      },
+      {
+        "agency": "美國 CMS",
+        "date": "2026/11/23 (11/25 產業追蹤)",
+        "title": "2028 年 Medicare 藥價談判清單（13 項）",
+        "detail": "首度納入 Part B 藥品，2028/01/01 生效；折扣自 Entyvio 34% 至 Trulicity 84%，預估淨節省 45%（92 億美元）。Xeljanz、Xolair 因仿製／相似藥上市排除，Botox 因訴訟禁制令暫免。",
+        "url": "https://www.google.com/url?q=https://www.pharmaceuticalcommerce.com/view/pharma-pulse-eu-adopts-pharma-reform-cms-sets-2028-negotiated-prices&amp;source=gmail&amp;ust=1795737503670000&amp;sa=E",
+        "source": "[Pharmaceutical Commerce]"
+      }
+    ],
+    "cat": [
+      {
+        "asset": "VRTX Povetacicept",
+        "type": "PDUFA 監管決策",
+        "date": "2027/02/28 (11/25 展延)",
+        "outcome": "低於預期",
+        "note": "原訂 2026/11/30 決議延後三個月，盤後股價回調 -7.58%，聚焦 2027 Q1 最終審批結果。",
+        "url": "https://www.google.com/url?q=https://news.vrtx.com/news-releases/news-release-details/vertex-announces-extension-pdufa-target-action-date-three-months&amp;source=gmail&amp;ust=1795737503670000&amp;sa=E",
+        "source": "[Vertex]"
+      },
+      {
+        "asset": "SNY / INSM Brinsupri & TPIP",
+        "type": "商業里程碑",
+        "date": "2027 H1 (11/24 簽約)",
+        "outcome": "優於預期",
+        "note": "410 億美元收購案預計 2027 上半年完成交割，2028 年底起貢獻 EPS 增值。",
+        "url": "https://www.google.com/url?q=https://www.sanofi.com/en/media-room/press-releases/2026/2026-11-24-06-30-00-3409002&amp;source=gmail&amp;ust=1795737503670000&amp;sa=E",
+        "source": "[Sanofi]"
+      },
+      {
+        "asset": "Bayer / 翰森 (3692.HK) HS-20122",
+        "type": "商業里程碑",
+        "date": "2026/11/25",
+        "outcome": "優於預期",
+        "note": "Phase 1 階段即完成 1.5 億美元預付款、總額 32.5 億美元跨國授權，印證中國雙抗 ADC 平台出海溢價。",
+        "url": "https://www.google.com/url?q=https://www.fiercebiotech.com/biotech/bayer-becomes-latest-big-pharma-head-hansoh-33b-deal-phase-1-adc&amp;source=gmail&amp;ust=1795737503670000&amp;sa=E",
+        "source": "[FierceBiotech]"
+      },
+      {
+        "asset": "CMPS Psilocybin (COMP360)",
+        "type": "PDUFA 監管決策",
+        "date": "2026/11/25",
+        "outcome": "符合預期",
+        "note": "完成 FDA NDA 遞件，後續關注 60 天受理通知（Filing Acceptance）與是否召開諮詢委員會。",
+        "url": "https://www.google.com/url?q=https://www.healthcare-brew.com/stories/compass-filed-psilocybin-drug-fda-approval&amp;source=gmail&amp;ust=1795737503670000&amp;sa=E",
+        "source": "[Healthcare Brew]"
+      }
+    ],
+    "deep": []
+  },
+  {
+    "id": "2026-11-25-pm",
+    "date": "2026/11/25",
+    "session": "晚報",
+    "headline": "涵蓋美、歐、日、中、澳、臺重點生醫個股動態、五大藥監審批（FDA / EMA / NMPA / TFDA / PMDA）、催化劑追蹤與深度趨勢研析（資料區間：2",
+    "topics": [
+      "6814.TWO 路迦生醫",
+      "6446.TW 藥華藥",
+      "CSL.AX CSL Ltd",
+      "7827.TW 漢康-KY創",
+      "FDA"
+    ],
+    "co": [
+      {
+        "ticker": "6814.TWO",
+        "name": "路迦生醫",
+        "price": "NT$18.40 ▼ -2.39% (11/23 參考價)",
+        "change": "▼",
+        "date": "2026/11/25",
+        "summary": "法說會公布肝細胞癌術後預防復發新藥 LuLym-T® 二期臨床期中分析（80 人）：Stage I+II 族群 12 個月 RFS 達 83%、24 個月 RFS 達 74%、OS 達 98%，目標 2027 Q2 依再生醫療雙法向 TFDA 申請五年期臨時藥證。",
+        "url": "https://www.google.com/url?q=https://ec.ltn.com.tw/article/breakingnews/5653174&amp;source=gmail&amp;ust=1795686788552000&amp;sa=E",
+        "source": "[自由財經]",
+        "watchlist": false
+      },
+      {
+        "ticker": "6446.TW",
+        "name": "藥華藥",
+        "price": "NT$1,075.00 ▼ -6.52% (11/25 收盤)",
+        "change": "▼",
+        "date": "2026/11/25",
+        "summary": "核心新藥 Ropeg 雙適應症放量動能受法人關注，10 月營收年增逾倍、Q3 EPS 7.08 元創單季新高；惟外資 11/24 賣超 1,114 張，今日股價回測 1,075 元。",
+        "url": "https://www.google.com/url?q=https://www.taiwanhot.net/news/1155192/%25E8%2597%25A5%25E8%258F%25AF%25E8%2597%25A5%25E9%259B%2599%25E9%2581%25A9%25E6%2587%2589%25E7%2597%2587%25E9%25BB%259E%25E7%2581%25AB%25EF%25BC%25812027%25E5%25B9%25B4EPS%25E8%258B%25A5%25E9%2581%259440%25E5%2585%2583%2B%25E8%2582%25A1%25E5%2583%25B9%25E8%2583%25BD%25E5%2590%25A6%25E9%2587%258D%25E8%25BF%25941%252C600%25E5%2585%2583%25EF%25BC%259F&amp;source=gmail&amp;ust=1795686788552000&amp;sa=E",
+        "source": "[台灣好新聞]",
+        "watchlist": true
+      },
+      {
+        "ticker": "CSL.AX",
+        "name": "CSL Ltd",
+        "price": "A$208.39 ▲ +1.94% (11/25 收盤)",
+        "change": "▲",
+        "date": "2026/11/25",
+        "summary": "提交 ASX 公告揭露於 11/24 單日買回 87,200 股庫藏股，斥資 1,769 萬澳幣，持續支撐股價表現。",
+        "url": "https://www.google.com/url?q=https://kalkine.com.au/news/announcements/csl-limited-buys-back-87200-shares-on-24-november-2026-for-1769-million&amp;source=gmail&amp;ust=1795686788552000&amp;sa=E",
+        "source": "[Kalkine]",
+        "watchlist": false
+      },
+      {
+        "ticker": "7827.TW",
+        "name": "漢康-KY創",
+        "price": "NT$86.60 ▲ +9.90% (11/25 漲停)",
+        "change": "▲",
+        "date": "2026/11/24",
+        "summary": "宣布次世代免疫療法 HCB101-GC-301 針對晚期胃癌及胃食道交界處癌之全球 Phase 2b/3 註冊性試驗獲兩項機構倫理審查核准，配合董事長增持，今早盤攻上漲停。",
+        "url": "https://www.google.com/url?q=https://www.hanchorbio.com/news/hanchorbio-advances-hcb101-toward-its-first-global-registrational-trial/&amp;source=gmail&amp;ust=1795686788552000&amp;sa=E",
+        "source": "[漢康公告]",
+        "watchlist": false
+      },
+      {
+        "ticker": "4523.T",
+        "name": "衛采 Eisai",
+        "price": "¥5,538.00 ▲ +3.36% (11/25 收盤)",
+        "change": "▲",
+        "date": "2026/11/24",
+        "summary": "宣布啟動日本醫療研究開發機構（AMED）入選計畫，評估結合個人健康紀錄（PHR）之居家照護與遠距監測支援系統，推動失智與長照數位醫療落地。",
+        "url": "https://www.google.com/url?q=https://www.eisai.com/index.html&amp;source=gmail&amp;ust=1795686788552000&amp;sa=E",
+        "source": "[Eisai 官網]",
+        "watchlist": false
+      },
+      {
+        "ticker": "LLY",
+        "name": "Eli Lilly",
+        "price": "$1,417.85 ▲ +3.90% (11/25 盤前)",
+        "change": "▲",
+        "date": "2026/11/24",
+        "summary": "宣布以最高 7.25 億美元現金收購英國生技公司 LoQus23 Therapeutics，取得口服 MSH3 抑制劑 LQT-23，靶向亨廷頓舞蹈症三核苷酸重複擴增機制，為今年第 15 宗併購。",
+        "url": "https://www.google.com/url?q=https://www.globenewswire.com/news-release/2026/11/23/3408071/0/en/loqus23-therapeutics-acquired-by-lilly-to-accelerate-development-of-novel-small-molecule-therapy-for-huntington-s-disease.html&amp;source=gmail&amp;ust=1795686788552000&amp;sa=E",
+        "source": "[GlobeNewswire]",
+        "watchlist": false
+      },
+      {
+        "ticker": "RCUS",
+        "name": "Arcus Biosciences",
+        "price": "$17.84 ▲ +8.25% (11/24 收盤)",
+        "change": "▲",
+        "date": "2026/11/24",
+        "summary": "依獨立數據監測委員會（IDMC）建議，終止 CD73 抑制劑 quemliclustat 聯合化療一線治療轉移性胰腺癌（PDAC）的 Phase 3 PRISM-1 試驗，因期中分析未達 OS 療效邊界。",
+        "url": "https://www.google.com/url?q=https://www.targetedonc.com/view/arcus-ends-quemliclustat-phase-3-trial-in-metastatic-pancreatic-cancer&amp;source=gmail&amp;ust=1795686788552000&amp;sa=E",
+        "source": "[TargetedOnc]",
+        "watchlist": false
+      },
+      {
+        "ticker": "RMTX",
+        "name": "Remix / Passage Bio",
+        "price": "$1,417.85 / — (11/25 合併完成)",
+        "change": "●",
+        "date": "2026/11/25",
+        "summary": "Remix Therapeutics 宣布完成與 Passage Bio 之合併及 1 億美元私募融資，聚焦口服 RNA 剪接調控小分子 REM-422 之腫瘤臨床推進。",
+        "url": "https://www.google.com/url?q=https://www.biospace.com/press-releases/remix-therapeutics-completes-closing-of-merger-with-passage-bio-and-previously-announced-100-million-private-placement&amp;source=gmail&amp;ust=1795686788552000&amp;sa=E",
+        "source": "[BioSpace]",
+        "watchlist": false
+      },
+      {
+        "ticker": "TMO",
+        "name": "核心追蹤標的行情 VRTX / REGN / ALNY /",
+        "price": "VRTX $564.22 ▲ +4.77% REGN $990.00 ▲ +5.07% ALNY $164.61 ▲ +5.53% TMO $695.62 ▲ +1.05%",
+        "change": "▲",
+        "date": "2026/11/24",
+        "summary": "隨美股生技板塊強彈（11/24 收盤至 11/25 盤前），大型生技與基因醫療／CDMO 領袖集體走高，顯示資金回流防禦與創新成長資產。",
+        "url": "",
+        "source": "來源",
+        "watchlist": false
+      }
+    ],
+    "reg": [
+      {
+        "agency": "FDA",
+        "date": "2026/11/24",
+        "title": "Cogent Biosciences (COGT) Ekitna (bezuclastinib) + sunitinib $32.82 ▲ +16.76% (11/25 盤前)",
+        "detail": "核准用於曾接受 imatinib 治療之晚期胃腸道基質瘤（GIST）。PEAK 三期試驗顯示合併療法中位 PFS 達 16.5 個月（對照組 9.2 個月，HR 0.50, p&lt;0.0001），ORR 46% vs 26%。",
+        "url": "https://www.google.com/url?q=https://www.fda.gov/drugs/cancer-approvals/fda-approves-bezuclastinib-combination-sunitinib-advanced-gastrointestinal-stromal-tumors&amp;source=gmail&amp;ust=1795686788552000&amp;sa=E",
+        "source": "[FDA 官網]"
+      },
+      {
+        "agency": "FDA",
+        "date": "2026/11/23",
+        "title": "AbbVie (ABBV) RINVOQ® (upadacitinib) $301.39 ▲ +4.49% (11/25 盤前)",
+        "detail": "核准 15 mg 劑型作為美國首款治療成人與兒童非節段型白斑症（Nonsegmental Vitiligo）之口服全身性療法（依據 Phase 3 Viti-Up 試驗）。",
+        "url": "https://www.google.com/url?q=https://news.abbvie.com/2026-11-23-AbbVies-RINVOQ-R-upadacitinib-Approved-as-the-First-Systemic-Therapy-in-the-U-S-to-Treat-Adult-and-Pediatric-Patients-With-Nonsegmental-Vitiligo&amp;source=gmail&amp;ust=1795686788552000&amp;sa=E",
+        "source": "[AbbVie 公告]"
+      },
+      {
+        "agency": "FDA",
+        "date": "2026/11/23",
+        "title": "BridgeBio (BBIO) Welgemda (ribitol) $85.87 ▲ +8.52% (11/24 收盤)",
+        "detail": "核准作為全球首款治療肢帶型肌肉萎縮症 2I/R9 型（LGMD2I/R9）之口服藥物，臨床數據顯示步行速度與肺功能具實質改善。",
+        "url": "https://www.google.com/url?q=https://www.fda.gov/news-events/press-announcements/fda-approves-first-treatment-limb-girdle-muscular-dystrophy-type-2ir9&amp;source=gmail&amp;ust=1795686788552000&amp;sa=E",
+        "source": "[FDA 官網]"
+      },
+      {
+        "agency": "FDA",
+        "date": "2026/11/23",
+        "title": "Roche / Genentech (RHHBY) Wilserdly (giredestrant) $61.15 ▲ +3.50% (11/24 收盤)",
+        "detail": "繼上週核准轉移性適應症後，本週再依 Phase 3 lidERA 試驗核准作為早期 ER+/HER2- 乳癌術後輔助內分泌療法，為逾 20 年來首款新型荷爾蒙療法。",
+        "url": "https://www.google.com/url?q=https://www.fda.gov/news-events/fda-newsroom&amp;source=gmail&amp;ust=1795686788552000&amp;sa=E",
+        "source": "[FDA Newsroom]"
+      },
+      {
+        "agency": "FDA",
+        "date": "2026/11/20",
+        "title": "Capricor (CAPR) Deramiocel (BLA) $1.96 ▲ +2.08% (11/25 盤前)",
+        "detail": "FDA 針對 DMD 細胞療法 Deramiocel 核發第二次完整回覆函（CRL），認定現有臨床數據尚未達核准所需的實質療效證據標準。",
+        "url": "https://www.google.com/url?q=https://www.fda.gov/vaccines-blood-biologics/whats-new-biologics/statement-deramiocel-bla-duchenne-muscular-dystrophy&amp;source=gmail&amp;ust=1795686788552000&amp;sa=E",
+        "source": "[FDA 聲明]"
+      },
+      {
+        "agency": "EMA",
+        "date": "2026/11/23",
+        "title": "AstraZeneca (AZN) Truqap (capivasertib) $183.79 ▲ +3.82% (11/25 盤前)",
+        "detail": "EMA 公告 AstraZeneca 撤回 Truqap 上市許可變更（variation）申請；另 EMA PRAC 召開 11/23–11/26 藥物警戒會議。",
+        "url": "https://www.google.com/url?q=https://www.ema.europa.eu/en/news-events/whats-new&amp;source=gmail&amp;ust=1795686788552000&amp;sa=E",
+        "source": "[EMA 官網]"
+      },
+      {
+        "agency": "NMPA",
+        "date": "2026/11/23–24",
+        "title": "恒瑞醫藥 (600276.SS)／翰森製藥 (3692.HK)／浙江醫藥",
+        "detail": "恒瑞海曲泊帕乙醇胺（Herombopag）獲 NMPA 受理新適應症 NDA（慢性肝病相關血小板減少症，11/23 股價 CN¥47.00 ▲+0.26%）；翰森遞交 TYK2 抑制劑 Deusoacitinib 斑塊狀銀屑病 NDA；浙江醫藥 PSMA-ADC（NCB005）獲 NMPA 臨床批件。",
+        "url": "https://www.google.com/url?q=https://flcube.com/?paged%3D591%26query-0-page%3D1189&amp;source=gmail&amp;ust=1795686788553000&amp;sa=E",
+        "source": "[Insight/FLCube]"
+      }
+    ],
+    "cat": [
+      {
+        "asset": "COGT Bezuclastinib (Ekitna)",
+        "type": "PDUFA 監管決策",
+        "date": "2026/11/24",
+        "outcome": "優於預期",
+        "note": "提前獲 FDA 核准二線 GIST，PEAK 試驗 PFS 延長至 16.5 個月，建立明確同類最佳門檻。",
+        "url": "https://www.google.com/url?q=https://www.fda.gov/drugs/cancer-approvals/fda-approves-bezuclastinib-combination-sunitinib-advanced-gastrointestinal-stromal-tumors&amp;source=gmail&amp;ust=1795686788553000&amp;sa=E",
+        "source": "[FDA]"
+      },
+      {
+        "asset": "路迦生醫 (6814.TWO) LuLym-T®",
+        "type": "臨床數據讀出",
+        "date": "2026/11/25",
+        "outcome": "優於預期",
+        "note": "肝癌術後二期期中分析 OS 達 98%、24 月 RFS 達 74%，年底拚 100% 收案，明年 Q2 申請台灣臨時藥證。",
+        "url": "https://www.google.com/url?q=https://ec.ltn.com.tw/article/breakingnews/5653174&amp;source=gmail&amp;ust=1795686788553000&amp;sa=E",
+        "source": "[自由財經]"
+      },
+      {
+        "asset": "RCUS Quemliclustat (PRISM-1)",
+        "type": "臨床數據讀出",
+        "date": "2026/11/24",
+        "outcome": "低於預期",
+        "note": "一線轉移性胰腺癌 Phase 3 期中 OS 未達邊界並因無效性終止，CD73 機轉受挫。",
+        "url": "https://www.google.com/url?q=https://www.targetedonc.com/view/arcus-ends-quemliclustat-phase-3-trial-in-metastatic-pancreatic-cancer&amp;source=gmail&amp;ust=1795686788553000&amp;sa=E",
+        "source": "[TargetedOnc]"
+      },
+      {
+        "asset": "CAPR Deramiocel",
+        "type": "PDUFA 監管決策",
+        "date": "2026/11/20",
+        "outcome": "低於預期",
+        "note": "遭 FDA 二度核發 CRL 退件，需補強實質療效證據與資料一致性。",
+        "url": "https://www.google.com/url?q=https://www.fda.gov/vaccines-blood-biologics/whats-new-biologics/statement-deramiocel-bla-duchenne-muscular-dystrophy&amp;source=gmail&amp;ust=1795686788553000&amp;sa=E",
+        "source": "[FDA]"
+      },
+      {
+        "asset": "漢康-KY (7827.TW) HCB101-GC-301",
+        "type": "試驗里程碑",
+        "date": "2027 Q1–Q2 (11/24 進度更新)",
+        "outcome": "待驗證",
+        "note": "已獲兩項倫理審查核准，準備啟動全球胃癌 Phase 2b/3 註冊性收案。",
+        "url": "https://www.google.com/url?q=https://www.hanchorbio.com/news/hanchorbio-advances-hcb101-toward-its-first-global-registrational-trial/&amp;source=gmail&amp;ust=1795686788553000&amp;sa=E",
+        "source": "[漢康公告]"
+      }
+    ],
+    "deep": []
+  },
+  {
     "id": "2026-11-25-am",
     "date": "2026/11/25",
     "session": "早報",
@@ -9515,557 +10202,6 @@
         "status": "2026/10/23",
         "outcome": "預期發生",
         "note": "已通過/已完成",
-        "url": ""
-      }
-    ],
-    "deep": []
-  },
-  {
-    "id": "2026-10-28-am",
-    "date": "2026/10/28",
-    "session": "早報",
-    "window": "2026/10/28",
-    "headline": "重點個股、五大藥監與催化劑追蹤",
-    "topics": [
-      "INDV Indivior",
-      "6847.TW 普瑞博",
-      "6785.TW 昱展新藥",
-      "Viking Ther. (VKTX) 美股 生技新藥 (`tickers.json`)",
-      "Revolution Med. (RVMD) 美股 生技新藥 (`tickers.json`)",
-      "藥華藥 (6446.TW) 台股 上櫃"
-    ],
-    "co": [
-      {
-        "ticker": "INDV",
-        "name": "Indivior",
-        "price": "$35.08 ▲ 高檔蓄勢（10/27 收盤）",
-        "change": "●",
-        "date": "2026/10/27",
-        "summary": "標普指數於 10/27 正式生效 Supernus 收購之成份股替換，雙方交割程序順利收尾；公司定於明日（10/29）盤前發布 Q3 財報，外資目標價看 45.17 美元。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      },
-      {
-        "ticker": "6847.TW",
-        "name": "普瑞博",
-        "price": "70.00 元 ● 持平（10/27 收盤）",
-        "change": "●",
-        "date": "2026/10/23",
-        "summary": "現金增資特定人繳款於 10/23 截止，增資募資順利收尾，資金將全力挹注抗沾黏雙離子白血球減除過濾膜之歐盟 MDR 取證與海外擴產。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      },
-      {
-        "ticker": "6785.TW",
-        "name": "昱展新藥",
-        "price": "86.20 元 ● 持平（10/27 收盤）",
-        "change": "●",
-        "date": "2026/10/21",
-        "summary": "自主 In-Relar 長效平台授權 Indivior 之 ALA-1000 隨 Supernus 併購案深化價值，ALA-3000（難治型憂鬱症 TRD）向美國 FDA 提交之臨床二期 IND 審查中。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      }
-    ],
-    "reg": [
-      {
-        "agency": "Viking Ther. (VKTX) 美股 生技新藥 (`tickers.json`)",
-        "date": "$24.95 ▲ 財報前盤整（10/27 收盤）",
-        "title": "2026/10/28",
-        "detail": "將於今日（10/28）盤後發布 Q3 財務業績；華爾街焦點高度鎖定口服小分子 VK2735 減重劑型二期進度與皮下針劑三期臨床啟動時程。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "Revolution Med. (RVMD) 美股 生技新藥 (`tickers.json`)",
-        "date": "$188.50 ▲ 高檔續揚（10/27 收盤）",
-        "title": "2026/10/27",
-        "detail": "瑞銀重申 265 美元 目標價，公司申報董事例行減持部分持股，股價無懼賣盤穩居 188 美元之上，市場看好 11/04 Q3 財報釋放 RASONQUE 歐洲審批最新進展。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "藥華藥 (6446.TW) 台股 上櫃",
-        "date": "1,175.00 元 ▲ 千元強固（10/27 收盤）",
-        "title": "2026/10/26",
-        "detail": "投行最新報告將長線目標價調升至 1,700–1,983 元，預期 2026 全年營收突破 260 億元、EPS 上看 25.78 元；前三季累計營收達 197.3 億元（年增 83%），全球商業化版圖成型。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "Alnylam (ALNY) 美股 生技新藥 (`tickers.json`)",
-        "date": "$254.50 ● 穩健盤整（10/27 收盤）",
-        "title": "2026/10/26",
-        "detail": "順利舉行第十屆 RNAi 圓桌會議，深入剖析 Brezosiran（ALN-HTT02）單劑持久降低突變 HTT 蛋白成果，準備於 2027 年推進安慰劑對照之樞紐三期臨床。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "AbbVie (ABBV) 美股 大型藥廠",
-        "date": "$194.50 ▲ 穩健走揚（10/27 收盤）",
-        "title": "2026/10/23",
-        "detail": "旗下自體免疫旗艦藥 SKYRIZI 獲 FDA 核准克隆氏症成人全皮下注射誘導劑型（SC Induction），定於本週五（10/30）盤前公布 Q3 財報。",
-        "url": "",
-        "source": "來源"
-      }
-    ],
-    "cat": [
-      {
-        "asset": "Viking Ther. (`VKTX`)",
-        "type": "VK2735 / Q3 財報",
-        "date": "`財報指引`",
-        "status": "2026/10/28",
-        "outcome": "預期發生",
-        "note": "",
-        "url": ""
-      },
-      {
-        "asset": "Indivior (`INDV`)",
-        "type": "Sublocade / Q3 財報",
-        "date": "`財報指引`",
-        "status": "2026/10/29",
-        "outcome": "預期發生",
-        "note": "",
-        "url": ""
-      },
-      {
-        "asset": "Alnylam (`ALNY`)",
-        "type": "Brezosiran (ALN-HTT02)",
-        "date": "`臨床數據讀出`",
-        "status": "2026/10/26",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "AbbVie (`ABBV`)",
-        "type": "SKYRIZI",
-        "date": "`PDUFA/監管決策`",
-        "status": "2026/10/23",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      }
-    ],
-    "deep": []
-  },
-  {
-    "id": "2026-10-27-pm",
-    "date": "2026/10/27",
-    "session": "晚報",
-    "window": "2026/10/27",
-    "headline": "重點個股、五大藥監與催化劑追蹤",
-    "topics": [
-      "INDV Indivior",
-      "6847.TW 普瑞博",
-      "6785.TW 昱展新藥",
-      "Summit Ther. (SMMT) 美股 生技新藥 (`tickers.json`)",
-      "Revolution Med. (RVMD) 美股 生技新藥 (`tickers.json`)",
-      "藥華藥 (6446.TW) 台股 上櫃"
-    ],
-    "co": [
-      {
-        "ticker": "INDV",
-        "name": "Indivior",
-        "price": "$35.08 ▲ 高檔整理（10/26 收盤）",
-        "change": "●",
-        "date": "2026/10/22",
-        "summary": "標普道瓊指數公司發布 Supernus 被收購之指數成分替換公告，併購整合推進；外資維持 45.17 美元 目標價，本週四（10/29）盤前發布 Q3 財報。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      },
-      {
-        "ticker": "6847.TW",
-        "name": "普瑞博",
-        "price": "70.00 元 ● 持平（10/27 收盤）",
-        "change": "●",
-        "date": "2026/10/23",
-        "summary": "現金增資特定人繳款於 10/23 截止，增資募資順利收尾，資金將全力挹注抗沾黏雙離子白血球減除過濾膜之歐盟 MDR 取證與海外擴產。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      },
-      {
-        "ticker": "6785.TW",
-        "name": "昱展新藥",
-        "price": "86.20 元 ● 持平（10/27 收盤）",
-        "change": "●",
-        "date": "2026/10/20",
-        "summary": "自主 In-Relar 長效平台授權 Indivior 之 ALA-1000 隨 Supernus 併購案深化價值，ALA-3000（難治型憂鬱症 TRD）向美國 FDA 提交之臨床二期 IND 審查中。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      }
-    ],
-    "reg": [
-      {
-        "agency": "Summit Ther. (SMMT) 美股 生技新藥 (`tickers.json`)",
-        "date": "$15.55 ▲ 穩步墊高（10/26 收盤）",
-        "title": "2026/10/25",
-        "detail": "合作夥伴康方生物於 ESMO 2026 公布 HARMONi-GI1 三期數據：Ivonescimab（PD-1/VEGF 雙抗）聯合化療一線治療晚期膽道癌，整體存活期（OS）顯著優於度伐利尤單抗（Durvalumab）；同週與 Lunit 達成 AI 腫瘤微環境病理分析合作。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "Revolution Med. (RVMD) 美股 生技新藥 (`tickers.json`)",
-        "date": "$186.99 ▲ 高檔強勢（10/26 收盤）",
-        "title": "2026/10/26",
-        "detail": "瑞銀（UBS）重申「買進」評級並給予 265 美元 高目標價；繼 ESMO 發表三期胰臟癌 OS 顯著獲益後，市場看好 RASONQUE 歐洲取證與一線肺癌三期臨床之爆發潛力。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "藥華藥 (6446.TW) 台股 上櫃",
-        "date": "1,175.00 元 ▲ 千元強固（10/27 收盤）",
-        "title": "2026/10/26",
-        "detail": "投行最新報告將長線目標價調升至 1,700–1,983 元，預期 2026 全年營收突破 260 億元、EPS 上看 25.78 元；前三季累計營收達 197.3 億元（年增 83%），全球商業化版圖成型。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "Alnylam (ALNY) 美股 生技新藥 (`tickers.json`)",
-        "date": "$254.50 ● 穩健盤整（10/26 收盤）",
-        "title": "2026/10/26",
-        "detail": "10/26 順利召開第十屆 RNAi 圓桌會議，深入剖析 Brezosiran（ALN-HTT02）單劑持久降低突變 HTT 蛋白成果，準備於 2027 年推進安慰劑對照之樞紐三期臨床。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "AbbVie (ABBV) 美股 大型藥廠",
-        "date": "$194.50 ▲ 穩健走揚（10/26 收盤）",
-        "title": "2026/10/23",
-        "detail": "旗下自體免疫旗艦藥 SKYRIZI 獲 FDA 核准克隆氏症成人全皮下注射誘導劑型（SC Induction），擺脫初診 IV 靜脈點滴限制，築高腸道發炎市場護城河。",
-        "url": "",
-        "source": "來源"
-      }
-    ],
-    "cat": [
-      {
-        "asset": "Summit Ther. (`SMMT`)",
-        "type": "Ivonescimab (AK112)",
-        "date": "`臨床數據讀出`",
-        "status": "2026/10/25",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "Revolution Med. (`RVMD`)",
-        "type": "RASONQUE / 泛 RAS 管線",
-        "date": "`商業里程碑`",
-        "status": "2026/10/26",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "Alnylam (`ALNY`)",
-        "type": "Brezosiran (ALN-HTT02)",
-        "date": "`臨床數據讀出`",
-        "status": "2026/10/26",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "AstraZeneca (`AZN`)",
-        "type": "Sonesitatug vedotin (Sone-Ve)",
-        "date": "`臨床數據讀出`",
-        "status": "2026/10/24",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "Indivior (`INDV`)",
-        "type": "Q3 財報與指引",
-        "date": "`財報指引`",
-        "status": "2026/10/29",
-        "outcome": "預期發生",
-        "note": "",
-        "url": ""
-      }
-    ],
-    "deep": []
-  },
-  {
-    "id": "2026-10-27-am",
-    "date": "2026/10/27",
-    "session": "早報",
-    "window": "2026/10/27",
-    "headline": "重點個股、五大藥監與催化劑追蹤",
-    "topics": [
-      "INDV Indivior",
-      "6847.TW 普瑞博",
-      "6785.TW 昱展新藥",
-      "Revolution Med. (RVMD) 美股 生技新藥 (`tickers.json`)",
-      "藥華藥 (6446.TW) 台股 上櫃",
-      "Alnylam (ALNY) 美股 生技新藥 (`tickers.json`)"
-    ],
-    "co": [
-      {
-        "ticker": "INDV",
-        "name": "Indivior",
-        "price": "$35.08 ▲ 高檔整理（10/26 收盤）",
-        "change": "●",
-        "date": "2026/10/22",
-        "summary": "標普道瓊指數公司發布 Supernus 被收購之指數成分替換公告，併購整合推進；外資維持 45.17 美元 目標價，本週四（10/29）盤前發布 Q3 財報。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      },
-      {
-        "ticker": "6847.TW",
-        "name": "普瑞博",
-        "price": "70.00 元 ● 持平（10/26 收盤）",
-        "change": "●",
-        "date": "2026/10/23",
-        "summary": "現金增資特定人繳款於 10/23 截止，增資募資順利收尾，資金將全力挹注抗沾黏雙離子白血球減除過濾膜之歐盟 MDR 取證與海外擴產。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      },
-      {
-        "ticker": "6785.TW",
-        "name": "昱展新藥",
-        "price": "86.20 元 ● 持平（10/26 收盤）",
-        "change": "●",
-        "date": "2026/10/20",
-        "summary": "自主 In-Relar 長效平台授權 Indivior 之 ALA-1000 隨 Supernus 併購案深化價值，ALA-3000（難治型憂鬱症 TRD）向美國 FDA 提交之臨床二期 IND 審查中。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      }
-    ],
-    "reg": [
-      {
-        "agency": "Revolution Med. (RVMD) 美股 生技新藥 (`tickers.json`)",
-        "date": "$187.20 ▲ 高檔強勢（10/26 收盤）",
-        "title": "2026/10/26",
-        "detail": "瑞銀（UBS）於 10/26 重申「買進」評級並給予 265 美元 高目標價；繼 ESMO 發表三期胰臟癌 OS 顯著獲益後，市場看好 RASONQUE 歐洲取證與一線肺癌三期臨床之爆發潛力。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "藥華藥 (6446.TW) 台股 上櫃",
-        "date": "1,175.00 元 ▲ 千元強固（10/26 收盤）",
-        "title": "2026/10/26",
-        "detail": "投行最新報告將長線目標價調升至 1,700–1,983 元，預期 2026 全年營收突破 260 億元、EPS 上看 25.78 元；結合澳洲 Novotech MOU 與中國 NMPA 證書，全球三大洲商業化版圖成型。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "Alnylam (ALNY) 美股 生技新藥 (`tickers.json`)",
-        "date": "$254.50 ● 穩健盤整（10/26 收盤）",
-        "title": "2026/10/26",
-        "detail": "10/26 上午舉行第十屆 RNAi 圓桌會議，重點解析中樞神經 Brezosiran（ALN-HTT02）臨床 1b 期數據：單次給藥展現持久之突變杭丁頓蛋白清除能力，即將推進樞紐三期試驗。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "AstraZeneca (AZN) 美股 大型藥廠 (`tickers.json`)",
-        "date": "$81.15 ▲ 高檔抗跌（10/26 收盤）",
-        "title": "2026/10/24",
-        "detail": "於 ESMO 2026 總統主席研討會發表 CLARITY-Gastric01 三期數據：全資擁有的 Claudin-18.2 ADC（Sone-Ve）在晚期胃癌二線治療中達成具統計與臨床顯著之整體存活期（OS）改善，創全球首款 CLDN18.2 ADC 三期獲益紀錄。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "AbbVie (ABBV) 美股 大型藥廠",
-        "date": "$194.50 ▲ 穩健走揚（10/26 收盤）",
-        "title": "2026/10/23",
-        "detail": "旗下自體免疫旗艦藥 SKYRIZI 獲 FDA 核准克隆氏症成人全皮下注射誘導劑型（SC Induction），擺脫初診 IV 靜脈點滴限制，築高腸道發炎市場護城河。",
-        "url": "",
-        "source": "來源"
-      }
-    ],
-    "cat": [
-      {
-        "asset": "Revolution Med. (`RVMD`)",
-        "type": "RASONQUE / 泛 RAS 管線",
-        "date": "`商業里程碑`",
-        "status": "2026/10/26",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "Alnylam (`ALNY`)",
-        "type": "Brezosiran (ALN-HTT02)",
-        "date": "`臨床數據讀出`",
-        "status": "2026/10/26",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "AstraZeneca (`AZN`)",
-        "type": "Sonesitatug vedotin (Sone-Ve)",
-        "date": "`臨床數據讀出`",
-        "status": "2026/10/24",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "AbbVie (`ABBV`)",
-        "type": "SKYRIZI",
-        "date": "`PDUFA/監管決策`",
-        "status": "2026/10/23",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "Indivior (`INDV`)",
-        "type": "Q3 財報與指引",
-        "date": "`財報指引`",
-        "status": "2026/10/29",
-        "outcome": "預期發生",
-        "note": "",
-        "url": ""
-      }
-    ],
-    "deep": []
-  },
-  {
-    "id": "2026-10-26-pm",
-    "date": "2026/10/26",
-    "session": "晚報",
-    "window": "2026/10/26",
-    "headline": "重點個股、五大藥監與催化劑追蹤",
-    "topics": [
-      "INDV Indivior",
-      "6847.TW 普瑞博",
-      "6785.TW 昱展新藥",
-      "藥華藥 (6446.TW) 台股 上櫃",
-      "Alnylam (ALNY) 美股 生技新藥 (`tickers.json`)",
-      "AstraZeneca (AZN) 美股 大型藥廠 (`tickers.json`)"
-    ],
-    "co": [
-      {
-        "ticker": "INDV",
-        "name": "Indivior",
-        "price": "$35.08 ▲ +1.92%（10/23 收盤）",
-        "change": "●",
-        "date": "2026/10/22",
-        "summary": "標普道瓊指數公司發布 Supernus 被收購之指數成分替換公告，併購整合推進；外資維持 45.17 美元 目標價，本週四（10/29）盤前發布 Q3 財報。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      },
-      {
-        "ticker": "6847.TW",
-        "name": "普瑞博",
-        "price": "70.00 元 ● 持平（10/26 收盤）",
-        "change": "●",
-        "date": "2026/10/23",
-        "summary": "現金增資特定人繳款於 10/23 截止，增資募資順利收尾，資金將全力挹注抗沾黏雙離子白血球減除過濾膜之歐盟 MDR 取證與海外擴產。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      },
-      {
-        "ticker": "6785.TW",
-        "name": "昱展新藥",
-        "price": "86.20 元 ● 持平（10/26 收盤）",
-        "change": "●",
-        "date": "2026/10/16",
-        "summary": "向美國 FDA 送件之新劑型新藥 ALA-3000（難治型憂鬱症 TRD）臨床二期 IND 審查中，In-Relar 原位凝膠平台海外授權動能穩健。",
-        "url": "",
-        "source": "來源",
-        "watchlist": true
-      }
-    ],
-    "reg": [
-      {
-        "agency": "藥華藥 (6446.TW) 台股 上櫃",
-        "date": "1,175.00 元 ▲ 千元強固（10/26 收盤）",
-        "title": "2026/10/26",
-        "detail": "投行最新報告將長線目標價調升至 1,700–1,983 元，預期 2026 全年營收突破 260 億元、EPS 上看 25.78 元；結合甫簽署之澳洲 Novotech MOU 與中國 NMPA 證書，全球三大洲商業化版圖成型。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "Alnylam (ALNY) 美股 生技新藥 (`tickers.json`)",
-        "date": "$254.07 ● 穩健盤整（10/23 收盤）",
-        "title": "2026/10/26",
-        "detail": "今日（10/26）上午 10:00 ET 舉行第十屆 RNAi 圓桌會議，重點解析中樞神經 Brezosiran（ALN-HTT02）臨床 1b 期數據：單次給藥展現持久之突變杭丁頓蛋白清除能力，即將推進樞紐三期試驗。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "AstraZeneca (AZN) 美股 大型藥廠 (`tickers.json`)",
-        "date": "$81.15 ▲ 高檔抗跌（10/23 收盤）",
-        "title": "2026/10/24",
-        "detail": "於 ESMO 2026 總統主席研討會發表 CLARITY-Gastric01 三期數據：全資擁有的 Claudin-18.2 ADC（Sone-Ve）在晚期胃癌二線治療中達成具統計與臨床顯著之整體存活期（OS）改善，創全球首款 CLDN18.2 ADC 三期獲益紀錄。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "AbbVie (ABBV) 美股 大型藥廠",
-        "date": "$194.20 ▲ +1.15%（10/23 收盤）",
-        "title": "2026/10/23",
-        "detail": "旗下自體免疫旗艦藥 SKYRIZI 獲 FDA 核准克隆氏症成人全皮下注射誘導劑型（SC Induction），擺脫初診 IV 靜脈點滴限制，築高腸道發炎市場護城河。",
-        "url": "",
-        "source": "來源"
-      },
-      {
-        "agency": "Revolution Med. (RVMD) 美股 生技新藥",
-        "date": "$186.70 ▲ 高檔抗跌（10/23 收盤）",
-        "title": "2026/10/23",
-        "detail": "於 ESMO 2026 年會發表三期 RASolute 302 整體存活期（OS）亞組分析，證實 RASONQUE 在轉移性胰臟癌經治患者中療效一致且顯著超越常規化療。",
-        "url": "",
-        "source": "來源"
-      }
-    ],
-    "cat": [
-      {
-        "asset": "Alnylam (`ALNY`)",
-        "type": "Brezosiran (ALN-HTT02)",
-        "date": "`臨床數據讀出`",
-        "status": "2026/10/26",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "AstraZeneca (`AZN`)",
-        "type": "Sonesitatug vedotin (Sone-Ve)",
-        "date": "`臨床數據讀出`",
-        "status": "2026/10/24",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "AbbVie (`ABBV`)",
-        "type": "SKYRIZI",
-        "date": "`PDUFA/監管決策`",
-        "status": "2026/10/23",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "Revolution Med. (`RVMD`)",
-        "type": "RASONQUE",
-        "date": "`臨床數據讀出`",
-        "status": "2026/10/23",
-        "outcome": "預期發生",
-        "note": "已通過/已完成",
-        "url": ""
-      },
-      {
-        "asset": "Indivior (`INDV`)",
-        "type": "Q3 財報與指引",
-        "date": "`財報指引`",
-        "status": "2026/10/29",
-        "outcome": "預期發生",
-        "note": "",
         "url": ""
       }
     ],
